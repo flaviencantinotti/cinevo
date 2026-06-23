@@ -1190,3 +1190,619 @@ input[type="submit"]:hover {
   font-family: Inter;
   margin-top: 20px;
 }
+
+/*===================================================
+  CONNEXIONS & NOUVEAUX ÉLÉMENTS
+===================================================*/
+
+.carte-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.carte-link:hover .r-titre {
+  color: var(--accent);
+}
+
+.voir-plus-link {
+  text-decoration: none;
+}
+
+.login-alt {
+  font-family: "Inter";
+  font-size: 14px;
+  color: var(--ink-2);
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-alt a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.chip {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  color: var(--ink-2);
+}
+
+.sep {
+  color: var(--ink-3);
+  margin: 0 4px;
+}
+
+.subhead {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 12px;
+}
+
+.label {
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.sublabel {
+  font-family: "Inter";
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-left: auto;
+}
+
+/* Formulaire écrire */
+.ecrire-header {
+  margin-bottom: 0;
+}
+
+.ecrire-form {
+  max-width: 720px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.ecrire-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ecrire-champ label {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.champ-opt,
+.champ-min {
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink-3);
+}
+
+.ecrire-champ input[type="text"],
+.ecrire-champ textarea {
+  width: 100%;
+  max-width: 100%;
+  font-family: "Playfair Display";
+  font-size: 17px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--ink);
+  resize: vertical;
+  transition: border-color .15s;
+}
+
+.ecrire-champ input[type="text"]:focus,
+.ecrire-champ textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.ecrire-compteur {
+  font-family: "Inter";
+  font-size: 12px;
+  color: var(--ink-3);
+  text-align: right;
+}
+
+.ecrire-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Formulaire contact refactorisé */
+.contact-form {
+  max-width: 600px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-champ label {
+  font-family: "Inter";
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.contact-champ input[type="text"],
+.contact-champ input[type="email"],
+.contact-champ textarea {
+  width: 100%;
+  max-width: 100%;
+  font-family: "Playfair Display";
+  font-size: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--ink);
+  height: auto;
+  resize: vertical;
+  transition: border-color .15s;
+}
+
+.contact-champ input[type="text"]:focus,
+.contact-champ input[type="email"]:focus,
+.contact-champ textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.contact-actions input[type="submit"] {
+  font-family: "Playfair Display";
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #faf7f2;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+  transition: background .15s;
+}
+
+.contact-actions input[type="submit"]:hover {
+  background: #962e28;
+}
+
+.contact-alt {
+  font-family: "Inter";
+  font-size: 14px;
+  color: var(--ink-2);
+  margin-top: 24px;
+}
+
+.contact-alt a {
+  color: var(--accent);
+}
+
+.decouvrir-cta {
+  text-align: left;
+}
+
+/*===================================================
+  BURGER MENU
+===================================================*/
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform .25s, opacity .25s;
+}
+
+.burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+nav a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/*===================================================
+  RESPONSIVE — 1024px
+===================================================*/
+
+@media (max-width: 1024px) {
+  .contenu {
+    width: 100%;
+    padding: 40px 32px 64px;
+  }
+
+  .hero {
+    gap: 40px;
+    padding: 48px 32px;
+  }
+
+  .hero h1 {
+    font-size: 56px;
+  }
+
+  .hero-art {
+    height: 380px;
+  }
+
+  .hero-art .art-poster {
+    width: 160px;
+  }
+}
+
+/*===================================================
+  RESPONSIVE — 768px (tablette)
+===================================================*/
+
+@media (max-width: 768px) {
+
+  /* Header */
+  .header1 {
+    padding-left: 16px;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .header2 input[type="search"] {
+    display: none;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  nav {
+    display: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 24px;
+    gap: 16px;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  }
+
+  nav.open {
+    display: flex;
+  }
+
+  nav a {
+    font-size: 18px;
+    padding: 8px 0;
+    width: 100%;
+  }
+
+  /* Contenu */
+  .contenu {
+    padding: 28px 20px 48px;
+  }
+
+  /* Hero */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 32px 20px;
+    gap: 32px;
+  }
+
+  .hero-art {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 44px;
+  }
+
+  .hero .hero-p {
+    font-size: 18px;
+  }
+
+  /* Reviews grille */
+  .avis-reviews {
+    grid-template-columns: 1fr;
+  }
+
+  .avis-recents {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Home feed */
+  .feed-home {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .feed-side {
+    display: none;
+  }
+
+  /* Fiche film */
+  .fiche {
+    grid-template-columns: 1fr;
+    padding-top: 28px;
+    gap: 28px;
+  }
+
+  .poster-lg {
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+  .film-title {
+    font-size: 36px;
+  }
+
+  .synopsis {
+    font-size: 16px;
+  }
+
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  /* Connexion */
+  .login-container {
+    width: 95%;
+    padding: 28px 20px;
+  }
+
+  /* Inscription */
+  .signup-container {
+    width: 95%;
+  }
+
+  .signup-form {
+    width: 100%;
+  }
+
+  .signup-form label,
+  .signup-form input,
+  .signup-form button {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Contact */
+  .contact-form {
+    max-width: 100%;
+  }
+
+  /* Écrire */
+  .ecrire-form {
+    max-width: 100%;
+  }
+
+  .ecrire-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .ecrire-actions button,
+  .ecrire-actions a {
+    width: 100%;
+    display: block;
+  }
+
+  .ecrire-actions a button {
+    width: 100%;
+  }
+
+  /* Footer */
+  .bg-footer {
+    padding: 24px 20px;
+    margin-top: 40px;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .slogan-footer {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+
+  /* Texte éditorial */
+  h1 {
+    font-size: 40px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  .text-lede {
+    font-size: 18px;
+  }
+
+  .text-dl {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .text-dl dt {
+    padding-bottom: 2px;
+    border-top: 1px solid var(--line);
+    margin-top: 12px;
+  }
+
+  .text-dl dd {
+    padding-top: 4px;
+    border-top: none;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* Bannière découvrir */
+  .banniere {
+    height: 220px;
+    border-radius: 16px;
+  }
+
+  .banniere h1 {
+    padding-top: 60px;
+    font-size: 32px;
+  }
+
+  .decouvrir-titre h2 {
+    font-size: 44px;
+  }
+}
+
+/*===================================================
+  RESPONSIVE — 480px (mobile)
+===================================================*/
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .hero-boutons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .hero-boutons a,
+  .hero-boutons button {
+    width: 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions a,
+  .actions button {
+    width: 100%;
+  }
+
+  .film-title {
+    font-size: 28px;
+  }
+
+  .synopsis {
+    font-size: 15px;
+  }
+
+  .decouvrir-titre h2 {
+    font-size: 34px;
+  }
+
+  .where-watch {
+    max-width: 100%;
+  }
+
+  .watch-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .sublabel {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .pull {
+    font-size: 20px;
+  }
+
+  .text-meta {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
