@@ -1,18 +1,19 @@
 <?php
-function loadEnv(string $path): void {
-    if (!file_exists($path)) return;
+$envFile = __DIR__ . '/../.env';
 
-    $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
-        if (str_starts_with(trim($line), '#')) continue;
-        if (!str_contains($line, '=')) continue;
-        [$key, $value] = explode('=', $line, 2);
-        $_ENV[trim($key)] = trim($value);
+        $line = trim($line);
+        if ($line === '' || $line[0] === '#') continue;
+        $pos = strpos($line, '=');
+        if ($pos === false) continue;
+        $key   = trim(substr($line, 0, $pos));
+        $value = trim(substr($line, $pos + 1));
+        $_ENV[$key] = $value;
     }
 }
 
-loadEnv(__DIR__ . '/../.env');
-
-define('TMDB_API_KEY',   $_ENV['TMDB_API_KEY']   ?? '');
-define('TMDB_BASE_URL',  $_ENV['TMDB_BASE_URL']  ?? 'https://api.themoviedb.org/3');
-define('TMDB_IMAGE_URL', $_ENV['TMDB_IMAGE_URL'] ?? 'https://image.tmdb.org/t/p');
+define('TMDB_API_KEY',   isset($_ENV['TMDB_API_KEY'])   ? $_ENV['TMDB_API_KEY']   : '');
+define('TMDB_BASE_URL',  isset($_ENV['TMDB_BASE_URL'])  ? $_ENV['TMDB_BASE_URL']  : 'https://api.themoviedb.org/3');
+define('TMDB_IMAGE_URL', isset($_ENV['TMDB_IMAGE_URL']) ? $_ENV['TMDB_IMAGE_URL'] : 'https://image.tmdb.org/t/p');

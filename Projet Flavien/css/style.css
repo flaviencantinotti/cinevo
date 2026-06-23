@@ -142,16 +142,17 @@ nav button:hover {
   background-color: #faf7f2eb;
   align-items: center;
   height: 60px;
-  padding-left: 30px;
+  padding: 0 30px;
   gap: 32px;
-
+  width: 100%;
 }
 
 .header2 {
   display: flex;
   align-items: center;
-  width: 100%;
-
+  flex: 1;
+  justify-content: flex-end;
+  gap: 16px;
 }
 
 .header2 input {
@@ -188,7 +189,95 @@ nav button:hover {
   border-radius: 99px;
 }
 
+.search-form-header {
+  display: flex;
+  align-items: center;
+  width: 30%;
+}
+
+.search-form-header input {
+  width: 100%;
+}
+
+.search-resultats {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 16px;
+}
+
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s;
+}
+
+.search-item:hover {
+  background: var(--bg-2);
+}
+
+.search-poster {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.search-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-titre {
+  font-family: "Playfair Display";
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.search-meta {
+  font-family: "Inter";
+  font-size: 13px;
+  color: var(--ink-3);
+  margin-top: 2px;
+}
+
+.search-apercu {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-arrow {
+  color: var(--ink-3);
+  flex-shrink: 0;
+}
+
+.search-erreur {
+  font-family: "Playfair Display";
+  font-style: italic;
+  color: var(--ink-2);
+  margin-top: 12px;
+}
+
 /*-----------------------------BOUTONS-------------*/
+button {
+  border: 1px solid transparent;
+}
+
 .terra,
 .decouvrir {
   font-family: "Playfair Display";
@@ -207,7 +296,7 @@ nav button:hover {
   background-color: #faf7f2eb;
   height: 36px;
   padding: 0 14px;
-  border: 1px solid;
+  border: 1px solid #1A1A1A;
   border-radius: 4px;
 }
 
@@ -253,6 +342,10 @@ nav button:hover {
 
 .hero-boutons {
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
 }
 
 .hero-titre em {
@@ -1532,7 +1625,7 @@ nav a.active {
     padding: 20px 24px;
     gap: 16px;
     z-index: 200;
-    box-shadow: 0 8px 24px rgba(0,0,0,.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
   }
 
   nav.open {
