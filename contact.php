@@ -13,31 +13,31 @@
 
 <main class="contenu">
 
-    <div class="text-kicker">Nous écrire</div>
+    <div class="chapeau">Nous écrire</div>
     <h1>Contact</h1>
-    <p class="text-lede">Une question, une suggestion, un problème à signaler ? On vous répond.</p>
+    <p class="intro">Une question, une suggestion, un problème à signaler ? On vous répond.</p>
 
-    <hr class="diviseur">
+    <hr class="separateur">
 
-    <form id="form" class="contact-form" action="contact.php" method="post">
-        <div class="contact-champ">
-            <label for="c-name">Nom</label>
-            <input id="c-name" type="text" name="nom" placeholder="Votre nom" required>
+    <form class="formulaire-contact" action="contact.php" method="post">
+        <div class="champ">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
         </div>
-        <div class="contact-champ">
-            <label for="c-email">E-mail</label>
-            <input id="c-email" type="email" name="email" placeholder="votre@email.fr" required>
+        <div class="champ">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="votre@email.fr" required>
         </div>
-        <div class="contact-champ">
-            <label for="c-message">Message</label>
-            <textarea id="c-message" name="message" placeholder="Votre message..." rows="6" required></textarea>
+        <div class="champ">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Votre message..." rows="6" required></textarea>
         </div>
-        <div class="contact-actions">
-            <input id="submit" type="submit" value="Envoyer">
+        <div class="boutons-form">
+            <input type="submit" value="Envoyer">
         </div>
     </form>
 
-    <p class="contact-alt">
+    <p class="lien-alternatif" style="margin-top:24px;">
         Vous pouvez aussi nous écrire directement à <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a>.
     </p>
 
