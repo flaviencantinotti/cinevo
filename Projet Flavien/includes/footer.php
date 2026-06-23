@@ -1,7 +1,7 @@
-<footer class="bg-footer">
-    <div class="footer">
-        <span class="cinevo-footer">CINÉVO</span>
-        <span class="point-footer">·</span>
+<footer class="fond-footer">
+    <div class="contenu-footer">
+        <span class="logo-footer">CINÉVO</span>
+        <span class="point-sep">·</span>
         <a href="a-propos.php">À propos</a>
         <a href="mentions-legales.php">Mentions légales</a>
         <a href="cookies.php">Cookies</a>

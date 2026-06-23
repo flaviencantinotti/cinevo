@@ -15,105 +15,107 @@
 
     <section class="hero">
         <div>
-            <span class="bibliotheque">Une bibliothèque cinéma — pas un concours</span>
+            <span class="label-section">Une bibliothèque cinéma — pas un concours</span>
             <h1 class="hero-titre">Le cinéma <em>se lit</em> aussi.</h1>
-            <p class="hero-p">Avis libres. Pas de notes, pas d'étoiles, pas de pouces. On écrit ce qu'on a vu, ce qu'on a ressenti.</p>
+            <p class="hero-texte">Avis libres. Pas de notes, pas d'étoiles, pas de pouces. On écrit ce qu'on a vu, ce qu'on a ressenti.</p>
             <div class="hero-boutons">
                 <a href="decouvrir.php">
-                    <button class="decouvrir">Découvrir <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+                    <button class="btn-rouge">Découvrir
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M13 6l6 6-6 6"></path>
+                        </svg>
+                    </button>
                 </a>
                 <a href="inscription.php">
-                    <button class="rejoindre">Rejoindre Cinévo</button>
+                    <button class="btn-blanc">Rejoindre Cinévo</button>
                 </a>
             </div>
-            <p class="algo">Lecture gratuite. Écriture libre. Pas d'algorithme.</p>
+            <p class="source">Lecture gratuite. Écriture libre. Pas d'algorithme.</p>
         </div>
 
-        <div class="hero-art">
-            <div class="art-poster p1">
-                <div class="poster-art">
-                    <div>Ryūsuke Hamaguchi</div>
-                    <div>Drive My Car</div>
-                    <div>2021</div>
-                </div>
+        <div class="hero-visuels">
+            <div class="image-deco p1">
+                <div>Ryūsuke Hamaguchi</div>
+                <div>Drive My Car</div>
+                <div>2021</div>
             </div>
-            <div class="art-poster p2">
-                <div class="poster-art">
-                    <div>Wim Wenders</div>
-                    <div>Perfect Days</div>
-                    <div>2023</div>
-                </div>
+            <div class="image-deco p2">
+                <div>Wim Wenders</div>
+                <div>Perfect Days</div>
+                <div>2023</div>
             </div>
-            <div class="art-poster p3">
-                <div class="poster-art">
-                    <div>Charlotte Wells</div>
-                    <div>Aftersun</div>
-                    <div>2022</div>
-                </div>
+            <div class="image-deco p3">
+                <div>Charlotte Wells</div>
+                <div>Aftersun</div>
+                <div>2022</div>
             </div>
         </div>
     </section>
 
-    <hr class="diviseur">
+    <hr class="separateur">
 
     <section>
-        <div class="avis-recents">
+        <div class="avis-entete">
             <div>
-                <span class="bibliotheque">À lire en ce moment</span>
-                <h2 id="avis-titre">Avis récents</h2>
+                <span class="label-section">À lire en ce moment</span>
+                <h2>Avis récents</h2>
             </div>
-            <a href="fiche.php" class="voir-plus-link">
-                <button class="voir-plus">Voir plus d'avis <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+            <a href="fiche.php">
+                <button class="btn-transparent">Voir plus d'avis
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M13 6l6 6-6 6"></path>
+                    </svg>
+                </button>
             </a>
         </div>
 
-        <div class="avis-reviews">
+        <div class="grille-avis">
 
-            <article class="review-carte">
-                <a href="fiche.php" class="carte-link">
-                    <h3 class="r-titre">Une cave, et tout l'édifice s'écroule</h3>
-                    <p class="r-excerpt">Bong Joon-ho ne filme pas la lutte des classes : il en filme l'architecture. Chaque escalier, chaque seuil, chaque odeur trace une frontière qu'on croyait abolie. La famille Kim s'infiltre par le bas, et c'est le bas qui finit par parler. On rit, on s'effraie, on rit encore — puis on comprend, trop tard, qu'on riait avec les mauvais.</p>
+            <article class="carte-avis">
+                <a href="fiche.php" class="lien-carte">
+                    <h3 class="avis-titre">Une cave, et tout l'édifice s'écroule</h3>
+                    <p class="avis-texte">Bong Joon-ho ne filme pas la lutte des classes : il en filme l'architecture. Chaque escalier, chaque seuil, chaque odeur trace une frontière qu'on croyait abolie.</p>
                 </a>
-                <div class="r-foot">
-                    <span class="avatar" aria-hidden="true" style="background: oklch(0.55 0.12 149);">P</span>
-                    <span class="r-auteur">philmage</span>
-                    <span style="color: var(--ink-3);">sur</span>
-                    <a href="fiche.php" class="r-film">Parasite</a>
+                <div class="avis-bas">
+                    <span class="avatar" style="background: oklch(0.55 0.12 149);">P</span>
+                    <span class="avis-auteur">philmage</span>
+                    <span style="color: #8A8378;">sur</span>
+                    <a href="fiche.php" class="lien-film">Parasite</a>
                     <span style="margin-left: auto;">2 mai 2026</span>
                 </div>
             </article>
 
-            <article class="review-carte">
-                <a href="fiche.php" class="carte-link">
-                    <h3 class="r-titre">Conduire pour se taire</h3>
-                    <p class="r-excerpt">Trois heures qui ne pèsent rien. Hamaguchi installe un théâtre dans une voiture, et la voiture devient un lieu de soin. La cassette tourne, Tchekhov répond, Misaki conduit comme on respire. Je suis sortie de la salle plus lente que j'y suis entrée.</p>
+            <article class="carte-avis">
+                <a href="fiche.php" class="lien-carte">
+                    <h3 class="avis-titre">Conduire pour se taire</h3>
+                    <p class="avis-texte">Trois heures qui ne pèsent rien. Hamaguchi installe un théâtre dans une voiture, et la voiture devient un lieu de soin.</p>
                 </a>
-                <div class="r-foot">
-                    <span class="avatar" aria-hidden="true" style="background: oklch(0.55 0.12 30);">M</span>
-                    <span class="r-auteur">melfilmophile</span>
-                    <span style="color: var(--ink-3);">sur</span>
-                    <a href="fiche.php" class="r-film">Drive My Car</a>
+                <div class="avis-bas">
+                    <span class="avatar" style="background: oklch(0.55 0.12 30);">M</span>
+                    <span class="avis-auteur">melfilmophile</span>
+                    <span style="color: #8A8378;">sur</span>
+                    <a href="fiche.php" class="lien-film">Drive My Car</a>
                     <span style="margin-left: auto;">29 avril 2026</span>
                 </div>
             </article>
 
-            <article class="review-carte">
-                <a href="fiche.php" class="carte-link">
-                    <h3 class="r-titre">Monsieur Propre</h3>
-                    <p class="r-excerpt">Vu sans y croire, ressorti changé. Wenders nettoie sa caméra avec autant de soin que Hirayama nettoie ses toilettes. Le film ne raconte presque rien, et pourtant il dit beaucoup sur ce que c'est, vivre avec très peu — et trouver ça largement suffisant.</p>
+            <article class="carte-avis">
+                <a href="fiche.php" class="lien-carte">
+                    <h3 class="avis-titre">Monsieur Propre</h3>
+                    <p class="avis-texte">Vu sans y croire, ressorti changé. Wenders nettoie sa caméra avec autant de soin que Hirayama nettoie ses toilettes.</p>
                 </a>
-                <div class="r-foot">
-                    <span class="avatar" aria-hidden="true" style="background: oklch(0.55 0.12 220);">R</span>
-                    <span class="r-auteur">rachidkanopy</span>
-                    <span style="color: var(--ink-3);">sur</span>
-                    <a href="fiche.php" class="r-film">Perfect Days</a>
+                <div class="avis-bas">
+                    <span class="avatar" style="background: oklch(0.55 0.12 220);">R</span>
+                    <span class="avis-auteur">rachidkanopy</span>
+                    <span style="color: #8A8378;">sur</span>
+                    <a href="fiche.php" class="lien-film">Perfect Days</a>
                     <span style="margin-left: auto;">27 avril 2026</span>
                 </div>
             </article>
 
         </div>
 
-        <hr class="diviseur">
+        <hr class="separateur">
     </section>
 
 </main>

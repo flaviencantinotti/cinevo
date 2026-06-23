@@ -4,9 +4,9 @@ $page = 'recherche';
 require_once 'includes/tmdb.php';
 $tmdb = new TMDB();
 
-$resultats    = [];
-$erreur       = '';
-$query        = trim($_GET['q'] ?? '');
+$resultats = [];
+$erreur    = '';
+$query     = trim($_GET['q'] ?? '');
 
 if ($query !== '') {
     $data = $tmdb->searchMovie($query);
@@ -39,22 +39,22 @@ if ($query !== '') {
 
 <main class="contenu">
 
-    <div class="ecrire-header">
-        <span class="bibliotheque">Résultats de recherche</span>
+    <div class="entete-page">
+        <span class="label-section">Résultats de recherche</span>
         <h1><?= $query ? 'Résultats pour <em>' . htmlspecialchars($query) . '</em>' : 'Chercher un film' ?></h1>
     </div>
 
-    <hr class="diviseur">
+    <hr class="separateur">
 
     <?php if ($erreur): ?>
-        <p class="search-erreur"><?= $erreur ?></p>
+        <p class="message-erreur"><?= $erreur ?></p>
 
     <?php elseif (empty($query)): ?>
-        <p class="search-erreur">Entrez un titre dans la barre de recherche.</p>
+        <p class="message-erreur">Entrez un titre dans la barre de recherche.</p>
 
     <?php else: ?>
-        <div class="search-resultats">
-            <p class="bibliotheque" style="margin-bottom:16px;">
+        <div class="liste-resultats">
+            <p class="label-section" style="margin-bottom:16px;">
                 <?= count($resultats) ?> résultats
             </p>
 
@@ -62,28 +62,26 @@ if ($query !== '') {
                 $annee   = substr($film['release_date'] ?? '', 0, 4);
                 $affiche = $tmdb->getPosterUrl($film['poster_path'], 'w92');
             ?>
-                <a href="fiche.php?id=<?= $film['id'] ?>" class="search-item">
-                    <img
-                        src="<?= $affiche ?>"
-                        alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
-                        class="search-poster"
-                        loading="lazy"
-                    >
-                    <div class="search-info">
-                        <div class="search-titre"><?= htmlspecialchars($film['title']) ?></div>
-                        <div class="search-meta">
+                <a href="fiche.php?id=<?= $film['id'] ?>" class="resultat-film">
+                    <img src="<?= $affiche ?>"
+                         alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
+                         class="affiche-mini"
+                         loading="lazy">
+                    <div class="info-film">
+                        <div class="titre-resultat"><?= htmlspecialchars($film['title']) ?></div>
+                        <div class="meta-resultat">
                             <?= $annee ?>
                             <?php if (!empty($film['original_title']) && $film['original_title'] !== $film['title']): ?>
                                 · <em><?= htmlspecialchars($film['original_title']) ?></em>
                             <?php endif; ?>
                         </div>
                         <?php if (!empty($film['overview'])): ?>
-                            <div class="search-apercu">
+                            <div class="apercu">
                                 <?= htmlspecialchars(mb_substr($film['overview'], 0, 120)) ?>…
                             </div>
                         <?php endif; ?>
                     </div>
-                    <svg class="search-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    <svg class="fleche" width="16" height="16" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M5 12h14M13 6l6 6-6 6"></path>
                     </svg>
