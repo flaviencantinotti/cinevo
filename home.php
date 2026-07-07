@@ -2,10 +2,36 @@
 $page = 'home';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_once 'includes/tmdb.php';
 
 if (!estConnecte()) {
     header('Location: connexion.php');
     exit;
+}
+
+$tmdb = new TMDB();
+
+function formaterDateFr(string $datetime): string {
+    static $mois = [1 => 'janvier', 2 => 'février', 3 => 'mars', 4 => 'avril', 5 => 'mai', 6 => 'juin',
+                    7 => 'juillet', 8 => 'août', 9 => 'septembre', 10 => 'octobre', 11 => 'novembre', 12 => 'décembre'];
+    $d = new DateTime($datetime);
+    return (int) $d->format('j') . ' ' . $mois[(int) $d->format('n')] . ' ' . $d->format('Y');
+}
+
+$avisRecents = [];
+$result = $conn->query("
+    SELECT avis.film_id, avis.titre, avis.contenu, avis.created_at, utilisateurs.username
+    FROM avis
+    JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
+    ORDER BY avis.created_at DESC
+    LIMIT 10
+");
+
+while ($row = $result->fetch_assoc()) {
+    $film = $tmdb->getMovie((int) $row['film_id']);
+    $row['film_titre'] = $film['title'] ?? 'Film';
+    $row['teinte']     = crc32($row['username']) % 360;
+    $avisRecents[]     = $row;
 }
 ?>
 <!DOCTYPE html>
@@ -32,52 +58,27 @@ if (!estConnecte()) {
         <div class="colonne-principale">
             <div class="liste-avis">
 
-                <article class="carte-avis">
-                    <a href="fiche.php?id=496243" class="lien-carte">
-                        <h3 class="avis-titre">Une cave, et tout l'édifice s'écroule</h3>
-                        <p class="avis-texte">Bong Joon-ho ne filme pas la lutte des classes : il en filme l'architecture. Chaque escalier, chaque seuil, chaque odeur trace une frontière qu'on croyait abolie.</p>
-                    </a>
-                    <div class="avis-bas">
-                        <span class="avatar" style="background: oklch(0.55 0.12 149);">P</span>
-                        <span class="avis-auteur">philmage</span>
-                        <span style="color: #8A8378;">sur</span>
-                        <a href="fiche.php?id=496243" class="lien-film">Parasite</a>
-                        <span style="margin-left: auto;">2 mai 2026</span>
-                    </div>
-                </article>
+                <?php if (empty($avisRecents)): ?>
+                    <p class="intro">Aucun avis publié pour l'instant. <a href="ecrire.php">Soyez le premier à en écrire un</a> !</p>
+                <?php endif; ?>
 
-                <article class="carte-avis">
-                    <a href="fiche.php?id=758866" class="lien-carte">
-                        <h3 class="avis-titre">Conduire pour se taire</h3>
-                        <p class="avis-texte">Trois heures qui ne pèsent rien. Hamaguchi installe un théâtre dans une voiture, et la voiture devient un lieu de soin.</p>
-                    </a>
-                    <div class="avis-bas">
-                        <span class="avatar" style="background: oklch(0.55 0.12 30);">M</span>
-                        <span class="avis-auteur">melfilmophile</span>
-                        <span style="color: #8A8378;">sur</span>
-                        <a href="fiche.php?id=758866" class="lien-film">Drive My Car</a>
-                        <span style="margin-left: auto;">29 avril 2026</span>
-                    </div>
-                </article>
-
-                <article class="carte-avis">
-                    <a href="fiche.php?id=976893" class="lien-carte">
-                        <h3 class="avis-titre">Monsieur Propre</h3>
-                        <p class="avis-texte">Vu sans y croire, ressorti changé. Wenders nettoie sa caméra avec autant de soin que Hirayama nettoie ses toilettes.</p>
-                    </a>
-                    <div class="avis-bas">
-                        <span class="avatar" style="background: oklch(0.55 0.12 220);">R</span>
-                        <span class="avis-auteur">rachidkanopy</span>
-                        <span style="color: #8A8378;">sur</span>
-                        <a href="fiche.php?id=976893" class="lien-film">Perfect Days</a>
-                        <span style="margin-left: auto;">27 avril 2026</span>
-                    </div>
-                </article>
+                <?php foreach ($avisRecents as $avis): ?>
+                    <article class="carte-avis">
+                        <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-carte">
+                            <h3 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
+                            <p class="avis-texte"><?= htmlspecialchars(mb_substr($avis['contenu'], 0, 160)) ?><?= mb_strlen($avis['contenu']) > 160 ? '…' : '' ?></p>
+                        </a>
+                        <div class="avis-bas">
+                            <span class="avatar" style="background: oklch(0.55 0.12 <?= $avis['teinte'] ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($avis['username'], 0, 1))) ?></span>
+                            <span class="avis-auteur"><?= htmlspecialchars($avis['username']) ?></span>
+                            <span style="color: #8A8378;">sur</span>
+                            <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
+                            <span style="margin-left: auto;"><?= formaterDateFr($avis['created_at']) ?></span>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
 
             </div>
-            <a href="fiche.php">
-                <button class="btn-blanc" style="margin-top: 20px;">Voir plus d'avis.</button>
-            </a>
         </div>
 
         <aside class="colonne-lateral">
