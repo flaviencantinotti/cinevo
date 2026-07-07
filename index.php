@@ -132,7 +132,7 @@ foreach ($tmdb->getRandomMovies(3) as $filmBrut) {
                     <span class="label-section">À lire en ce moment</span>
                     <h2>Avis récents</h2>
                 </div>
-                <a href="fiche.php">
+                <a href="avis.php">
                     <button class="btn-transparent">Voir plus d'avis
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">

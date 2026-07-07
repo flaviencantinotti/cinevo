@@ -79,6 +79,9 @@ while ($row = $result->fetch_assoc()) {
                 <?php endforeach; ?>
 
             </div>
+            <a href="avis.php">
+                <button class="btn-blanc" style="margin-top: 20px;">Voir plus d'avis.</button>
+            </a>
         </div>
 
         <aside class="colonne-lateral">
