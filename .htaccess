@@ -1,0 +1,8 @@
+# Bloque l'accès direct aux fichiers sensibles
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+<Files "test.php">
+    Require all denied
+</Files>

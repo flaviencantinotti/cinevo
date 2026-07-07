@@ -1,10 +1,14 @@
-<?php $page = 'a-propos'; ?>
+<?php
+$page = 'a-propos';
+require_once 'includes/auth.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cinévo — À propos</title>
+    <meta name="description" content="L'histoire de Cinévo : pourquoi ce site d'avis cinéma sans notes existe, qui l'a créé, et la règle qui le définit : aucun ton snob toléré.">
+    <title>À propos de Cinévo — Notre histoire et notre mission</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -12,21 +16,22 @@
 <?php include 'includes/header.php'; ?>
 
 <main class="contenu">
+  <div class="page-editoriale">
 
-    <div class="text-kicker">À propos de Cinévo</div>
+    <div class="chapeau">À propos de Cinévo</div>
     <h1>Le cinéma, <em>comme on en parle.</em></h1>
-    <p class="text-lede">
+    <p class="intro">
         Cinévo est un site écrit à la main, par des passionnés, pour des passionnés.
         Pas de note. Pas d'algorithme. Gratuit.
     </p>
 
-    <div class="text-meta">
+    <div class="meta-article">
         <div><strong>Lancé</strong>Besançon · mai 2026</div>
         <div><strong>Auteur</strong>Flavien · projet personnel</div>
         <div><strong>Statut</strong>100 % gratuit · à but non lucratif</div>
     </div>
 
-    <div class="text-body">
+    <div class="corps-texte">
 
         <section>
             <h2><span class="num">01</span> Pourquoi ce site existe ?</h2>
@@ -40,7 +45,7 @@
                 valorise chaque avis pour ce qu'il dit, pas pour la note qui l'accompagne.
                 Trois lignes valent autant qu'une page, si elles sont sincères.
             </p>
-            <blockquote class="pull">
+            <blockquote class="citation">
                 « J'écris pour me souvenir de ce que j'ai vu.<br>
                 Si ça aide quelqu'un d'autre, tant mieux. »
             </blockquote>
@@ -117,6 +122,7 @@
 
     </div>
 
+  </div>
 </main>
 
 <?php include 'includes/footer.php'; ?>

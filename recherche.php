@@ -1,6 +1,7 @@
 <?php
 $page = 'recherche';
 
+require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 $tmdb = new TMDB();
 
@@ -30,6 +31,8 @@ if ($query !== '') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Recherchez un film et retrouvez les avis et critiques écrits par la communauté Cinévo, sans notes ni classement.">
+    <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Cinévo — Recherche<?= $query ? ' · ' . htmlspecialchars($query) : '' ?></title>
 </head>

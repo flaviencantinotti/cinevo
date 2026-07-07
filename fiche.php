@@ -1,6 +1,7 @@
 <?php
 $page = 'fiche';
 
+require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/db.php';
 $tmdb = new TMDB();
@@ -38,8 +39,18 @@ if ($id > 0) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php if ($film): ?>
+        <?php
+            $descriptionMeta = trim(($realisateur ? $realisateur . ' — ' : '') . ($film['overview'] ?? ''));
+            $descriptionMeta = $descriptionMeta !== '' ? $descriptionMeta : 'Lisez les avis et critiques de la communauté Cinévo sur ' . $film['title'] . '.';
+        ?>
+        <meta name="description" content="<?= htmlspecialchars(mb_substr($descriptionMeta, 0, 155)) ?>">
+        <title><?= htmlspecialchars($film['title']) ?> (<?= $annee ?>) — Critique et avis | Cinévo</title>
+    <?php else: ?>
+        <meta name="robots" content="noindex, follow">
+        <title>Film introuvable — Cinévo</title>
+    <?php endif; ?>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo — <?= $film ? htmlspecialchars($film['title']) : 'Film introuvable' ?></title>
 </head>
 <body>
 

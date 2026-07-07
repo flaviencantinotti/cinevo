@@ -5,8 +5,14 @@ require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 $tmdb = new TMDB();
 
-$resultats = [];
-$erreur    = '';
+$resultats       = [];
+$erreur          = '';
+$filmSelectionne = null;
+
+$idSelectionne = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+if ($idSelectionne > 0) {
+    $filmSelectionne = $tmdb->getMovie($idSelectionne);
+}
 
 if (!empty($_GET['q'])) {
     $data = $tmdb->searchMovie(trim($_GET['q']));
@@ -51,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Cinévo — Écrire un avis</title>
 </head>
@@ -77,6 +84,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
         <button type="submit" class="btn-rouge">Chercher</button>
     </form>
+
+    <?php if ($filmSelectionne): ?>
+        <div class="resultat-film film-selectionne">
+            <?php if (!empty($filmSelectionne['poster_path'])): ?>
+                <img src="<?= $tmdb->getPosterUrl($filmSelectionne['poster_path'], 'w92') ?>"
+                     alt="Affiche de <?= htmlspecialchars($filmSelectionne['title']) ?>"
+                     class="affiche-mini">
+            <?php endif; ?>
+            <div class="info-film">
+                <div class="label-section">Film sélectionné</div>
+                <div class="titre-resultat"><?= htmlspecialchars($filmSelectionne['title']) ?></div>
+                <div class="meta-resultat"><?= substr($filmSelectionne['release_date'] ?? '', 0, 4) ?></div>
+            </div>
+            <a href="ecrire.php" class="btn-transparent">Changer de film</a>
+        </div>
+
+        <hr class="separateur">
+    <?php endif; ?>
 
     <?php if (!empty($resultats)): ?>
         <div class="liste-resultats">
@@ -118,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <form class="formulaire-avis" action="ecrire.php" method="POST">
 
-        <input type="hidden" name="film_id" value="<?= htmlspecialchars($_GET['id'] ?? '') ?>">
+        <input type="hidden" name="film_id" value="<?= $idSelectionne ?: '' ?>">
 
         <div class="champ">
             <label for="titre">Titre de votre avis <span class="facultatif">(facultatif)</span></label>
@@ -133,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="boutons-form">
-            <a href="fiche.php?id=<?= htmlspecialchars($_GET['id'] ?? '') ?>">
+            <a href="fiche.php?id=<?= $idSelectionne ?: '' ?>">
                 <button type="button" class="btn-blanc">Annuler</button>
             </a>
             <button type="submit" class="btn-rouge" id="btnPublier">Publier l'avis</button>

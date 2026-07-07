@@ -1,11 +1,15 @@
-<?php $page = 'contact'; ?>
+<?php
+$page = 'contact';
+require_once 'includes/auth.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Une question, une suggestion ou une remarque sur Cinévo ? Contactez l'équipe directement via ce formulaire.">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo — Contact</title>
+    <title>Contact — Cinévo</title>
 </head>
 <body>
 

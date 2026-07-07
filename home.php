@@ -13,6 +13,7 @@ if (!estConnecte()) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Cinévo — Mon fil</title>
 </head>
@@ -32,7 +33,7 @@ if (!estConnecte()) {
             <div class="liste-avis">
 
                 <article class="carte-avis">
-                    <a href="fiche.php" class="lien-carte">
+                    <a href="fiche.php?id=496243" class="lien-carte">
                         <h3 class="avis-titre">Une cave, et tout l'édifice s'écroule</h3>
                         <p class="avis-texte">Bong Joon-ho ne filme pas la lutte des classes : il en filme l'architecture. Chaque escalier, chaque seuil, chaque odeur trace une frontière qu'on croyait abolie.</p>
                     </a>
@@ -40,13 +41,13 @@ if (!estConnecte()) {
                         <span class="avatar" style="background: oklch(0.55 0.12 149);">P</span>
                         <span class="avis-auteur">philmage</span>
                         <span style="color: #8A8378;">sur</span>
-                        <a href="fiche.php" class="lien-film">Parasite</a>
+                        <a href="fiche.php?id=496243" class="lien-film">Parasite</a>
                         <span style="margin-left: auto;">2 mai 2026</span>
                     </div>
                 </article>
 
                 <article class="carte-avis">
-                    <a href="fiche.php" class="lien-carte">
+                    <a href="fiche.php?id=758866" class="lien-carte">
                         <h3 class="avis-titre">Conduire pour se taire</h3>
                         <p class="avis-texte">Trois heures qui ne pèsent rien. Hamaguchi installe un théâtre dans une voiture, et la voiture devient un lieu de soin.</p>
                     </a>
@@ -54,13 +55,13 @@ if (!estConnecte()) {
                         <span class="avatar" style="background: oklch(0.55 0.12 30);">M</span>
                         <span class="avis-auteur">melfilmophile</span>
                         <span style="color: #8A8378;">sur</span>
-                        <a href="fiche.php" class="lien-film">Drive My Car</a>
+                        <a href="fiche.php?id=758866" class="lien-film">Drive My Car</a>
                         <span style="margin-left: auto;">29 avril 2026</span>
                     </div>
                 </article>
 
                 <article class="carte-avis">
-                    <a href="fiche.php" class="lien-carte">
+                    <a href="fiche.php?id=976893" class="lien-carte">
                         <h3 class="avis-titre">Monsieur Propre</h3>
                         <p class="avis-texte">Vu sans y croire, ressorti changé. Wenders nettoie sa caméra avec autant de soin que Hirayama nettoie ses toilettes.</p>
                     </a>
@@ -68,7 +69,7 @@ if (!estConnecte()) {
                         <span class="avatar" style="background: oklch(0.55 0.12 220);">R</span>
                         <span class="avis-auteur">rachidkanopy</span>
                         <span style="color: #8A8378;">sur</span>
-                        <a href="fiche.php" class="lien-film">Perfect Days</a>
+                        <a href="fiche.php?id=976893" class="lien-film">Perfect Days</a>
                         <span style="margin-left: auto;">27 avril 2026</span>
                     </div>
                 </article>

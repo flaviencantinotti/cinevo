@@ -1,9 +1,14 @@
-<?php $page = 'mentions-legales'; ?>
+<?php
+$page = 'mentions-legales';
+require_once 'includes/auth.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mentions légales de Cinévo : éditeur du site, hébergement, propriété intellectuelle et données personnelles.">
+    <meta name="robots" content="noindex, follow">
     <title>Cinévo — Mentions légales</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -12,23 +17,24 @@
 <?php include 'includes/header.php'; ?>
 
 <main class="contenu">
+  <div class="page-editoriale">
 
-    <div class="text-kicker">Informations légales</div>
+    <div class="chapeau">Informations légales</div>
     <h1>Mentions <em>légales.</em></h1>
-    <p class="text-lede">
+    <p class="intro">
         Tout ce que la loi nous oblige à vous dire — et que nous vous disons aussi clairement que possible.
     </p>
 
-    <div class="text-meta">
+    <div class="meta-article">
         <div><strong>Dernière mise à jour</strong>13 mai 2026</div>
         <div><strong>Conformité</strong>LCEN · RGPD · CNIL</div>
     </div>
 
-    <div class="text-body">
+    <div class="corps-texte">
 
         <section>
             <h2><span class="num">01</span> Éditeur du site</h2>
-            <dl class="text-dl">
+            <dl class="liste-definitions">
                 <dt>Nom</dt><dd>Flavien CANTINOTTI. — entrepreneur individuel</dd>
                 <dt>Statut</dt><dd>Micro-entreprise</dd>
                 <dt>SIRET</dt><dd>012 345 678 90123</dd>
@@ -40,7 +46,7 @@
 
         <section>
             <h2><span class="num">02</span> Hébergement</h2>
-            <dl class="text-dl">
+            <dl class="liste-definitions">
                 <dt>Hébergeur</dt><dd>OVH SAS</dd>
                 <dt>Adresse</dt><dd>2 rue Kellermann, 59100 Roubaix, France</dd>
                 <dt>Téléphone</dt><dd>+33 9 72 10 10 07</dd>
@@ -113,6 +119,7 @@
 
     </div>
 
+  </div>
 </main>
 
 <?php include 'includes/footer.php'; ?>

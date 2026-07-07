@@ -1,9 +1,14 @@
-<?php $page = 'cookies'; ?>
+<?php
+$page = 'cookies';
+require_once 'includes/auth.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi, et comment les gérer ou les supprimer.">
+    <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Cinévo — Politique cookies</title>
 </head>
@@ -12,19 +17,20 @@
 <?php include 'includes/header.php'; ?>
 
 <main class="contenu">
+  <div class="page-editoriale">
 
-    <div class="text-kicker">Transparence</div>
+    <div class="chapeau">Transparence</div>
     <h1>Politique <em>cookies.</em></h1>
-    <p class="text-lede">
+    <p class="intro">
         Comment Cinévo utilise les cookies — et ce qu'on n'utilise pas.
     </p>
 
-    <div class="text-meta">
+    <div class="meta-article">
         <div><strong>Dernière mise à jour</strong>13 mai 2026</div>
         <div><strong>Conformité</strong>RGPD · CNIL</div>
     </div>
 
-    <div class="text-body">
+    <div class="corps-texte">
 
         <section>
             <h2><span class="num">01</span> Qu'est-ce qu'un cookie ?</h2>
@@ -78,6 +84,7 @@
 
     </div>
 
+  </div>
 </main>
 
 <?php include 'includes/footer.php'; ?>

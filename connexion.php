@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Cinévo — Connexion</title>
 </head>
@@ -31,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main class="contenu">
     <div class="boite-connexion">
-        <h2>Connexion</h2>
+        <h1>Connexion</h1>
 
         <?php if ($erreur): ?>
             <p class="message-erreur"><?= htmlspecialchars($erreur) ?></p>

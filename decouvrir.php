@@ -1,11 +1,15 @@
-<?php $page = 'decouvrir'; ?>
+<?php
+$page = 'decouvrir';
+require_once 'includes/auth.php';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Cinévo est la plateforme d'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo — Découvrir</title>
+    <title>Découvrir Cinévo — La plateforme d'avis cinéma sans notes</title>
 </head>
 <body>
 
@@ -13,13 +17,13 @@
 
 <main class="contenu">
     <div class="banniere">
-        <h1>Qu'est-ce que Cinévo ?</h1>
+        <h1>Cinévo, la plateforme d'avis et critiques de films sans notes</h1>
     </div>
 
     <div class="titre-decouvrir">
         <h2 class="hero-titre">Le cinéma, <em>simplement</em>.</h2>
         <p class="texte-intro">
-            <em>Marre de la guerre des notes, fatigué(e) de ne pas avoir de réels échanges avec quelqu'un ? Vous voulez simplement donner votre avis et en lire d'autres ?
+            <em>Marre de la guerre des notes sur 5 ou sur 10, fatigué(e) de ne pas avoir de réels échanges avec quelqu'un autour d'un film ? Vous voulez simplement partager votre avis sur le cinéma et découvrir celui des autres ?
             </em><span>Cinévo</span><em> est fait pour vous !</em>
         </p>
     </div>
@@ -28,23 +32,23 @@
 
     <section>
         <div class="label-section">Pour qui</div>
-        <h3>Pour ceux qui aiment le cinéma, point.</h3>
+        <h3>Une communauté de cinéphiles ouverte à tous, point.</h3>
         <ul class="liste-public">
             <li>
-                Si vous cherchez un avis avant d'aller en salle
-                <br><em>Vous pouvez lire sans être inscrit.</em>
+                Si vous cherchez une critique de film ou un avis de spectateur avant de choisir votre prochaine sortie cinéma
+                <br><em>Consultez librement les critiques et les avis publiés par toute la communauté, même sans créer de compte ni vous inscrire.</em>
             </li>
             <li>
-                Si vous voulez écrire ce qu'un film vous a fait
-                <br><em>Pas de longueur minimale réelle. (seulement 20 caractères, ça va vite !)</em>
+                Si vous voulez partager votre ressenti et raconter ce qu'un film vous a fait vivre, en salle ou chez vous
+                <br><em>Aucune longueur minimale imposée pour rédiger votre critique : quelques phrases suffisent, ou même 20 caractères si vous êtes pressé(e) !</em>
             </li>
             <li>
-                Si vous voulez sortir de votre bulle algorithmique
-                <br><em>Des voix variées, jamais hiérarchisées.</em>
+                Si vous voulez sortir de votre bulle algorithmique et explorer un catalogue de films plus large et plus varié
+                <br><em>Des avis de spectateurs aux goûts différents, présentés côte à côte, jamais triés ni hiérarchisés par une note ou un classement.</em>
             </li>
             <li>
-                Si vous n'êtes pas un cinéphile « pro »
-                <br><em>Aucun ton snob toléré. C'est une règle.</em>
+                Si vous n'êtes pas un critique de cinéma professionnel mais simplement un amateur de films comme tant d'autres
+                <br><em>Aucun jargon technique, aucun ton snob toléré ici : chaque avis de la communauté compte autant que les autres.</em>
             </li>
         </ul>
     </section>
@@ -52,8 +56,8 @@
     <hr class="separateur">
 
     <section class="appel-action">
-        <h3>Prêt(e) à rejoindre ?</h3>
-        <p class="texte-intro" style="margin-top:12px;"><em>C'est gratuit, sans algorithme, et ça prend 30 secondes.</em></p>
+        <h3>Prêt(e) à rejoindre la communauté Cinévo ?</h3>
+        <p class="texte-intro" style="margin-top:12px;"><em>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme, et ça prend 30 secondes.</em></p>
         <div class="hero-boutons" style="margin-top:20px;">
             <a href="inscription.php">
                 <button class="btn-rouge">Rejoindre Cinévo
