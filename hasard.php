@@ -51,6 +51,29 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
 
     <hr class="separateur">
 
+    <section class="section-communaute">
+        <span class="label-section">Comment ça marche</span>
+        <h2>Un tirage aléatoire de films, sans algorithme de recommandation</h2>
+        <p>
+            Cette page pioche cinq films au hasard dans un large catalogue, sans tenir compte de votre historique
+            ni d'un quelconque algorithme de recommandation. Pas de tri par popularité, pas de suggestion
+            personnalisée : chaque tirage aléatoire de films est indépendant du précédent, pour une découverte de
+            films vraiment ouverte au hasard.
+        </p>
+        <p>
+            L'objectif est simple : sortir de sa bulle de filtres et retomber sur un film que vous n'auriez
+            jamais cherché vous-même — qu'il s'agisse d'une dernière sortie, d'un classique du cinéma ou d'une
+            pépite méconnue. Si un tirage ne vous inspire pas, relancez-en un autre : la sélection aléatoire est
+            illimitée.
+        </p>
+        <p>
+            Vous avez trouvé votre prochain film à voir ? Une fois vu, <a href="ecrire.php">écrivez votre avis</a>
+            sur Cinévo, ou allez <a href="decouvrir.php">découvrir le concept du site</a>.
+        </p>
+    </section>
+
+    <hr class="separateur">
+
     <div class="grille-hasard" id="grilleHasard" aria-live="polite">
         <?php foreach ($filmsAffiches as $film): ?>
             <a href="fiche.php?id=<?= $film['id'] ?>" class="carte-hasard">

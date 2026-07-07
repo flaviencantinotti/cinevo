@@ -280,20 +280,25 @@ button {
 .hero-visuels {
   position: relative;
   height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .image-deco {
-  position: absolute;
-  width: 200px;
+  display: block;
+  width: 150px;
   aspect-ratio: 2/3;
   border-radius: 4px;
   box-shadow: 0 18px 44px rgba(26, 26, 26, 0.22);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
-.image-deco.p1 { left: 30%; top: 0%; transform: rotate(-4deg); }
-.image-deco.p2 { right: 0; top: 40px; transform: rotate(3deg); z-index: 2; }
-.image-deco.p3 { left: 0; bottom: 0; transform: rotate(-2deg); }
+.image-deco.p1 { position: relative; transform: rotate(-3deg); }
+.image-deco.p2 { position: relative; transform: rotate(2deg); z-index: 2; }
+.image-deco.p3 { position: relative; transform: rotate(-2deg); }
 
 .p1, .p2, .p3 {
   position: absolute;
@@ -308,6 +313,28 @@ button {
 .p1 { background: linear-gradient(160deg, oklch(0.42 0.06 200), oklch(0.28 0.05 200)); color: #efe8da; }
 .p2 { background: linear-gradient(160deg, oklch(0.55 0.14 30), oklch(0.32 0.1 30)); color: #fdf6e5; }
 .p3 { background: linear-gradient(160deg, oklch(0.22 0.05 220), oklch(0.14 0.06 220)); color: #f4ecdd; }
+
+/* Affiches réelles dans le hero (remplacent les blocs de couleur) */
+.image-deco img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.legende-deco {
+  position: absolute;
+  inset: 0;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  background: linear-gradient(to top, rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0.1) 60%, transparent 85%);
+  color: #f4ecdd;
+  font-family: "Playfair Display", serif;
+}
 
 /* ============ SECTION AVIS ============ */
 
@@ -1183,6 +1210,27 @@ input[type="submit"]:hover {
   text-decoration: underline;
 }
 
+.section-communaute h2 {
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.section-communaute p {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #1A1A1A;
+}
+
+.section-communaute p + p {
+  margin-top: 14px;
+}
+
+.section-communaute a {
+  color: #B53932;
+  text-decoration: underline;
+}
+
 .citation {
   font-family: "Playfair Display", serif;
   font-style: italic;
@@ -1240,10 +1288,11 @@ input[type="submit"]:hover {
 
   .hero-visuels {
     height: 380px;
+    gap: 12px;
   }
 
   .image-deco {
-    width: 160px;
+    width: 110px;
   }
 
   .grille-hasard {
