@@ -6,22 +6,26 @@ require_once 'includes/auth.php';
 $erreur = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $email    = trim($_POST['email'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-    $confirm  = trim($_POST['confirm'] ?? '');
-
-    if ($password !== $confirm) {
-        $erreur = 'Les mots de passe ne correspondent pas.';
-    } elseif (strlen($password) < 6) {
-        $erreur = 'Le mot de passe doit faire au moins 6 caractères.';
+    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
+        $erreur = 'Requête invalide, merci de réessayer.';
     } else {
-        if (inscrire($conn, $username, $email, $password)) {
-            connecter($conn, $email, $password);
-            header('Location: home.php');
-            exit;
+        $username = trim($_POST['username'] ?? '');
+        $email    = trim($_POST['email'] ?? '');
+        $password = trim($_POST['password'] ?? '');
+        $confirm  = trim($_POST['confirm'] ?? '');
+
+        if ($password !== $confirm) {
+            $erreur = 'Les mots de passe ne correspondent pas.';
+        } elseif (strlen($password) < 6) {
+            $erreur = 'Le mot de passe doit faire au moins 6 caractères.';
         } else {
-            $erreur = 'Ce nom d\'utilisateur ou cet email est déjà utilisé.';
+            if (inscrire($conn, $username, $email, $password)) {
+                connecter($conn, $email, $password);
+                header('Location: home.php');
+                exit;
+            } else {
+                $erreur = 'Ce nom d\'utilisateur ou cet email est déjà utilisé.';
+            }
         }
     }
 }
@@ -48,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form class="formulaire" action="inscription.php" method="POST">
+            <?= csrf_champ() ?>
             <label for="username">Nom d'utilisateur</label>
             <input type="text" id="username" name="username" required>
 

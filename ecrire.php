@@ -37,18 +37,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $film_id = (int) ($_POST['film_id'] ?? 0);
-    $titre   = trim($_POST['titre'] ?? '');
-    $contenu = trim($_POST['avis'] ?? '');
-
-    if ($film_id > 0 && strlen($contenu) >= 20) {
-        $stmt = $conn->prepare("INSERT INTO avis (utilisateur_id, film_id, titre, contenu) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param('iiss', $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
-        $stmt->execute();
-        header('Location: fiche.php?id=' . $film_id);
-        exit;
+    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
+        $erreur = 'Requête invalide, merci de réessayer.';
     } else {
-        $erreur = 'Avis trop court ou film manquant.';
+        $film_id = (int) ($_POST['film_id'] ?? 0);
+        $titre   = trim($_POST['titre'] ?? '');
+        $contenu = trim($_POST['avis'] ?? '');
+
+        if ($film_id > 0 && strlen($contenu) >= 20) {
+            $stmt = $conn->prepare("INSERT INTO avis (utilisateur_id, film_id, titre, contenu) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param('iiss', $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
+            $stmt->execute();
+            header('Location: fiche.php?id=' . $film_id);
+            exit;
+        } else {
+            $erreur = 'Avis trop court ou film manquant.';
+        }
     }
 }
 ?>
@@ -143,6 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <form class="formulaire-avis" action="ecrire.php" method="POST">
 
+        <?= csrf_champ() ?>
         <input type="hidden" name="film_id" value="<?= $idSelectionne ?: '' ?>">
 
         <div class="champ">

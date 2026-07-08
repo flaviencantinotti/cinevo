@@ -6,14 +6,18 @@ require_once 'includes/auth.php';
 $erreur = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email    = trim($_POST['email'] ?? '');
-    $password = trim($_POST['password'] ?? '');
-
-    if (connecter($conn, $email, $password)) {
-        header('Location: home.php');
-        exit;
+    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
+        $erreur = 'Requête invalide, merci de réessayer.';
     } else {
-        $erreur = 'Email ou mot de passe incorrect.';
+        $email    = trim($_POST['email'] ?? '');
+        $password = trim($_POST['password'] ?? '');
+
+        if (connecter($conn, $email, $password)) {
+            header('Location: home.php');
+            exit;
+        } else {
+            $erreur = 'Email ou mot de passe incorrect.';
+        }
     }
 }
 ?>
@@ -39,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form action="connexion.php" method="POST">
+            <?= csrf_champ() ?>
             <div class="groupe-champ">
                 <label for="email">Adresse e-mail</label>
                 <input type="email" id="email" name="email" required autocomplete="email">
