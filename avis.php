@@ -102,6 +102,21 @@ while ($row = $result->fetch_assoc()) {
 
     <hr class="separateur">
 
+    <section class="section-communaute">
+        <span class="label-section">Pourquoi sans notes</span>
+        <h2>Des critiques, pas des étoiles</h2>
+        <p>
+            Ici, aucun film n'est réduit à une note sur 5 ou sur 10. Chaque critique que vous lisez sur cette page
+            est écrite par un membre de la communauté Cinévo, avec ses propres mots, sans barème ni classement.
+        </p>
+        <p>
+            Envie de partager votre propre ressenti sur un film ? <a href="ecrire.php">Écrivez votre avis</a> en
+            quelques lignes, ou allez voir un <a href="hasard.php">film au hasard</a> si vous cherchez l'inspiration.
+        </p>
+    </section>
+
+    <hr class="separateur">
+
 </main>
 
 <?php include 'includes/footer.php'; ?>

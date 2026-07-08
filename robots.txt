@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /includes/
+Disallow: /connexion.php
+Disallow: /inscription.php
+Disallow: /deconnexion.php
+Disallow: /home.php
+Disallow: /ecrire.php
+Disallow: /hasard.php
+Disallow: /recherche.php
+
+Sitemap: https://cinevo.fr/sitemap.php

@@ -198,6 +198,11 @@ if ($id > 0) {
                 </a>
             </div>
 
+            <p class="intro" style="margin-top:12px;">
+                Aucune note ni classement ici : seulement l'avis de la communauté Cinévo sur
+                <?= htmlspecialchars($film['title']) ?>, dans ses propres mots.
+            </p>
+
             <?php
             $stmt = $conn->prepare("
                 SELECT a.titre, a.contenu, a.created_at, u.username
