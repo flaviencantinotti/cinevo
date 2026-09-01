@@ -63,7 +63,7 @@ et la façon dont je les corrige.
 **1. Récupérer le projet**
 
 ```bash
-git clone https://github.com/flaviencantinotti-ship-it/cinevo.git
+git clone https://github.com/flaviencantinotti/cinevo.git
 cd cinevo
 ```
 
@@ -159,7 +159,7 @@ corrigés — c'est justement ce que retrace `veille.md`.
 ## Auteur
 
 **Flavien Cantinotti** — développeur web
-[GitHub](https://github.com/flaviencantinotti-ship-it) ·
+[GitHub](https://github.com/flaviencantinotti) ·
 [LinkedIn](https://www.linkedin.com/in/flavien-cantinotti/)
 
 Les données de films proviennent de l'API [TMDB](https://www.themoviedb.org/).
