@@ -6,7 +6,13 @@ Disallow: /inscription.php
 Disallow: /deconnexion.php
 Disallow: /home.php
 Disallow: /ecrire.php
+Disallow: /mes-avis.php
+Disallow: /modifier-avis.php
+Disallow: /supprimer-avis.php
 Disallow: /hasard.php
 Disallow: /recherche.php
+Disallow: /diagnostic.php
+Disallow: /installation.php
+Disallow: /cache/
 
 Sitemap: https://cinevo.fr/sitemap.php

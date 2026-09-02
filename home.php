@@ -3,6 +3,7 @@ $page = 'home';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
+require_once 'includes/format.php';
 
 if (!estConnecte()) {
     header('Location: connexion.php');
@@ -11,23 +12,16 @@ if (!estConnecte()) {
 
 $tmdb = new TMDB();
 
-function formaterDateFr(string $datetime): string {
-    static $mois = [1 => 'janvier', 2 => 'février', 3 => 'mars', 4 => 'avril', 5 => 'mai', 6 => 'juin',
-                    7 => 'juillet', 8 => 'août', 9 => 'septembre', 10 => 'octobre', 11 => 'novembre', 12 => 'décembre'];
-    $d = new DateTime($datetime);
-    return (int) $d->format('j') . ' ' . $mois[(int) $d->format('n')] . ' ' . $d->format('Y');
-}
-
 $avisRecents = [];
-$result = $conn->query("
+$result = baseDisponible() ? $conn->query("
     SELECT avis.film_id, avis.titre, avis.contenu, avis.created_at, utilisateurs.username
     FROM avis
     JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
     ORDER BY avis.created_at DESC
     LIMIT 10
-");
+") : null;
 
-while ($row = $result->fetch_assoc()) {
+while ($result && $row = $result->fetch_assoc()) {
     $film = $tmdb->getMovie((int) $row['film_id']);
     $row['film_titre'] = $film['title'] ?? 'Film';
     $row['teinte']     = crc32($row['username']) % 360;
@@ -58,7 +52,9 @@ while ($row = $result->fetch_assoc()) {
         <div class="colonne-principale">
             <div class="liste-avis">
 
-                <?php if (empty($avisRecents)): ?>
+                <?php if (!baseDisponible()): ?>
+                    <?= messageBaseIndisponible('L\'affichage de votre fil') ?>
+                <?php elseif (empty($avisRecents)): ?>
                     <p class="intro">Aucun avis publié pour l'instant. <a href="ecrire.php">Soyez le premier à en écrire un</a> !</p>
                 <?php endif; ?>
 

@@ -21,6 +21,7 @@ $pageCourante = isset($page) ? $page : '';
                 <a href="hasard.php" <?= $pageCourante === 'hasard' ? 'class="actif"' : '' ?>>Au hasard</a>
                 <?php if (estConnecte()): ?>
                     <a href="home.php" <?= $pageCourante === 'home' ? 'class="actif"' : '' ?>>Mon fil</a>
+                    <a href="mes-avis.php" <?= $pageCourante === 'mes-avis' ? 'class="actif"' : '' ?>>Mes avis</a>
                     <span class="entete-utilisateur">Bonjour, <?= htmlspecialchars(utilisateurConnecte()) ?></span>
                     <a href="deconnexion.php">
                         <button class="btn-blanc">Déconnexion</button>

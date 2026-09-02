@@ -69,13 +69,27 @@ cd cinevo
 
 **2. Renseigner la clé TMDB**
 
-À la racine du projet, créer un fichier `.env` :
+La clé n'est jamais versionnée : sur une machine fraîchement clonée, il faut la
+renseigner une fois. Deux façons de faire, au choix.
+
+*Depuis le navigateur* — ouvrir `installation.php`, coller la clé, valider. Elle
+est vérifiée auprès de TMDB puis enregistrée. L'assistant n'est accessible que
+depuis la machine elle-même.
+
+*À la main* :
+
+```bash
+cp .env.example .env
+```
+
+puis y renseigner la clé :
 
 ```
 TMDB_API_KEY=votre_cle_ici
 ```
 
-Ce fichier est ignoré par Git : la clé ne part jamais sur le dépôt.
+Sans clé, le site reste consultable grâce au catalogue de secours décrit plus
+bas : seules la recherche et les fiches détaillées sont indisponibles.
 
 **3. Lancer**
 
@@ -89,17 +103,80 @@ adapter dans `includes/db.php` selon votre environnement.
 
 ---
 
+## Robustesse en cas de panne
+
+Une démonstration se joue souvent sur un réseau qu'on ne maîtrise pas, et sur une
+machine où un service peut ne pas avoir démarré. Le site est conçu pour rester
+présentable dans ces deux cas.
+
+### Si l'API TMDB est injoignable
+
+- **Deux moyens d'appel** : cURL en premier, `file_get_contents` en secours si
+  l'extension cURL n'est pas activée sur le serveur.
+- **Délai court et nouvelle tentative** : 4 secondes par essai, deux essais au
+  maximum. Une API lente ne fige jamais la page plus de quelques secondes.
+- **Cache disque** (`cache/`) : les fiches films sont gardées 24 h, les
+  recherches 1 h, les tirages 30 min. Cela allège aussi le nombre d'appels.
+- **Cache périmé servi en dernier recours** : si l'API ne répond plus, la
+  dernière version connue est réutilisée plutôt que d'afficher une page vide.
+- **Réserve de films hors ligne** : chaque tirage réussi alimente un stock local
+  de 100 films. Coupez le réseau, la page « Au hasard » continue de tirer
+  cinq films différents à chaque clic.
+- **Catalogue livré avec le dépôt** (`data/catalogue.json`) : versionné, il prend
+  le relais quand il n'y a ni cache ni clé. Un clone neuf affiche donc des films
+  dès le premier chargement, sur n'importe quelle machine. Les affiches passent
+  par le CDN de TMDB, qui ne demande aucune clé. Voir `data/README.md` pour le
+  régénérer.
+- **Affiche de remplacement** : une image qui ne se charge pas est remplacée par
+  un visuel neutre, la mise en page ne se casse pas.
+- **Repli sur les variables d'environnement** du serveur si le `.env` est absent.
+
+### Si MySQL ne répond pas
+
+Oublier de démarrer MySQL est plus fréquent qu'une panne d'API, et cela suffisait
+à rendre le site totalement blanc. Ce n'est plus le cas :
+
+- `includes/db.php` n'interrompt plus le chargement ; il expose `baseDisponible()`
+  et un délai de connexion de 3 secondes pour ne pas faire attendre la page.
+- Les pages qui ne dépendent pas de la base — **recherche, fiche film, tirage au
+  hasard** — restent pleinement consultables.
+- Celles qui en dépendent affichent un encart explicite au lieu d'une erreur
+  brute : accueil, liste des avis, fil personnel.
+- Connexion, inscription et publication d'un avis annoncent clairement
+  l'indisponibilité, et le formulaire de rédaction **conserve le texte saisi**.
+- `sitemap.php` se limite alors aux pages statiques.
+
+**Avant une démonstration**
+
+Ouvrir `diagnostic.php` dans le navigateur (ou lancer `php diagnostic.php` en
+console). La page contrôle PHP, la clé API, le cache, la base de données et
+effectue un vrai appel à TMDB. Le bouton **Préchauffer le cache** remplit la
+réserve hors ligne pendant que la connexion fonctionne.
+
+```bash
+php diagnostic.php   # code de sortie 0 si tout est prêt
+```
+
+Cette page est un outil de vérification : elle est à retirer avant une mise en
+production.
+
+---
+
 ## Structure
 
 ```
 cinevo/
 ├── includes/
 │   ├── config.php     constantes et lecture du .env
-│   ├── db.php         connexion MySQL, création de la base et des tables
+│   ├── db.php         connexion MySQL tolérante à la panne, création des tables
 │   ├── auth.php       inscription, connexion, session
-│   ├── tmdb.php       appels à l'API TMDB
+│   ├── tmdb.php       appels à l'API TMDB, cache et repli hors ligne
+│   ├── cache.php      cache fichier des réponses de l'API
 │   ├── header.php
 │   └── footer.php
+├── cache/             réponses TMDB mises en cache (ignoré par Git)
+├── data/
+│   └── catalogue.json catalogue de secours, versionné
 ├── css/
 ├── js/
 ├── images/
@@ -112,6 +189,9 @@ cinevo/
 ├── avis.php           avis publiés
 ├── inscription.php · connexion.php · deconnexion.php
 ├── contact.php · a-propos.php · mentions-legales.php · cookies.php
+├── diagnostic.php     vérification technique avant démonstration
+├── installation.php   assistant de configuration de la clé API
+├── .env.example       modèle de configuration
 └── veille.md          journal de veille et de sécurité
 ```
 

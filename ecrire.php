@@ -44,7 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titre   = trim($_POST['titre'] ?? '');
         $contenu = trim($_POST['avis'] ?? '');
 
-        if ($film_id > 0 && strlen($contenu) >= 20) {
+        if (!baseDisponible()) {
+            $erreur = 'Publication impossible : la base de données ne répond pas. '
+                . 'Votre texte est conservé ci-dessous, réessayez dans un instant.';
+        } elseif ($film_id > 0 && strlen($contenu) >= 20) {
             $stmt = $conn->prepare("INSERT INTO avis (utilisateur_id, film_id, titre, contenu) VALUES (?, ?, ?, ?)");
             $stmt->bind_param('iiss', $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
             $stmt->execute();
@@ -152,13 +155,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="champ">
             <label for="titre">Titre de votre avis <span class="facultatif">(facultatif)</span></label>
-            <input type="text" id="titre" name="titre" placeholder="Une phrase qui résume votre ressenti...">
+            <input type="text" id="titre" name="titre" placeholder="Une phrase qui résume votre ressenti..."
+                   value="<?= htmlspecialchars($_POST['titre'] ?? '') ?>">
         </div>
 
         <div class="champ">
             <label for="avis">Votre avis <span class="minimum">20 caractères minimum</span></label>
             <textarea id="avis" name="avis" placeholder="Écrivez librement ce que ce film vous a fait..."
-                      rows="8" required minlength="20"></textarea>
+                      rows="8" required minlength="20"><?= htmlspecialchars($_POST['avis'] ?? '') ?></textarea>
             <div class="compteur"><span id="compteur">0</span> caractères</div>
         </div>
 

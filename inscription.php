@@ -8,6 +8,8 @@ $erreur = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
         $erreur = 'Requête invalide, merci de réessayer.';
+    } elseif (!baseDisponible()) {
+        $erreur = 'Inscription impossible : la base de données ne répond pas.';
     } else {
         $username = trim($_POST['username'] ?? '');
         $email    = trim($_POST['email'] ?? '');

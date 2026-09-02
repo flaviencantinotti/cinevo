@@ -2,35 +2,39 @@
 $page = 'avis';
 require_once 'includes/db.php';
 require_once 'includes/tmdb.php';
+require_once 'includes/format.php';
 $tmdb = new TMDB();
-
-function formaterDateFr(string $datetime): string {
-    static $mois = [1 => 'janvier', 2 => 'février', 3 => 'mars', 4 => 'avril', 5 => 'mai', 6 => 'juin',
-                    7 => 'juillet', 8 => 'août', 9 => 'septembre', 10 => 'octobre', 11 => 'novembre', 12 => 'décembre'];
-    $d = new DateTime($datetime);
-    return (int) $d->format('j') . ' ' . $mois[(int) $d->format('n')] . ' ' . $d->format('Y');
-}
 
 $parPage      = 12;
 $pageCourante = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
 $offset       = ($pageCourante - 1) * $parPage;
 
-$total       = (int) $conn->query("SELECT COUNT(*) AS total FROM avis")->fetch_assoc()['total'];
-$totalPages  = max(1, (int) ceil($total / $parPage));
+$total      = 0;
+$avisListe  = [];
 
-$stmt = $conn->prepare("
-    SELECT avis.film_id, avis.titre, avis.contenu, avis.created_at, utilisateurs.username
-    FROM avis
-    JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-    ORDER BY avis.created_at DESC
-    LIMIT ? OFFSET ?
-");
-$stmt->bind_param('ii', $parPage, $offset);
-$stmt->execute();
-$result = $stmt->get_result();
+if (baseDisponible()) {
+    $compte = $conn->query("SELECT COUNT(*) AS total FROM avis");
+    $total  = $compte ? (int) $compte->fetch_assoc()['total'] : 0;
+}
 
-$avisListe = [];
-while ($row = $result->fetch_assoc()) {
+$totalPages = max(1, (int) ceil($total / $parPage));
+
+$result = null;
+
+if (baseDisponible()) {
+    $stmt = $conn->prepare("
+        SELECT avis.film_id, avis.titre, avis.contenu, avis.created_at, utilisateurs.username
+        FROM avis
+        JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
+        ORDER BY avis.created_at DESC
+        LIMIT ? OFFSET ?
+    ");
+    $stmt->bind_param('ii', $parPage, $offset);
+    $stmt->execute();
+    $result = $stmt->get_result();
+}
+
+while ($result && $row = $result->fetch_assoc()) {
     $film = $tmdb->getMovie((int) $row['film_id']);
     $row['film_titre'] = $film['title'] ?? 'Film';
     $row['teinte']     = crc32($row['username']) % 360;
@@ -62,7 +66,9 @@ while ($row = $result->fetch_assoc()) {
 
     <div class="grille-avis">
 
-        <?php if (empty($avisListe)): ?>
+        <?php if (!baseDisponible()): ?>
+            <?= messageBaseIndisponible('La liste des avis') ?>
+        <?php elseif (empty($avisListe)): ?>
             <p class="intro">Aucun avis publié pour l'instant. <a href="ecrire.php">Soyez le premier à en écrire un</a> !</p>
         <?php endif; ?>
 

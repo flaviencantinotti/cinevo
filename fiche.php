@@ -204,21 +204,27 @@ if ($id > 0) {
             </p>
 
             <?php
-            $stmt = $conn->prepare("
-                SELECT a.titre, a.contenu, a.created_at, u.username
-                FROM avis a
-                JOIN utilisateurs u ON a.utilisateur_id = u.id
-                WHERE a.film_id = ?
-                ORDER BY a.created_at DESC
-            ");
-            $stmt->bind_param('i', $id);
-            $stmt->execute();
-            $liste_avis = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $liste_avis = [];
+
+            if (baseDisponible()) {
+                $stmt = $conn->prepare("
+                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.created_at, u.username
+                    FROM avis a
+                    JOIN utilisateurs u ON a.utilisateur_id = u.id
+                    WHERE a.film_id = ?
+                    ORDER BY a.created_at DESC
+                ");
+                $stmt->bind_param('i', $id);
+                $stmt->execute();
+                $liste_avis = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            }
             ?>
 
             <div class="liste-avis" style="margin-top:24px;">
 
-                <?php if (empty($liste_avis)): ?>
+                <?php if (!baseDisponible()): ?>
+                    <?= messageBaseIndisponible('L\'affichage des avis') ?>
+                <?php elseif (empty($liste_avis)): ?>
                     <p style="font-family:'Playfair Display'; font-style:italic; color:#8A8378;">
                         Aucun avis pour ce film. Soyez le premier à en écrire un.
                     </p>
@@ -239,6 +245,18 @@ if ($id > 0) {
                                 <span class="lien-film"><?= htmlspecialchars($film['title']) ?></span>
                                 <span style="margin-left: auto;"><?= $date ?></span>
                             </div>
+
+                            <?php // L'auteur retrouve ses propres avis directement sur la fiche du film. ?>
+                            <?php if (estConnecte() && $avis['utilisateur_id'] == $_SESSION['utilisateur_id']): ?>
+                                <div class="actions-avis">
+                                    <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>">
+                                        <button class="btn-blanc">Modifier</button>
+                                    </a>
+                                    <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>">
+                                        <button class="btn-transparent btn-danger">Supprimer</button>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </article>
                     <?php endforeach; ?>
                 <?php endif; ?>

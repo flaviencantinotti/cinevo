@@ -17,12 +17,15 @@ $pagesStatiques = [
 ];
 
 $films = [];
-$result = $conn->query("
+
+// Sans base, le sitemap se limite aux pages statiques plutôt que d'échouer.
+$result = baseDisponible() ? $conn->query("
     SELECT film_id, MAX(created_at) AS derniere_maj
     FROM avis
     GROUP BY film_id
-");
-while ($row = $result->fetch_assoc()) {
+") : null;
+
+while ($result && $row = $result->fetch_assoc()) {
     $films[] = $row;
 }
 

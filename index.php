@@ -3,29 +3,26 @@ $page = 'index';
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 require_once 'includes/tmdb.php';
+require_once 'includes/format.php';
 $tmdb = new TMDB();
 
-function formaterDateFr(string $datetime): string {
-    static $mois = [1 => 'janvier', 2 => 'février', 3 => 'mars', 4 => 'avril', 5 => 'mai', 6 => 'juin',
-                    7 => 'juillet', 8 => 'août', 9 => 'septembre', 10 => 'octobre', 11 => 'novembre', 12 => 'décembre'];
-    $d = new DateTime($datetime);
-    return (int) $d->format('j') . ' ' . $mois[(int) $d->format('n')] . ' ' . $d->format('Y');
-}
-
 $avisRecents = [];
-$result = $conn->query("
-    SELECT avis.film_id, avis.titre, avis.contenu, avis.created_at, utilisateurs.username
-    FROM avis
-    JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-    ORDER BY avis.created_at DESC
-    LIMIT 3
-");
 
-while ($row = $result->fetch_assoc()) {
-    $film = $tmdb->getMovie((int) $row['film_id']);
-    $row['film_titre'] = $film['title'] ?? 'Film';
-    $row['teinte']     = crc32($row['username']) % 360;
-    $avisRecents[]     = $row;
+if (baseDisponible()) {
+    $result = $conn->query("
+        SELECT avis.film_id, avis.titre, avis.contenu, avis.created_at, utilisateurs.username
+        FROM avis
+        JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
+        ORDER BY avis.created_at DESC
+        LIMIT 3
+    ");
+
+    while ($result && $row = $result->fetch_assoc()) {
+        $film = $tmdb->getMovie((int) $row['film_id']);
+        $row['film_titre'] = $film['title'] ?? 'Film';
+        $row['teinte']     = crc32($row['username']) % 360;
+        $avisRecents[]     = $row;
+    }
 }
 
 $heroFilms = [];
@@ -100,6 +97,13 @@ foreach ($tmdb->getRandomMovies(3) as $filmBrut) {
                         </div>
                     </a>
                 <?php endforeach; ?>
+
+                <?php /* Si l'API n'a rien renvoyé, on garde la mise en page avec des cadres neutres. */ ?>
+                <?php for ($i = count($heroFilms); $i < 3; $i++): ?>
+                    <div class="image-deco p<?= $i + 1 ?>">
+                        <img src="images/affiche-indisponible.svg" alt="" loading="lazy">
+                    </div>
+                <?php endfor; ?>
             </div>
         </section>
 
@@ -144,7 +148,9 @@ foreach ($tmdb->getRandomMovies(3) as $filmBrut) {
 
             <div class="grille-avis">
 
-                <?php if (empty($avisRecents)): ?>
+                <?php if (!baseDisponible()): ?>
+                    <?= messageBaseIndisponible('L\'affichage des avis') ?>
+                <?php elseif (empty($avisRecents)): ?>
                     <p class="intro">Aucun avis publié pour l'instant. <a href="ecrire.php">Soyez le premier à en écrire un</a> !</p>
                 <?php endif; ?>
 

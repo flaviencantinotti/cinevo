@@ -56,6 +56,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    /* --- Affiche de secours si une image ne se charge pas --- */
+    var AFFICHE_SECOURS = 'images/affiche-indisponible.svg';
+
+    document.addEventListener('error', function (e) {
+        var cible = e.target;
+        if (cible && cible.tagName === 'IMG' && cible.getAttribute('src') !== AFFICHE_SECOURS) {
+            cible.src = AFFICHE_SECOURS;
+        }
+    }, true); // en phase de capture : l'évènement « error » ne remonte pas
+
     /* --- Films au hasard (page hasard.php) --- */
     var btnHasard   = document.getElementById('btnHasard');
     var grilleHasard = document.getElementById('grilleHasard');
@@ -81,8 +91,15 @@ document.addEventListener('DOMContentLoaded', function () {
             btnHasard.textContent = 'Tirage en cours...';
 
             fetch('hasard.php?ajax=1')
-                .then(function (reponse) { return reponse.json(); })
+                .then(function (reponse) {
+                    if (!reponse.ok) throw new Error('Réponse ' + reponse.status);
+                    return reponse.json();
+                })
                 .then(function (films) {
+                    if (!Array.isArray(films) || films.length === 0) {
+                        grilleHasard.innerHTML = '<p class="message-erreur">Aucun film à proposer pour le moment. Réessayez dans un instant.</p>';
+                        return;
+                    }
                     grilleHasard.innerHTML = films.map(construireCarte).join('');
                 })
                 .catch(function () {

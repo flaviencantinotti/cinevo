@@ -52,10 +52,17 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <hr class="separateur">
 
     <div class="grille-hasard" id="grilleHasard" aria-live="polite">
+        <?php if (empty($filmsAffiches)): ?>
+            <p class="message-erreur">
+                Le tirage est momentanément indisponible : le catalogue de films n'a pas pu être joint.
+                Réessayez dans un instant.
+            </p>
+        <?php endif; ?>
+
         <?php foreach ($filmsAffiches as $film): ?>
             <a href="fiche.php?id=<?= $film['id'] ?>" class="carte-hasard">
                 <div class="affiche-hasard">
-                    <img src="<?= $film['affiche'] ?>" alt="Affiche de <?= htmlspecialchars($film['titre']) ?>" loading="lazy">
+                    <img src="<?= htmlspecialchars($film['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($film['titre']) ?>" loading="lazy">
                 </div>
                 <div class="titre-hasard"><?= htmlspecialchars($film['titre']) ?></div>
                 <div class="annee-hasard"><?= htmlspecialchars($film['annee']) ?></div>

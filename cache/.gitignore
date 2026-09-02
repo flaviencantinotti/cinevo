@@ -1,0 +1,3 @@
+# Le contenu du cache ne doit pas être versionné, mais le dossier doit exister.
+*
+!.gitignore

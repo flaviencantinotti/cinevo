@@ -1550,3 +1550,89 @@ input[type="submit"]:hover {
     width: 100%;
   }
 }
+
+/* ============ DIAGNOSTIC ============ */
+
+.table-diagnostic {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+}
+
+.table-diagnostic tr {
+  border-bottom: 1px solid var(--bordure);
+}
+
+.table-diagnostic td {
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+
+.diag-etat {
+  width: 26px;
+}
+
+.pastille-diag {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.diag-ok {
+  background: var(--vert);
+}
+
+.diag-ko {
+  background: var(--rouge);
+}
+
+.diag-avert {
+  background: #C08A2E;
+}
+
+.diag-intitule {
+  font-weight: 600;
+  color: var(--noir);
+  white-space: nowrap;
+}
+
+.diag-detail {
+  color: var(--gris);
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .diag-intitule {
+    white-space: normal;
+  }
+
+  .table-diagnostic td {
+    padding: 10px 6px;
+  }
+}
+
+/* ============ ACTIONS SUR SES PROPRES AVIS ============ */
+
+.actions-avis {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--bordure);
+}
+
+.btn-danger {
+  color: var(--rouge);
+}
+
+.btn-danger:hover {
+  background: #FBEDEC;
+}
+
+.message-succes {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: var(--vert);
+  margin-top: 12px;
+}

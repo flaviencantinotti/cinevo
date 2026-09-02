@@ -6,3 +6,7 @@
 <Files "test.php">
     Require all denied
 </Files>
+
+# Le cache ne contient que des données publiques de TMDB, mais rien
+# ne justifie d'y accéder directement depuis le navigateur.
+RedirectMatch 404 ^/cache/
