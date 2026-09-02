@@ -34,7 +34,7 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinq films tirés au hasard, sans algorithme de recommandation. Sortez de votre bulle et découvrez un film à voir ce soir sur Cinévo.">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
     <title>Films au hasard à découvrir — Cinévo</title>
 </head>
 <body>

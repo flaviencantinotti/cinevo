@@ -108,7 +108,7 @@ if ($enConsole) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
     <title>Diagnostic technique — Cinévo</title>
 </head>
 <body>

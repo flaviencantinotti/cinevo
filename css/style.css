@@ -287,6 +287,7 @@ button {
 }
 
 .image-deco {
+  position: relative;
   display: block;
   width: 150px;
   aspect-ratio: 2/3;
@@ -296,25 +297,11 @@ button {
   flex-shrink: 0;
 }
 
-.image-deco.p1 { position: relative; transform: rotate(-3deg); }
-.image-deco.p2 { position: relative; transform: rotate(2deg); z-index: 2; }
-.image-deco.p3 { position: relative; transform: rotate(-2deg); }
+/* Chaque affiche est légèrement inclinée, pour un effet de photos posées. */
+.image-deco.p1 { transform: rotate(-3deg); }
+.image-deco.p2 { transform: rotate(2deg); z-index: 2; }
+.image-deco.p3 { transform: rotate(-2deg); }
 
-.p1, .p2, .p3 {
-  position: absolute;
-  inset: 0;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-family: "Playfair Display", serif;
-}
-
-.p1 { background: linear-gradient(160deg, oklch(0.42 0.06 200), oklch(0.28 0.05 200)); color: #efe8da; }
-.p2 { background: linear-gradient(160deg, oklch(0.55 0.14 30), oklch(0.32 0.1 30)); color: #fdf6e5; }
-.p3 { background: linear-gradient(160deg, oklch(0.22 0.05 220), oklch(0.14 0.06 220)); color: #f4ecdd; }
-
-/* Affiches réelles dans le hero (remplacent les blocs de couleur) */
 .image-deco img {
   position: absolute;
   inset: 0;

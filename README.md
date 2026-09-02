@@ -101,6 +101,18 @@ chargement — il n'y a rien à importer. Les identifiants MySQL par défaut son
 ceux d'une installation locale (`localhost`, `root`, sans mot de passe) ; à
 adapter dans `includes/db.php` selon votre environnement.
 
+**Après avoir modifié le CSS**
+
+Les pages appellent la feuille de style avec un numéro de version :
+
+```html
+<link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+```
+
+Incrémentez ce numéro après chaque modification de `css/style.css`. Sans cela,
+les navigateurs qui ont déjà visité le site continuent d'afficher l'ancienne
+version gardée en cache, et les changements semblent ne pas s'appliquer.
+
 ---
 
 ## Robustesse en cas de panne

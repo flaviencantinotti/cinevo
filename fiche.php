@@ -50,7 +50,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable — Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
 </head>
 <body>
 
@@ -74,19 +74,10 @@ if ($id > 0) {
 
             <div>
                 <div class="grande-affiche">
-                    <?php if ($film['poster_path']): ?>
-                        <img src="<?= $tmdb->getPosterUrl($film['poster_path'], 'w342') ?>"
-                             alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
-                             style="width:100%; height:100%; object-fit:cover;">
-                    <?php else: ?>
-                        <div class="p1" style="position:absolute; inset:0; padding:18px;
-                             display:flex; flex-direction:column; justify-content:space-between;">
-                            <div><?= htmlspecialchars($realisateur) ?></div>
-                            <div style="font-size:24px; font-weight:700;">
-                                <?= htmlspecialchars($film['title']) ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
+                    <?php // Sans affiche, getPosterUrl renvoie une image de remplacement. ?>
+                    <img src="<?= $tmdb->getPosterUrl($film['poster_path'], 'w342') ?>"
+                         alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
+                         style="width:100%; height:100%; object-fit:cover;">
                 </div>
             </div>
 

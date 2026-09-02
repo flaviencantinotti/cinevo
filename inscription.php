@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Créez votre compte Cinévo gratuitement et rejoignez une communauté de cinéphiles qui écrit ses avis sur les films, sans notes ni algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
     <title>Inscription gratuite — Cinévo</title>
 </head>
 <body>
