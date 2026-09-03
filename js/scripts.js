@@ -61,7 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.addEventListener('error', function (e) {
         var cible = e.target;
-        if (cible && cible.tagName === 'IMG' && cible.getAttribute('src') !== AFFICHE_SECOURS) {
+        if (!cible || cible.tagName !== 'IMG') return;
+
+        // Le photogramme du hero est large (16/9) : l'affiche de secours,
+        // pensée pour un format portrait, y serait déformée. On masque
+        // simplement l'image, le dégradé posé derrière suffit.
+        if (cible.closest('.hero-fond')) {
+            cible.style.display = 'none';
+            return;
+        }
+
+        if (cible.getAttribute('src') !== AFFICHE_SECOURS) {
             cible.src = AFFICHE_SECOURS;
         }
     }, true); // en phase de capture : l'évènement « error » ne remonte pas

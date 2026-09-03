@@ -25,23 +25,12 @@ if (baseDisponible()) {
     }
 }
 
-$heroFilms = [];
-foreach ($tmdb->getRandomMovies(3) as $filmBrut) {
-    $details     = $tmdb->getMovie($filmBrut['id']);
-    $realisateur = '';
-    foreach (($details['credits']['crew'] ?? []) as $membre) {
-        if ($membre['job'] === 'Director') {
-            $realisateur = $membre['name'];
-            break;
-        }
-    }
-    $heroFilms[] = [
-        'id'          => $filmBrut['id'],
-        'titre'       => $filmBrut['title'],
-        'annee'       => substr($filmBrut['release_date'] ?? '', 0, 4),
-        'affiche'     => $tmdb->getPosterUrl($filmBrut['poster_path'], 'w342'),
-        'realisateur' => $realisateur,
-    ];
+// Un film au hasard pour le fond du hero : on garde le premier tirage
+// qui a un photogramme (backdrop_path), sinon le hero garde son dégradé.
+$backdropUrl = null;
+foreach ($tmdb->getRandomMovies(6) as $filmBrut) {
+    $backdropUrl = $tmdb->getBackdropUrl($filmBrut['backdrop_path'] ?? null);
+    if ($backdropUrl) break;
 }
 ?>
 <!DOCTYPE html>
@@ -51,7 +40,7 @@ foreach ($tmdb->getRandomMovies(3) as $filmBrut) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=4">
     <title>Cinévo — Le cinéma se lit aussi</title>
 </head>
 
@@ -62,11 +51,25 @@ foreach ($tmdb->getRandomMovies(3) as $filmBrut) {
     <main class="contenu">
 
         <section class="hero">
-            <div>
-                <span class="label-section">Une bibliothèque cinéma — pas un concours</span>
-                <h1 class="hero-titre">Le cinéma <em>se lit</em> aussi.</h1>
-                <p class="hero-texte">Avis libres. Pas de notes, pas d'étoiles, pas de pouces. On écrit ce qu'on a vu,
-                    ce qu'on a ressenti.</p>
+            <div class="hero-fond">
+                <?php if ($backdropUrl): ?>
+                    <img src="<?= htmlspecialchars($backdropUrl) ?>" alt="" loading="lazy">
+                <?php endif; ?>
+            </div>
+            <div class="hero-voile"></div>
+
+            <div class="hero-contenu">
+
+                <h1>CINÉVO</h1>
+                <h2>Plateforme pour passionné(e)s de cinéma</h2>
+
+                <p class="hero-description">
+                    Cinévo réunit celles et ceux qui aiment parler cinéma. Cherchez un film dans notre
+                    catalogue, consultez sa fiche complète — synopsis, distribution, plateformes de
+                    streaming — puis lisez ou publiez un avis rédigé, sans note ni classement. Pas
+                    d'idée ce soir ? Tirez cinq films au hasard, sans algorithme de recommandation.
+                </p>
+
                 <div class="hero-boutons">
                     <a href="decouvrir.php">
                         <button class="btn-rouge">Découvrir
@@ -80,30 +83,7 @@ foreach ($tmdb->getRandomMovies(3) as $filmBrut) {
                         <button class="btn-blanc">Rejoindre Cinévo</button>
                     </a>
                 </div>
-                <p class="source">Lecture gratuite. Écriture libre. Pas d'algorithme.</p>
-            </div>
 
-            <div class="hero-visuels">
-                <?php foreach ($heroFilms as $i => $film): ?>
-                    <a href="fiche.php?id=<?= $film['id'] ?>" class="image-deco p<?= $i + 1 ?>">
-                        <img src="<?= htmlspecialchars($film['affiche']) ?>"
-                             alt="Affiche de <?= htmlspecialchars($film['titre']) ?>" loading="lazy">
-                        <div class="legende-deco">
-                            <?php if ($film['realisateur']): ?>
-                                <div><?= htmlspecialchars($film['realisateur']) ?></div>
-                            <?php endif; ?>
-                            <div><?= htmlspecialchars($film['titre']) ?></div>
-                            <div><?= htmlspecialchars($film['annee']) ?></div>
-                        </div>
-                    </a>
-                <?php endforeach; ?>
-
-                <?php /* Si l'API n'a rien renvoyé, on garde la mise en page avec des cadres neutres. */ ?>
-                <?php for ($i = count($heroFilms); $i < 3; $i++): ?>
-                    <div class="image-deco p<?= $i + 1 ?>">
-                        <img src="images/affiche-indisponible.svg" alt="" loading="lazy">
-                    </div>
-                <?php endfor; ?>
             </div>
         </section>
 

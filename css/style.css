@@ -243,30 +243,8 @@ button {
 
 /* ============ HERO (page accueil) ============ */
 
-.hero {
-  padding: 60px 40px;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 64px;
-  align-items: center;
-}
-
-.hero h1 {
-  font-size: 72px;
-  line-height: 1.02;
-}
-
 .hero-titre em {
   color: #B53932;
-}
-
-.hero-texte {
-  font-family: "Playfair Display", serif;
-  font-style: italic;
-  font-size: 22px;
-  color: #5A554E;
-  margin-top: 20px;
-  line-height: 1.4;
 }
 
 .hero-boutons {
@@ -276,33 +254,27 @@ button {
   gap: 12px;
 }
 
-/* Images décoratives hero */
-.hero-visuels {
+/*
+ * Le hero n'affiche pas d'affiche de film : un photogramme en fond,
+ * avec le nom du site et une présentation complète de ce qu'il propose.
+ */
+.hero {
   position: relative;
-  height: 460px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.image-deco {
-  position: relative;
-  display: block;
-  width: 150px;
-  aspect-ratio: 2/3;
-  border-radius: 4px;
-  box-shadow: 0 18px 44px rgba(26, 26, 26, 0.22);
   overflow: hidden;
-  flex-shrink: 0;
+  border-radius: 8px;
 }
 
-/* Chaque affiche est légèrement inclinée, pour un effet de photos posées. */
-.image-deco.p1 { transform: rotate(-3deg); }
-.image-deco.p2 { transform: rotate(2deg); z-index: 2; }
-.image-deco.p3 { transform: rotate(-2deg); }
+/* Photogramme en fond ; un dégradé sert de secours si l'API n'en a pas fourni. */
+.hero-fond {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 900px 700px at 50% 38%, rgba(120, 95, 70, 0.35), transparent 60%),
+    linear-gradient(180deg, #221a14 0%, #15100c 55%, #0c0a08 100%);
+}
 
-.image-deco img {
+.hero-fond img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -310,17 +282,58 @@ button {
   object-fit: cover;
 }
 
-.legende-deco {
+/* Voile sombre : garantit que le texte reste lisible, quelle que soit l'image. */
+.hero-voile {
   position: absolute;
   inset: 0;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 2px;
-  background: linear-gradient(to top, rgba(26, 26, 26, 0.85), rgba(26, 26, 26, 0.1) 60%, transparent 85%);
-  color: #f4ecdd;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(10,8,6,0.55) 0%, rgba(10,8,6,0.7) 45%, rgba(10,8,6,0.88) 100%);
+}
+
+.hero-contenu {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 90px 40px;
+  text-align: center;
+}
+
+.hero-contenu h1 {
   font-family: "Playfair Display", serif;
+  font-weight: 600;
+  font-size: 76px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #FAF7F2;
+}
+
+.hero-contenu h2 {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  color: #C9AE8C;
+  margin-top: 18px;
+}
+
+.hero-description {
+  font-family: "Inter", sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #D8CFC0;
+  max-width: 58ch;
+  margin: 26px auto 0;
+}
+
+.hero-contenu .hero-boutons {
+  margin-top: 36px;
+  justify-content: center;
+}
+.hero-contenu .btn-blanc {
+  background: transparent;
+  border-color: #F4ECDD;
+  color: #F4ECDD;
 }
 
 /* ============ SECTION AVIS ============ */
@@ -1264,22 +1277,12 @@ input[type="submit"]:hover {
     padding: 40px 32px 64px;
   }
 
-  .hero {
-    gap: 40px;
-    padding: 48px 32px;
+  .hero-contenu {
+    padding: 72px 32px;
   }
 
-  .hero h1 {
-    font-size: 56px;
-  }
-
-  .hero-visuels {
-    height: 380px;
-    gap: 12px;
-  }
-
-  .image-deco {
-    width: 110px;
+  .hero-contenu h1 {
+    font-size: 58px;
   }
 
   .grille-hasard {
@@ -1334,18 +1337,12 @@ input[type="submit"]:hover {
     padding: 28px 20px 48px;
   }
 
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 32px 20px;
-    gap: 32px;
+  .hero-contenu {
+    padding: 56px 20px;
   }
 
-  .hero-visuels {
-    display: none;
-  }
-
-  .hero h1 {
-    font-size: 44px;
+  .hero-contenu h1 {
+    font-size: 40px;
   }
 
   .grille-avis {
@@ -1480,8 +1477,8 @@ input[type="submit"]:hover {
   h2 { font-size: 24px; }
   h3 { font-size: 20px; }
 
-  .hero h1 {
-    font-size: 34px;
+  .hero-contenu h1 {
+    font-size: 30px;
   }
 
   .hero-boutons {

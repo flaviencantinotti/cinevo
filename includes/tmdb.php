@@ -190,10 +190,11 @@ class TMDB {
         // On indexe par identifiant : un film déjà présent est simplement remplacé.
         foreach (array_merge($this->lireReserve(), $films) as $film) {
             $reserve[$film['id']] = [
-                'id'           => $film['id'],
-                'title'        => $film['title'],
-                'release_date' => $film['release_date'] ?? '',
-                'poster_path'  => $film['poster_path'],
+                'id'            => $film['id'],
+                'title'         => $film['title'],
+                'release_date'  => $film['release_date'] ?? '',
+                'poster_path'   => $film['poster_path'],
+                'backdrop_path' => $film['backdrop_path'] ?? '',
             ];
         }
 
@@ -255,6 +256,14 @@ class TMDB {
         if (!$posterPath) return 'images/affiche-indisponible.svg';
 
         return $this->imageUrl . '/' . $size . $posterPath;
+    }
+
+    // Contrairement à l'affiche (verticale), le photogramme est une image
+    // large : une scène du film, utilisée en fond du hero.
+    public function getBackdropUrl(?string $backdropPath, string $size = 'w1280'): ?string {
+        if (!$backdropPath) return null;
+
+        return $this->imageUrl . '/' . $size . $backdropPath;
     }
 
     public function derniereErreur(): string {
