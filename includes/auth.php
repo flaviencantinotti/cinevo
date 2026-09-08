@@ -19,7 +19,7 @@ function estConnecte() {
 }
 
 function utilisateurConnecte() {
-    return isset($_SESSION['username']) ? $_SESSION['username'] : null;
+    return isset($_SESSION['nom_utilisateur']) ? $_SESSION['nom_utilisateur'] : null;
 }
 
 function csrf_token() {
@@ -39,7 +39,7 @@ function csrf_verifie($token) {
 
 function inscrire($conn, $username, $email, $password) {
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("INSERT INTO utilisateurs (username, email, password) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe) VALUES (?, ?, ?)");
     $stmt->bind_param('sss', $username, $email, $hash);
     if ($stmt->execute()) {
         return true;
@@ -48,15 +48,15 @@ function inscrire($conn, $username, $email, $password) {
 }
 
 function connecter($conn, $email, $password) {
-    $stmt = $conn->prepare("SELECT id, username, password FROM utilisateurs WHERE email = ?");
+    $stmt = $conn->prepare("SELECT id, nom_utilisateur, mot_de_passe FROM utilisateurs WHERE email = ?");
     $stmt->bind_param('s', $email);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && password_verify($password, $user['mot_de_passe'])) {
         $_SESSION['utilisateur_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['nom_utilisateur'] = $user['nom_utilisateur'];
         return true;
     }
     return false;

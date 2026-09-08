@@ -14,17 +14,17 @@ $tmdb = new TMDB();
 
 $avisRecents = [];
 $result = baseDisponible() ? $conn->query("
-    SELECT avis.film_id, avis.titre, avis.contenu, avis.created_at, utilisateurs.username
+    SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur
     FROM avis
     JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-    ORDER BY avis.created_at DESC
+    ORDER BY avis.publie_le DESC
     LIMIT 10
 ") : null;
 
 while ($result && $row = $result->fetch_assoc()) {
     $film = $tmdb->getMovie((int) $row['film_id']);
     $row['film_titre'] = $film['title'] ?? 'Film';
-    $row['teinte']     = crc32($row['username']) % 360;
+    $row['teinte']     = crc32($row['nom_utilisateur']) % 360;
     $avisRecents[]     = $row;
 }
 ?>
@@ -34,7 +34,7 @@ while ($result && $row = $result->fetch_assoc()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
     <title>Cinévo — Mon fil</title>
 </head>
 <body>
@@ -44,7 +44,7 @@ while ($result && $row = $result->fetch_assoc()) {
 <main class="contenu">
 
     <div class="message-accueil">
-        <h1>Bonsoir, <?= htmlspecialchars($_SESSION['username']) ?>.</h1>
+        <h1>Bonsoir, <?= htmlspecialchars($_SESSION['nom_utilisateur']) ?>.</h1>
         <p>Bienvenue sur votre fil d'avis.</p>
     </div>
 
@@ -62,14 +62,14 @@ while ($result && $row = $result->fetch_assoc()) {
                     <article class="carte-avis">
                         <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-carte">
                             <h3 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
-                            <p class="avis-texte"><?= htmlspecialchars(mb_substr($avis['contenu'], 0, 160)) ?><?= mb_strlen($avis['contenu']) > 160 ? '…' : '' ?></p>
+                            <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 160)) ?></p>
                         </a>
                         <div class="avis-bas">
-                            <span class="avatar" style="background: oklch(0.55 0.12 <?= $avis['teinte'] ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($avis['username'], 0, 1))) ?></span>
-                            <span class="avis-auteur"><?= htmlspecialchars($avis['username']) ?></span>
+                            <span class="avatar" style="background: oklch(0.55 0.12 <?= $avis['teinte'] ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1))) ?></span>
+                            <span class="avis-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?></span>
                             <span style="color: #8A8378;">sur</span>
                             <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
-                            <span style="margin-left: auto;"><?= formaterDateFr($avis['created_at']) ?></span>
+                            <span style="margin-left: auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
                         </div>
                     </article>
                 <?php endforeach; ?>

@@ -4,6 +4,7 @@ $page = 'fiche';
 require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/db.php';
+require_once 'includes/format.php';
 $tmdb = new TMDB();
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
@@ -50,7 +51,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable — Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
 </head>
 <body>
 
@@ -75,7 +76,7 @@ if ($id > 0) {
             <div>
                 <div class="grande-affiche">
                     <?php // Sans affiche, getPosterUrl renvoie une image de remplacement. ?>
-                    <img src="<?= $tmdb->getPosterUrl($film['poster_path'], 'w342') ?>"
+                    <img src="<?= htmlspecialchars($tmdb->getPosterUrl($film['poster_path'], 'w342')) ?>"
                          alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
                          style="width:100%; height:100%; object-fit:cover;">
                 </div>
@@ -195,19 +196,19 @@ if ($id > 0) {
             </p>
 
             <?php
-            $liste_avis = [];
+            $avisFilm = [];
 
             if (baseDisponible()) {
                 $stmt = $conn->prepare("
-                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.created_at, u.username
+                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.publie_le, u.nom_utilisateur
                     FROM avis a
                     JOIN utilisateurs u ON a.utilisateur_id = u.id
                     WHERE a.film_id = ?
-                    ORDER BY a.created_at DESC
+                    ORDER BY a.publie_le DESC
                 ");
                 $stmt->bind_param('i', $id);
                 $stmt->execute();
-                $liste_avis = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                $avisFilm = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             }
             ?>
 
@@ -215,14 +216,14 @@ if ($id > 0) {
 
                 <?php if (!baseDisponible()): ?>
                     <?= messageBaseIndisponible('L\'affichage des avis') ?>
-                <?php elseif (empty($liste_avis)): ?>
+                <?php elseif (empty($avisFilm)): ?>
                     <p style="font-family:'Playfair Display'; font-style:italic; color:#8A8378;">
                         Aucun avis pour ce film. Soyez le premier à en écrire un.
                     </p>
                 <?php else: ?>
-                    <?php foreach ($liste_avis as $avis):
-                        $initiale = strtoupper(mb_substr($avis['username'], 0, 1));
-                        $date = date('j F Y', strtotime($avis['created_at']));
+                    <?php foreach ($avisFilm as $avis):
+                        $initiale = strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1));
+                        $date = formaterDateFr($avis['publie_le']);
                     ?>
                         <article class="carte-avis">
                             <?php if (!empty($avis['titre'])): ?>
@@ -230,8 +231,8 @@ if ($id > 0) {
                             <?php endif; ?>
                             <p class="avis-texte"><?= htmlspecialchars($avis['contenu']) ?></p>
                             <div class="avis-bas">
-                                <span class="avatar"><?= $initiale ?></span>
-                                <span class="avis-auteur"><?= htmlspecialchars($avis['username']) ?></span>
+                                <span class="avatar"><?= htmlspecialchars($initiale) ?></span>
+                                <span class="avis-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?></span>
                                 <span style="color:#8A8378;">sur</span>
                                 <span class="lien-film"><?= htmlspecialchars($film['title']) ?></span>
                                 <span style="margin-left: auto;"><?= $date ?></span>

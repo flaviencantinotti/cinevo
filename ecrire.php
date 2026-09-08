@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
     <title>Cinévo — Écrire un avis</title>
 </head>
 <body>
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if ($filmSelectionne): ?>
         <div class="resultat-film film-selectionne">
             <?php if (!empty($filmSelectionne['poster_path'])): ?>
-                <img src="<?= $tmdb->getPosterUrl($filmSelectionne['poster_path'], 'w92') ?>"
+                <img src="<?= htmlspecialchars($tmdb->getPosterUrl($filmSelectionne['poster_path'], 'w92')) ?>"
                      alt="Affiche de <?= htmlspecialchars($filmSelectionne['title']) ?>"
                      class="affiche-mini">
             <?php endif; ?>
@@ -120,8 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $annee   = substr($film['release_date'] ?? '', 0, 4);
                 $affiche = $tmdb->getPosterUrl($film['poster_path'], 'w92');
             ?>
-                <a href="ecrire.php?id=<?= $film['id'] ?>" class="resultat-film">
-                    <img src="<?= $affiche ?>" alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
+                <a href="ecrire.php?id=<?= (int) $film['id'] ?>" class="resultat-film">
+                    <img src="<?= htmlspecialchars($affiche) ?>" alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
                          class="affiche-mini" loading="lazy">
                     <div class="info-film">
                         <div class="titre-resultat"><?= htmlspecialchars($film['title']) ?></div>
