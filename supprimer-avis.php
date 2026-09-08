@@ -21,7 +21,7 @@ $avis   = null;
 // s'il appartient à l'utilisateur connecté.
 if (baseDisponible() && $id > 0) {
     $requete = $conn->prepare("
-        SELECT id, film_id, titre, contenu, created_at
+        SELECT id, film_id, titre, contenu, publie_le
         FROM avis
         WHERE id = ? AND utilisateur_id = ?
     ");
@@ -61,7 +61,7 @@ if ($avis) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
     <title>Cinévo — Supprimer mon avis</title>
 </head>
 <body>
@@ -101,7 +101,7 @@ if ($avis) {
             <?php endif; ?>
             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 300)) ?></p>
             <div class="avis-bas">
-                <span style="margin-left:auto;"><?= formaterDateFr($avis['created_at']) ?></span>
+                <span style="margin-left:auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
             </div>
         </article>
 

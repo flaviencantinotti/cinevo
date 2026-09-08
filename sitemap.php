@@ -20,7 +20,7 @@ $films = [];
 
 // Sans base, le sitemap se limite aux pages statiques plutôt que d'échouer.
 $result = baseDisponible() ? $conn->query("
-    SELECT film_id, MAX(created_at) AS derniere_maj
+    SELECT film_id, MAX(publie_le) AS derniere_maj
     FROM avis
     GROUP BY film_id
 ") : null;

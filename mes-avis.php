@@ -22,10 +22,10 @@ $mesAvis = [];
 
 if (baseDisponible()) {
     $stmt = $conn->prepare("
-        SELECT id, film_id, titre, contenu, created_at
+        SELECT id, film_id, titre, contenu, publie_le
         FROM avis
         WHERE utilisateur_id = ?
-        ORDER BY created_at DESC
+        ORDER BY publie_le DESC
     ");
     $stmt->bind_param('i', $_SESSION['utilisateur_id']);
     $stmt->execute();
@@ -44,7 +44,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
     <title>Cinévo — Mes avis</title>
 </head>
 <body>
@@ -87,7 +87,7 @@ if (baseDisponible()) {
                 <div class="avis-bas">
                     <span style="color:#8A8378;">sur</span>
                     <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
-                    <span style="margin-left:auto;"><?= formaterDateFr($avis['created_at']) ?></span>
+                    <span style="margin-left:auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
                 </div>
 
                 <div class="actions-avis">

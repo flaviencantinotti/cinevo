@@ -33,7 +33,7 @@ if ($query !== '') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Recherchez un film et retrouvez les avis et critiques écrits par la communauté Cinévo, sans notes ni classement.">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
     <title>Cinévo — Recherche<?= $query ? ' · ' . htmlspecialchars($query) : '' ?></title>
 </head>
 <body>
@@ -65,8 +65,8 @@ if ($query !== '') {
                 $annee   = substr($film['release_date'] ?? '', 0, 4);
                 $affiche = $tmdb->getPosterUrl($film['poster_path'], 'w92');
             ?>
-                <a href="fiche.php?id=<?= $film['id'] ?>" class="resultat-film">
-                    <img src="<?= $affiche ?>"
+                <a href="fiche.php?id=<?= (int) $film['id'] ?>" class="resultat-film">
+                    <img src="<?= htmlspecialchars($affiche) ?>"
                          alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
                          class="affiche-mini"
                          loading="lazy">
