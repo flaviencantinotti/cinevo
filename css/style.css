@@ -30,6 +30,13 @@ p {
   margin: 0;
 }
 
+/* Style de base des liens dans le texte (repris par les classes plus
+   spécifiques comme .lien-carte ou .lien-film quand il en faut un autre). */
+a {
+  color: #B53932;
+  text-decoration: underline;
+}
+
 h1, h2, h3, h4 {
   font-family: "Playfair Display", serif;
   font-weight: 700;
@@ -557,7 +564,7 @@ button {
 .groupe-champ label {
   display: block;
   margin-bottom: 5px;
-  color: #B53932;
+  color: #5A554E;
   font-size: 14px;
 }
 
@@ -610,20 +617,19 @@ input[type="submit"]:hover {
 
 /* ============ INSCRIPTION ============ */
 
+/* Même carte que la connexion, pour que les deux pages se ressemblent. */
 .boite-inscription {
   width: 50%;
+  background: white;
+  padding: 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
   margin: 30px auto;
-  padding: 20px;
-  background-color: #f8f8f8;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.boite-inscription h2 {
-  font-family: "Playfair Display", serif;
-  text-align: center;
+.boite-inscription h1 {
   margin-bottom: 20px;
-  font-size: 50px;
 }
 
 .formulaire {
@@ -637,7 +643,7 @@ input[type="submit"]:hover {
 .formulaire label {
   font-family: "Inter", sans-serif;
   font-size: 14px;
-  color: #B53932;
+  color: #5A554E;
   margin-bottom: 5px;
   width: 70%;
   margin: 10px auto 5px;
