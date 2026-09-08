@@ -123,9 +123,27 @@ class TMDB {
     }
 
     public function getMovie(int $id): ?array {
-        return $this->fetch("/movie/{$id}", [
+        $film = $this->fetch("/movie/{$id}", [
             'append_to_response' => 'credits,watch/providers'
         ]);
+
+        if ($film !== null) return $film;
+
+        // Ni l'API ni le cache n'ont répondu : on cherche au moins le titre
+        // et l'affiche dans la réserve ou le catalogue de secours, pour ne
+        // pas afficher "film introuvable" alors qu'on le connaît déjà.
+        return $this->trouverDansSecours($id);
+    }
+
+    /** Cherche un film par id dans la réserve, puis dans le catalogue livré avec le projet. */
+    private function trouverDansSecours(int $id): ?array {
+        foreach ($this->lireReserve() as $film) {
+            if ((int) $film['id'] === $id) {
+                return $film;
+            }
+        }
+
+        return null;
     }
 
     public function getPopular(int $page = 1): ?array {

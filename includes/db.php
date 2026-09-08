@@ -51,10 +51,10 @@ if ($conn !== null) {
     $conn->query("
         CREATE TABLE IF NOT EXISTS utilisateurs (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(50) UNIQUE NOT NULL,
+            nom_utilisateur VARCHAR(50) UNIQUE NOT NULL,
             email VARCHAR(100) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            mot_de_passe VARCHAR(255) NOT NULL,
+            inscrit_le DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");
 
@@ -65,10 +65,26 @@ if ($conn !== null) {
             film_id INT NOT NULL,
             titre VARCHAR(255),
             contenu TEXT NOT NULL,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            publie_le DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
         )
     ");
+
+    // Renomme les colonnes d'une base créée avec une ancienne version du
+    // projet (en anglais), pour ne pas casser un environnement déjà en place.
+    renommerColonneSiExiste($conn, 'utilisateurs', 'username', 'nom_utilisateur VARCHAR(50) UNIQUE NOT NULL');
+    renommerColonneSiExiste($conn, 'utilisateurs', 'password', 'mot_de_passe VARCHAR(255) NOT NULL');
+    renommerColonneSiExiste($conn, 'utilisateurs', 'created_at', 'inscrit_le DATETIME DEFAULT CURRENT_TIMESTAMP');
+    renommerColonneSiExiste($conn, 'avis', 'created_at', 'publie_le DATETIME DEFAULT CURRENT_TIMESTAMP');
+}
+
+// Renomme une colonne uniquement si elle existe encore sous son ancien nom.
+function renommerColonneSiExiste($conn, $table, $ancienNom, $nouvelleDefinition) {
+    $resultat = $conn->query("SHOW COLUMNS FROM `$table` LIKE '$ancienNom'");
+
+    if ($resultat && $resultat->num_rows > 0) {
+        $conn->query("ALTER TABLE `$table` CHANGE `$ancienNom` $nouvelleDefinition");
+    }
 }
 
 // La base est-elle utilisable ?
