@@ -32,7 +32,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=11">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=12">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 

@@ -651,9 +651,9 @@ button {
 .fond-footer {
   border-top: 1px solid #E5E0D8;
   background: #F2EDE4;
-  padding: 32px 48px;
-  margin-top: 64px;
-  font-size: 13px;
+  padding: 48px 48px 40px;
+  margin-top: 90px;
+  font-size: 14px;
   color: #5A554E;
 }
 
@@ -661,25 +661,42 @@ button {
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.footer-haut {
+  display: flex;
   flex-wrap: wrap;
-  gap: 24px;
   align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E5E0D8;
 }
 
 .logo-footer {
   font-family: "Playfair Display", serif;
-  font-weight: 700;
+  font-weight: 800;
+  font-size: 18px;
   letter-spacing: 0.06em;
+  color: #1A1A1A;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.point-sep {
-  color: #8A8378;
+.nav-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
 .slogan-footer {
-  margin-left: auto;
   font-style: italic;
   font-family: "Spectral", serif;
+  color: #8A8378;
 }
 
 .fond-footer a {
@@ -1684,18 +1701,19 @@ input[type="submit"]:hover {
   }
 
   .fond-footer {
-    padding: 24px 20px;
-    margin-top: 40px;
+    padding: 32px 20px 28px;
+    margin-top: 50px;
   }
 
-  .contenu-footer {
+  .footer-haut {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 16px;
   }
 
-  .slogan-footer {
-    margin-left: 0;
+  .nav-footer {
+    flex-direction: column;
+    gap: 10px;
   }
 
   h1 { font-size: 40px; }
