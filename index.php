@@ -32,7 +32,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=8">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=9">
     <title>Cinévo — Le cinéma se lit aussi</title>
 </head>
 
@@ -141,7 +141,7 @@ if (baseDisponible()) {
         <section class="appel-action">
             <span class="label-section">Pas d'idée ce soir ?</span>
             <h2>Découvrez un film au hasard, sans algorithme</h2>
-            <p style="max-width:640px; margin-top:12px; font-family:'Playfair Display', serif; font-size:18px; line-height:1.65; color:#1A1A1A;">
+            <p style="max-width:640px; margin-top:12px; font-family:'Spectral', serif; font-size:18px; line-height:1.65; color:#1A1A1A;">
                 Marre de scroller sans trouver de film à voir ? Cinévo tire pour vous une sélection aléatoire de
                 cinq films, sans recommandation algorithmique ni classement de popularité. Une vraie découverte de
                 films, pensée pour sortir de votre bulle et retrouver le plaisir de choisir un film au hasard.
