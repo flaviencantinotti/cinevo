@@ -10,8 +10,14 @@
   --gris: #5A554E;
   --gris-clair: #8A8378;
   --bordure: #E5E0D8;
-  --rouge: #B53932;
-  --vert: #2C5F4E;
+  /* Accent unique du site : ambre, repris du halo de lumière et du mot
+     « discute » dans la photo du hero. --ambre pour les touches décoratives
+     sur fond sombre, --ambre-fonce (plus soutenu) pour le texte, les liens
+     et les fonds de bouton — lisible avec du texte blanc dessus. */
+  --ambre: #D9A441;
+  --ambre-fonce: #8B5E00;
+  --rouge: var(--ambre-fonce);
+  --vert: var(--ambre-fonce);
 }
 
 /* ============ BASE ============ */
@@ -40,7 +46,7 @@ p {
 /* Style de base des liens dans le texte (repris par les classes plus
    spécifiques comme .lien-carte ou .lien-film quand il en faut un autre). */
 a {
-  color: #B53932;
+  color: var(--ambre-fonce);
   text-decoration: underline;
 }
 
@@ -131,7 +137,7 @@ header {
   width: 8px;
   height: 8px;
   display: inline-block;
-  background: #B53932;
+  background: var(--ambre-fonce);
   border-radius: 99px;
 }
 
@@ -171,12 +177,12 @@ nav a {
 }
 
 nav a:hover {
-  color: #B53932;
+  color: var(--ambre-fonce);
 }
 
 nav a.actif {
-  color: #B53932;
-  border-bottom-color: #B53932;
+  color: var(--ambre-fonce);
+  border-bottom-color: var(--ambre-fonce);
 }
 
 .entete-utilisateur {
@@ -223,14 +229,14 @@ button {
   font-family: "Playfair Display", serif;
   height: 36px;
   padding: 0 14px;
-  background: #B53932;
+  background: var(--ambre-fonce);
   color: #FAF7F2;
-  border: 1px solid #B53932;
+  border: 1px solid var(--ambre-fonce);
   border-radius: 4px;
 }
 
 .btn-rouge:hover {
-  background: #962e28;
+  background: #6B4700;
 }
 
 .btn-blanc {
@@ -258,7 +264,7 @@ button {
 /* ============ HERO (page accueil) ============ */
 
 .hero-titre em {
-  color: #B53932;
+  color: var(--ambre-fonce);
 }
 
 .hero-boutons {
@@ -297,6 +303,7 @@ button {
   background-image: url('../images/hero-conversation.jpg');
   background-size: cover;
   background-position: center 30%;
+  filter: grayscale(100%) contrast(1.05);
 }
 
 /* Voile sombre, plus marqué à droite : le texte y est posé, la pellicule
@@ -349,7 +356,7 @@ button {
 
 .hero-contenu h1 em {
   font-style: normal;
-  color: #D9A441;
+  color: var(--ambre);
 }
 
 .hero-description {
@@ -436,7 +443,7 @@ button {
 .carte-avis .lien-film {
   font-family: "Playfair Display", serif;
   font-style: italic;
-  color: #2C5F4E;
+  color: var(--ambre-fonce);
   text-decoration: none;
 }
 
@@ -447,7 +454,7 @@ button {
 }
 
 .lien-carte:hover .avis-titre {
-  color: #B53932;
+  color: var(--ambre-fonce);
 }
 
 .avatar {
@@ -681,7 +688,7 @@ button {
 }
 
 .contenu-footer a:hover {
-  color: #B53932;
+  color: var(--ambre-fonce);
 }
 
 /* ============ HOME (fil d'avis) ============ */
@@ -731,7 +738,7 @@ button {
 .encart h4 {
   font-family: "Playfair Display", serif;
   margin-bottom: 12px;
-  color: #2C5F4E;
+  color: var(--ambre-fonce);
   font-size: 14px;
   font-weight: 600;
 }
@@ -784,7 +791,7 @@ input[type="email"] {
 input[type="submit"] {
   width: 85%;
   padding: 10px;
-  background-color: #B53932;
+  background-color: var(--ambre-fonce);
   border: none;
   border-radius: 5px;
   color: white;
@@ -794,7 +801,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: #962e28;
+  background-color: #6B4700;
 }
 
 .lien-alternatif {
@@ -806,7 +813,7 @@ input[type="submit"]:hover {
 }
 
 .lien-alternatif a {
-  color: #B53932;
+  color: var(--ambre-fonce);
   text-decoration: underline;
 }
 
@@ -860,7 +867,7 @@ input[type="submit"]:hover {
 }
 
 .formulaire button {
-  background-color: #B53932;
+  background-color: var(--ambre-fonce);
   color: #fff;
   padding: 10px;
   border: none;
@@ -872,7 +879,7 @@ input[type="submit"]:hover {
 }
 
 .formulaire button:hover {
-  background-color: #962e28;
+  background-color: #6B4700;
 }
 
 /* ============ FICHE FILM ============ */
@@ -1059,7 +1066,7 @@ input[type="submit"]:hover {
 .champ input[type="text"]:focus,
 .champ textarea:focus {
   outline: none;
-  border-color: #B53932;
+  border-color: var(--ambre-fonce);
 }
 
 .compteur {
@@ -1145,7 +1152,7 @@ input[type="submit"]:hover {
 }
 
 .film-selectionne {
-  border-color: #2C5F4E;
+  border-color: var(--ambre-fonce);
   background: #F2EDE4;
 }
 
@@ -1208,7 +1215,7 @@ input[type="submit"]:hover {
 }
 
 .carte-hasard:hover .titre-hasard {
-  color: #B53932;
+  color: var(--ambre-fonce);
 }
 
 .annee-hasard {
@@ -1248,7 +1255,7 @@ input[type="submit"]:hover {
   font-size: 16px;
   font-weight: 600;
   padding: 12px 28px;
-  background: #B53932;
+  background: var(--ambre-fonce);
   color: #FAF7F2;
   border: none;
   border-radius: 4px;
@@ -1258,7 +1265,7 @@ input[type="submit"]:hover {
 }
 
 .boutons-form input[type="submit"]:hover {
-  background: #962e28;
+  background: #6B4700;
 }
 
 /* ============ PAGES (découvrir, à propos...) ============ */
@@ -1289,7 +1296,7 @@ input[type="submit"]:hover {
 }
 
 .texte-intro span {
-  color: #B53932;
+  color: var(--ambre-fonce);
   font-size: 25px;
   font-weight: 600;
   font-style: normal;
@@ -1316,7 +1323,7 @@ input[type="submit"]:hover {
   position: absolute;
   left: 0;
   top: 14px;
-  color: #B53932;
+  color: var(--ambre-fonce);
   font-weight: 700;
 }
 
@@ -1341,7 +1348,7 @@ input[type="submit"]:hover {
   font-size: 12px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #B53932;
+  color: var(--ambre-fonce);
   font-weight: 600;
 }
 
@@ -1352,7 +1359,7 @@ input[type="submit"]:hover {
 }
 
 .page-editoriale > h1 em {
-  color: #B53932;
+  color: var(--ambre-fonce);
 }
 
 .meta-article {
@@ -1396,7 +1403,7 @@ input[type="submit"]:hover {
 }
 
 .corps-texte h2 .num {
-  color: #B53932;
+  color: var(--ambre-fonce);
   font-size: 18px;
   font-weight: 600;
   margin-right: 8px;
@@ -1414,7 +1421,7 @@ input[type="submit"]:hover {
 }
 
 .corps-texte a {
-  color: #B53932;
+  color: var(--ambre-fonce);
   text-decoration: underline;
 }
 
@@ -1435,7 +1442,7 @@ input[type="submit"]:hover {
 }
 
 .section-communaute a {
-  color: #B53932;
+  color: var(--ambre-fonce);
   text-decoration: underline;
 }
 
@@ -1445,7 +1452,7 @@ input[type="submit"]:hover {
   font-size: 26px;
   line-height: 1.35;
   color: #1A1A1A;
-  border-left: 3px solid #B53932;
+  border-left: 3px solid var(--ambre-fonce);
   padding: 8px 0 8px 24px;
   margin: 28px 0;
 }
