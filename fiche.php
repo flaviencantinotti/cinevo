@@ -51,7 +51,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable — Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=6">
 </head>
 <body>
 
@@ -212,48 +212,56 @@ if ($id > 0) {
             }
             ?>
 
-            <div class="liste-avis" style="margin-top:24px;">
+            <?php // Les avis d'un même film s'affichent en fil de discussion : chaque
+                  // avis devient un message, en bulle, alternant de côté. ?>
 
-                <?php if (!baseDisponible()): ?>
-                    <?= messageBaseIndisponible('L\'affichage des avis') ?>
-                <?php elseif (empty($avisFilm)): ?>
-                    <p style="font-family:'Playfair Display'; font-style:italic; color:#8A8378;">
-                        Aucun avis pour ce film. Soyez le premier à en écrire un.
-                    </p>
-                <?php else: ?>
+            <?php if (!baseDisponible()): ?>
+                <?= messageBaseIndisponible('L\'affichage des avis') ?>
+            <?php elseif (empty($avisFilm)): ?>
+                <p style="font-family:'Playfair Display'; font-style:italic; color:#8A8378; margin-top:24px;">
+                    Aucun avis pour ce film. Soyez le premier à en écrire un.
+                </p>
+            <?php else: ?>
+                <div class="salon">
                     <?php foreach ($avisFilm as $avis):
                         $initiale = strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1));
-                        $date = formaterDateFr($avis['publie_le']);
+                        $teinte   = crc32($avis['nom_utilisateur']) % 360;
+                        $date     = formaterDateFr($avis['publie_le']);
                     ?>
-                        <article class="carte-avis">
-                            <?php if (!empty($avis['titre'])): ?>
-                                <h3 class="avis-titre"><?= htmlspecialchars($avis['titre']) ?></h3>
-                            <?php endif; ?>
-                            <p class="avis-texte"><?= htmlspecialchars($avis['contenu']) ?></p>
-                            <div class="avis-bas">
-                                <span class="avatar"><?= htmlspecialchars($initiale) ?></span>
-                                <span class="avis-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?></span>
-                                <span style="color:#8A8378;">sur</span>
-                                <span class="lien-film"><?= htmlspecialchars($film['title']) ?></span>
-                                <span style="margin-left: auto;"><?= $date ?></span>
-                            </div>
-
-                            <?php // L'auteur retrouve ses propres avis directement sur la fiche du film. ?>
-                            <?php if (estConnecte() && $avis['utilisateur_id'] == $_SESSION['utilisateur_id']): ?>
-                                <div class="actions-avis">
-                                    <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>">
-                                        <button class="btn-blanc">Modifier</button>
-                                    </a>
-                                    <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>">
-                                        <button class="btn-transparent btn-danger">Supprimer</button>
-                                    </a>
+                        <div class="message">
+                            <span class="avatar" style="background: oklch(0.55 0.12 <?= $teinte ?>);"><?= htmlspecialchars($initiale) ?></span>
+                            <div class="message-corps">
+                                <span class="message-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?> · <?= $date ?></span>
+                                <div class="message-bulle">
+                                    <?php if (!empty($avis['titre'])): ?>
+                                        <span class="message-titre"><?= htmlspecialchars($avis['titre']) ?></span>
+                                    <?php endif; ?>
+                                    <?= nl2br(htmlspecialchars($avis['contenu'])) ?>
                                 </div>
-                            <?php endif; ?>
-                        </article>
-                    <?php endforeach; ?>
-                <?php endif; ?>
 
-            </div>
+                                <?php // L'auteur retrouve ses propres avis directement sur la fiche du film. ?>
+                                <?php if (estConnecte() && $avis['utilisateur_id'] == $_SESSION['utilisateur_id']): ?>
+                                    <div class="actions-avis" style="margin-top:8px;">
+                                        <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>">
+                                            <button class="btn-blanc">Modifier</button>
+                                        </a>
+                                        <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>">
+                                            <button class="btn-transparent btn-danger">Supprimer</button>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div class="salon-reponse">
+                        <p>Pas d'accord, ou envie d'ajouter votre avis sur <?= htmlspecialchars($film['title']) ?> ?</p>
+                        <a href="ecrire.php?id=<?= $id ?>">
+                            <button class="btn-rouge">Répondre</button>
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
         </section>
 
     <?php endif; ?>

@@ -264,64 +264,85 @@ button {
 /*
  * Le hero n'affiche pas d'affiche de film : un photogramme en fond,
  * avec le nom du site et une présentation complète de ce qu'il propose.
+ * Il déborde volontairement du conteneur pour occuper toute la largeur
+ * de l'écran, et remonte sous l'en-tête (marge négative = padding-top
+ * de .contenu, à garder synchronisée avec les media-queries ci-dessous).
  */
 .hero {
   position: relative;
   overflow: hidden;
-  border-radius: 8px;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: -48px;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
 }
 
-/* Photogramme en fond ; un dégradé sert de secours si l'API n'en a pas fourni. */
+/* Photogramme en fond : une vraie photo (pellicule tenue en main), avec un
+   dégradé de secours si jamais le fichier venait à manquer. */
 .hero-fond {
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse 900px 700px at 50% 38%, rgba(120, 95, 70, 0.35), transparent 60%),
     linear-gradient(180deg, #221a14 0%, #15100c 55%, #0c0a08 100%);
+  background-image: url('../images/hero-conversation.jpg');
+  background-size: cover;
+  background-position: center 30%;
 }
 
-.hero-fond img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Voile sombre : garantit que le texte reste lisible, quelle que soit l'image. */
+/* Voile sombre, plus marqué à droite : le texte y est posé, la pellicule
+   reste visible à gauche. Garantit la lisibilité quelle que soit l'image. */
 .hero-voile {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(10,8,6,0.55) 0%, rgba(10,8,6,0.7) 45%, rgba(10,8,6,0.88) 100%);
+  background: linear-gradient(100deg,
+    rgba(10,8,6,0.25) 0%,
+    rgba(10,8,6,0.55) 40%,
+    rgba(10,8,6,0.82) 62%,
+    rgba(10,8,6,0.90) 100%);
 }
 
 .hero-contenu {
   position: relative;
   z-index: 2;
-  max-width: 760px;
-  margin: 0 auto;
+  max-width: 620px;
+  margin: 0 0 0 auto;
   padding: 90px 40px;
-  text-align: center;
+  text-align: right;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #F4ECDD;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 999px;
 }
 
 .hero-contenu h1 {
   font-family: "Playfair Display", serif;
-  font-weight: 600;
-  font-size: 76px;
-  letter-spacing: 0.04em;
-  line-height: 1;
+  font-weight: 700;
+  font-size: 52px;
+  letter-spacing: -0.01em;
+  line-height: 1.14;
   color: #FAF7F2;
+  margin-top: 22px;
 }
 
-.hero-contenu h2 {
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 18px;
-  letter-spacing: 0.02em;
-  color: #C9AE8C;
-  margin-top: 18px;
+.hero-contenu h1 em {
+  font-style: normal;
+  color: #D9A441;
 }
 
 .hero-description {
@@ -329,13 +350,13 @@ button {
   font-size: 17px;
   line-height: 1.65;
   color: #D8CFC0;
-  max-width: 58ch;
-  margin: 26px auto 0;
+  max-width: 42ch;
+  margin: 20px 0 0 auto;
 }
 
 .hero-contenu .hero-boutons {
-  margin-top: 36px;
-  justify-content: center;
+  margin-top: 30px;
+  justify-content: flex-end;
 }
 .hero-contenu .btn-blanc {
   background: transparent;
@@ -434,6 +455,180 @@ button {
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
+}
+
+/* ============ SALON DE DISCUSSION (fiche film) ============
+ * Les avis d'un même film s'affichent comme un fil de discussion :
+ * chaque avis est un message, en bulle, alternant de côté. Ce n'est pas
+ * un vrai système de réponses (la base ne relie pas les avis entre eux),
+ * mais une mise en scène des avis existants comme une conversation.
+ */
+
+.salon {
+  background: #fff;
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  padding: 28px 30px 30px;
+  margin-top: 24px;
+}
+
+.message {
+  display: flex;
+  gap: 12px;
+  max-width: 82%;
+  margin-bottom: 18px;
+  align-items: flex-start;
+}
+
+.message:last-child {
+  margin-bottom: 0;
+}
+
+.message .avatar {
+  width: 34px;
+  height: 34px;
+  font-size: 13px;
+}
+
+.message-corps {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.message-corps .message-auteur {
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  color: var(--gris-clair);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.message-bulle {
+  padding: 13px 17px;
+  border-radius: 16px;
+  border-top-left-radius: 4px;
+  font-family: "Playfair Display", serif;
+  font-size: 15.5px;
+  line-height: 1.55;
+  background: var(--beige-2);
+  color: var(--noir);
+}
+
+.message-bulle .message-titre {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.message:nth-child(even) {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+
+.message:nth-child(even) .message-corps {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.message:nth-child(even) .message-bulle {
+  background: var(--vert);
+  color: #fff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 4px;
+}
+
+.salon-reponse {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--bordure);
+  flex-wrap: wrap;
+}
+
+.salon-reponse p {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  color: var(--gris);
+  font-size: 15px;
+  margin: 0;
+}
+
+/* ============ LISTE DES DISCUSSIONS (avis.php) ============
+ * Les avis sont regroupés par film : chaque ligne montre le dernier
+ * message et le nombre d'avis publiés sur ce film, pas une note.
+ */
+
+.liste-discussions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.apercu-discussion {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.avatars-empiles {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.avatars-empiles .avatar {
+  width: 30px;
+  height: 30px;
+  font-size: 11.5px;
+  border: 2px solid #fff;
+  margin-left: -10px;
+}
+
+.avatars-empiles .avatar:first-child {
+  margin-left: 0;
+}
+
+.apercu-discussion .corps {
+  flex: 1;
+  min-width: 0;
+}
+
+.apercu-discussion .corps .film {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 15.5px;
+  color: var(--noir);
+}
+
+.apercu-discussion .corps .dernier-message {
+  font-size: 13.5px;
+  color: var(--gris);
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.apercu-discussion .compte {
+  font-size: 12.5px;
+  color: var(--gris-clair);
+  text-align: right;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.apercu-discussion:hover .corps .film {
+  color: var(--rouge);
 }
 
 /* ============ FOOTER ============ */
@@ -1283,12 +1478,16 @@ input[type="submit"]:hover {
     padding: 40px 32px 64px;
   }
 
+  .hero {
+    margin-top: -40px;
+  }
+
   .hero-contenu {
     padding: 72px 32px;
   }
 
   .hero-contenu h1 {
-    font-size: 58px;
+    font-size: 42px;
   }
 
   .grille-hasard {
@@ -1343,12 +1542,29 @@ input[type="submit"]:hover {
     padding: 28px 20px 48px;
   }
 
+  .hero {
+    margin-top: -28px;
+    min-height: 70vh;
+  }
+
   .hero-contenu {
     padding: 56px 20px;
+    max-width: 100%;
+    text-align: left;
+    margin: 0;
+  }
+
+  .hero-description,
+  .hero-contenu .hero-boutons {
+    margin-left: 0;
+  }
+
+  .hero-contenu .hero-boutons {
+    justify-content: flex-start;
   }
 
   .hero-contenu h1 {
-    font-size: 40px;
+    font-size: 34px;
   }
 
   .grille-avis {
@@ -1357,6 +1573,19 @@ input[type="submit"]:hover {
 
   .grille-hasard {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .message {
+    max-width: 100%;
+  }
+
+  .apercu-discussion {
+    flex-wrap: wrap;
+  }
+
+  .apercu-discussion .compte {
+    text-align: left;
+    margin-left: 46px;
   }
 
   .avis-entete {

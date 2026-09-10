@@ -24,14 +24,6 @@ if (baseDisponible()) {
         $avisRecents[]     = $row;
     }
 }
-
-// Un film au hasard pour le fond du hero : on garde le premier tirage
-// qui a un photogramme (backdrop_path), sinon le hero garde son dégradé.
-$backdropUrl = null;
-foreach ($tmdb->getRandomMovies(6) as $filmBrut) {
-    $backdropUrl = $tmdb->getBackdropUrl($filmBrut['backdrop_path'] ?? null);
-    if ($backdropUrl) break;
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -40,7 +32,7 @@ foreach ($tmdb->getRandomMovies(6) as $filmBrut) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=6">
     <title>Cinévo — Le cinéma se lit aussi</title>
 </head>
 
@@ -51,36 +43,27 @@ foreach ($tmdb->getRandomMovies(6) as $filmBrut) {
     <main class="contenu">
 
         <section class="hero">
-            <div class="hero-fond">
-                <?php if ($backdropUrl): ?>
-                    <img src="<?= htmlspecialchars($backdropUrl) ?>" alt="" loading="lazy">
-                <?php endif; ?>
-            </div>
+            <div class="hero-fond"></div>
             <div class="hero-voile"></div>
 
             <div class="hero-contenu">
 
-                <h1>CINÉVO</h1>
-                <h2>Plateforme pour passionné(e)s de cinéma</h2>
+                <span class="hero-badge">💬 Sans note, sans classement</span>
+                <h1>Le cinéma, ça se <em>discute</em></h1>
 
                 <p class="hero-description">
-                    Cinévo réunit celles et ceux qui aiment parler cinéma. Cherchez un film dans notre
-                    catalogue, consultez sa fiche complète — synopsis, distribution, plateformes de
-                    streaming — puis lisez ou publiez un avis rédigé, sans note ni classement. Pas
-                    d'idée ce soir ? Tirez cinq films au hasard, sans algorithme de recommandation.
+                    Sur Cinévo, chaque avis ouvre une conversation. Pas d'accord avec une critique ?
+                    Répondez, nuancez, débattez — c'est ce que les sites de notation ne permettent pas.
                 </p>
 
                 <div class="hero-boutons">
-                    <a href="decouvrir.php">
-                        <button class="btn-rouge">Découvrir
+                    <a href="avis.php">
+                        <button class="btn-rouge">Rejoindre une discussion
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M5 12h14M13 6l6 6-6 6"></path>
                             </svg>
                         </button>
-                    </a>
-                    <a href="inscription.php">
-                        <button class="btn-blanc">Rejoindre Cinévo</button>
                     </a>
                 </div>
 

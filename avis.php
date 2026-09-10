@@ -5,40 +5,71 @@ require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
 $tmdb = new TMDB();
 
-$parPage      = 12;
+// La page regroupe les avis par film : chaque film devient une discussion,
+// avec son dernier message et le nombre d'avis publiés (jamais une note).
+$parPage      = 10;
 $pageCourante = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
 $offset       = ($pageCourante - 1) * $parPage;
 
-$total      = 0;
-$avisListe  = [];
+$total          = 0;
+$discussions    = [];
 
 if (baseDisponible()) {
-    $compte = $conn->query("SELECT COUNT(*) AS total FROM avis");
+    $compte = $conn->query("SELECT COUNT(DISTINCT film_id) AS total FROM avis");
     $total  = $compte ? (int) $compte->fetch_assoc()['total'] : 0;
 }
 
 $totalPages = max(1, (int) ceil($total / $parPage));
 
-$result = null;
-
 if (baseDisponible()) {
     $stmt = $conn->prepare("
-        SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur
+        SELECT film_id, COUNT(*) AS nb_avis, MAX(publie_le) AS dernier_le
         FROM avis
-        JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-        ORDER BY avis.publie_le DESC
+        GROUP BY film_id
+        ORDER BY dernier_le DESC
         LIMIT ? OFFSET ?
     ");
     $stmt->bind_param('ii', $parPage, $offset);
     $stmt->execute();
-    $result = $stmt->get_result();
-}
+    $filmsRow = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-while ($result && $row = $result->fetch_assoc()) {
-    $film = $tmdb->getMovie((int) $row['film_id']);
-    $row['film_titre'] = $film['title'] ?? 'Film';
-    $row['teinte']     = crc32($row['nom_utilisateur']) % 360;
-    $avisListe[]       = $row;
+    foreach ($filmsRow as $ligne) {
+        $filmId = (int) $ligne['film_id'];
+
+        $stmtDernier = $conn->prepare("
+            SELECT avis.titre, avis.contenu, utilisateurs.nom_utilisateur
+            FROM avis
+            JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
+            WHERE avis.film_id = ?
+            ORDER BY avis.publie_le DESC
+            LIMIT 1
+        ");
+        $stmtDernier->bind_param('i', $filmId);
+        $stmtDernier->execute();
+        $dernierAvis = $stmtDernier->get_result()->fetch_assoc();
+
+        $stmtAuteurs = $conn->prepare("
+            SELECT DISTINCT utilisateurs.nom_utilisateur
+            FROM avis
+            JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
+            WHERE avis.film_id = ?
+            ORDER BY avis.publie_le DESC
+            LIMIT 3
+        ");
+        $stmtAuteurs->bind_param('i', $filmId);
+        $stmtAuteurs->execute();
+        $auteurs = array_column($stmtAuteurs->get_result()->fetch_all(MYSQLI_ASSOC), 'nom_utilisateur');
+
+        $film = $tmdb->getMovie($filmId);
+
+        $discussions[] = [
+            'film_id'     => $filmId,
+            'film_titre'  => $film['title'] ?? 'Film',
+            'nb_avis'     => (int) $ligne['nb_avis'],
+            'dernier'     => $dernierAvis,
+            'auteurs'     => $auteurs,
+        ];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -47,7 +78,7 @@ while ($result && $row = $result->fetch_assoc()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tous les avis et critiques de films publiés par la communauté Cinévo, sans notes ni classement, triés du plus récent au plus ancien.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=5">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=6">
     <title>Tous les avis et critiques de films — Cinévo</title>
 </head>
 <body>
@@ -57,35 +88,38 @@ while ($result && $row = $result->fetch_assoc()) {
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section">La communauté écrit</span>
-        <h1>Tous les avis</h1>
-        <p class="intro">Les critiques de films publiées par la communauté Cinévo, du plus récent au plus ancien.</p>
+        <span class="label-section">Ce qui nous distingue</span>
+        <h1>Discussions en cours</h1>
+        <p class="intro">Chaque avis ouvre une conversation autour d'un film. Pas de note ni de classement : juste des gens qui débattent, du plus récent au plus ancien.</p>
     </div>
 
     <hr class="separateur">
 
-    <div class="grille-avis">
+    <div class="liste-discussions">
 
         <?php if (!baseDisponible()): ?>
-            <?= messageBaseIndisponible('La liste des avis') ?>
-        <?php elseif (empty($avisListe)): ?>
+            <?= messageBaseIndisponible('La liste des discussions') ?>
+        <?php elseif (empty($discussions)): ?>
             <p class="intro">Aucun avis publié pour l'instant. <a href="ecrire.php">Soyez le premier à en écrire un</a> !</p>
         <?php endif; ?>
 
-        <?php foreach ($avisListe as $avis): ?>
-            <article class="carte-avis">
-                <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-carte">
-                    <h3 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
-                    <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 160)) ?></p>
-                </a>
-                <div class="avis-bas">
-                    <span class="avatar" style="background: oklch(0.55 0.12 <?= $avis['teinte'] ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1))) ?></span>
-                    <span class="avis-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?></span>
-                    <span style="color: #8A8378;">sur</span>
-                    <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
-                    <span style="margin-left: auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
+        <?php foreach ($discussions as $discussion): ?>
+            <a href="fiche.php?id=<?= $discussion['film_id'] ?>" class="apercu-discussion">
+                <div class="avatars-empiles">
+                    <?php foreach ($discussion['auteurs'] as $nomAuteur):
+                        $teinte = crc32($nomAuteur) % 360;
+                    ?>
+                        <span class="avatar" style="background: oklch(0.55 0.12 <?= $teinte ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($nomAuteur, 0, 1))) ?></span>
+                    <?php endforeach; ?>
                 </div>
-            </article>
+                <div class="corps">
+                    <div class="film"><?= htmlspecialchars($discussion['film_titre']) ?></div>
+                    <?php if ($discussion['dernier']): ?>
+                        <div class="dernier-message"><?= htmlspecialchars($discussion['dernier']['nom_utilisateur']) ?> : « <?= htmlspecialchars(extrait($discussion['dernier']['contenu'], 90)) ?> »</div>
+                    <?php endif; ?>
+                </div>
+                <div class="compte"><?= $discussion['nb_avis'] ?> avis</div>
+            </a>
         <?php endforeach; ?>
 
     </div>
