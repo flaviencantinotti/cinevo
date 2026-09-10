@@ -44,7 +44,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=12">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=13">
     <title>Cinévo · Mes avis</title>
 </head>
 <body>
@@ -102,8 +102,6 @@ if (baseDisponible()) {
         <?php endforeach; ?>
 
     </div>
-
-    <hr class="separateur">
 
 </main>
 

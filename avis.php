@@ -78,7 +78,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tous les avis et critiques de films publiés par la communauté Cinévo, sans notes ni classement, triés du plus récent au plus ancien.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=12">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=13">
     <title>Tous les avis et critiques de films · Cinévo</title>
 </head>
 <body>
@@ -154,8 +154,6 @@ if (baseDisponible()) {
             quelques lignes, ou allez voir un <a href="hasard.php">film au hasard</a> si vous cherchez l'inspiration.
         </p>
     </section>
-
-    <hr class="separateur">
 
 </main>
 
