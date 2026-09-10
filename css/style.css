@@ -20,7 +20,14 @@
   box-sizing: border-box;
 }
 
-html, body {
+/* html n'est pas plafonné à 1280px : il sert à absorber, sans rien couper,
+   le débordement d'un pixel que peut créer 100vw à cause de la barre de
+   défilement verticale (le hero, lui, doit vraiment atteindre les bords). */
+html {
+  overflow-x: hidden;
+}
+
+body {
   margin: auto;
   max-width: 1280px;
   background: #FAF7F2;
