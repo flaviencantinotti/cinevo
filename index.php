@@ -32,8 +32,8 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=9">
-    <title>Cinévo — Le cinéma se lit aussi</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=10">
+    <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
 <body>
@@ -53,7 +53,7 @@ if (baseDisponible()) {
 
                 <p class="hero-description">
                     Sur Cinévo, chaque avis ouvre une conversation. Pas d'accord avec une critique ?
-                    Répondez, nuancez, débattez — c'est ce que les sites de notation ne permettent pas.
+                    Répondez, nuancez, débattez : c'est ce que les sites de notation ne permettent pas.
                 </p>
 
                 <div class="hero-boutons">
@@ -76,14 +76,12 @@ if (baseDisponible()) {
             <span class="label-section">Notre concept</span>
             <h2>Un site communautaire d'avis et de critiques de films</h2>
             <p>
-                Cinévo est un site communautaire dédié aux avis et critiques de films, pensé pour les cinéphiles
-                qui préfèrent écrire plutôt que noter. Ici, pas d'étoiles, pas de classement : chaque avis de
-                spectateur raconte avec ses propres mots ce qu'un film a été vu et ressenti.
+                On n'a jamais mis de note à un film ici, et on ne va pas commencer. Vous avez aimé, détesté,
+                pleuré, ou dormi pendant la moitié ? Dites-le avec vos mots, personne ne compte les étoiles.
             </p>
             <p>
-                Vous avez un espace clair pour discuter entre passionné(e)s de cinéma : les dernières sorties en
-                salle, les films de patrimoine et le cinéma classique, vos listes de films et vos tops personnels —
-                tout est sujet à discussion et à débat cinéphile, dans un endroit sain, sans jugement ni ton snob.
+                Sorties du moment, vieux classiques poussiéreux, tops perso improbables : tout passe, tant que
+                ça vient vraiment de vous.
             </p>
             <p>
                 Envie d'en savoir plus sur cette <a href="decouvrir.php">communauté de cinéphiles</a> ou de
@@ -142,9 +140,9 @@ if (baseDisponible()) {
             <span class="label-section">Pas d'idée ce soir ?</span>
             <h2>Découvrez un film au hasard, sans algorithme</h2>
             <p style="max-width:640px; margin-top:12px; font-family:'Spectral', serif; font-size:18px; line-height:1.65; color:#1A1A1A;">
-                Marre de scroller sans trouver de film à voir ? Cinévo tire pour vous une sélection aléatoire de
-                cinq films, sans recommandation algorithmique ni classement de popularité. Une vraie découverte de
-                films, pensée pour sortir de votre bulle et retrouver le plaisir de choisir un film au hasard.
+                Vous scrollez depuis 20 minutes sans rien trouver ? On connaît. On vous pioche cinq films au
+                pifomètre. Pas d'algo qui vous ressert le même film sous un autre titre : juste du hasard, et
+                peut-être un coup de cœur inattendu.
             </p>
             <div class="hero-boutons" style="margin-top:20px;">
                 <a href="hasard.php">

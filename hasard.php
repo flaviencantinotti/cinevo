@@ -34,8 +34,8 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinq films tirés au hasard, sans algorithme de recommandation. Sortez de votre bulle et découvrez un film à voir ce soir sur Cinévo.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=9">
-    <title>Films au hasard à découvrir — Cinévo</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=10">
+    <title>Films au hasard à découvrir · Cinévo</title>
 </head>
 <body>
 
@@ -93,7 +93,7 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
         </p>
         <p>
             L'objectif est simple : sortir de sa bulle de filtres et retomber sur un film que vous n'auriez
-            jamais cherché vous-même — qu'il s'agisse d'une dernière sortie, d'un classique du cinéma ou d'une
+            jamais cherché vous-même, qu'il s'agisse d'une dernière sortie, d'un classique du cinéma ou d'une
             pépite méconnue. Si un tirage ne vous inspire pas, relancez-en un autre : la sélection aléatoire est
             illimitée.
         </p>

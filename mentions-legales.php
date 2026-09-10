@@ -9,8 +9,8 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Mentions légales de Cinévo : éditeur du site, hébergement, propriété intellectuelle et données personnelles.">
     <meta name="robots" content="noindex, follow">
-    <title>Cinévo — Mentions légales</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=9">
+    <title>Cinévo · Mentions légales</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=10">
 </head>
 <body>
 
@@ -22,7 +22,7 @@ require_once 'includes/auth.php';
     <div class="chapeau">Informations légales</div>
     <h1>Mentions <em>légales.</em></h1>
     <p class="intro">
-        Tout ce que la loi nous oblige à vous dire — et que nous vous disons aussi clairement que possible.
+        Tout ce que la loi nous oblige à vous dire, et que nous vous disons aussi clairement que possible.
     </p>
 
     <div class="meta-article">
@@ -35,7 +35,7 @@ require_once 'includes/auth.php';
         <section>
             <h2><span class="num">01</span> Éditeur du site</h2>
             <dl class="liste-definitions">
-                <dt>Nom</dt><dd>Flavien CANTINOTTI. — entrepreneur individuel</dd>
+                <dt>Nom</dt><dd>Flavien CANTINOTTI, entrepreneur individuel</dd>
                 <dt>Statut</dt><dd>Micro-entreprise</dd>
                 <dt>SIRET</dt><dd>012 345 678 90123</dd>
                 <dt>Adresse</dt><dd>Besançon, France</dd>
@@ -57,8 +57,8 @@ require_once 'includes/auth.php';
         <section>
             <h2><span class="num">03</span> Propriété intellectuelle</h2>
             <p>
-                L'ensemble du site Cinévo — interface, code source, identité visuelle, textes
-                éditoriaux — est la propriété de son éditeur, sauf mention contraire. Toute
+                L'ensemble du site Cinévo (interface, code source, identité visuelle, textes
+                éditoriaux) est la propriété de son éditeur, sauf mention contraire. Toute
                 reproduction, même partielle, est soumise à autorisation préalable.
             </p>
             <p>
@@ -84,7 +84,7 @@ require_once 'includes/auth.php';
             </p>
             <p>
                 Pour signaler un contenu : <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a>.
-                Décrivez la nature précise du problème — diffamation, atteinte au droit d'auteur,
+                Décrivez la nature précise du problème : diffamation, atteinte au droit d'auteur,
                 propos haineux. Nous traitons sous 72 heures.
             </p>
         </section>

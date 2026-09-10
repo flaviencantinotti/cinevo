@@ -61,19 +61,19 @@ $film = $tmdb->getMovie(550);
 $apiRepond = !empty($film['title']);
 
 $controles[] = ['Réponse de l\'API TMDB', $apiRepond,
-    $apiRepond ? 'OK — film test reçu : ' . $film['title'] : ($tmdb->derniereErreur() ?: 'aucune réponse'), true];
+    $apiRepond ? 'OK, film test reçu : ' . $film['title'] : ($tmdb->derniereErreur() ?: 'aucune réponse'), true];
 
 $reserve = $tmdb->tailleReserve();
 $controles[] = ['Réserve de films hors ligne', $reserve > 0,
-    $reserve > 0 ? $reserve . ' films disponibles sans réseau' : 'vide — lancez un préchauffage', false];
+    $reserve > 0 ? $reserve . ' films disponibles sans réseau' : 'vide, lancez un préchauffage', false];
 
 $catalogue = $tmdb->tailleCatalogue();
 $controles[] = ['Catalogue livré avec le dépôt', $catalogue > 0,
     $catalogue > 0 ? $catalogue . ' films : un clone neuf affiche des films sans configuration'
-                   : 'absent — préchauffez puis cliquez « Exporter le catalogue »', false];
+                   : 'absent, préchauffez puis cliquez « Exporter le catalogue »', false];
 
 $controles[] = ['Base de données MySQL', baseDisponible(),
-    baseDisponible() ? 'connexion établie' : baseErreur() . ' — démarrez MySQL dans WAMP/XAMPP', true];
+    baseDisponible() ? 'connexion établie' : baseErreur() . ' : démarrez MySQL dans WAMP/XAMPP', true];
 
 if (!baseDisponible()) {
     $controles[] = ['Pages consultables sans base', true,
@@ -108,8 +108,8 @@ if ($enConsole) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=9">
-    <title>Diagnostic technique — Cinévo</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=10">
+    <title>Diagnostic technique · Cinévo</title>
 </head>
 <body>
 

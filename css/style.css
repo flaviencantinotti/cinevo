@@ -1320,7 +1320,7 @@ input[type="submit"]:hover {
 }
 
 .liste-public li::before {
-  content: "—";
+  content: "•";
   position: absolute;
   left: 0;
   top: 14px;

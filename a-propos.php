@@ -8,8 +8,8 @@ require_once 'includes/auth.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="L'histoire de Cinévo : pourquoi ce site d'avis cinéma sans notes existe, qui l'a créé, et la règle qui le définit : aucun ton snob toléré.">
-    <title>À propos de Cinévo — Notre histoire et notre mission</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=9">
+    <title>À propos de Cinévo · Notre histoire et notre mission</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=10">
 </head>
 <body>
 
@@ -36,7 +36,7 @@ require_once 'includes/auth.php';
         <section>
             <h2><span class="num">01</span> Pourquoi ce site existe ?</h2>
             <p>
-                Les sites cinéphiles existants — Letterboxd, SensCritique — réduisent le film à un
+                Les sites cinéphiles existants (Letterboxd, SensCritique) réduisent le film à un
                 chiffre, hiérarchisent les avis selon la popularité, et installent une bulle
                 algorithmique qui appauvrit la découverte.
             </p>
@@ -65,7 +65,7 @@ require_once 'includes/auth.php';
                 </li>
                 <li>
                     Pas de recommandation algorithmique
-                    <em>Vous lisez parce que quelqu'un a écrit — pas parce qu'une machine a calculé.</em>
+                    <em>Vous lisez parce que quelqu'un a écrit, pas parce qu'une machine a calculé.</em>
                 </li>
                 <li>
                     Pas de compteur de films vus, pas de badges, pas de niveaux
@@ -81,9 +81,9 @@ require_once 'includes/auth.php';
         <section>
             <h2><span class="num">03</span> Pour qui Cinévo est conçu ?</h2>
             <p>
-                Pour ceux qui aiment le cinéma — point. Que vous soyez étudiant en école de cinéma,
+                Pour ceux qui aiment le cinéma, point. Que vous soyez étudiant en école de cinéma,
                 retraité curieux, parent fatigué qui cherche un film pour ce soir ou cinéphile
-                à l'imposteur — Cinévo est conçu pour vous, et pour les autres en même temps.
+                à l'imposteur, Cinévo est conçu pour vous, et pour les autres en même temps.
             </p>
             <p>
                 Une règle, une seule, qui découle de tout le reste : <em>aucun ton snob toléré</em>.
@@ -101,7 +101,7 @@ require_once 'includes/auth.php';
             </p>
             <p>
                 Si Cinévo vous est utile et que vous souhaitez contribuer aux frais, un
-                don est possible — sans contrepartie, sans
+                don est possible, sans contrepartie, sans
                 statut particulier sur le site. Vous restez exactement le même membre.
             </p>
         </section>
@@ -110,8 +110,8 @@ require_once 'includes/auth.php';
             <h2><span class="num">05</span> Qui est derrière ?</h2>
             <p>
                 Cinévo est conçu et développé par <strong>Flavien</strong>, basé à Besançon, dans
-                le cadre d'un projet de validation du titre RNCP 37674 — Développeur Web et
-                Web Mobile (DWWM).
+                le cadre d'un projet de validation du titre RNCP 37674 (Développeur Web et
+                Web Mobile, DWWM).
             </p>
             <p>
                 Pour toute question, suggestion, ou remarque : <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a>.

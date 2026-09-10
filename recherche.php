@@ -33,8 +33,8 @@ if ($query !== '') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Recherchez un film et retrouvez les avis et critiques écrits par la communauté Cinévo, sans notes ni classement.">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=9">
-    <title>Cinévo — Recherche<?= $query ? ' · ' . htmlspecialchars($query) : '' ?></title>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=10">
+    <title>Cinévo · Recherche<?= $query ? ' · ' . htmlspecialchars($query) : '' ?></title>
 </head>
 <body>
 
