@@ -1399,7 +1399,7 @@ input[type="submit"]:hover {
   margin: 0 0 28px;
 }
 
-.ouverture-decouvrir .surligne {
+.surligne {
   font-style: italic;
   background: var(--ambre-fonce);
   color: #FAF7F2;

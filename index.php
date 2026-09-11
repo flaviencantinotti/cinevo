@@ -37,7 +37,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=15">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=16">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -108,7 +108,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
             <div class="avis-entete">
                 <div>
                     <span class="label-section">À lire en ce moment</span>
-                    <h2>Avis récents</h2>
+                    <h2>Avis <span class="surligne">récents</span></h2>
                 </div>
                 <a href="avis.php">
                     <button class="btn-transparent">Voir plus d'avis
@@ -154,7 +154,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
             <div class="hasard-encart">
                 <div class="hasard-texte">
                     <span class="label-section">On regarde quoi ce soir ?</span>
-                    <h2>Découvrez un film au hasard, sans algorithme</h2>
+                    <h2>Découvrez un film au <span class="surligne">hasard</span>, sans algorithme</h2>
                     <p>
                         Vous scrollez depuis 20 minutes sans rien trouver ? On connaît. On vous propose cinq
                         films au hasard : le but ? Se laisser guider, loin des recommandations, et découvrir
