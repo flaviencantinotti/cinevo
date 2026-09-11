@@ -62,7 +62,7 @@ $tmdb = new TMDB();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=17">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=18">
     <title>Installation · Cinévo</title>
 </head>
 <body>
@@ -70,7 +70,7 @@ $tmdb = new TMDB();
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section">Mise en route sur une nouvelle machine</span>
+        <span class="label-section surligne">Mise en route sur une nouvelle machine</span>
         <h1>Installation</h1>
     </div>
 

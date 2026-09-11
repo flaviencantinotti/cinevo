@@ -44,7 +44,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=17">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=18">
     <title>Cinévo · Mes avis</title>
 </head>
 <body>
@@ -54,7 +54,7 @@ if (baseDisponible()) {
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section">Votre espace</span>
+        <span class="label-section surligne">Votre espace</span>
         <h1>Mes avis</h1>
         <p class="intro">
             <?= count($mesAvis) > 0

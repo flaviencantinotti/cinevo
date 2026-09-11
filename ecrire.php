@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=17">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=18">
     <title>Cinévo · Écrire un avis</title>
 </head>
 <body>
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section">Partager votre ressenti</span>
+        <span class="label-section surligne">Partager votre ressenti</span>
         <h1>Écrire un avis</h1>
         <p class="intro">Pas de note. Pas de format imposé. Juste ce que le film vous a fait.</p>
     </div>
