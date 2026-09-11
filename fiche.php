@@ -51,7 +51,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=14">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=15">
 </head>
 <body>
 
