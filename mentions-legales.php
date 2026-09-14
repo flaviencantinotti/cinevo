@@ -98,9 +98,10 @@ require_once 'includes/auth.php';
             </p>
             <p>
                 Vous disposez d'un droit d'accès, de rectification, de portabilité, d'opposition
-                et de suppression de vos données. Depuis votre page profil, vous
-                pouvez à tout moment exporter vos avis ou supprimer votre compte (suppression
-                définitive sous 30 jours).
+                et de suppression de vos données. Vous pouvez supprimer chacun de vos avis
+                à tout moment depuis <a href="mes-avis.php">votre espace</a>. Pour une demande
+                d'export de vos données ou de suppression complète de votre compte, écrivez-nous
+                à l'adresse ci-dessous : nous traitons ces demandes sous 30 jours.
             </p>
             <p>
                 Pour toute question liée au RGPD : <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a>.

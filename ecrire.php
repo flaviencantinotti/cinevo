@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!baseDisponible()) {
             $erreur = 'Publication impossible : la base de données ne répond pas. '
                 . 'Votre texte est conservé ci-dessous, réessayez dans un instant.';
-        } elseif ($film_id > 0 && strlen($contenu) >= 20) {
+        } elseif ($film_id > 0 && mb_strlen($contenu) >= 20) {
             $stmt = $conn->prepare("INSERT INTO avis (utilisateur_id, film_id, titre, contenu) VALUES (?, ?, ?, ?)");
             $stmt->bind_param('iiss', $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
             $stmt->execute();

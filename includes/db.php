@@ -70,6 +70,17 @@ if ($conn !== null) {
         )
     ");
 
+    // Messages envoyés depuis le formulaire de contact (page contact.php).
+    $conn->query("
+        CREATE TABLE IF NOT EXISTS messages_contact (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nom VARCHAR(100) NOT NULL,
+            email VARCHAR(100) NOT NULL,
+            message TEXT NOT NULL,
+            envoye_le DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    ");
+
     // Renomme les colonnes d'une base créée avec une ancienne version du
     // projet (en anglais), pour ne pas casser un environnement déjà en place.
     renommerColonneSiExiste($conn, 'utilisateurs', 'username', 'nom_utilisateur VARCHAR(50) UNIQUE NOT NULL');

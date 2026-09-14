@@ -1,6 +1,39 @@
 <?php
 $page = 'contact';
 require_once 'includes/auth.php';
+require_once 'includes/db.php';
+
+$erreur  = '';
+$succes  = false;
+$nom     = '';
+$email   = '';
+$message = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
+        $erreur = 'Requête invalide, merci de réessayer.';
+    } else {
+        $nom     = trim($_POST['nom'] ?? '');
+        $email   = trim($_POST['email'] ?? '');
+        $message = trim($_POST['message'] ?? '');
+
+        if ($nom === '' || $email === '' || $message === '') {
+            $erreur = 'Merci de remplir tous les champs.';
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $erreur = 'Cette adresse e-mail n\'est pas valide.';
+        } elseif (!baseDisponible()) {
+            $erreur = 'Envoi impossible : la base de données ne répond pas. '
+                . 'Écrivez-nous directement à hello@cinevo.fr en attendant.';
+        } else {
+            $stmt = $conn->prepare("INSERT INTO messages_contact (nom, email, message) VALUES (?, ?, ?)");
+            $stmt->bind_param('sss', $nom, $email, $message);
+            $stmt->execute();
+
+            $succes  = true;
+            $nom = $email = $message = '';
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -23,18 +56,25 @@ require_once 'includes/auth.php';
 
     <hr class="separateur">
 
+    <?php if ($succes): ?>
+        <p class="message-succes">Votre message a bien été envoyé, merci ! On vous répond au plus vite.</p>
+    <?php elseif ($erreur): ?>
+        <p class="message-erreur"><?= htmlspecialchars($erreur) ?></p>
+    <?php endif; ?>
+
     <form class="formulaire-contact" action="contact.php" method="post">
+        <?= csrf_champ() ?>
         <div class="champ">
             <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" value="<?= htmlspecialchars($nom) ?>" required>
         </div>
         <div class="champ">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="votre@email.fr" required>
+            <input type="email" id="email" name="email" placeholder="votre@email.fr" value="<?= htmlspecialchars($email) ?>" required>
         </div>
         <div class="champ">
             <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Votre message..." rows="6" required></textarea>
+            <textarea id="message" name="message" placeholder="Votre message..." rows="6" required><?= htmlspecialchars($message) ?></textarea>
         </div>
         <div class="boutons-form">
             <input type="submit" value="Envoyer">

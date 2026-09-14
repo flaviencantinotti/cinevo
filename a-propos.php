@@ -83,7 +83,7 @@ require_once 'includes/auth.php';
             <p>
                 Pour ceux qui aiment le cinéma, point. Que vous soyez étudiant en école de cinéma,
                 retraité curieux, parent fatigué qui cherche un film pour ce soir ou cinéphile
-                à l'imposteur, Cinévo est conçu pour vous, et pour les autres en même temps.
+                qui doute encore de son propre avis, Cinévo est conçu pour vous, et pour les autres en même temps.
             </p>
             <p>
                 Une règle, une seule, qui découle de tout le reste : <em>aucun ton snob toléré</em>.

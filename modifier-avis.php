@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titre   = trim($_POST['titre'] ?? '');
         $contenu = trim($_POST['avis'] ?? '');
 
-        if (strlen($contenu) < 20) {
+        if (mb_strlen($contenu) < 20) {
             $erreur = 'Votre avis doit faire au moins 20 caractères.';
         } else {
             $requete = $conn->prepare("
