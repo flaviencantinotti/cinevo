@@ -454,6 +454,31 @@ button {
   color: var(--ambre-fonce);
 }
 
+.carte-avis-avec-affiche .lien-carte {
+  display: flex;
+  gap: 16px;
+}
+
+.affiche-fil {
+  width: 60px;
+  aspect-ratio: 2 / 3;
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #EAE3D6;
+}
+
+.affiche-fil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.corps-fil {
+  min-width: 0;
+}
+
 .avatar {
   width: 28px;
   height: 28px;

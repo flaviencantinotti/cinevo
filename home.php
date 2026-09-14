@@ -24,6 +24,7 @@ $result = baseDisponible() ? $conn->query("
 while ($result && $row = $result->fetch_assoc()) {
     $film = $tmdb->getMovie((int) $row['film_id']);
     $row['film_titre'] = $film['title'] ?? 'Film';
+    $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
     $row['teinte']     = crc32($row['nom_utilisateur']) % 360;
     $avisRecents[]     = $row;
 }
@@ -34,7 +35,7 @@ while ($result && $row = $result->fetch_assoc()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=29">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=30">
     <title>Cinévo · Mon fil</title>
 </head>
 <body>
@@ -59,10 +60,15 @@ while ($result && $row = $result->fetch_assoc()) {
                 <?php endif; ?>
 
                 <?php foreach ($avisRecents as $avis): ?>
-                    <article class="carte-avis">
+                    <article class="carte-avis carte-avis-avec-affiche">
                         <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-carte">
-                            <h3 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
-                            <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 160)) ?></p>
+                            <div class="affiche-fil">
+                                <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
+                            </div>
+                            <div class="corps-fil">
+                                <h3 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
+                                <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 160)) ?></p>
+                            </div>
                         </a>
                         <div class="avis-bas">
                             <span class="avatar" style="background: oklch(0.55 0.12 <?= $avis['teinte'] ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1))) ?></span>
