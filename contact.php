@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Une question, une suggestion ou une remarque sur Cinévo ? Contactez l'équipe directement via ce formulaire.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=24">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=25">
     <title>Contact · Cinévo</title>
 </head>
 <body>
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <main class="contenu">
 
-    <div class="chapeau">Nous écrire</div>
+    <span class="label-section surligne">Nous écrire</span>
     <h1>Contact</h1>
     <p class="intro">Une question, une suggestion, un problème à signaler ? On vous répond.</p>
 

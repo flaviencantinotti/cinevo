@@ -1573,15 +1573,6 @@ input[type="submit"]:hover {
   padding: 80px 32px 96px;
 }
 
-.chapeau {
-  font-family: "Spectral", serif;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ambre-fonce);
-  font-weight: 600;
-}
-
 .page-editoriale > h1 {
   font-size: 64px;
   line-height: 1;
@@ -1633,10 +1624,18 @@ input[type="submit"]:hover {
 }
 
 .corps-texte h2 .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--ambre-fonce);
   color: var(--ambre-fonce);
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 600;
-  margin-right: 8px;
+  margin-right: 12px;
+  vertical-align: middle;
 }
 
 .corps-texte p {

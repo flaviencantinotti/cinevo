@@ -9,7 +9,7 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="L'histoire de Cinévo : pourquoi ce site d'avis cinéma sans notes existe, qui l'a créé, et la règle qui le définit : aucun ton snob toléré.">
     <title>À propos de Cinévo · Notre histoire et notre mission</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=24">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=25">
 </head>
 <body>
 
@@ -18,7 +18,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <div class="chapeau">À propos de Cinévo</div>
+    <span class="label-section surligne">À propos de Cinévo</span>
     <h1>Le cinéma, <em>comme on en parle.</em></h1>
     <p class="intro">
         Cinévo est un site écrit à la main, par des passionnés, pour des passionnés.
@@ -121,6 +121,26 @@ require_once 'includes/auth.php';
         </section>
 
     </div>
+
+    <hr class="separateur">
+
+    <section class="cta-decouvrir">
+        <h2>Envie de rejoindre la conversation ?</h2>
+        <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme, et ça prend 30 secondes.</p>
+        <div class="hero-boutons" style="margin-top:20px;">
+            <a href="inscription.php">
+                <button class="btn-rouge">Rejoindre Cinévo
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M13 6l6 6-6 6"></path>
+                    </svg>
+                </button>
+            </a>
+            <a href="decouvrir.php">
+                <button class="btn-blanc">En savoir plus</button>
+            </a>
+        </div>
+    </section>
 
   </div>
 </main>

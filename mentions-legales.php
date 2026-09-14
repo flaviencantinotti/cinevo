@@ -10,7 +10,7 @@ require_once 'includes/auth.php';
     <meta name="description" content="Mentions légales de Cinévo : éditeur du site, hébergement, propriété intellectuelle et données personnelles.">
     <meta name="robots" content="noindex, follow">
     <title>Cinévo · Mentions légales</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=24">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=25">
 </head>
 <body>
 
@@ -19,7 +19,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <div class="chapeau">Informations légales</div>
+    <span class="label-section surligne">Informations légales</span>
     <h1>Mentions <em>légales.</em></h1>
     <p class="intro">
         Tout ce que la loi nous oblige à vous dire, et que nous vous disons aussi clairement que possible.
