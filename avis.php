@@ -78,7 +78,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tous les avis et critiques de films publiés par la communauté Cinévo, sans notes ni classement, triés du plus récent au plus ancien.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=27">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=28">
     <title>Tous les avis et critiques de films · Cinévo</title>
 </head>
 <body>
@@ -146,8 +146,9 @@ if (baseDisponible()) {
         <span class="label-section surligne">Pourquoi sans notes</span>
         <h2>Des critiques, pas des étoiles</h2>
         <p>
-            Ici, aucun film n'est réduit à une note sur 5 ou sur 10. Chaque critique que vous lisez sur cette page
-            est écrite par un membre de la communauté Cinévo, avec ses propres mots, sans barème ni classement.
+            Chaque film ci-dessus devient une discussion, pas une fiche produit : les avis les plus récents
+            remontent en tête dès qu'un membre publie une nouvelle critique, pour suivre la conversation en
+            train de se faire.
         </p>
         <p>
             Envie de partager votre propre ressenti sur un film ? <a href="ecrire.php">Écrivez votre avis</a> en
