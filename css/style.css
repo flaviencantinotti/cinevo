@@ -850,14 +850,14 @@ button {
 }
 
 .encart {
-  border: 1px dashed #E5E0D8;
+  border: 1px solid #E5E0D8;
   padding: 24px;
 }
 
 .encart h4 {
   font-family: "Playfair Display", serif;
   margin-bottom: 12px;
-  color: var(--ambre-fonce);
+  color: #1A1A1A;
   font-size: 14px;
   font-weight: 600;
 }
