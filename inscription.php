@@ -19,7 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST['password'] ?? '');
         $confirm  = trim($_POST['confirm'] ?? '');
 
-        if ($password !== $confirm) {
+        if ($username === '' || $email === '') {
+            $erreur = 'Merci de remplir tous les champs.';
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $erreur = 'Cette adresse e-mail n\'est pas valide.';
+        } elseif ($password !== $confirm) {
             $erreur = 'Les mots de passe ne correspondent pas.';
         } elseif (strlen($password) < 6) {
             $erreur = 'Le mot de passe doit faire au moins 6 caractères.';
