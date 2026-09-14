@@ -34,7 +34,7 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinq films tirés au hasard, sans algorithme de recommandation. Sortez de votre bulle et découvrez un film à voir ce soir sur Cinévo.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=26">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=27">
     <title>Films au hasard à découvrir · Cinévo</title>
 </head>
 <body>
@@ -84,18 +84,15 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
 
     <section class="section-communaute">
         <span class="label-section surligne">Comment ça marche</span>
-        <h2>Un tirage aléatoire de films, sans algorithme de recommandation</h2>
+        <h2>Un vrai tirage au sort, pas une suggestion déguisée</h2>
         <p>
-            Cette page pioche cinq films au hasard dans un large catalogue, sans tenir compte de votre historique
-            ni d'un quelconque algorithme de recommandation. Pas de tri par popularité, pas de suggestion
-            personnalisée : chaque tirage aléatoire de films est indépendant du précédent, pour une découverte de
-            films vraiment ouverte au hasard.
+            Cette page pioche cinq films dans un large catalogue, sans tenir compte de votre historique de
+            navigation : chaque tirage est indépendant du précédent, aucune mémoire d'une fois sur l'autre.
         </p>
         <p>
-            L'objectif est simple : sortir de sa bulle de filtres et retomber sur un film que vous n'auriez
-            jamais cherché vous-même, qu'il s'agisse d'une dernière sortie, d'un classique du cinéma ou d'une
-            pépite méconnue. Si un tirage ne vous inspire pas, relancez-en un autre : la sélection aléatoire est
-            illimitée.
+            De quoi retomber sur un film que vous n'auriez jamais cherché vous-même, qu'il s'agisse d'une
+            dernière sortie, d'un classique du cinéma ou d'une pépite méconnue. Si un tirage ne vous inspire
+            pas, relancez-en un autre : la sélection est illimitée.
         </p>
         <p>
             Vous avez trouvé votre prochain film à voir ? Une fois vu, <a href="ecrire.php">écrivez votre avis</a>
