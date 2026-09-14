@@ -34,6 +34,7 @@ if (baseDisponible()) {
     while ($row = $result->fetch_assoc()) {
         $film = $tmdb->getMovie((int) $row['film_id']);
         $row['film_titre'] = $film['title'] ?? 'Film';
+        $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
         $mesAvis[] = $row;
     }
 }
@@ -44,7 +45,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=30">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=31">
     <title>Cinévo · Mes avis</title>
 </head>
 <body>
@@ -78,10 +79,15 @@ if (baseDisponible()) {
         <?php endif; ?>
 
         <?php foreach ($mesAvis as $avis): ?>
-            <article class="carte-avis">
+            <article class="carte-avis carte-avis-avec-affiche">
                 <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-carte">
-                    <h2 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h2>
-                    <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'])) ?></p>
+                    <div class="affiche-fil">
+                        <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
+                    </div>
+                    <div class="corps-fil">
+                        <h2 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h2>
+                        <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'])) ?></p>
+                    </div>
                 </a>
 
                 <div class="avis-bas">
