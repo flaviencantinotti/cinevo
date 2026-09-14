@@ -21,8 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($username === '' || $email === '') {
             $erreur = 'Merci de remplir tous les champs.';
+        } elseif (mb_strlen($username) > 50) {
+            $erreur = 'Le nom d\'utilisateur ne doit pas dépasser 50 caractères.';
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $erreur = 'Cette adresse e-mail n\'est pas valide.';
+        } elseif (strlen($email) > 100) {
+            $erreur = 'Cette adresse e-mail est trop longue.';
         } elseif ($password !== $confirm) {
             $erreur = 'Les mots de passe ne correspondent pas.';
         } elseif (strlen($password) < 6) {
