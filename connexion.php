@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=23">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=24">
     <title>Cinévo · Connexion</title>
 </head>
 <body>

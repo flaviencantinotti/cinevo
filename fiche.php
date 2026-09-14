@@ -54,7 +54,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=23">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=24">
 </head>
 <body>
 
@@ -119,13 +119,6 @@ if ($id > 0) {
                             Écrire un avis
                         </button>
                     </a>
-                    <button class="btn-blanc">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 3h12v18l-6-4-6 4z"></path>
-                        </svg>
-                        Ajouter à ma liste
-                    </button>
                 </div>
 
                 <div class="ou-voir">
