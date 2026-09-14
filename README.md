@@ -96,10 +96,20 @@ bas : seules la recherche et les fiches détaillées sont indisponibles.
 Placer le dossier dans le répertoire web de votre serveur local (WAMP, MAMP,
 Laragon…), puis ouvrir `index.php`.
 
-La base `cinevo` et ses deux tables sont créées automatiquement au premier
+La base `cinevo` et ses tables sont créées automatiquement au premier
 chargement — il n'y a rien à importer. Les identifiants MySQL par défaut sont
 ceux d'une installation locale (`localhost`, `root`, sans mot de passe) ; à
 adapter dans `includes/db.php` selon votre environnement.
+
+**4. (Optionnel) Avis de démonstration**
+
+Pour ne pas partir d'un site vide, `data/avis-demo.sql` contient une vingtaine
+d'avis prêts à l'emploi, rattachés aux comptes existants par pseudo (aucun id
+fixe). Sans danger à relancer plusieurs fois : les doublons sont ignorés.
+
+```bash
+mysql -u root cinevo < data/avis-demo.sql
+```
 
 **Après avoir modifié le CSS**
 
