@@ -874,10 +874,10 @@ button {
 
 .boite-connexion {
   width: 50%;
-  background: white;
+  background: #F2EDE4;
+  border: 1px solid #E5E0D8;
   padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   text-align: center;
   margin: 30px auto;
 }
@@ -899,16 +899,18 @@ button {
 input[type="text"],
 input[type="password"],
 input[type="email"] {
-  width: 85%;
+  width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #E5E0D8;
   border-radius: 5px;
   font-family: "Spectral", serif;
   font-size: 14px;
+  background: #FAF7F2;
+  color: #1A1A1A;
 }
 
 input[type="submit"] {
-  width: 85%;
+  width: 100%;
   padding: 10px;
   background-color: var(--ambre-fonce);
   border: none;
@@ -950,10 +952,10 @@ input[type="submit"]:hover {
 /* Même carte que la connexion, pour que les deux pages se ressemblent. */
 .boite-inscription {
   width: 50%;
-  background: white;
+  background: #F2EDE4;
+  border: 1px solid #E5E0D8;
   padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   text-align: center;
   margin: 30px auto;
 }
@@ -965,7 +967,7 @@ input[type="submit"]:hover {
 .formulaire {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 100%;
   margin: auto;
   text-align: center;
 }
@@ -974,17 +976,21 @@ input[type="submit"]:hover {
   font-family: "Spectral", serif;
   font-size: 14px;
   color: #5A554E;
-  margin-bottom: 5px;
-  width: 70%;
+  width: 100%;
   margin: 10px auto 5px;
+  text-align: left;
 }
 
 .formulaire input {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #E5E0D8;
   border-radius: 4px;
-  width: 70%;
+  width: 100%;
   margin: 5px auto 10px;
+  font-family: "Spectral", serif;
+  font-size: 14px;
+  background: #FAF7F2;
+  color: #1A1A1A;
 }
 
 .formulaire button {
@@ -994,8 +1000,10 @@ input[type="submit"]:hover {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-family: "Spectral", serif;
+  font-weight: 600;
   font-size: 16px;
-  width: 70%;
+  width: 100%;
   margin: 15px auto;
 }
 
