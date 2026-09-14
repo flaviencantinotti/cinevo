@@ -2002,10 +2002,6 @@ input[type="submit"]:hover {
     width: 100%;
   }
 
-  .titre-decouvrir h2 {
-    font-size: 34px;
-  }
-
   input[type="text"],
   input[type="password"],
   input[type="email"] {

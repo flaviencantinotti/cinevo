@@ -9,7 +9,6 @@ Disallow: /ecrire.php
 Disallow: /mes-avis.php
 Disallow: /modifier-avis.php
 Disallow: /supprimer-avis.php
-Disallow: /hasard.php
 Disallow: /recherche.php
 Disallow: /diagnostic.php
 Disallow: /installation.php

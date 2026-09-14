@@ -10,6 +10,7 @@ $pagesStatiques = [
     ['loc' => '/index.php',            'priority' => '1.0'],
     ['loc' => '/decouvrir.php',        'priority' => '0.8'],
     ['loc' => '/avis.php',             'priority' => '0.8'],
+    ['loc' => '/hasard.php',           'priority' => '0.7'],
     ['loc' => '/a-propos.php',         'priority' => '0.5'],
     ['loc' => '/contact.php',          'priority' => '0.3'],
     ['loc' => '/mentions-legales.php', 'priority' => '0.1'],
