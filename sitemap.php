@@ -14,6 +14,7 @@ $pagesStatiques = [
     ['loc' => '/a-propos.php',         'priority' => '0.5'],
     ['loc' => '/contact.php',          'priority' => '0.3'],
     ['loc' => '/mentions-legales.php', 'priority' => '0.1'],
+    ['loc' => '/conditions-generales.php', 'priority' => '0.1'],
     ['loc' => '/cookies.php',          'priority' => '0.1'],
 ];
 

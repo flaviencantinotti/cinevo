@@ -81,6 +81,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">S'inscrire</button>
         </form>
 
+        <p class="source" style="text-align:center; margin-top:14px;">
+            En vous inscrivant, vous acceptez les <a href="conditions-generales.php">conditions générales d'utilisation</a>.
+        </p>
+
         <p class="lien-alternatif">Déjà un compte ? <a href="connexion.php">Se connecter</a></p>
     </div>
 </main>
