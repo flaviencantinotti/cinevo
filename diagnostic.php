@@ -5,12 +5,25 @@
  * Elle contrôle que tout est en place et permet de remplir le cache pendant
  * que le réseau fonctionne. La clé API n'est jamais affichée.
  * Fonctionne aussi en console : php diagnostic.php
+ *
+ * Accessible uniquement depuis la machine elle-même (comme installation.php) :
+ * elle révèle des détails techniques (erreurs de connexion base de données,
+ * état du cache) qui n'ont rien à faire devant un visiteur.
  */
 
 require_once __DIR__ . '/includes/tmdb.php';
 require_once __DIR__ . '/includes/db.php';
 
 $enConsole = (PHP_SAPI === 'cli');
+$adresse   = $_SERVER['REMOTE_ADDR'] ?? '';
+$enLocal   = in_array($adresse, ['127.0.0.1', '::1', 'localhost'], true);
+
+if (!$enConsole && !$enLocal) {
+    http_response_code(404);
+    require __DIR__ . '/404.php';
+    exit;
+}
+
 $tmdb      = new TMDB();
 $message   = '';
 
