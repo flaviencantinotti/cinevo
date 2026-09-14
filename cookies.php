@@ -9,7 +9,7 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi, et comment les gérer ou les supprimer.">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=31">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=32">
     <title>Cinévo · Politique cookies</title>
 </head>
 <body>

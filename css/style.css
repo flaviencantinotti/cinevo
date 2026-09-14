@@ -2122,6 +2122,13 @@ input[type="submit"]:hover {
   border-top: 1px solid var(--bordure);
 }
 
+.actions-avis .btn-transparent {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+}
+
 .btn-danger {
   color: var(--rouge);
 }
