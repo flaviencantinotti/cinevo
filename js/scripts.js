@@ -1,3 +1,28 @@
+/* --- Affiche de secours si une image ne se charge pas ---
+ * Enregistré hors DOMContentLoaded et en phase de capture, pour ne
+ * manquer aucune erreur meme si une image echoue avant que le reste
+ * du script se soit initialise. */
+(function () {
+    var AFFICHE_SECOURS = 'images/affiche-indisponible.svg';
+
+    document.addEventListener('error', function (e) {
+        var cible = e.target;
+        if (!cible || cible.tagName !== 'IMG') return;
+
+        // Le photogramme du hero est large (16/9) : l'affiche de secours,
+        // pensée pour un format portrait, y serait déformée. On masque
+        // simplement l'image, le dégradé posé derrière suffit.
+        if (cible.closest('.hero-fond')) {
+            cible.style.display = 'none';
+            return;
+        }
+
+        if (cible.getAttribute('src') !== AFFICHE_SECOURS) {
+            cible.src = AFFICHE_SECOURS;
+        }
+    }, true); // en phase de capture : l'évènement « error » ne remonte pas
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
 
     /* --- Menu burger --- */
@@ -55,26 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
             this.style.height = Math.max(200, this.scrollHeight) + 'px';
         });
     }
-
-    /* --- Affiche de secours si une image ne se charge pas --- */
-    var AFFICHE_SECOURS = 'images/affiche-indisponible.svg';
-
-    document.addEventListener('error', function (e) {
-        var cible = e.target;
-        if (!cible || cible.tagName !== 'IMG') return;
-
-        // Le photogramme du hero est large (16/9) : l'affiche de secours,
-        // pensée pour un format portrait, y serait déformée. On masque
-        // simplement l'image, le dégradé posé derrière suffit.
-        if (cible.closest('.hero-fond')) {
-            cible.style.display = 'none';
-            return;
-        }
-
-        if (cible.getAttribute('src') !== AFFICHE_SECOURS) {
-            cible.src = AFFICHE_SECOURS;
-        }
-    }, true); // en phase de capture : l'évènement « error » ne remonte pas
 
     /* --- Films au hasard (page hasard.php) --- */
     var btnHasard   = document.getElementById('btnHasard');
