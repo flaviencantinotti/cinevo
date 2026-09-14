@@ -59,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="Se connecter">
         </form>
 
+        <p class="lien-alternatif"><a href="mot-de-passe-oublie.php">Mot de passe oublié ?</a></p>
         <p class="lien-alternatif">Pas encore de compte ? <a href="inscription.php">Rejoindre Cinévo</a></p>
     </div>
 </main>

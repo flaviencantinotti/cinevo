@@ -81,6 +81,20 @@ if ($conn !== null) {
         )
     ");
 
+    // Jetons de réinitialisation de mot de passe : on stocke un hachage du
+    // jeton, jamais le jeton lui-même, comme pour un mot de passe.
+    $conn->query("
+        CREATE TABLE IF NOT EXISTS reinitialisations_mdp (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            utilisateur_id INT NOT NULL,
+            jeton_hache VARCHAR(255) NOT NULL,
+            expire_le DATETIME NOT NULL,
+            utilise TINYINT(1) NOT NULL DEFAULT 0,
+            cree_le DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
+        )
+    ");
+
     // Renomme les colonnes d'une base créée avec une ancienne version du
     // projet (en anglais), pour ne pas casser un environnement déjà en place.
     renommerColonneSiExiste($conn, 'utilisateurs', 'username', 'nom_utilisateur VARCHAR(50) UNIQUE NOT NULL');

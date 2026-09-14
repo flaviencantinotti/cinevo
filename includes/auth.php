@@ -67,3 +67,42 @@ function deconnecter() {
     header('Location: index.php');
     exit;
 }
+
+// Crée un jeton de réinitialisation de mot de passe, valable une heure.
+// Retourne le jeton en clair (à mettre dans le lien envoyé à l'utilisateur) ;
+// seul son hachage est stocké en base, comme pour un mot de passe.
+function genererJetonReinitialisation($conn, $utilisateurId) {
+    $jeton = bin2hex(random_bytes(32));
+    $hache = hash('sha256', $jeton);
+    $expire = date('Y-m-d H:i:s', time() + 3600);
+
+    $stmt = $conn->prepare("INSERT INTO reinitialisations_mdp (utilisateur_id, jeton_hache, expire_le) VALUES (?, ?, ?)");
+    $stmt->bind_param('iss', $utilisateurId, $hache, $expire);
+    $stmt->execute();
+
+    return $jeton;
+}
+
+// Retourne l'utilisateur_id associé à un jeton valide (non expiré, non
+// utilisé), ou null si le jeton est invalide.
+function utilisateurDepuisJeton($conn, $jeton) {
+    $hache = hash('sha256', $jeton);
+
+    $stmt = $conn->prepare("
+        SELECT utilisateur_id FROM reinitialisations_mdp
+        WHERE jeton_hache = ? AND utilise = 0 AND expire_le > NOW()
+    ");
+    $stmt->bind_param('s', $hache);
+    $stmt->execute();
+    $ligne = $stmt->get_result()->fetch_assoc();
+
+    return $ligne ? (int) $ligne['utilisateur_id'] : null;
+}
+
+// Marque un jeton comme utilisé, pour qu'il ne serve pas deux fois.
+function invaliderJeton($conn, $jeton) {
+    $hache = hash('sha256', $jeton);
+    $stmt = $conn->prepare("UPDATE reinitialisations_mdp SET utilise = 1 WHERE jeton_hache = ?");
+    $stmt->bind_param('s', $hache);
+    $stmt->execute();
+}
