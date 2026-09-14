@@ -151,7 +151,7 @@ header {
 .barre-recherche input {
   width: 100%;
   height: 40px;
-  border: 1px solid #D8D2C5;
+  border: 1px solid #E5E0D8;
   border-radius: 5px;
   background: #FAF7F2;
   font-family: "Spectral", serif;
@@ -850,7 +850,7 @@ button {
 }
 
 .encart {
-  border: 1px dashed #D8D2C5;
+  border: 1px dashed #E5E0D8;
   padding: 24px;
 }
 
@@ -1296,7 +1296,7 @@ input[type="submit"]:hover {
   flex: 1;
   height: 40px;
   padding: 0 12px;
-  border: 1px solid #D8D2C5;
+  border: 1px solid #E5E0D8;
   border-radius: 4px;
   font-family: "Spectral", serif;
   font-size: 14px;
