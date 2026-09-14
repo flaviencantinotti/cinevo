@@ -45,7 +45,7 @@ while ($result && $row = $result->fetch_assoc()) {
 
     <div class="message-accueil">
         <h1>Bonjour, <?= htmlspecialchars($_SESSION['nom_utilisateur']) ?>.</h1>
-        <p>Bienvenue sur votre fil d'avis.</p>
+        <p>Les derniers avis publiés par la communauté Cinévo.</p>
     </div>
 
     <div class="page-home">
