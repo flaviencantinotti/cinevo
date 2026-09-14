@@ -19,10 +19,13 @@ if ($id > 0) {
     $film = $tmdb->getMovie($id);
 
     if ($film) {
-        $annee  = substr($film['release_date'] ?? '', 0, 4);
-        $heures = floor(($film['runtime'] ?? 0) / 60);
-        $mins   = ($film['runtime'] ?? 0) % 60;
-        $duree  = $heures . ' h ' . $mins . ' min';
+        $annee = substr($film['release_date'] ?? '', 0, 4);
+
+        if (!empty($film['runtime'])) {
+            $heures = floor($film['runtime'] / 60);
+            $mins   = $film['runtime'] % 60;
+            $duree  = $heures . ' h ' . $mins . ' min';
+        }
 
         foreach (($film['credits']['crew'] ?? []) as $membre) {
             if ($membre['job'] === 'Director') {
@@ -86,12 +89,11 @@ if ($id > 0) {
                 <span class="label-section surligne">Long métrage · <?= $annee ?></span>
                 <h1 class="titre-film"><?= htmlspecialchars($film['title']) ?></h1>
 
+                <?php
+                $infosPresentes = array_filter([$realisateur, $annee, $duree], fn($v) => $v !== '');
+                ?>
                 <div class="infos-film">
-                    <?= htmlspecialchars($realisateur) ?>
-                    <span class="sep">·</span>
-                    <?= $annee ?>
-                    <span class="sep">·</span>
-                    <?= $duree ?>
+                    <?= implode(' <span class="sep">·</span> ', array_map('htmlspecialchars', $infosPresentes)) ?>
                 </div>
 
                 <?php if (!empty($genres)): ?>
