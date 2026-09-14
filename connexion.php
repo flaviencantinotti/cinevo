@@ -4,14 +4,16 @@ require_once 'includes/db.php';
 require_once 'includes/auth.php';
 
 $erreur = '';
+$email  = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = trim($_POST['email'] ?? '');
+
     if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
         $erreur = 'Requête invalide, merci de réessayer.';
     } elseif (!baseDisponible()) {
         $erreur = 'Connexion impossible : la base de données ne répond pas.';
     } else {
-        $email    = trim($_POST['email'] ?? '');
         $password = trim($_POST['password'] ?? '');
 
         if (connecter($conn, $email, $password)) {
@@ -48,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?= csrf_champ() ?>
             <div class="groupe-champ">
                 <label for="email">Adresse e-mail</label>
-                <input type="email" id="email" name="email" required autocomplete="email">
+                <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required autocomplete="email">
             </div>
             <div class="groupe-champ">
                 <label for="password">Mot de passe</label>
