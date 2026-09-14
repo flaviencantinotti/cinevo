@@ -3,16 +3,19 @@ $page = 'inscription';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 
-$erreur = '';
+$erreur   = '';
+$username = '';
+$email    = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['username'] ?? '');
+    $email    = trim($_POST['email'] ?? '');
+
     if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
         $erreur = 'Requête invalide, merci de réessayer.';
     } elseif (!baseDisponible()) {
         $erreur = 'Inscription impossible : la base de données ne répond pas.';
     } else {
-        $username = trim($_POST['username'] ?? '');
-        $email    = trim($_POST['email'] ?? '');
         $password = trim($_POST['password'] ?? '');
         $confirm  = trim($_POST['confirm'] ?? '');
 
@@ -56,10 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form class="formulaire" action="inscription.php" method="POST">
             <?= csrf_champ() ?>
             <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" value="<?= htmlspecialchars($username) ?>" required>
 
             <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
+            <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required autocomplete="email">
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password" required autocomplete="new-password">
