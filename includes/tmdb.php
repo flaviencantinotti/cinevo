@@ -156,13 +156,22 @@ class TMDB {
      * On pioche une page au hasard dans le catalogue, ce qui donne un
      * tirage différent à chaque appel. Les films obtenus sont mis de côté
      * dans une réserve, utilisée si l'API devient injoignable.
+     *
+     * Trier par popularité seule confine le tirage aux blockbusters
+     * récents : les 20 premières pages de "popularity.desc" ne sortent
+     * quasiment jamais un film de patrimoine. On ancre donc chaque tirage
+     * sur une année au hasard (de 1920 à aujourd'hui), ce qui donne autant
+     * de chances à un classique qu'à une sortie récente.
      */
     public function getRandomMovies(int $count = 5): array {
+        $annee = random_int(1920, (int) date('Y'));
+
         $data = $this->fetch('/discover/movie', [
-            'page'           => random_int(1, 20),
-            'sort_by'        => 'popularity.desc',
-            'include_adult'  => 'false',
-            'vote_count.gte' => 100,
+            'page'                  => random_int(1, 3),
+            'sort_by'               => 'popularity.desc',
+            'include_adult'         => 'false',
+            'vote_count.gte'        => 50,
+            'primary_release_year'  => $annee,
         ], self::CACHE_TIRAGE);
 
         $films = $this->filtrerFilms($data['results'] ?? []);
