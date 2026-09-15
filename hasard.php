@@ -96,9 +96,8 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
             navigation : chaque tirage est indépendant du précédent, aucune mémoire d'une fois sur l'autre.
         </p>
         <p>
-            De quoi retomber sur un film que vous n'auriez jamais cherché vous-même, qu'il s'agisse d'une
-            dernière sortie, d'un classique du cinéma ou d'une pépite méconnue. Si un tirage ne vous inspire
-            pas, relancez-en un autre : la sélection est illimitée.
+            Si un tirage ne vous inspire pas, relancez-en un autre : la sélection est illimitée, aussi
+            longtemps qu'il vous faudra pour tomber sur celui qui vous fera dire « oui, ce soir c'est lui ».
         </p>
         <p>
             Vous avez trouvé votre prochain film à voir ? Une fois vu, <a href="ecrire.php">écrivez votre avis</a>
