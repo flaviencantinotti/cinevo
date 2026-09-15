@@ -156,26 +156,50 @@ class TMDB {
      * On pioche une page au hasard dans le catalogue, ce qui donne un
      * tirage différent à chaque appel. Les films obtenus sont mis de côté
      * dans une réserve, utilisée si l'API devient injoignable.
+     *
+     * Trier par popularité seule confine le tirage aux blockbusters
+     * récents : les 20 premières pages de "popularity.desc" ne sortent
+     * quasiment jamais un film de patrimoine. Chaque film du tirage pioche
+     * donc sa propre année au hasard (de 1920 à aujourd'hui) : ancrer
+     * l'année une seule fois pour tout le tirage donnerait 5 films de la
+     * même année, ce qui n'est pas mieux.
      */
     public function getRandomMovies(int $count = 5): array {
-        $data = $this->fetch('/discover/movie', [
-            'page'           => random_int(1, 20),
-            'sort_by'        => 'popularity.desc',
-            'include_adult'  => 'false',
-            'vote_count.gte' => 100,
-        ], self::CACHE_TIRAGE);
+        $films   = [];
+        $idsVus  = [];
 
-        $films = $this->filtrerFilms($data['results'] ?? []);
+        for ($i = 0; $i < $count; $i++) {
+            $annee = random_int(1920, (int) date('Y'));
+
+            $data = $this->fetch('/discover/movie', [
+                'page'                 => random_int(1, 3),
+                'sort_by'              => 'popularity.desc',
+                'include_adult'        => 'false',
+                'vote_count.gte'       => 50,
+                'primary_release_year' => $annee,
+            ], self::CACHE_TIRAGE);
+
+            $candidats = array_filter(
+                $this->filtrerFilms($data['results'] ?? []),
+                fn($film) => !in_array($film['id'], $idsVus, true)
+            );
+
+            if (!empty($candidats)) {
+                $film     = $candidats[array_rand($candidats)];
+                $films[]  = $film;
+                $idsVus[] = $film['id'];
+            }
+        }
 
         if (!empty($films)) {
             $this->remplirReserve($films);
-        } else {
-            $films = $this->lireReserve();
+            return $films;
         }
 
-        shuffle($films);
+        $reserve = $this->lireReserve();
+        shuffle($reserve);
 
-        return array_slice($films, 0, $count);
+        return array_slice($reserve, 0, $count);
     }
 
     /** On ne garde que les films affichables : avec un titre et une affiche. */
