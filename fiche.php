@@ -54,7 +54,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=32">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=33">
 </head>
 <body>
 
@@ -195,7 +195,7 @@ if ($id > 0) {
 
             if (baseDisponible()) {
                 $stmt = $conn->prepare("
-                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.publie_le, u.nom_utilisateur
+                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.publie_le, u.nom_utilisateur, u.photo_profil
                     FROM avis a
                     JOIN utilisateurs u ON a.utilisateur_id = u.id
                     WHERE a.film_id = ?
@@ -219,12 +219,10 @@ if ($id > 0) {
             <?php else: ?>
                 <div class="salon">
                     <?php foreach ($avisFilm as $avis):
-                        $initiale = strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1));
-                        $teinte   = crc32($avis['nom_utilisateur']) % 360;
-                        $date     = formaterDateFr($avis['publie_le']);
+                        $date = formaterDateFr($avis['publie_le']);
                     ?>
                         <div class="message">
-                            <span class="avatar" style="background: oklch(0.55 0.12 <?= $teinte ?>);"><?= htmlspecialchars($initiale) ?></span>
+                            <?= avatarHtml($avis['nom_utilisateur'], $avis['photo_profil']) ?>
                             <div class="message-corps">
                                 <span class="message-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?> · <?= $date ?></span>
                                 <div class="message-bulle">

@@ -20,3 +20,41 @@ function extrait($texte, $longueur = 160) {
 
     return $texte;
 }
+
+// Convertit une valeur de php.ini ("2M", "8M", "512K"...) en octets, pour
+// comparer une limite serveur à une taille de fichier réelle.
+function tailleIniEnOctets($valeur) {
+    $valeur = trim((string) $valeur);
+    if ($valeur === '' || $valeur === '-1') {
+        return PHP_INT_MAX;
+    }
+
+    $unite  = strtoupper(substr($valeur, -1));
+    $nombre = (int) $valeur;
+
+    switch ($unite) {
+        case 'G': return $nombre * 1024 * 1024 * 1024;
+        case 'M': return $nombre * 1024 * 1024;
+        case 'K': return $nombre * 1024;
+        default:  return (int) $valeur;
+    }
+}
+
+// Avatar d'un membre : sa photo de profil si elle existe encore sur le
+// disque, sinon le cercle coloré avec son initiale (identique partout,
+// pour que la couleur d'un même pseudo ne change jamais d'une page à l'autre).
+function avatarHtml($nomUtilisateur, $photoProfil = null, $classesSupp = '') {
+    $classes = trim('avatar ' . $classesSupp);
+
+    if (!empty($photoProfil) && is_file(__DIR__ . '/../uploads/avatars/' . $photoProfil)) {
+        return '<img src="uploads/avatars/' . htmlspecialchars($photoProfil) . '"'
+            . ' alt="Photo de ' . htmlspecialchars($nomUtilisateur) . '"'
+            . ' class="' . htmlspecialchars($classes) . ' avatar-photo">';
+    }
+
+    $teinte   = crc32($nomUtilisateur) % 360;
+    $initiale = htmlspecialchars(mb_strtoupper(mb_substr($nomUtilisateur, 0, 1)));
+
+    return '<span class="' . htmlspecialchars($classes) . '" style="background: oklch(0.55 0.12 ' . $teinte . ');">'
+        . $initiale . '</span>';
+}

@@ -1,0 +1,8 @@
+# Les photos de profil sont des fichiers envoyes par les membres : ce dossier
+# ne doit jamais executer de code, meme si un fichier malveillant y arrivait
+# sous un faux nom d'image.
+<FilesMatch "\.(php|php\d|phtml|pl|py|cgi|sh)$">
+    Require all denied
+</FilesMatch>
+
+php_flag engine off

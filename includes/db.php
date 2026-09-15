@@ -100,6 +100,11 @@ if ($conn !== null) {
     renommerColonneSiExiste($conn, 'utilisateurs', 'username', 'nom_utilisateur VARCHAR(50) UNIQUE NOT NULL');
     renommerColonneSiExiste($conn, 'utilisateurs', 'password', 'mot_de_passe VARCHAR(255) NOT NULL');
     renommerColonneSiExiste($conn, 'utilisateurs', 'created_at', 'inscrit_le DATETIME DEFAULT CURRENT_TIMESTAMP');
+
+    // Nom du fichier de la photo de profil (dans uploads/avatars/), vide si
+    // l'utilisateur n'en a pas envoyé : on retombe alors sur l'avatar par
+    // défaut (initiale sur fond coloré).
+    ajouterColonneSiAbsente($conn, 'utilisateurs', 'photo_profil', 'VARCHAR(255) NULL DEFAULT NULL');
     renommerColonneSiExiste($conn, 'avis', 'created_at', 'publie_le DATETIME DEFAULT CURRENT_TIMESTAMP');
 }
 
@@ -109,6 +114,16 @@ function renommerColonneSiExiste($conn, $table, $ancienNom, $nouvelleDefinition)
 
     if ($resultat && $resultat->num_rows > 0) {
         $conn->query("ALTER TABLE `$table` CHANGE `$ancienNom` $nouvelleDefinition");
+    }
+}
+
+// Ajoute une colonne uniquement si elle n'existe pas déjà, pour faire évoluer
+// une base déjà en place sans rien casser.
+function ajouterColonneSiAbsente($conn, $table, $colonne, $definition) {
+    $resultat = $conn->query("SHOW COLUMNS FROM `$table` LIKE '$colonne'");
+
+    if ($resultat && $resultat->num_rows === 0) {
+        $conn->query("ALTER TABLE `$table` ADD COLUMN `$colonne` $definition");
     }
 }
 

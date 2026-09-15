@@ -49,7 +49,7 @@ if (baseDisponible()) {
         $dernierAvis = $stmtDernier->get_result()->fetch_assoc();
 
         $stmtAuteurs = $conn->prepare("
-            SELECT DISTINCT utilisateurs.nom_utilisateur
+            SELECT DISTINCT utilisateurs.nom_utilisateur, utilisateurs.photo_profil
             FROM avis
             JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
             WHERE avis.film_id = ?
@@ -58,7 +58,7 @@ if (baseDisponible()) {
         ");
         $stmtAuteurs->bind_param('i', $filmId);
         $stmtAuteurs->execute();
-        $auteurs = array_column($stmtAuteurs->get_result()->fetch_all(MYSQLI_ASSOC), 'nom_utilisateur');
+        $auteurs = $stmtAuteurs->get_result()->fetch_all(MYSQLI_ASSOC);
 
         $film = $tmdb->getMovie($filmId);
 
@@ -78,7 +78,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tous les avis et critiques de films publiés par la communauté Cinévo, sans notes ni classement, triés du plus récent au plus ancien.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=32">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=33">
     <title>Tous les avis et critiques de films · Cinévo</title>
 </head>
 <body>
@@ -106,10 +106,8 @@ if (baseDisponible()) {
         <?php foreach ($discussions as $discussion): ?>
             <a href="fiche.php?id=<?= $discussion['film_id'] ?>" class="apercu-discussion">
                 <div class="avatars-empiles">
-                    <?php foreach ($discussion['auteurs'] as $nomAuteur):
-                        $teinte = crc32($nomAuteur) % 360;
-                    ?>
-                        <span class="avatar" style="background: oklch(0.55 0.12 <?= $teinte ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($nomAuteur, 0, 1))) ?></span>
+                    <?php foreach ($discussion['auteurs'] as $auteur): ?>
+                        <?= avatarHtml($auteur['nom_utilisateur'], $auteur['photo_profil']) ?>
                     <?php endforeach; ?>
                 </div>
                 <div class="corps">

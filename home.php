@@ -14,7 +14,7 @@ $tmdb = new TMDB();
 
 $avisRecents = [];
 $result = baseDisponible() ? $conn->query("
-    SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur
+    SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur, utilisateurs.photo_profil
     FROM avis
     JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
     ORDER BY avis.publie_le DESC
@@ -25,7 +25,6 @@ while ($result && $row = $result->fetch_assoc()) {
     $film = $tmdb->getMovie((int) $row['film_id']);
     $row['film_titre'] = $film['title'] ?? 'Film';
     $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
-    $row['teinte']     = crc32($row['nom_utilisateur']) % 360;
     $avisRecents[]     = $row;
 }
 ?>
@@ -35,7 +34,7 @@ while ($result && $row = $result->fetch_assoc()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=32">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=33">
     <title>Cinévo · Mon fil</title>
 </head>
 <body>
@@ -71,7 +70,7 @@ while ($result && $row = $result->fetch_assoc()) {
                             </div>
                         </a>
                         <div class="avis-bas">
-                            <span class="avatar" style="background: oklch(0.55 0.12 <?= $avis['teinte'] ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1))) ?></span>
+                            <?= avatarHtml($avis['nom_utilisateur'], $avis['photo_profil']) ?>
                             <span class="avis-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?></span>
                             <span style="color: #8A8378;">sur</span>
                             <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
