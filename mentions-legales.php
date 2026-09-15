@@ -10,7 +10,7 @@ require_once 'includes/auth.php';
     <meta name="description" content="Mentions légales de Cinévo : éditeur du site, hébergement, propriété intellectuelle et données personnelles.">
     <meta name="robots" content="noindex, follow">
     <title>Cinévo · Mentions légales</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=36">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=43">
 </head>
 <body>
 
@@ -19,10 +19,10 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <span class="label-section surligne">Informations légales</span>
+    <span class="label-section">Informations légales</span>
     <h1>Mentions <em>légales.</em></h1>
     <p class="intro">
-        Tout ce que la loi nous oblige à vous dire, et que nous vous disons aussi clairement que possible.
+        Tout ce que la loi nous oblige à vous dire, dit aussi clairement que possible.
     </p>
 
     <div class="meta-article">
@@ -33,7 +33,7 @@ require_once 'includes/auth.php';
     <div class="corps-texte">
 
         <section>
-            <h2><span class="num">01</span> Éditeur du site</h2>
+            <h2>Éditeur du site</h2>
             <dl class="liste-definitions">
                 <dt>Nom</dt><dd>Flavien CANTINOTTI, entrepreneur individuel</dd>
                 <dt>Statut</dt><dd>Micro-entreprise</dd>
@@ -45,7 +45,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">02</span> Hébergement</h2>
+            <h2>Hébergement</h2>
             <dl class="liste-definitions">
                 <dt>Hébergeur</dt><dd>OVH SAS</dd>
                 <dt>Adresse</dt><dd>2 rue Kellermann, 59100 Roubaix, France</dd>
@@ -55,27 +55,27 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">03</span> Propriété intellectuelle</h2>
+            <h2>Propriété intellectuelle</h2>
             <p>
                 L'ensemble du site Cinévo (interface, code source, identité visuelle, textes
                 éditoriaux) est la propriété de son éditeur, sauf mention contraire. Toute
                 reproduction, même partielle, est soumise à autorisation préalable.
             </p>
             <p>
-                Les <em>avis</em> publiés par les membres restent la propriété intellectuelle de
+                Les avis publiés par les membres restent la propriété intellectuelle de
                 leurs auteurs. En publiant sur Cinévo, vous accordez au site une licence
                 non-exclusive d'affichage, sans transfert de propriété. Vous pouvez supprimer
                 vos avis à tout moment depuis <a href="mes-avis.php">Mes avis</a>.
             </p>
             <p>
-                Les <em>affiches, titres, et données techniques</em> des films cités sont la
+                Les affiches, titres et données techniques des films cités sont la
                 propriété de leurs ayants droit respectifs et sont reproduits dans un cadre
                 d'information éditoriale (article L.122-5 du Code de la propriété intellectuelle).
             </p>
         </section>
 
         <section>
-            <h2><span class="num">04</span> Responsabilité éditoriale</h2>
+            <h2>Responsabilité éditoriale</h2>
             <p>
                 Cinévo héberge des avis rédigés par ses membres. Conformément à la loi pour la
                 confiance dans l'économie numérique (LCEN), l'éditeur n'a pas d'obligation
@@ -90,7 +90,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">05</span> Données personnelles</h2>
+            <h2>Données personnelles</h2>
             <p>
                 Cinévo collecte le minimum nécessaire au fonctionnement du service : un pseudo,
                 une adresse e-mail, un mot de passe haché. Aucune donnée n'est revendue ni
@@ -110,10 +110,9 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">06</span> Droit applicable</h2>
+            <h2>Droit applicable</h2>
             <p>
-                Les présentes mentions sont régies par le droit français. En cas de litige, et
-                après tentative de résolution amiable, les tribunaux français seront seuls
+                Les présentes mentions sont régies par le droit français. En cas de litige et après tentative de résolution amiable, les tribunaux français seront seuls
                 compétents.
             </p>
         </section>

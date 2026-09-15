@@ -54,7 +54,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=36">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=43">
 </head>
 <body>
 
@@ -86,7 +86,7 @@ if ($id > 0) {
             </div>
 
             <div>
-                <span class="label-section surligne">Long métrage · <?= $annee ?></span>
+                <span class="label-section">Long métrage · <?= $annee ?></span>
                 <h1 class="titre-film"><?= htmlspecialchars($film['title']) ?></h1>
 
                 <?php
@@ -162,7 +162,7 @@ if ($id > 0) {
                     <?php endforeach; ?>
 
                     <?php if (empty($abonnement) && empty($location)): ?>
-                        <p style="font-family:'Spectral', serif; font-style:italic; color:#8A8378; font-size:14px; margin-top:12px;">
+                        <p style="font-family:'Spectral', serif; color:#8A8378; font-size:14px; margin-top:12px;">
                             Aucune plateforme disponible en France pour le moment.
                         </p>
                     <?php endif; ?>
@@ -177,7 +177,7 @@ if ($id > 0) {
         <section>
             <div class="entete-section">
                 <div>
-                    <span class="label-section surligne">Tri chronologique · plus récent en premier</span>
+                    <span class="label-section">Tri chronologique · plus récent en premier</span>
                     <h2 style="margin-top:8px;">Avis sur le film</h2>
                 </div>
                 <a href="ecrire.php?id=<?= $id ?>" style="margin-left:auto;">
@@ -213,7 +213,7 @@ if ($id > 0) {
             <?php if (!baseDisponible()): ?>
                 <?= messageBaseIndisponible('L\'affichage des avis') ?>
             <?php elseif (empty($avisFilm)): ?>
-                <p style="font-family:'Spectral', serif; font-style:italic; color:#8A8378; margin-top:24px;">
+                <p style="font-family:'Spectral', serif; color:#8A8378; margin-top:24px;">
                     Aucun avis pour ce film. Soyez le premier à en écrire un.
                 </p>
             <?php else: ?>

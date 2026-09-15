@@ -7,9 +7,9 @@ require_once 'includes/auth.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi, et comment les gérer ou les supprimer.">
+    <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi et comment les gérer ou les supprimer.">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=36">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=43">
     <title>Cinévo · Politique cookies</title>
 </head>
 <body>
@@ -19,7 +19,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <span class="label-section surligne">Transparence</span>
+    <span class="label-section">Transparence</span>
     <h1>Politique <em>cookies.</em></h1>
     <p class="intro">
         Comment Cinévo utilise les cookies, et surtout ce qu'on n'utilise pas.
@@ -33,7 +33,7 @@ require_once 'includes/auth.php';
     <div class="corps-texte">
 
         <section>
-            <h2><span class="num">01</span> Qu'est-ce qu'un cookie ?</h2>
+            <h2>Qu'est-ce qu'un cookie ?</h2>
             <p>
                 Le site Cinévo utilise la technologie des cookies pour améliorer la navigation
                 ainsi que l'expérience des utilisateurs. Lors de la consultation, ces cookies
@@ -47,25 +47,28 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">02</span> Paramétrage des cookies</h2>
+            <h2>Paramétrage des cookies</h2>
             <ul>
                 <li>
-                    Cookies strictement nécessaires
-                    <em>Indispensables au fonctionnement du site. Ils maintiennent votre session connectée. Ils ne nécessitent pas votre consentement et ne peuvent pas être désactivés.</em>
+                    <strong>Cookies strictement nécessaires.</strong>
+                    Indispensables au fonctionnement du site : ils maintiennent votre session
+                    connectée, ne nécessitent pas votre consentement et ne peuvent pas être désactivés.
                 </li>
                 <li>
-                    Cookies fonctionnels et de performance
-                    <em>Collectent des informations anonymes sur l'utilisation du site afin d'améliorer son contenu et ses fonctionnalités. Votre consentement n'est pas obligatoire.</em>
+                    <strong>Cookies fonctionnels et de performance.</strong>
+                    Ils collectent des informations anonymes sur l'utilisation du site pour en
+                    améliorer le contenu et les fonctionnalités. Votre consentement n'est pas obligatoire.
                 </li>
                 <li>
-                    Cookies basés sur le consentement
-                    <em>Cookies marketing ou publicitaires : Cinévo n'en utilise aucun. Aucune publicité personnalisée, aucun tracking commercial.</em>
+                    <strong>Cookies basés sur le consentement.</strong>
+                    Ce sont les cookies marketing ou publicitaires, et Cinévo n'en utilise aucun :
+                    pas de publicité personnalisée, pas de tracking commercial.
                 </li>
             </ul>
         </section>
 
         <section>
-            <h2><span class="num">03</span> Gestion et suppression</h2>
+            <h2>Gestion et suppression</h2>
             <p>
                 Vous pouvez paramétrer votre navigateur de manière à refuser les cookies sur votre
                 appareil ou à demander votre consentement à chaque dépôt. Vous pouvez également
