@@ -18,7 +18,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
 
     <div class="ouverture-decouvrir">
-        <h1>Le cinéma,<br><em>simplement.</em></h1>
+        <h1>Cinévo,<br><em>mode d'emploi.</em></h1>
         <p class="intro-decouvrir">
             Marre de la guerre des notes sur 5 ou sur 10, fatigué(e) de ne pas avoir de réels échanges
             autour d'un film ? Vous voulez juste partager votre avis et découvrir celui des autres ?
@@ -54,7 +54,7 @@ require_once 'includes/auth.php';
                 <h3>Écrivez votre avis</h3>
                 <p>
                     Deux phrases ou dix paragraphes, peu importe : il n'y a pas de longueur minimale
-                    imposée, ni de note à cocher. Juste ce que le film vous a fait, raconté avec vos mots.
+                    imposée, ni de note à cocher. Juste ce que le film vous a fait, sans autre contrainte.
                 </p>
             </div>
             <div class="etape-decouvrir">
@@ -63,7 +63,7 @@ require_once 'includes/auth.php';
                 <p>
                     Chaque film ayant reçu au moins un avis devient une discussion sur la page
                     <a href="avis.php">Discussions</a>. Les plus récentes remontent en tête, pour suivre
-                    la conversation en train de se faire, sans jamais de classement par popularité.
+                    la conversation en train de se faire : rien n'est mis en avant parce qu'il est populaire.
                 </p>
             </div>
             <div class="etape-decouvrir">
@@ -71,7 +71,7 @@ require_once 'includes/auth.php';
                 <h3>Laissez-vous surprendre</h3>
                 <p>
                     Pas d'idée précise ? La page <a href="hasard.php">Au hasard</a> tire cinq films au
-                    sort à chaque visite. Aucun algorithme de recommandation derrière : juste le hasard,
+                    sort à chaque visite. Rien de calculé ni de personnalisé derrière : juste le hasard,
                     et peut-être une bonne surprise au bout.
                 </p>
             </div>
@@ -95,11 +95,11 @@ require_once 'includes/auth.php';
             </details>
             <details class="question-decouvrir">
                 <summary><span class="signe"></span>Il faut écrire un roman pour publier un avis ?</summary>
-                <p>Pas du tout. Deux phrases suffisent largement, personne ne compte les mots.</p>
+                <p>Non, quelques lignes suffisent très bien : personne ne compte les mots ni ne juge la longueur.</p>
             </details>
             <details class="question-decouvrir">
                 <summary><span class="signe"></span>Vous n'allez pas me ressortir les mêmes films que partout ailleurs ?</summary>
-                <p>Non : pas d'algorithme ici. Les avis s'affichent par date, jamais par popularité.</p>
+                <p>Non : rien n'est recommandé ni mis en avant automatiquement, les avis s'enchaînent simplement dans l'ordre où ils arrivent.</p>
             </details>
             <details class="question-decouvrir">
                 <summary><span class="signe"></span>Il faut s'y connaître en cinéma pour venir ?</summary>
