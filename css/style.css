@@ -1479,6 +1479,12 @@ input[type="submit"]:hover {
   margin-bottom: 28px;
 }
 
+/* Un deuxième paragraphe d'intro s'enchaîne sans reprendre la ligne du haut. */
+.intro-decouvrir + .intro-decouvrir {
+  border-top: none;
+  padding-top: 0;
+}
+
 .intro-decouvrir strong {
   color: #1A1A1A;
 }

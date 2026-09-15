@@ -8,7 +8,7 @@ require_once 'includes/auth.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo est la plateforme d'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=34">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=35">
     <title>Découvrir Cinévo · La plateforme d'avis cinéma sans notes</title>
 </head>
 <body>
@@ -53,8 +53,8 @@ require_once 'includes/auth.php';
                 <span class="etape-numero">02</span>
                 <h3>Écrivez votre avis</h3>
                 <p>
-                    Deux phrases ou dix paragraphes, peu importe : il n'y a pas de longueur minimale
-                    imposée, ni de note à cocher. Juste ce que le film vous a fait, sans autre contrainte.
+                    Deux phrases ou dix paragraphes, peu importe : une poignée de mots suffit largement,
+                    et il n'y a pas de longueur maximale. Ni note à cocher, juste ce que le film vous a fait.
                 </p>
             </div>
             <div class="etape-decouvrir">
