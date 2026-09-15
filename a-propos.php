@@ -43,7 +43,9 @@ require_once 'includes/auth.php';
             <p>
                 Cinévo répond à un besoin simple : <em>une conversation cinéphile écrite</em> qui
                 valorise chaque avis pour ce qu'il dit, pas pour la note qui l'accompagne.
-                Trois lignes valent autant qu'une page, si elles sont sincères.
+                Trois lignes valent autant qu'une page, si elles sont sincères. Cette conversation,
+                c'est <a href="avis.php">Discussions</a> : chaque film qui reçoit un avis y devient
+                un fil, trié du plus récent au plus ancien.
             </p>
             <blockquote class="citation">
                 « J'écris pour me souvenir de ce que j'ai vu.<br>
