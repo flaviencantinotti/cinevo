@@ -46,7 +46,13 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <div class="entete-page">
         <span class="label-section surligne">Cinq films, tirés au sort</span>
         <h1>Au hasard</h1>
-        <p class="intro">Pas d'algorithme de recommandation. Juste le hasard, pour sortir de sa bulle.</p>
+        <p class="intro">
+            On regarde quoi ce soir ? L'éternelle question qui reste sans réponse pendant de
+            longues minutes. Et si on vous donnait un coup de main ? Les filtres de recherche
+            c'est bien, mais à chaque fois, c'est les mêmes films qui ressortent. Ici, nous
+            essayons de varier les plaisirs. 5 films, le hasard total et peut-être une bonne
+            surprise au bout. Laissez-vous tenter par l'inconnu.
+        </p>
     </div>
 
     <hr class="separateur">
