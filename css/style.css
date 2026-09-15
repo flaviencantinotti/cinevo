@@ -146,6 +146,8 @@ header {
   display: flex;
   align-items: center;
   width: 30%;
+  min-width: 0;
+  flex-shrink: 1;
 }
 
 .barre-recherche input {
@@ -175,6 +177,7 @@ nav a {
   padding: 8px 4px;
   border-bottom: 2px solid transparent;
   transition: color 0.2s;
+  white-space: nowrap;
 }
 
 nav a:hover {
