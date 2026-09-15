@@ -1,0 +1,602 @@
+[
+    {
+        "id": 1273221,
+        "title": "Scary Movie",
+        "release_date": "2026-06-03",
+        "poster_path": "\/gIComZ1TfZdWmuD4L4mJ8sEv0km.jpg"
+    },
+    {
+        "id": 299536,
+        "title": "Avengers : Infinity War",
+        "release_date": "2018-04-25",
+        "poster_path": "\/hSfuKPtyEryeFzapZ8UgZd4aESu.jpg"
+    },
+    {
+        "id": 1081003,
+        "title": "Supergirl",
+        "release_date": "2026-06-24",
+        "poster_path": "\/p5Dv2O1QVn08IZi8LCc2659TEo9.jpg"
+    },
+    {
+        "id": 454639,
+        "title": "Les Maîtres de l'univers",
+        "release_date": "2026-06-03",
+        "poster_path": "\/tJxeLnt5K3LHfJdaAZY6bttM0Sv.jpg"
+    },
+    {
+        "id": 1212763,
+        "title": "Evil Dead Burn",
+        "release_date": "2026-07-07",
+        "poster_path": "\/2gusfeWILgIfRWQTA9nbXAEyQ0S.jpg"
+    },
+    {
+        "id": 1698863,
+        "title": "The Odyssey",
+        "release_date": "2026-07-03",
+        "poster_path": "\/b0z3ViIC5AkbJoqxmTpqyjgmoJs.jpg"
+    },
+    {
+        "id": 1101383,
+        "title": "La Fin d'Oak Street",
+        "release_date": "2026-08-12",
+        "poster_path": "\/1flRy4qysdwjhlqw2BZ1Wm1zcpM.jpg"
+    },
+    {
+        "id": 1311031,
+        "title": "Demon Slayer : Kimetsu no Yaiba La Forteresse Infinie",
+        "release_date": "2025-07-18",
+        "poster_path": "\/wXTU3AFmlUPbqjH68MZ989uHd6k.jpg"
+    },
+    {
+        "id": 1284041,
+        "title": "Le Dernier Refuge",
+        "release_date": "2026-08-06",
+        "poster_path": "\/loDdQQZm3mPG9FFQpD2bdC0I2wy.jpg"
+    },
+    {
+        "id": 980431,
+        "title": "‎Avatar Aang, le dernier maître de l'air",
+        "release_date": "2026-07-24",
+        "poster_path": "\/sJDjdYGDFdx9uftetPPjH7Jwing.jpg"
+    },
+    {
+        "id": 1127384,
+        "title": "Deep Water",
+        "release_date": "2026-04-30",
+        "poster_path": "\/MYnja0ditOENAOWB8R7dW19wO9.jpg"
+    },
+    {
+        "id": 83533,
+        "title": "Avatar : De feu et de cendres",
+        "release_date": "2025-12-17",
+        "poster_path": "\/kG3N8oQ10qiw2MsnSHFGJpQNyEy.jpg"
+    },
+    {
+        "id": 1612018,
+        "title": "Jackass: le meilleur pour la fin",
+        "release_date": "2026-06-25",
+        "poster_path": "\/xd7tpoTpkOUIMf0Xd6DcCWqNrNQ.jpg"
+    },
+    {
+        "id": 1084242,
+        "title": "Zootopie 2",
+        "release_date": "2025-11-26",
+        "poster_path": "\/hBI7Wrps6tDjhEzBxJgoPLhbmT1.jpg"
+    },
+    {
+        "id": 1523145,
+        "title": "Your Heart Will Be Broken",
+        "release_date": "2026-03-26",
+        "poster_path": "\/iGpMm603GUKH2SiXB2S5m4sZ17t.jpg"
+    },
+    {
+        "id": 936075,
+        "title": "Michael",
+        "release_date": "2026-04-22",
+        "poster_path": "\/2sDgNilJGVFpl1x4DMzYHjk0L0f.jpg"
+    },
+    {
+        "id": 1314481,
+        "title": "Le Diable s'habille en Prada 2",
+        "release_date": "2026-04-29",
+        "poster_path": "\/pD5fSVgDW2L5993eAlDd2GFXwIp.jpg"
+    },
+    {
+        "id": 569094,
+        "title": "Spider-Man : Across the Spider-Verse",
+        "release_date": "2023-05-31",
+        "poster_path": "\/hvfwCeSTgsExmz9l31dKkfR83DH.jpg"
+    },
+    {
+        "id": 557,
+        "title": "Spider-Man",
+        "release_date": "2002-05-01",
+        "poster_path": "\/pNz1NREgddPdlzytlR8mW4B26fW.jpg"
+    },
+    {
+        "id": 441168,
+        "title": "De l’eXcellence à l’indécence",
+        "release_date": "2017-02-11",
+        "poster_path": "\/7o7qmymPy1D9mASODsrOHq41Fye.jpg"
+    },
+    {
+        "id": 411,
+        "title": "Le Monde de Narnia : Le Lion, la sorcière blanche et l'armoire magique",
+        "release_date": "2005-12-07",
+        "poster_path": "\/1jMFs9wIuVMNuTxGHJQ3oTBn9SY.jpg"
+    },
+    {
+        "id": 11,
+        "title": "La Guerre des étoiles",
+        "release_date": "1977-05-25",
+        "poster_path": "\/qelTNHrBSYjPvwdzsDBPVsqnNzc.jpg"
+    },
+    {
+        "id": 502356,
+        "title": "Super Mario Bros., le film",
+        "release_date": "2023-04-05",
+        "poster_path": "\/fWy0eCAlwqdBG2V1yXHhs03sCld.jpg"
+    },
+    {
+        "id": 198663,
+        "title": "Le Labyrinthe",
+        "release_date": "2014-09-10",
+        "poster_path": "\/3uzKxpRpF5M8RGeFhCCR9OE3dZb.jpg"
+    },
+    {
+        "id": 675,
+        "title": "Harry Potter et l'Ordre du Phénix",
+        "release_date": "2007-07-08",
+        "poster_path": "\/9ZfpCVNx0y8jpColnnfdA1HI4Zb.jpg"
+    },
+    {
+        "id": 911430,
+        "title": "F1® Le Film",
+        "release_date": "2025-06-25",
+        "poster_path": "\/up0kyZZlLX24dE9SzDuTjXe6HFl.jpg"
+    },
+    {
+        "id": 475557,
+        "title": "Joker",
+        "release_date": "2019-10-01",
+        "poster_path": "\/tWjJ3ILjsbTwKgXxEv48QAbYZ19.jpg"
+    },
+    {
+        "id": 1022789,
+        "title": "Vice-versa 2",
+        "release_date": "2024-06-11",
+        "poster_path": "\/9Jic8z9NEeCEmSJFgFHZF1lWMFo.jpg"
+    },
+    {
+        "id": 106646,
+        "title": "Le Loup de Wall Street",
+        "release_date": "2013-12-25",
+        "poster_path": "\/dQIQZbJXn1pflQw3nwvXLJX0dHa.jpg"
+    },
+    {
+        "id": 8587,
+        "title": "Le Roi lion",
+        "release_date": "1994-06-15",
+        "poster_path": "\/n6UChiAOSTHGih2FBactLjA4Cdt.jpg"
+    },
+    {
+        "id": 539972,
+        "title": "Kraven the Hunter",
+        "release_date": "2024-12-11",
+        "poster_path": "\/bwhKUzPtwtJ00CGv67IEXmS2WaM.jpg"
+    },
+    {
+        "id": 424,
+        "title": "La Liste de Schindler",
+        "release_date": "1993-12-15",
+        "poster_path": "\/fLRbv1fGQD0OCPWkFy7PI2sESLj.jpg"
+    },
+    {
+        "id": 933260,
+        "title": "The Substance",
+        "release_date": "2024-09-07",
+        "poster_path": "\/5Jfj6LqxOludXg454Vxef8dCJln.jpg"
+    },
+    {
+        "id": 1266127,
+        "title": "Wedding Nightmare : Deuxième partie",
+        "release_date": "2026-03-19",
+        "poster_path": "\/tARTqozLyHGjdKQWL734odssfpL.jpg"
+    },
+    {
+        "id": 1038392,
+        "title": "Conjuring : L'Heure du jugement",
+        "release_date": "2025-09-03",
+        "poster_path": "\/mlkMH0Em29I0QBc7YeRc9yGFRKw.jpg"
+    },
+    {
+        "id": 808,
+        "title": "Shrek",
+        "release_date": "2001-05-18",
+        "poster_path": "\/rJIju4i2sENrfTbAXwL9OKv2e1i.jpg"
+    },
+    {
+        "id": 585,
+        "title": "Monstres & Cie",
+        "release_date": "2001-11-01",
+        "poster_path": "\/rIjzsrY8xQ4M4ZthmVqHtiqsioQ.jpg"
+    },
+    {
+        "id": 389,
+        "title": "Douze hommes en colère",
+        "release_date": "1957-04-10",
+        "poster_path": "\/fFXrCl7nBFFaQU3IgTlinvk6vTi.jpg"
+    },
+    {
+        "id": 950387,
+        "title": "Minecraft, le film",
+        "release_date": "2025-03-31",
+        "poster_path": "\/cq9z69AyIXeL2H14bqHE5ukm3M9.jpg"
+    },
+    {
+        "id": 950396,
+        "title": "The Gorge",
+        "release_date": "2025-02-13",
+        "poster_path": "\/1Np511QIqSs0s3iDpWXPbuY4o5o.jpg"
+    },
+    {
+        "id": 1110034,
+        "title": "Kraken",
+        "release_date": "2026-02-06",
+        "poster_path": "\/30MlKsvnIuZ3Zcu9KvsxhyHF7S9.jpg"
+    },
+    {
+        "id": 1327819,
+        "title": "Jumpers",
+        "release_date": "2026-03-04",
+        "poster_path": "\/gme8X6Y0b1wutuW6kB039i9NwCr.jpg"
+    },
+    {
+        "id": 1301421,
+        "title": "Les Moutons détectives",
+        "release_date": "2026-04-30",
+        "poster_path": "\/5GjWHaN6XW9RbeUqqYbzfKSThqX.jpg"
+    },
+    {
+        "id": 822119,
+        "title": "Captain America : Brave New World",
+        "release_date": "2025-02-12",
+        "poster_path": "\/wDRXmiAEJdhNIcuetM4016fOCx8.jpg"
+    },
+    {
+        "id": 1668364,
+        "title": "Le Désir",
+        "release_date": "2026-05-07",
+        "poster_path": "\/iDO37qSlAyGVuxRW2SBQwKJ7eG6.jpg"
+    },
+    {
+        "id": 1564614,
+        "title": "Leviticus",
+        "release_date": "2026-06-17",
+        "poster_path": "\/gnAsZvBygplNpp8PtjoTEYv3VPB.jpg"
+    },
+    {
+        "id": 12445,
+        "title": "Harry Potter et les Reliques de la Mort - 2ème partie",
+        "release_date": "2011-07-12",
+        "poster_path": "\/alQOPmKEPHkH4BLMEla1vTNYrUr.jpg"
+    },
+    {
+        "id": 122,
+        "title": "Le Seigneur des anneaux : Le Retour du roi",
+        "release_date": "2003-12-17",
+        "poster_path": "\/ypUCFOvOf07bcHy81jng9LyMUfi.jpg"
+    },
+    {
+        "id": 1487861,
+        "title": "Elize Surgie de l'Ombre",
+        "release_date": "2026-07-22",
+        "poster_path": "\/ryuWPWA3sZ1eoKHaZLxAvNoxCnV.jpg"
+    },
+    {
+        "id": 76341,
+        "title": "Mad Max : Fury Road",
+        "release_date": "2015-05-13",
+        "poster_path": "\/oLy2V6AWSEfdPgKOtrSGnwB3Q2R.jpg"
+    },
+    {
+        "id": 1481343,
+        "title": "La Bouche du Diable",
+        "release_date": "2026-07-29",
+        "poster_path": "\/9IKCSvhoKUM6LwD279FxuIvr8OL.jpg"
+    },
+    {
+        "id": 931285,
+        "title": "Mortal Kombat II",
+        "release_date": "2026-05-06",
+        "poster_path": "\/yPkeeBEJdQO85AGCwi2XEIfMOxa.jpg"
+    },
+    {
+        "id": 1184918,
+        "title": "Le Robot sauvage",
+        "release_date": "2024-09-12",
+        "poster_path": "\/2IUCa73cvvIgZSiJcNtPBf4L5iF.jpg"
+    },
+    {
+        "id": 1007757,
+        "title": "Aventures croisées",
+        "release_date": "2026-05-01",
+        "poster_path": "\/gz64ZUKg4C4g1yfGD0o5opcBOKy.jpg"
+    },
+    {
+        "id": 617126,
+        "title": "Les 4 Fantastiques : Premiers Pas",
+        "release_date": "2025-07-23",
+        "poster_path": "\/rNc4KARs6fVa4axzvuv3NfUiNy1.jpg"
+    },
+    {
+        "id": 99861,
+        "title": "Avengers : L'Ère d'Ultron",
+        "release_date": "2015-04-22",
+        "poster_path": "\/A0tw88n1byyR2vodhJMlFPQGQgF.jpg"
+    },
+    {
+        "id": 1061474,
+        "title": "Superman",
+        "release_date": "2025-07-09",
+        "poster_path": "\/bL1U8TDb2ZiThIBFAdKHOfpv8lk.jpg"
+    },
+    {
+        "id": 1234821,
+        "title": "Jurassic World : Renaissance",
+        "release_date": "2025-06-23",
+        "poster_path": "\/39BWHFc5J2Pp7gHcykwOkm3tWTA.jpg"
+    },
+    {
+        "id": 872585,
+        "title": "Oppenheimer",
+        "release_date": "2023-07-19",
+        "poster_path": "\/boAUuJBeID7VNp4L7LNMQs8mfQS.jpg"
+    },
+    {
+        "id": 840464,
+        "title": "Greenland : Migration",
+        "release_date": "2026-01-07",
+        "poster_path": "\/g1kyyNhgEWRxYQvd5MXwM1URUNf.jpg"
+    },
+    {
+        "id": 161,
+        "title": "Ocean's Eleven",
+        "release_date": "2001-12-07",
+        "poster_path": "\/sLiFrrQn2iqfn3gYciJF1yqJCOU.jpg"
+    },
+    {
+        "id": 713704,
+        "title": "Evil Dead Rise",
+        "release_date": "2023-04-12",
+        "poster_path": "\/n9xIr60snZnhlzvUaFcmyAhKNgk.jpg"
+    },
+    {
+        "id": 1175942,
+        "title": "Les Bad Guys 2",
+        "release_date": "2025-07-24",
+        "poster_path": "\/1heUoLYAHVAKn0ehIF9ASOg2jUv.jpg"
+    },
+    {
+        "id": 353081,
+        "title": "Mission : Impossible - Fallout",
+        "release_date": "2018-07-25",
+        "poster_path": "\/6JO3Oz685phBaADyJtf4wmaafYj.jpg"
+    },
+    {
+        "id": 14324,
+        "title": "Medieval Pie : Territoires vierges",
+        "release_date": "2007-12-17",
+        "poster_path": "\/2Dra0YhP2EVaCqCXLE3LNzp4v2.jpg"
+    },
+    {
+        "id": 601,
+        "title": "E.T. l'extra-terrestre",
+        "release_date": "1982-06-11",
+        "poster_path": "\/5jl5sfhTeAlp60rM9GxoDA2dmX9.jpg"
+    },
+    {
+        "id": 270303,
+        "title": "It Follows",
+        "release_date": "2015-02-04",
+        "poster_path": "\/jh8bol1N8COAGSj4ksrcUNo8xxc.jpg"
+    },
+    {
+        "id": 985939,
+        "title": "Fall",
+        "release_date": "2022-08-11",
+        "poster_path": "\/xIgG4FM05zz10XPGN9fLrGzsLAa.jpg"
+    },
+    {
+        "id": 1284120,
+        "title": "The Ugly Stepsister",
+        "release_date": "2025-03-07",
+        "poster_path": "\/8THhOd1QneAxP9wOICvWT324aZj.jpg"
+    },
+    {
+        "id": 81774,
+        "title": "Les Exploits d'un jeune Don Juan",
+        "release_date": "1986-11-04",
+        "poster_path": "\/jp8LYiQzEoUuMqu2lGSZZ1A4Nsf.jpg"
+    },
+    {
+        "id": 137106,
+        "title": "La Grande Aventure LEGO",
+        "release_date": "2014-02-06",
+        "poster_path": "\/8SPuFYQ6jm7DSmof0haYZr1lQFN.jpg"
+    },
+    {
+        "id": 10198,
+        "title": "La Princesse et la Grenouille",
+        "release_date": "2009-12-08",
+        "poster_path": "\/7ktgHsEtkOz80h1OkxKLaQYDCAa.jpg"
+    },
+    {
+        "id": 106,
+        "title": "Predator",
+        "release_date": "1987-06-12",
+        "poster_path": "\/lXoATMtTK3ZsICCvTtXygASHZd9.jpg"
+    },
+    {
+        "id": 14097,
+        "title": "Le 9ème escadron",
+        "release_date": "2005-09-19",
+        "poster_path": "\/21jG0hjUhydDeezO7ChOlaWft68.jpg"
+    },
+    {
+        "id": 423108,
+        "title": "Conjuring : Sous l'emprise du Diable",
+        "release_date": "2021-05-25",
+        "poster_path": "\/k0JaMRifwHCk9b1T12koZKqXnnS.jpg"
+    },
+    {
+        "id": 882569,
+        "title": "The Covenant",
+        "release_date": "2023-04-19",
+        "poster_path": "\/kVG8zFFYrpyYLoHChuEeOGAd6Ru.jpg"
+    },
+    {
+        "id": 447273,
+        "title": "Blanche Neige",
+        "release_date": "2025-03-19",
+        "poster_path": "\/kpkd46yxRcg4jVIXaIWkBgHwgKm.jpg"
+    },
+    {
+        "id": 744275,
+        "title": "After - Chapitre 3",
+        "release_date": "2021-09-01",
+        "poster_path": "\/wAEQvm2W9BUx5ggag4ALtSAhIe6.jpg"
+    },
+    {
+        "id": 8355,
+        "title": "L'Âge de glace 3 : Le Temps des dinosaures",
+        "release_date": "2009-06-26",
+        "poster_path": "\/i7UY2xGCiKBe5qRv7dEYjPZ9Ps1.jpg"
+    },
+    {
+        "id": 333484,
+        "title": "Les Sept Mercenaires",
+        "release_date": "2016-09-14",
+        "poster_path": "\/sAZUy1rKscwYCyGTp16errPxji6.jpg"
+    },
+    {
+        "id": 24428,
+        "title": "Avengers",
+        "release_date": "2012-04-25",
+        "poster_path": "\/ylsAO88v2tF0iXRFojPa0UaAJf1.jpg"
+    },
+    {
+        "id": 1226863,
+        "title": "Super Mario Galaxy, le film",
+        "release_date": "2026-04-01",
+        "poster_path": "\/aSQktALDmbunDbwkuZbZFMEWVFr.jpg"
+    },
+    {
+        "id": 299534,
+        "title": "Avengers : Endgame",
+        "release_date": "2019-04-24",
+        "poster_path": "\/wF7jv3x51hXgkl7t5KHePuRjXc8.jpg"
+    },
+    {
+        "id": 315635,
+        "title": "Spider-Man : Homecoming",
+        "release_date": "2017-07-05",
+        "poster_path": "\/wFNNv1ZHglNdXJLYiEgpLY5sa9S.jpg"
+    },
+    {
+        "id": 157336,
+        "title": "Interstellar",
+        "release_date": "2014-11-05",
+        "poster_path": "\/1pnigkWWy8W032o9TKDneBa3eVK.jpg"
+    },
+    {
+        "id": 1439930,
+        "title": "The Punisher : One Last Kill",
+        "release_date": "2026-05-12",
+        "poster_path": "\/74VbBYHmpjgeES1zkRo1DwHkWnE.jpg"
+    },
+    {
+        "id": 1228710,
+        "title": "The Mandalorian and Grogu",
+        "release_date": "2026-05-20",
+        "poster_path": "\/eUOVyCSZrUH6aPfhsfd7j0bxGOl.jpg"
+    },
+    {
+        "id": 1419406,
+        "title": "The Shadow's Edge",
+        "release_date": "2025-08-16",
+        "poster_path": "\/t1PFVsGYdUHtPv0Xowoc9b4PAap.jpg"
+    },
+    {
+        "id": 53653,
+        "title": "Prison On Fire",
+        "release_date": "1987-11-13",
+        "poster_path": "\/ywFyD2t6QylShE8ARjVuftS9iD4.jpg"
+    },
+    {
+        "id": 155,
+        "title": "The Dark Knight : Le Chevalier noir",
+        "release_date": "2008-07-16",
+        "poster_path": "\/pyNXnq8QBWoK3b37RS6C3axwUOy.jpg"
+    },
+    {
+        "id": 533535,
+        "title": "Deadpool & Wolverine",
+        "release_date": "2024-07-24",
+        "poster_path": "\/7CtRdKd5hQPB2b1apKCqxxQUKSf.jpg"
+    },
+    {
+        "id": 1307118,
+        "title": "Soulm8te",
+        "release_date": "2026-07-31",
+        "poster_path": "\/bNErActDctl6cdUGw9pnjSCmyhQ.jpg"
+    },
+    {
+        "id": 238,
+        "title": "Le Parrain",
+        "release_date": "1972-03-14",
+        "poster_path": "\/k3uIbYtiuK8pwbCcbma29nTqmgG.jpg"
+    },
+    {
+        "id": 1290821,
+        "title": "Shelter",
+        "release_date": "2026-01-28",
+        "poster_path": "\/y6HUdcc1cRLU0EuIhexsqZeZUOw.jpg"
+    },
+    {
+        "id": 49018,
+        "title": "Insidious",
+        "release_date": "2011-03-31",
+        "poster_path": "\/mmyqYYJTMtCBlUNr0JAp5R59X8H.jpg"
+    },
+    {
+        "id": 950028,
+        "title": "L'Invitation",
+        "release_date": "2026-06-25",
+        "poster_path": "\/vpMsWT25ITYeYLiUb2HFU9rfzy4.jpg"
+    },
+    {
+        "id": 671,
+        "title": "Harry Potter à l'école des sorciers",
+        "release_date": "2001-11-16",
+        "poster_path": "\/fbxQ44VRdM2PVzHSNajUseUteem.jpg"
+    },
+    {
+        "id": 27205,
+        "title": "Inception",
+        "release_date": "2010-07-15",
+        "poster_path": "\/aej3LRUga5rhgkmRP6XMFw3ejbl.jpg"
+    },
+    {
+        "id": 672,
+        "title": "Harry Potter et la Chambre des secrets",
+        "release_date": "2002-11-13",
+        "poster_path": "\/8KpHRokGpiaqEGpjYe0rpywtvUx.jpg"
+    },
+    {
+        "id": 1280738,
+        "title": "The Furious",
+        "release_date": "2026-06-10",
+        "poster_path": "\/6AOetubScykxJGRxNeNkMt1ra44.jpg"
+    }
+]

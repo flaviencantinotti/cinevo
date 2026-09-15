@@ -1,0 +1,15 @@
+# Bloque l'accès direct aux fichiers sensibles
+<FilesMatch "^\.env">
+    Require all denied
+</FilesMatch>
+
+<Files "test.php">
+    Require all denied
+</Files>
+
+# Le cache ne contient que des données publiques de TMDB, mais rien
+# ne justifie d'y accéder directement depuis le navigateur.
+RedirectMatch 404 ^/cache/
+
+# Page 404 personnalisee, a l'identite du site plutot que l'erreur brute du serveur.
+ErrorDocument 404 /404.php

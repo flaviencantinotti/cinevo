@@ -1,0 +1,270 @@
+<?php
+$page = 'fiche';
+
+require_once 'includes/auth.php';
+require_once 'includes/tmdb.php';
+require_once 'includes/db.php';
+require_once 'includes/format.php';
+$tmdb = new TMDB();
+
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+
+$film        = null;
+$annee       = '';
+$duree       = '';
+$realisateur = '';
+$genres      = [];
+
+if ($id > 0) {
+    $film = $tmdb->getMovie($id);
+
+    if ($film) {
+        $annee = substr($film['release_date'] ?? '', 0, 4);
+
+        if (!empty($film['runtime'])) {
+            $heures = floor($film['runtime'] / 60);
+            $mins   = $film['runtime'] % 60;
+            $duree  = $heures . ' h ' . $mins . ' min';
+        }
+
+        foreach (($film['credits']['crew'] ?? []) as $membre) {
+            if ($membre['job'] === 'Director') {
+                $realisateur = $membre['name'];
+                break;
+            }
+        }
+
+        $genres = $film['genres'] ?? [];
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php if ($film): ?>
+        <?php
+            $descriptionMeta = trim(($realisateur ? $realisateur . ' · ' : '') . ($film['overview'] ?? ''));
+            $descriptionMeta = $descriptionMeta !== '' ? $descriptionMeta : 'Lisez les avis et critiques de la communauté Cinévo sur ' . $film['title'] . '.';
+        ?>
+        <meta name="description" content="<?= htmlspecialchars(mb_substr($descriptionMeta, 0, 155)) ?>">
+        <title><?= htmlspecialchars($film['title']) ?> (<?= $annee ?>) · Critique et avis | Cinévo</title>
+    <?php else: ?>
+        <meta name="robots" content="noindex, follow">
+        <title>Film introuvable · Cinévo</title>
+    <?php endif; ?>
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=32">
+</head>
+<body>
+
+<?php include 'includes/header.php'; ?>
+
+<main class="contenu">
+
+    <?php if (!$film): ?>
+
+        <div style="text-align:center; padding: 80px 0;">
+            <h1>Film introuvable.</h1>
+            <p class="intro">L'identifiant ne correspond à aucun film connu.</p>
+            <a href="index.php" style="margin-top:24px; display:inline-block;">
+                <button class="btn-rouge">Retour à l'accueil</button>
+            </a>
+        </div>
+
+    <?php else: ?>
+
+        <article class="detail-film">
+
+            <div>
+                <div class="grande-affiche">
+                    <?php // Sans affiche, getPosterUrl renvoie une image de remplacement. ?>
+                    <img src="<?= htmlspecialchars($tmdb->getPosterUrl($film['poster_path'], 'w342')) ?>"
+                         alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
+                         style="width:100%; height:100%; object-fit:cover;">
+                </div>
+            </div>
+
+            <div>
+                <span class="label-section surligne">Long métrage · <?= $annee ?></span>
+                <h1 class="titre-film"><?= htmlspecialchars($film['title']) ?></h1>
+
+                <?php
+                $infosPresentes = array_filter([$realisateur, $annee, $duree], fn($v) => $v !== '');
+                ?>
+                <div class="infos-film">
+                    <?= implode(' <span class="sep">·</span> ', array_map('htmlspecialchars', $infosPresentes)) ?>
+                </div>
+
+                <?php if (!empty($genres)): ?>
+                    <div class="liste-genres">
+                        <?php foreach ($genres as $genre): ?>
+                            <span class="tag"><?= htmlspecialchars($genre['name']) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!empty($film['overview'])): ?>
+                    <p class="synopsis"><?= htmlspecialchars($film['overview']) ?></p>
+                <?php endif; ?>
+
+                <div class="boutons-actions">
+                    <a href="ecrire.php?id=<?= $id ?>">
+                        <button class="btn-rouge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 4l6 6-11 11H3v-6z"></path>
+                                <path d="M14 4l3-3 6 6-3 3"></path>
+                            </svg>
+                            Écrire un avis
+                        </button>
+                    </a>
+                </div>
+
+                <div class="ou-voir">
+                    <div class="titre-bloc">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <path d="m15 9-2 6-6 2 2-6z"></path>
+                        </svg>
+                        Où voir ce film
+                    </div>
+
+                    <?php
+                    $providers = $film['watch/providers']['results']['FR'] ?? null;
+                    $abonnement = $providers['flatrate'] ?? [];
+                    $location   = $providers['rent'] ?? [];
+                    ?>
+
+                    <?php foreach ($abonnement as $p): ?>
+                        <div class="ligne-plateforme">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="5" width="18" height="13" rx="2"></rect>
+                                <path d="M8 21h8M12 18v3"></path>
+                            </svg>
+                            <div class="nom-plateforme"><?= htmlspecialchars($p['provider_name']) ?></div>
+                            <div class="acces">Inclus dans l'abonnement</div>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <?php foreach ($location as $p): ?>
+                        <div class="ligne-plateforme">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            <div class="nom-plateforme"><?= htmlspecialchars($p['provider_name']) ?></div>
+                            <div class="acces">Location disponible</div>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <?php if (empty($abonnement) && empty($location)): ?>
+                        <p style="font-family:'Spectral', serif; font-style:italic; color:#8A8378; font-size:14px; margin-top:12px;">
+                            Aucune plateforme disponible en France pour le moment.
+                        </p>
+                    <?php endif; ?>
+
+                    <div class="source">Données fournies par TMDB et JustWatch</div>
+                </div>
+            </div>
+        </article>
+
+        <hr class="separateur">
+
+        <section>
+            <div class="entete-section">
+                <div>
+                    <span class="label-section surligne">Tri chronologique · plus récent en premier</span>
+                    <h2 style="margin-top:8px;">Avis sur le film</h2>
+                </div>
+                <a href="ecrire.php?id=<?= $id ?>" style="margin-left:auto;">
+                    <button class="btn-rouge">Écrire un avis</button>
+                </a>
+            </div>
+
+            <p class="intro" style="margin-top:12px;">
+                Aucune note ni classement ici : seulement l'avis de la communauté Cinévo sur
+                <?= htmlspecialchars($film['title']) ?>, dans ses propres mots.
+            </p>
+
+            <?php
+            $avisFilm = [];
+
+            if (baseDisponible()) {
+                $stmt = $conn->prepare("
+                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.publie_le, u.nom_utilisateur
+                    FROM avis a
+                    JOIN utilisateurs u ON a.utilisateur_id = u.id
+                    WHERE a.film_id = ?
+                    ORDER BY a.publie_le DESC
+                ");
+                $stmt->bind_param('i', $id);
+                $stmt->execute();
+                $avisFilm = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            }
+            ?>
+
+            <?php // Les avis d'un même film s'affichent en fil de discussion : chaque
+                  // avis devient un message, en bulle, alternant de côté. ?>
+
+            <?php if (!baseDisponible()): ?>
+                <?= messageBaseIndisponible('L\'affichage des avis') ?>
+            <?php elseif (empty($avisFilm)): ?>
+                <p style="font-family:'Spectral', serif; font-style:italic; color:#8A8378; margin-top:24px;">
+                    Aucun avis pour ce film. Soyez le premier à en écrire un.
+                </p>
+            <?php else: ?>
+                <div class="salon">
+                    <?php foreach ($avisFilm as $avis):
+                        $initiale = strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1));
+                        $teinte   = crc32($avis['nom_utilisateur']) % 360;
+                        $date     = formaterDateFr($avis['publie_le']);
+                    ?>
+                        <div class="message">
+                            <span class="avatar" style="background: oklch(0.55 0.12 <?= $teinte ?>);"><?= htmlspecialchars($initiale) ?></span>
+                            <div class="message-corps">
+                                <span class="message-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?> · <?= $date ?></span>
+                                <div class="message-bulle">
+                                    <?php if (!empty($avis['titre'])): ?>
+                                        <span class="message-titre"><?= htmlspecialchars($avis['titre']) ?></span>
+                                    <?php endif; ?>
+                                    <?= nl2br(htmlspecialchars($avis['contenu'])) ?>
+                                </div>
+
+                                <?php // L'auteur retrouve ses propres avis directement sur la fiche du film. ?>
+                                <?php if (estConnecte() && $avis['utilisateur_id'] == $_SESSION['utilisateur_id']): ?>
+                                    <div class="actions-avis" style="margin-top:8px;">
+                                        <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>">
+                                            <button class="btn-blanc">Modifier</button>
+                                        </a>
+                                        <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>">
+                                            <button class="btn-transparent btn-danger">Supprimer</button>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <div class="salon-reponse">
+                        <p>Pas d'accord, ou envie d'ajouter votre avis sur <?= htmlspecialchars($film['title']) ?> ?</p>
+                        <a href="ecrire.php?id=<?= $id ?>">
+                            <button class="btn-rouge">Répondre</button>
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </section>
+
+    <?php endif; ?>
+
+</main>
+
+<?php include 'includes/footer.php'; ?>
+
+<script src="js/scripts.js"></script>
+</body>
+</html>
