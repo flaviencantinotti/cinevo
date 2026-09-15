@@ -148,6 +148,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <hr class="separateur">
     <?php endif; ?>
 
+    <?php if (!estConnecte()): ?>
+
+        <section class="cta-decouvrir">
+            <h2>Connectez-vous pour publier votre avis</h2>
+            <p>
+                La rédaction d'un avis est réservée aux membres, pour que chaque avis reste rattaché
+                à une vraie personne. Créer un compte est gratuit et prend 30 secondes.
+            </p>
+            <div class="hero-boutons" style="margin-top:20px;">
+                <a href="inscription.php">
+                    <button class="btn-rouge">Créer un compte</button>
+                </a>
+                <a href="connexion.php">
+                    <button class="btn-blanc">Déjà inscrit ? Connexion</button>
+                </a>
+            </div>
+        </section>
+
+    <?php else: ?>
+
     <form class="formulaire-avis" action="ecrire.php" method="POST">
 
         <?= csrf_champ() ?>
@@ -174,6 +194,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
     </form>
+
+    <?php endif; ?>
 
 </main>
 

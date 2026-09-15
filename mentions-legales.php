@@ -65,7 +65,7 @@ require_once 'includes/auth.php';
                 Les <em>avis</em> publiés par les membres restent la propriété intellectuelle de
                 leurs auteurs. En publiant sur Cinévo, vous accordez au site une licence
                 non-exclusive d'affichage, sans transfert de propriété. Vous pouvez supprimer
-                vos avis à tout moment depuis votre profil.
+                vos avis à tout moment depuis <a href="mes-avis.php">Mes avis</a>.
             </p>
             <p>
                 Les <em>affiches, titres, et données techniques</em> des films cités sont la
