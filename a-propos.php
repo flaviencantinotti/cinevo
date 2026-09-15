@@ -21,8 +21,8 @@ require_once 'includes/auth.php';
         <span class="label-section surligne">À propos de Cinévo</span>
         <h1>Le cinéma, <em>comme on en parle.</em></h1>
         <p class="intro">
-            Cinévo est un site écrit à la main, par des passionnés, pour des passionnés.
-            Pas de note. Pas d'algorithme. Gratuit.
+            Cinévo est un site écrit à la main, par des passionnés, pour des passionnés — sans
+            note, sans algorithme, et entièrement gratuit.
         </p>
     </div>
 
@@ -91,28 +91,29 @@ require_once 'includes/auth.php';
         <section>
             <h2><span class="num">01</span> Pour qui Cinévo est conçu ?</h2>
             <p>
-                Pour ceux qui aiment le cinéma, point. Que vous soyez étudiant en école de cinéma,
-                retraité curieux, parent fatigué qui cherche un film pour ce soir ou cinéphile
-                qui doute encore de son propre avis, Cinévo est conçu pour vous, et pour les autres en même temps.
+                Cinévo est fait pour ceux qui aiment le cinéma, sans distinction : étudiant en école
+                de cinéma, retraité curieux, parent fatigué qui cherche un film pour ce soir, ou
+                cinéphile qui doute encore de son propre avis, ce site est pensé pour vous comme
+                pour les autres.
             </p>
             <p>
-                Une règle, une seule, qui découle de tout le reste : <em>aucun ton snob toléré</em>.
-                Si vous ressentez le besoin de mépriser le goût d'un autre membre, vous êtes
-                probablement au mauvais endroit.
+                Tout le reste découle d'une seule règle : <em>aucun ton snob toléré</em>. Si vous
+                ressentez le besoin de mépriser le goût d'un autre membre, vous êtes probablement
+                au mauvais endroit.
             </p>
         </section>
 
         <section>
             <h2><span class="num">02</span> Comment le site vit ?</h2>
             <p>
-                Cinévo est et restera <strong>100 % gratuit</strong>. Pas de version premium, pas
-                d'abonnement, pas de fonctionnalité payante. L'hébergement est à la charge de
-                l'auteur du site.
+                Cinévo est et restera <strong>100 % gratuit</strong>, sans version premium, sans
+                abonnement et sans fonctionnalité payante : l'hébergement reste entièrement à la
+                charge de l'auteur du site.
             </p>
             <p>
-                Si Cinévo vous est utile et que vous souhaitez contribuer aux frais, un
-                don est possible, sans contrepartie, sans
-                statut particulier sur le site. Vous restez exactement le même membre.
+                Si Cinévo vous est utile et que vous voulez contribuer aux frais, un don reste
+                possible, sans contrepartie ni statut particulier sur le site — vous restez
+                exactement le même membre qu'avant.
             </p>
         </section>
 
@@ -124,9 +125,10 @@ require_once 'includes/auth.php';
                 et Web Mobile, DWWM).
             </p>
             <p>
-                Pour toute question, suggestion, ou remarque : <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a>.
-                Pour les détails légaux, voir les <a href="mentions-legales.php">mentions légales</a>.
-                Pour nous contacter via le formulaire : <a href="contact.php">page contact</a>.
+                Pour toute question, suggestion ou remarque, écrivez à
+                <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a> ou passez par la
+                <a href="contact.php">page contact</a> ; les détails légaux, eux, sont dans les
+                <a href="mentions-legales.php">mentions légales</a>.
             </p>
         </section>
 
