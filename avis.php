@@ -88,7 +88,7 @@ if (baseDisponible()) {
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section surligne">Toutes les discussions</span>
+        <span class="label-section surligne">Toute la communauté</span>
         <h1>Discussions en cours</h1>
         <p class="intro">Chaque avis ouvre une conversation autour d'un film. Pas de note ni de classement : juste des gens qui débattent, du plus récent au plus ancien.</p>
     </div>
