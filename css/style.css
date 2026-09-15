@@ -1541,6 +1541,51 @@ input[type="submit"]:hover {
   padding: 0 28px 26px 64px;
 }
 
+/* ---------- comment ça marche, en 4 étapes (page decouvrir) ---------- */
+
+.grille-etapes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 48px;
+  margin-top: 36px;
+}
+
+.etape-decouvrir .etape-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--ambre-fonce);
+  color: var(--ambre-fonce);
+  font-family: "Spectral", serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.etape-decouvrir h3 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 21px;
+  margin: 0 0 10px;
+  color: var(--noir);
+}
+
+.etape-decouvrir p {
+  font-family: "Spectral", serif;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--gris);
+  margin: 0;
+}
+
+.etape-decouvrir a {
+  color: var(--ambre-fonce);
+  text-decoration: underline;
+}
+
 /* ---------- cta final (page decouvrir) ---------- */
 
 .cta-decouvrir h2 {
@@ -1998,6 +2043,11 @@ input[type="submit"]:hover {
 
   .grille-questions {
     grid-template-columns: 1fr;
+  }
+
+  .grille-etapes {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .liste-definitions {

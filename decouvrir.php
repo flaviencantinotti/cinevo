@@ -8,7 +8,7 @@ require_once 'includes/auth.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo est la plateforme d'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=33">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=34">
     <title>Découvrir Cinévo · La plateforme d'avis cinéma sans notes</title>
 </head>
 <body>
@@ -24,7 +24,64 @@ require_once 'includes/auth.php';
             autour d'un film ? Vous voulez juste partager votre avis et découvrir celui des autres ?
             <strong>Cinévo</strong> est fait pour vous.
         </p>
+        <p class="intro-decouvrir">
+            Concrètement, c'est un site où l'on écrit ce qu'on a pensé d'un film, avec ses propres mots,
+            sans jamais le réduire à un chiffre. Un film récent, un classique que tout le monde connaît
+            sauf vous, une pépite oubliée : tout a sa place, du moment que c'est sincère. Pas d'algorithme
+            qui décide ce que vous devez voir, pas de classement qui pousse les mêmes films en avant :
+            juste des avis triés par date, et la liberté de vous perdre dedans comme bon vous semble.
+        </p>
     </div>
+
+    <hr class="separateur">
+
+    <section>
+        <span class="label-section surligne">Le site, en quatre gestes</span>
+        <h2>Comment ça marche ?</h2>
+
+        <div class="grille-etapes">
+            <div class="etape-decouvrir">
+                <span class="etape-numero">01</span>
+                <h3>Cherchez un film</h3>
+                <p>
+                    Tapez un titre dans la barre de recherche : Cinévo va chercher parmi des milliers de
+                    films, des dernières sorties aux classiques. Vous tombez sur sa fiche, avec les avis
+                    déjà publiés dessus si quelqu'un en a écrit un.
+                </p>
+            </div>
+            <div class="etape-decouvrir">
+                <span class="etape-numero">02</span>
+                <h3>Écrivez votre avis</h3>
+                <p>
+                    Deux phrases ou dix paragraphes, peu importe : il n'y a pas de longueur minimale
+                    imposée, ni de note à cocher. Juste ce que le film vous a fait, raconté avec vos mots.
+                </p>
+            </div>
+            <div class="etape-decouvrir">
+                <span class="etape-numero">03</span>
+                <h3>Suivez les discussions</h3>
+                <p>
+                    Chaque film ayant reçu au moins un avis devient une discussion sur la page
+                    <a href="avis.php">Discussions</a>. Les plus récentes remontent en tête, pour suivre
+                    la conversation en train de se faire, sans jamais de classement par popularité.
+                </p>
+            </div>
+            <div class="etape-decouvrir">
+                <span class="etape-numero">04</span>
+                <h3>Laissez-vous surprendre</h3>
+                <p>
+                    Pas d'idée précise ? La page <a href="hasard.php">Au hasard</a> tire cinq films au
+                    sort à chaque visite. Aucun algorithme de recommandation derrière : juste le hasard,
+                    et peut-être une bonne surprise au bout.
+                </p>
+            </div>
+        </div>
+
+        <p class="source" style="margin-top:28px;">
+            Une fois inscrit(e), <strong>Mon fil</strong> rassemble les avis de toute la communauté au
+            même endroit, et <strong>Mes avis</strong> garde une trace de tout ce que vous avez écrit.
+        </p>
+    </section>
 
     <hr class="separateur">
 
