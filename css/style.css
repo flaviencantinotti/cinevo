@@ -1488,23 +1488,20 @@ input[type="submit"]:hover {
 /* ---------- questions/reponses en accordeon (page decouvrir) ---------- */
 
 .grille-questions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: #E5E0D8;
-  border: 1px solid #E5E0D8;
   margin-top: 24px;
+  border-top: 1px solid #E5E0D8;
 }
 
 .question-decouvrir {
-  background: #FAF7F2;
+  border-bottom: 1px solid #E5E0D8;
 }
 
 .question-decouvrir summary {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
-  padding: 24px 28px;
+  padding: 20px 4px;
   font-family: "Playfair Display", serif;
   font-weight: 700;
   font-size: 18px;
@@ -1517,22 +1514,15 @@ input[type="submit"]:hover {
   display: none;
 }
 
-.question-decouvrir summary .signe {
+.question-decouvrir summary::after {
+  content: "+";
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: 1px solid var(--ambre-fonce);
   color: var(--ambre-fonce);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: "Spectral", serif;
-  font-size: 15px;
+  font-size: 22px;
 }
 
-.question-decouvrir[open] summary .signe::before { content: "–"; }
-.question-decouvrir:not([open]) summary .signe::before { content: "+"; }
+.question-decouvrir[open] summary::after { content: "–"; }
 
 .question-decouvrir p {
   font-family: "Spectral", serif;
@@ -1540,7 +1530,7 @@ input[type="submit"]:hover {
   line-height: 1.65;
   color: #5A554E;
   margin: 0;
-  padding: 0 28px 26px 64px;
+  padding: 0 4px 20px;
 }
 
 /* ---------- comment ça marche, en 4 étapes (page decouvrir) ---------- */
@@ -1550,21 +1540,6 @@ input[type="submit"]:hover {
   grid-template-columns: 1fr 1fr;
   gap: 40px 48px;
   margin-top: 36px;
-}
-
-.etape-decouvrir .etape-numero {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--ambre-fonce);
-  color: var(--ambre-fonce);
-  font-family: "Spectral", serif;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 14px;
 }
 
 .etape-decouvrir h3 {
@@ -1715,21 +1690,13 @@ input[type="submit"]:hover {
 }
 
 .grille-caracteristiques {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--bordure);
-  border: 1px solid var(--bordure);
   margin-top: 24px;
+  border-top: 1px solid var(--bordure);
 }
 
 .carte-caracteristique {
-  background: var(--beige);
-  padding: 24px 28px;
-}
-
-.carte-caracteristique:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--bordure);
 }
 
 .carte-caracteristique .titre-carac {
@@ -1737,7 +1704,7 @@ input[type="submit"]:hover {
   font-weight: 700;
   font-size: 17px;
   color: var(--noir);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   line-height: 1.3;
 }
 
@@ -1747,12 +1714,6 @@ input[type="submit"]:hover {
   line-height: 1.6;
   color: var(--gris);
   margin: 0;
-}
-
-@media (max-width: 768px) {
-  .grille-caracteristiques {
-    grid-template-columns: 1fr;
-  }
 }
 
 .corps-texte section {
@@ -1768,21 +1729,6 @@ input[type="submit"]:hover {
 .corps-texte h2 {
   font-size: 30px;
   margin-bottom: 20px;
-}
-
-.corps-texte h2 .num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--ambre-fonce);
-  color: var(--ambre-fonce);
-  font-size: 14px;
-  font-weight: 600;
-  margin-right: 12px;
-  vertical-align: middle;
 }
 
 .corps-texte p {
@@ -2100,10 +2046,6 @@ input[type="submit"]:hover {
 
   .ouverture-decouvrir h1 {
     font-size: 36px;
-  }
-
-  .grille-questions {
-    grid-template-columns: 1fr;
   }
 
   .grille-etapes {

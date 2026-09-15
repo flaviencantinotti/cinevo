@@ -8,7 +8,7 @@ require_once 'includes/auth.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo est la plateforme d'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=40">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=41">
     <title>Découvrir Cinévo · La plateforme d'avis cinéma sans notes</title>
 </head>
 <body>
@@ -36,12 +36,11 @@ require_once 'includes/auth.php';
     <hr class="separateur">
 
     <section>
-        <span class="label-section surligne">Le site, en quatre gestes</span>
+        <span class="label-section">Le site, en quatre gestes</span>
         <h2>Comment ça marche ?</h2>
 
         <div class="grille-etapes">
             <div class="etape-decouvrir">
-                <span class="etape-numero">01</span>
                 <h3>Cherchez un film</h3>
                 <p>
                     Tapez un titre dans la barre de recherche : Cinévo va chercher parmi des milliers de
@@ -50,7 +49,6 @@ require_once 'includes/auth.php';
                 </p>
             </div>
             <div class="etape-decouvrir">
-                <span class="etape-numero">02</span>
                 <h3>Écrivez votre avis</h3>
                 <p>
                     Deux phrases ou dix paragraphes, peu importe : une poignée de mots suffit largement,
@@ -58,7 +56,6 @@ require_once 'includes/auth.php';
                 </p>
             </div>
             <div class="etape-decouvrir">
-                <span class="etape-numero">03</span>
                 <h3>Suivez les discussions</h3>
                 <p>
                     Chaque film ayant reçu au moins un avis devient une discussion sur la page
@@ -67,7 +64,6 @@ require_once 'includes/auth.php';
                 </p>
             </div>
             <div class="etape-decouvrir">
-                <span class="etape-numero">04</span>
                 <h3>Laissez-vous surprendre</h3>
                 <p>
                     Pas d'idée précise ? La page <a href="hasard.php">Au hasard</a> tire cinq films au
@@ -86,23 +82,23 @@ require_once 'includes/auth.php';
     <hr class="separateur">
 
     <section>
-        <span class="label-section surligne">Vos questions, nos réponses</span>
+        <span class="label-section">Vos questions, nos réponses</span>
 
         <div class="grille-questions">
             <details class="question-decouvrir">
-                <summary><span class="signe"></span>Je peux lire les avis sans créer de compte ?</summary>
+                <summary>Je peux lire les avis sans créer de compte ?</summary>
                 <p>Oui, tout est en accès libre. Un compte ne sert qu'à écrire les vôtres.</p>
             </details>
             <details class="question-decouvrir">
-                <summary><span class="signe"></span>Il faut écrire un roman pour publier un avis ?</summary>
+                <summary>Il faut écrire un roman pour publier un avis ?</summary>
                 <p>Non, quelques lignes suffisent très bien : personne ne compte les mots ni ne juge la longueur.</p>
             </details>
             <details class="question-decouvrir">
-                <summary><span class="signe"></span>Vous n'allez pas me ressortir les mêmes films que partout ailleurs ?</summary>
+                <summary>Vous n'allez pas me ressortir les mêmes films que partout ailleurs ?</summary>
                 <p>Non : rien n'est recommandé ni mis en avant automatiquement, les avis s'enchaînent simplement dans l'ordre où ils arrivent.</p>
             </details>
             <details class="question-decouvrir">
-                <summary><span class="signe"></span>Il faut s'y connaître en cinéma pour venir ?</summary>
+                <summary>Il faut s'y connaître en cinéma pour venir ?</summary>
                 <p>Pas du tout. Ni jargon, ni ton donneur de leçons : juste des gens qui aiment le cinéma.</p>
             </details>
         </div>
@@ -115,12 +111,7 @@ require_once 'includes/auth.php';
         <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme et ça prend 30 secondes.</p>
         <div class="hero-boutons" style="margin-top:20px;">
             <a href="inscription.php">
-                <button class="btn-rouge">Rejoindre Cinévo
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14M13 6l6 6-6 6"></path>
-                    </svg>
-                </button>
+                <button class="btn-rouge">Rejoindre Cinévo</button>
             </a>
             <a href="connexion.php">
                 <button class="btn-blanc">Déjà inscrit ? Connexion</button>

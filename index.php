@@ -37,7 +37,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=40">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=41">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -63,12 +63,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
 
                 <div class="hero-boutons">
                     <a href="avis.php">
-                        <button class="btn-rouge">Rejoindre une discussion
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14M13 6l6 6-6 6"></path>
-                            </svg>
-                        </button>
+                        <button class="btn-rouge">Rejoindre une discussion</button>
                     </a>
                 </div>
 
@@ -78,7 +73,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
         <hr class="separateur">
 
         <section class="section-concept">
-            <span class="label-section surligne">Notre concept</span>
+            <span class="label-section">Notre concept</span>
             <div class="concept-layout">
                 <div class="concept-texte">
                     <p>
@@ -92,10 +87,6 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
                     <p>Envie d'en savoir plus sur nous ?</p>
                     <a href="a-propos.php">
                         <button class="btn-blanc">Découvrir l'histoire de Cinévo
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M5 12h14M13 6l6 6-6 6"></path>
-                            </svg>
                         </button>
                     </a>
                 </div>
@@ -107,15 +98,11 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
         <section>
             <div class="avis-entete">
                 <div>
-                    <span class="label-section surligne">À lire en ce moment</span>
+                    <span class="label-section">À lire en ce moment</span>
                     <h2>Avis récents</h2>
                 </div>
                 <a href="avis.php">
                     <button class="btn-transparent">Voir plus d'avis
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 12h14M13 6l6 6-6 6"></path>
-                        </svg>
                     </button>
                 </a>
             </div>
@@ -153,7 +140,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
         <section class="appel-action">
             <div class="hasard-encart">
                 <div class="hasard-texte">
-                    <span class="label-section surligne">On regarde quoi ce soir ?</span>
+                    <span class="label-section">On regarde quoi ce soir ?</span>
                     <h2>Découvrez un film au hasard, sans algorithme</h2>
                     <p>
                         Vous scrollez depuis 20 minutes sans rien trouver ? On connaît. On vous propose cinq
@@ -162,12 +149,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
                     </p>
                     <div class="hero-boutons" style="margin-top:20px;">
                         <a href="hasard.php">
-                            <button class="btn-rouge">Tirer 5 films au hasard
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M5 12h14M13 6l6 6-6 6"></path>
-                                </svg>
-                            </button>
+                            <button class="btn-rouge">Tirer 5 films au hasard</button>
                         </a>
                     </div>
                 </div>

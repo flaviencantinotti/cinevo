@@ -121,7 +121,7 @@ if ($enConsole) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=40">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=41">
     <title>Diagnostic technique · Cinévo</title>
 </head>
 <body>
@@ -129,7 +129,7 @@ if ($enConsole) {
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section surligne">Vérification avant démonstration</span>
+        <span class="label-section">Vérification avant démonstration</span>
         <h1>Diagnostic</h1>
         <p class="intro">
             <?= $toutVaBien

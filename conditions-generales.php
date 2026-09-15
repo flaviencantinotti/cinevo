@@ -10,7 +10,7 @@ require_once 'includes/auth.php';
     <meta name="description" content="Conditions générales d'utilisation de Cinévo : création de compte, contenu publié par les membres, règles de conduite et modération.">
     <meta name="robots" content="noindex, follow">
     <title>Cinévo · Conditions générales d'utilisation</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=40">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=41">
 </head>
 <body>
 
@@ -19,7 +19,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <span class="label-section surligne">À lire avant de publier</span>
+    <span class="label-section">À lire avant de publier</span>
     <h1>Conditions <em>générales.</em></h1>
     <p class="intro">
         Ce qui encadre l'utilisation de Cinévo, écrit sans jargon juridique inutile.
@@ -33,7 +33,7 @@ require_once 'includes/auth.php';
     <div class="corps-texte">
 
         <section>
-            <h2><span class="num">01</span> Objet</h2>
+            <h2>Objet</h2>
             <p>
                 Les présentes conditions régissent l'utilisation de Cinévo, plateforme
                 communautaire d'avis et critiques de films. En créant un compte, vous les
@@ -42,7 +42,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">02</span> Création de compte</h2>
+            <h2>Création de compte</h2>
             <p>
                 Un compte nécessite un pseudo, une adresse e-mail valide et un mot de passe.
                 Vous êtes responsable de la confidentialité de vos identifiants et de tout ce
@@ -52,7 +52,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">03</span> Contenu publié</h2>
+            <h2>Contenu publié</h2>
             <p>
                 Vous restez propriétaire de vos avis. En les publiant, vous accordez à Cinévo
                 une licence non-exclusive d'affichage, sans transfert de propriété (le détail est
@@ -63,7 +63,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">04</span> Ce qui n'est pas toléré</h2>
+            <h2>Ce qui n'est pas toléré</h2>
             <p>Sont interdits sur Cinévo :</p>
             <ul>
                 <li>
@@ -86,7 +86,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">05</span> Modération</h2>
+            <h2>Modération</h2>
             <p>
                 Cinévo n'a pas d'obligation générale de surveillance des contenus, mais retire
                 promptement tout contenu manifestement illicite qui lui est signalé (voir la
@@ -96,7 +96,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">06</span> Résiliation</h2>
+            <h2>Résiliation</h2>
             <p>
                 Vous pouvez cesser d'utiliser Cinévo à tout moment. Pour la suppression complète
                 d'un compte, écrivez à <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a> (le
@@ -106,7 +106,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">07</span> Évolution des conditions</h2>
+            <h2>Évolution des conditions</h2>
             <p>
                 Ces conditions peuvent évoluer avec le site. La date de dernière mise à jour,
                 en haut de cette page, permet de suivre les changements.
@@ -114,7 +114,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">08</span> Droit applicable</h2>
+            <h2>Droit applicable</h2>
             <p>
                 Les présentes conditions sont régies par le droit français. En cas de litige et après tentative de résolution amiable, les tribunaux français seront seuls
                 compétents.

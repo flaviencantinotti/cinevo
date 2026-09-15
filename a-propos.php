@@ -9,7 +9,7 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="L'histoire de Cinévo : pourquoi ce site d'avis cinéma sans notes existe, qui l'a créé et la règle qui le définit, aucun ton snob toléré.">
     <title>À propos de Cinévo · Notre histoire et notre mission</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=40">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=41">
 </head>
 <body>
 
@@ -18,7 +18,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section surligne">À propos de Cinévo</span>
+        <span class="label-section">À propos de Cinévo</span>
         <h1>L'histoire derrière <em>Cinévo.</em></h1>
         <p class="intro">
             Cinévo est un site écrit à la main, par des passionnés, pour des passionnés : on n'y
@@ -29,7 +29,7 @@ require_once 'includes/auth.php';
     <hr class="separateur">
 
     <section>
-        <span class="label-section surligne">Pourquoi ce site existe</span>
+        <span class="label-section">Pourquoi ce site existe</span>
 
         <div class="concept-layout" style="margin-top:20px;">
             <div class="concept-texte">
@@ -57,7 +57,7 @@ require_once 'includes/auth.php';
     <hr class="separateur">
 
     <section>
-        <span class="label-section surligne">Ce qu'on a choisi de ne pas faire</span>
+        <span class="label-section">Ce qu'on a choisi de ne pas faire</span>
         <h2 style="margin-top:8px;">Ce qu'on ne trouvera jamais ici</h2>
 
         <div class="grille-caracteristiques">
@@ -89,7 +89,7 @@ require_once 'includes/auth.php';
     <div class="corps-texte" style="margin-top:40px;">
 
         <section>
-            <h2><span class="num">01</span> Pour qui Cinévo est conçu ?</h2>
+            <h2>Pour qui Cinévo est conçu ?</h2>
             <p>
                 Cinévo est fait pour ceux qui aiment le cinéma, sans distinction : étudiant en école
                 de cinéma, retraité curieux, parent fatigué qui cherche un film pour ce soir, ou
@@ -104,7 +104,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">02</span> Comment le site vit ?</h2>
+            <h2>Comment le site vit ?</h2>
             <p>
                 Cinévo est et restera <strong>100 % gratuit</strong>, sans version premium, sans
                 abonnement et sans fonctionnalité payante : l'hébergement reste entièrement à la
@@ -118,7 +118,7 @@ require_once 'includes/auth.php';
         </section>
 
         <section>
-            <h2><span class="num">03</span> Qui est derrière ?</h2>
+            <h2>Qui est derrière ?</h2>
             <p>
                 Cinévo est conçu et développé par <strong>Flavien</strong>, lancé depuis Besançon en
                 mai 2026, dans le cadre d'un projet de validation du titre RNCP 37674 (Développeur Web
@@ -141,12 +141,7 @@ require_once 'includes/auth.php';
         <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme et ça prend 30 secondes.</p>
         <div class="hero-boutons" style="margin-top:20px;">
             <a href="inscription.php">
-                <button class="btn-rouge">Rejoindre Cinévo
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14M13 6l6 6-6 6"></path>
-                    </svg>
-                </button>
+                <button class="btn-rouge">Rejoindre Cinévo</button>
             </a>
             <a href="decouvrir.php">
                 <button class="btn-blanc">En savoir plus</button>

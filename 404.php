@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/auth.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=40">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=41">
     <title>Page introuvable · Cinévo</title>
 </head>
 <body>
@@ -18,7 +18,7 @@ require_once __DIR__ . '/includes/auth.php';
 <main class="contenu">
 
     <div style="text-align:center; padding: 100px 0;">
-        <span class="label-section surligne">Erreur 404</span>
+        <span class="label-section">Erreur 404</span>
         <h1 style="margin-top:16px;">Cette page n'existe pas.</h1>
         <p class="intro" style="margin:16px auto 0; max-width:480px;">
             Le lien est peut-être cassé, ou la page a été déplacée. Direction l'accueil,

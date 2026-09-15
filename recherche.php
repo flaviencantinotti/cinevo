@@ -33,7 +33,7 @@ if ($query !== '') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Recherchez un film et retrouvez les avis et critiques écrits par la communauté Cinévo, sans notes ni classement.">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=40">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=41">
     <title>Cinévo · Recherche<?= $query ? ' · ' . htmlspecialchars($query) : '' ?></title>
 </head>
 <body>
@@ -43,7 +43,7 @@ if ($query !== '') {
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section surligne">Résultats de recherche</span>
+        <span class="label-section">Résultats de recherche</span>
         <h1><?= $query ? 'Résultats pour <em>' . htmlspecialchars($query) . '</em>' : 'Chercher un film' ?></h1>
     </div>
 
@@ -84,10 +84,6 @@ if ($query !== '') {
                             </div>
                         <?php endif; ?>
                     </div>
-                    <svg class="fleche" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M5 12h14M13 6l6 6-6 6"></path>
-                    </svg>
                 </a>
             <?php endforeach; ?>
         </div>
