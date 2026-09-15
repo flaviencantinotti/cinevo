@@ -7,7 +7,7 @@ require_once 'includes/auth.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi, et comment les gérer ou les supprimer.">
+    <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi et comment les gérer ou les supprimer.">
     <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" type="text/css" href="css/style.css?v=37">
     <title>Cinévo · Politique cookies</title>
@@ -50,16 +50,19 @@ require_once 'includes/auth.php';
             <h2><span class="num">02</span> Paramétrage des cookies</h2>
             <ul>
                 <li>
-                    Cookies strictement nécessaires
-                    <em>Indispensables au fonctionnement du site. Ils maintiennent votre session connectée. Ils ne nécessitent pas votre consentement et ne peuvent pas être désactivés.</em>
+                    <strong>Cookies strictement nécessaires.</strong>
+                    Indispensables au fonctionnement du site : ils maintiennent votre session
+                    connectée, ne nécessitent pas votre consentement et ne peuvent pas être désactivés.
                 </li>
                 <li>
-                    Cookies fonctionnels et de performance
-                    <em>Collectent des informations anonymes sur l'utilisation du site afin d'améliorer son contenu et ses fonctionnalités. Votre consentement n'est pas obligatoire.</em>
+                    <strong>Cookies fonctionnels et de performance.</strong>
+                    Ils collectent des informations anonymes sur l'utilisation du site pour en
+                    améliorer le contenu et les fonctionnalités. Votre consentement n'est pas obligatoire.
                 </li>
                 <li>
-                    Cookies basés sur le consentement
-                    <em>Cookies marketing ou publicitaires : Cinévo n'en utilise aucun. Aucune publicité personnalisée, aucun tracking commercial.</em>
+                    <strong>Cookies basés sur le consentement.</strong>
+                    Ce sont les cookies marketing ou publicitaires, et Cinévo n'en utilise aucun :
+                    pas de publicité personnalisée, pas de tracking commercial.
                 </li>
             </ul>
         </section>

@@ -55,8 +55,8 @@ require_once 'includes/auth.php';
             <h2><span class="num">03</span> Contenu publié</h2>
             <p>
                 Vous restez propriétaire de vos avis. En les publiant, vous accordez à Cinévo
-                une licence non-exclusive d'affichage, sans transfert de propriété — voir le
-                détail dans les <a href="mentions-legales.php">mentions légales</a>. Vous pouvez
+                une licence non-exclusive d'affichage, sans transfert de propriété (le détail est
+                dans les <a href="mentions-legales.php">mentions légales</a>). Vous pouvez
                 supprimer chacun de vos avis à tout moment depuis <a href="mes-avis.php">votre
                 espace</a>.
             </p>
@@ -67,20 +67,20 @@ require_once 'includes/auth.php';
             <p>Sont interdits sur Cinévo :</p>
             <ul>
                 <li>
-                    Les propos diffamatoires, injurieux, haineux ou discriminatoires
-                    <em>Un désaccord sur un film ne justifie jamais une attaque personnelle.</em>
+                    <strong>Les propos diffamatoires, injurieux, haineux ou discriminatoires.</strong>
+                    Un désaccord sur un film ne justifie jamais une attaque personnelle.
                 </li>
                 <li>
-                    Le contenu hors sujet, publicitaire ou frauduleux
-                    <em>Cinévo n'est pas un espace pour promouvoir autre chose que du cinéma.</em>
+                    <strong>Le contenu hors sujet, publicitaire ou frauduleux.</strong>
+                    Cinévo n'est pas un espace pour promouvoir autre chose que du cinéma.
                 </li>
                 <li>
-                    L'usurpation d'identité ou la création de faux comptes
-                    <em>Un compte, une vraie personne.</em>
+                    <strong>L'usurpation d'identité ou la création de faux comptes.</strong>
+                    Un compte doit correspondre à une vraie personne.
                 </li>
                 <li>
-                    L'atteinte aux droits d'auteur (recopie d'une critique tierce, par exemple)
-                    <em>Votre avis doit être le vôtre.</em>
+                    <strong>L'atteinte aux droits d'auteur</strong>, comme recopier la critique de
+                    quelqu'un d'autre : votre avis doit être le vôtre.
                 </li>
             </ul>
         </section>
@@ -89,8 +89,8 @@ require_once 'includes/auth.php';
             <h2><span class="num">05</span> Modération</h2>
             <p>
                 Cinévo n'a pas d'obligation générale de surveillance des contenus, mais retire
-                promptement tout contenu manifestement illicite qui lui est signalé — voir la
-                <a href="mentions-legales.php">responsabilité éditoriale</a>. Un contenu ou un
+                promptement tout contenu manifestement illicite qui lui est signalé (voir la
+                <a href="mentions-legales.php">responsabilité éditoriale</a>). Un contenu ou un
                 compte qui enfreint l'article 04 peut être supprimé sans préavis.
             </p>
         </section>
@@ -99,9 +99,9 @@ require_once 'includes/auth.php';
             <h2><span class="num">06</span> Résiliation</h2>
             <p>
                 Vous pouvez cesser d'utiliser Cinévo à tout moment. Pour la suppression complète
-                d'un compte, écrivez à <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a> —
-                voir le détail dans la section <a href="mentions-legales.php">données
-                personnelles</a> des mentions légales.
+                d'un compte, écrivez à <a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a> (le
+                détail est dans la section <a href="mentions-legales.php">données
+                personnelles</a> des mentions légales).
             </p>
         </section>
 
@@ -116,8 +116,7 @@ require_once 'includes/auth.php';
         <section>
             <h2><span class="num">08</span> Droit applicable</h2>
             <p>
-                Les présentes conditions sont régies par le droit français. En cas de litige,
-                et après tentative de résolution amiable, les tribunaux français seront seuls
+                Les présentes conditions sont régies par le droit français. En cas de litige et après tentative de résolution amiable, les tribunaux français seront seuls
                 compétents.
             </p>
         </section>

@@ -157,8 +157,8 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
                     <h2>Découvrez un film au hasard, sans algorithme</h2>
                     <p>
                         Vous scrollez depuis 20 minutes sans rien trouver ? On connaît. On vous propose cinq
-                        films au hasard : le but ? Se laisser guider, loin des recommandations, et découvrir
-                        un film qui peut (ou pas) vous surprendre.
+                        films au hasard : le but, c'est de se laisser guider, loin des recommandations,
+                        et de découvrir un film qui peut (ou pas) vous surprendre.
                     </p>
                     <div class="hero-boutons" style="margin-top:20px;">
                         <a href="hasard.php">

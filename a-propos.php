@@ -7,7 +7,7 @@ require_once 'includes/auth.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="L'histoire de Cinévo : pourquoi ce site d'avis cinéma sans notes existe, qui l'a créé, et la règle qui le définit : aucun ton snob toléré.">
+    <meta name="description" content="L'histoire de Cinévo : pourquoi ce site d'avis cinéma sans notes existe, qui l'a créé et la règle qui le définit, aucun ton snob toléré.">
     <title>À propos de Cinévo · Notre histoire et notre mission</title>
     <link rel="stylesheet" type="text/css" href="css/style.css?v=37">
 </head>
@@ -22,7 +22,7 @@ require_once 'includes/auth.php';
         <h1>L'histoire derrière <em>Cinévo.</em></h1>
         <p class="intro">
             Cinévo est un site écrit à la main, par des passionnés, pour des passionnés : on n'y
-            met pas de note, pas d'algorithme, et c'est entièrement gratuit.
+            met pas de note, pas d'algorithme et c'est entièrement gratuit.
         </p>
     </div>
 
@@ -35,7 +35,7 @@ require_once 'includes/auth.php';
             <div class="concept-texte">
                 <p>
                     Les sites cinéphiles existants (Letterboxd, SensCritique) réduisent le film à un
-                    chiffre, hiérarchisent les avis selon la popularité, et installent une bulle
+                    chiffre, hiérarchisent les avis selon la popularité et installent une bulle
                     algorithmique qui appauvrit la découverte.
                 </p>
                 <p style="margin-top:14px;">
@@ -138,7 +138,7 @@ require_once 'includes/auth.php';
 
     <section class="cta-decouvrir">
         <h2>Envie de rejoindre la conversation ?</h2>
-        <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme, et ça prend 30 secondes.</p>
+        <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme et ça prend 30 secondes.</p>
         <div class="hero-boutons" style="margin-top:20px;">
             <a href="inscription.php">
                 <button class="btn-rouge">Rejoindre Cinévo

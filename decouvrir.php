@@ -29,7 +29,7 @@ require_once 'includes/auth.php';
             sans jamais le réduire à un chiffre. Un film récent, un classique que tout le monde connaît
             sauf vous, une pépite oubliée : tout a sa place, du moment que c'est sincère. Pas d'algorithme
             qui décide ce que vous devez voir, pas de classement qui pousse les mêmes films en avant :
-            juste des avis triés par date, et la liberté de vous perdre dedans comme bon vous semble.
+            juste des avis triés par date et la liberté de vous perdre dedans comme bon vous semble.
         </p>
     </div>
 
@@ -112,7 +112,7 @@ require_once 'includes/auth.php';
 
     <section class="cta-decouvrir">
         <h2>Prêt(e) à rejoindre la communauté Cinévo ?</h2>
-        <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme, et ça prend 30 secondes.</p>
+        <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme et ça prend 30 secondes.</p>
         <div class="hero-boutons" style="margin-top:20px;">
             <a href="inscription.php">
                 <button class="btn-rouge">Rejoindre Cinévo

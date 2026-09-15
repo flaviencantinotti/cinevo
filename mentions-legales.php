@@ -22,7 +22,7 @@ require_once 'includes/auth.php';
     <span class="label-section surligne">Informations légales</span>
     <h1>Mentions <em>légales.</em></h1>
     <p class="intro">
-        Tout ce que la loi nous oblige à vous dire, et que nous vous disons aussi clairement que possible.
+        Tout ce que la loi nous oblige à vous dire, dit aussi clairement que possible.
     </p>
 
     <div class="meta-article">
@@ -62,13 +62,13 @@ require_once 'includes/auth.php';
                 reproduction, même partielle, est soumise à autorisation préalable.
             </p>
             <p>
-                Les <em>avis</em> publiés par les membres restent la propriété intellectuelle de
+                Les avis publiés par les membres restent la propriété intellectuelle de
                 leurs auteurs. En publiant sur Cinévo, vous accordez au site une licence
                 non-exclusive d'affichage, sans transfert de propriété. Vous pouvez supprimer
                 vos avis à tout moment depuis <a href="mes-avis.php">Mes avis</a>.
             </p>
             <p>
-                Les <em>affiches, titres, et données techniques</em> des films cités sont la
+                Les affiches, titres et données techniques des films cités sont la
                 propriété de leurs ayants droit respectifs et sont reproduits dans un cadre
                 d'information éditoriale (article L.122-5 du Code de la propriété intellectuelle).
             </p>
@@ -112,8 +112,7 @@ require_once 'includes/auth.php';
         <section>
             <h2><span class="num">06</span> Droit applicable</h2>
             <p>
-                Les présentes mentions sont régies par le droit français. En cas de litige, et
-                après tentative de résolution amiable, les tribunaux français seront seuls
+                Les présentes mentions sont régies par le droit français. En cas de litige et après tentative de résolution amiable, les tribunaux français seront seuls
                 compétents.
             </p>
         </section>
