@@ -10,7 +10,7 @@ require_once 'includes/auth.php';
     <meta name="description" content="Conditions générales d'utilisation de Cinévo : création de compte, contenu publié par les membres, règles de conduite et modération.">
     <meta name="robots" content="noindex, follow">
     <title>Cinévo · Conditions générales d'utilisation</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=33">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=34">
 </head>
 <body>
 
