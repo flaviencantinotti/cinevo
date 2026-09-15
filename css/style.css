@@ -1700,6 +1700,67 @@ input[type="submit"]:hover {
 
 .corps-texte {
   margin-top: 56px;
+  max-width: 720px;
+}
+
+/* ============ PAGE À PROPOS : composants visuels natifs du site ============ */
+
+.carte-citation {
+  align-self: center;
+  background: var(--beige-2);
+  border-left: 3px solid var(--ambre-fonce);
+  border-radius: 4px;
+  padding: 28px;
+}
+
+.carte-citation p {
+  font-family: "Spectral", serif;
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.45;
+  color: var(--noir);
+  margin: 0;
+}
+
+.grille-caracteristiques {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--bordure);
+  border: 1px solid var(--bordure);
+  margin-top: 24px;
+}
+
+.carte-caracteristique {
+  background: var(--beige);
+  padding: 24px 28px;
+}
+
+.carte-caracteristique:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.carte-caracteristique .titre-carac {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--noir);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.carte-caracteristique p {
+  font-family: "Spectral", serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gris);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .grille-caracteristiques {
+    grid-template-columns: 1fr;
+  }
 }
 
 .corps-texte section {
