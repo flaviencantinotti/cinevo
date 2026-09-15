@@ -19,7 +19,7 @@ require_once 'includes/auth.php';
 
     <div class="entete-page">
         <span class="label-section surligne">À propos de Cinévo</span>
-        <h1>Le cinéma, <em>comme on en parle.</em></h1>
+        <h1>L'histoire derrière <em>Cinévo.</em></h1>
         <p class="intro">
             Cinévo est un site écrit à la main, par des passionnés, pour des passionnés : on n'y
             met pas de note, pas d'algorithme, et c'est entièrement gratuit.
