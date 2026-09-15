@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=34">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=35">
     <title>Cinévo · Nouveau mot de passe</title>
 </head>
 <body>
