@@ -44,6 +44,10 @@ p {
   margin: 0;
 }
 
+em {
+  font-style: normal;
+}
+
 /* Style de base des liens dans le texte (repris par les classes plus
    spécifiques comme .lien-carte ou .lien-film quand il en faut un autre). */
 a {
@@ -446,7 +450,6 @@ button {
 
 .carte-avis .lien-film {
   font-family: "Spectral", serif;
-  font-style: italic;
   color: var(--ambre-fonce);
   text-decoration: none;
 }
@@ -762,7 +765,6 @@ button {
 
 .apercu-discussion .corps .film {
   font-family: "Spectral", serif;
-  font-style: italic;
   font-weight: 600;
   font-size: 15.5px;
   color: var(--noir);
@@ -837,7 +839,6 @@ button {
 }
 
 .slogan-footer {
-  font-style: italic;
   font-family: "Spectral", serif;
   color: #8A8378;
 }
@@ -1305,7 +1306,6 @@ input[type="submit"]:hover {
 
 .apercu {
   font-family: "Spectral", serif;
-  font-style: italic;
   font-size: 13px;
   color: #5A554E;
   margin-top: 4px;
@@ -1449,12 +1449,10 @@ input[type="submit"]:hover {
 }
 
 .ouverture-decouvrir h1 em {
-  font-style: italic;
   color: var(--ambre-fonce);
 }
 
 .surligne {
-  font-style: italic;
   background: var(--ambre-fonce);
   color: #FAF7F2;
   padding: 2px 12px;
@@ -1710,7 +1708,6 @@ input[type="submit"]:hover {
 
 .carte-citation p {
   font-family: "Spectral", serif;
-  font-style: italic;
   font-size: 21px;
   line-height: 1.45;
   color: var(--noir);
@@ -1827,7 +1824,6 @@ input[type="submit"]:hover {
 
 .citation {
   font-family: "Spectral", serif;
-  font-style: italic;
   font-size: 26px;
   line-height: 1.35;
   color: #1A1A1A;
