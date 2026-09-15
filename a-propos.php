@@ -21,8 +21,8 @@ require_once 'includes/auth.php';
         <span class="label-section surligne">À propos de Cinévo</span>
         <h1>Le cinéma, <em>comme on en parle.</em></h1>
         <p class="intro">
-            Cinévo est un site écrit à la main, par des passionnés, pour des passionnés — sans
-            note, sans algorithme, et entièrement gratuit.
+            Cinévo est un site écrit à la main, par des passionnés, pour des passionnés : on n'y
+            met pas de note, pas d'algorithme, et c'est entièrement gratuit.
         </p>
     </div>
 
@@ -39,10 +39,10 @@ require_once 'includes/auth.php';
                     algorithmique qui appauvrit la découverte.
                 </p>
                 <p style="margin-top:14px;">
-                    Cinévo répond à un besoin simple : <em>une conversation cinéphile écrite</em> qui
-                    valorise chaque avis pour ce qu'il dit, pas pour la note qui l'accompagne. Cette
-                    conversation, c'est <a href="avis.php">Discussions</a> : chaque film qui reçoit un
-                    avis y devient un fil, trié du plus récent au plus ancien.
+                    Cinévo répond à un besoin simple : proposer une vraie conversation cinéphile
+                    écrite, qui valorise chaque avis pour ce qu'il dit et non pour la note qui
+                    l'accompagne. Cette conversation, c'est <a href="avis.php">Discussions</a>, où
+                    chaque film ayant reçu un avis devient un fil, trié du plus récent au plus ancien.
                 </p>
             </div>
             <div class="carte-citation">
@@ -97,9 +97,9 @@ require_once 'includes/auth.php';
                 pour les autres.
             </p>
             <p>
-                Tout le reste découle d'une seule règle : <em>aucun ton snob toléré</em>. Si vous
-                ressentez le besoin de mépriser le goût d'un autre membre, vous êtes probablement
-                au mauvais endroit.
+                Tout le reste découle d'une seule règle : aucun ton snob toléré. Si vous ressentez
+                le besoin de mépriser le goût d'un autre membre, vous êtes probablement au mauvais
+                endroit.
             </p>
         </section>
 
@@ -112,7 +112,7 @@ require_once 'includes/auth.php';
             </p>
             <p>
                 Si Cinévo vous est utile et que vous voulez contribuer aux frais, un don reste
-                possible, sans contrepartie ni statut particulier sur le site — vous restez
+                possible, sans contrepartie ni statut particulier sur le site. Vous restez
                 exactement le même membre qu'avant.
             </p>
         </section>
