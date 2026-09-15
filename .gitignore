@@ -1,2 +1,7 @@
 .env
 .claude/
+
+# Photos de profil envoyees par les membres : donnees utilisateur, pas du code.
+uploads/avatars/*
+!uploads/avatars/.gitkeep
+!uploads/avatars/.htaccess
