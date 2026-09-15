@@ -63,7 +63,7 @@ h1, h2, h3, h4 {
 }
 
 h1 { font-size: 56px; }
-h2 { font-size: 38px; }
+h2 { font-size: 38px; color: var(--ambre-fonce); }
 h3 { font-size: 26px; font-weight: 600; }
 h4 { font-family: "Inter", sans-serif; font-size: 20px; font-weight: 600; }
 
