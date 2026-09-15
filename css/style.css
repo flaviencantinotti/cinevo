@@ -710,7 +710,6 @@ button {
 
 .salon-reponse p {
   font-family: "Spectral", serif;
-  font-style: italic;
   color: var(--gris);
   font-size: 15px;
   margin: 0;
@@ -871,7 +870,6 @@ button {
 .message-accueil p {
   color: #5A554E;
   font-family: "Spectral", serif;
-  font-style: italic;
   font-size: 18px;
 }
 
@@ -907,7 +905,6 @@ button {
 
 .encart p {
   font-family: "Spectral", serif;
-  font-style: italic;
   font-size: 16px;
   color: #5A554E;
   line-height: 1.5;
@@ -985,7 +982,6 @@ input[type="submit"]:hover {
 
 .message-erreur {
   font-family: "Spectral", serif;
-  font-style: italic;
   color: #C53030;
   margin-top: 12px;
 }
@@ -1183,7 +1179,6 @@ input[type="submit"]:hover {
 
 .intro {
   font-family: "Spectral", serif;
-  font-style: italic;
   font-size: 22px;
   line-height: 1.45;
   color: #5A554E;
@@ -2274,7 +2269,6 @@ input[type="submit"]:hover {
 
 .message-succes {
   font-family: "Spectral", serif;
-  font-style: italic;
   color: var(--vert);
   margin-top: 12px;
 }
