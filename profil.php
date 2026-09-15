@@ -18,9 +18,13 @@ $succesPhoto = '';
 
 $utilisateurId = (int) $_SESSION['utilisateur_id'];
 
-// Formats et taille acceptés pour la photo de profil.
-$typesAutorises = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
-$tailleMaxOctets = 3 * 1024 * 1024;
+// Formats et taille acceptés pour la photo de profil. La limite affichée et
+// vérifiée tient compte de upload_max_filesize : au-delà, PHP rejette l'envoi
+// avant même que notre propre contrôle de taille s'exécute.
+$typesAutorises  = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+$limiteServeur   = tailleIniEnOctets(ini_get('upload_max_filesize'));
+$tailleMaxOctets = min(3 * 1024 * 1024, $limiteServeur);
+$tailleMaxMo     = round($tailleMaxOctets / 1024 / 1024, 1);
 
 if (!baseDisponible()) {
     $erreurEmail = 'Cette page est momentanément indisponible : la base de données ne répond pas.';
@@ -85,10 +89,12 @@ if (!baseDisponible()) {
 
         if (!$fichier || $fichier['error'] === UPLOAD_ERR_NO_FILE) {
             $erreurPhoto = 'Choisissez une image avant de valider.';
+        } elseif ($fichier['error'] === UPLOAD_ERR_INI_SIZE || $fichier['error'] === UPLOAD_ERR_FORM_SIZE) {
+            $erreurPhoto = 'L\'image dépasse la taille maximale autorisée par le serveur (' . $tailleMaxMo . ' Mo).';
         } elseif ($fichier['error'] !== UPLOAD_ERR_OK) {
             $erreurPhoto = 'L\'envoi a échoué, réessayez.';
         } elseif ($fichier['size'] > $tailleMaxOctets) {
-            $erreurPhoto = 'L\'image ne doit pas dépasser 3 Mo.';
+            $erreurPhoto = 'L\'image ne doit pas dépasser ' . $tailleMaxMo . ' Mo.';
         } else {
             // On vérifie le vrai type du fichier (pas seulement son extension),
             // pour ne pas se fier à ce que le navigateur prétend envoyer.
@@ -187,7 +193,7 @@ if (!baseDisponible()) {
                     </form>
                 <?php endif; ?>
             </div>
-            <p class="source" style="margin-top:12px;">JPG, PNG ou WebP, 3 Mo maximum.</p>
+            <p class="source" style="margin-top:12px;">JPG, PNG ou WebP, <?= $tailleMaxMo ?> Mo maximum.</p>
             <?php if ($erreurPhoto): ?>
                 <p class="message-erreur" style="margin-top:12px;"><?= htmlspecialchars($erreurPhoto) ?></p>
             <?php endif; ?>

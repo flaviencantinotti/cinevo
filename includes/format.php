@@ -21,6 +21,25 @@ function extrait($texte, $longueur = 160) {
     return $texte;
 }
 
+// Convertit une valeur de php.ini ("2M", "8M", "512K"...) en octets, pour
+// comparer une limite serveur à une taille de fichier réelle.
+function tailleIniEnOctets($valeur) {
+    $valeur = trim((string) $valeur);
+    if ($valeur === '' || $valeur === '-1') {
+        return PHP_INT_MAX;
+    }
+
+    $unite  = strtoupper(substr($valeur, -1));
+    $nombre = (int) $valeur;
+
+    switch ($unite) {
+        case 'G': return $nombre * 1024 * 1024 * 1024;
+        case 'M': return $nombre * 1024 * 1024;
+        case 'K': return $nombre * 1024;
+        default:  return (int) $valeur;
+    }
+}
+
 // Avatar d'un membre : sa photo de profil si elle existe encore sur le
 // disque, sinon le cercle coloré avec son initiale (identique partout,
 // pour que la couleur d'un même pseudo ne change jamais d'une page à l'autre).
