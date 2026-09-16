@@ -8,7 +8,7 @@ require_once 'includes/auth.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo est la plateforme d'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=43">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=62">
     <title>Découvrir Cinévo · La plateforme d'avis cinéma sans notes</title>
 </head>
 <body>
@@ -73,7 +73,7 @@ require_once 'includes/auth.php';
             </div>
         </div>
 
-        <p class="source" style="margin-top:28px;">
+        <p class="note-bas" style="margin-top:28px;">
             Une fois inscrit(e), <strong>Mon fil</strong> rassemble les avis de toute la communauté au
             même endroit, et <strong>Mes avis</strong> garde une trace de tout ce que vous avez écrit.
         </p>

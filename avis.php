@@ -8,8 +8,10 @@ $tmdb = new TMDB();
 // La page regroupe les avis par film : chaque film devient une discussion,
 // avec son dernier message et le nombre d'avis publiés (jamais une note).
 $parPage      = 10;
-$pageCourante = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
-$offset       = ($pageCourante - 1) * $parPage;
+// Ne pas nommer cette variable $pageCourante : includes/header.php utilise
+// déjà ce nom pour l'onglet actif et écraserait ce numéro de page.
+$pageListe    = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
+$offset       = ($pageListe - 1) * $parPage;
 
 $total          = 0;
 $discussions    = [];
@@ -78,7 +80,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tous les avis et critiques de films publiés par la communauté Cinévo, sans notes ni classement, triés du plus récent au plus ancien.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=43">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=62">
     <title>Tous les avis et critiques de films · Cinévo</title>
 </head>
 <body>
@@ -124,14 +126,14 @@ if (baseDisponible()) {
 
     <?php if ($totalPages > 1): ?>
         <div class="hero-boutons" style="margin-top:32px; justify-content:center;">
-            <?php if ($pageCourante > 1): ?>
-                <a href="avis.php?page=<?= $pageCourante - 1 ?>">
+            <?php if ($pageListe > 1): ?>
+                <a href="avis.php?page=<?= $pageListe - 1 ?>">
                     <button class="btn-blanc">Précédent</button>
                 </a>
             <?php endif; ?>
-            <span class="label-section" style="align-self:center;">Page <?= $pageCourante ?> / <?= $totalPages ?></span>
-            <?php if ($pageCourante < $totalPages): ?>
-                <a href="avis.php?page=<?= $pageCourante + 1 ?>">
+            <span class="label-section" style="align-self:center;">Page <?= $pageListe ?> / <?= $totalPages ?></span>
+            <?php if ($pageListe < $totalPages): ?>
+                <a href="avis.php?page=<?= $pageListe + 1 ?>">
                     <button class="btn-rouge">Suivant</button>
                 </a>
             <?php endif; ?>
