@@ -21,10 +21,13 @@ if (baseDisponible()) {
         $film = $tmdb->getMovie((int) $row['film_id']);
         $row['film_titre'] = $film['title'] ?? 'Film';
         $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
-        $row['teinte']     = crc32($row['nom_utilisateur']) % 360;
         $avisRecents[]     = $row;
     }
 }
+
+// L'affiche du hero est celle du dernier avis publie : le seul element en
+// couleur de la page, et un point d'entree vers la discussion la plus recente.
+$filmHero = $avisRecents[0] ?? null;
 
 // Petite pile d'affiches, purement decorative, pour illustrer l'appel au
 // tirage aleatoire sans dependre des avis deja publies.
@@ -37,74 +40,61 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=43">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=62">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
-<body>
+<body class="page-index">
 
-        <?php include 'includes/header.php'; ?>
+    <?php include 'includes/header.php'; ?>
 
     <main class="contenu">
 
-        <section class="hero">
-            <div class="hero-fond"></div>
-            <div class="hero-voile"></div>
+        <section class="hero hero-accueil">
+            <div class="hero-grille">
 
-            <div class="hero-contenu">
-
-                <span class="hero-badge">Sans note, sans classement</span>
-                <h1>Le cinéma, ça se <em>discute</em></h1>
-
-                <p class="hero-description">
-                    Sur Cinévo, chaque avis ouvre une conversation. Pas d'accord avec une critique ?
-                    Répondez, nuancez, débattez : c'est ce que les sites de notation ne permettent pas.
-                </p>
-
-                <div class="hero-boutons">
-                    <a href="avis.php">
-                        <button class="btn-rouge">Rejoindre une discussion</button>
-                    </a>
+                <div class="hero-contenu">
+                    <p class="hero-repere">Cinévo</p>
+                    <h1>Ce qui reste.</h1>
+                    <div class="hero-boutons">
+                        <a href="avis.php" class="bouton-principal">Découvrir</a>
+                    </div>
                 </div>
+
+                <?php if ($filmHero): ?>
+                    <a href="fiche.php?id=<?= (int) $filmHero['film_id'] ?>" class="hero-affiche">
+                        <img src="<?= htmlspecialchars($filmHero['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($filmHero['film_titre']) ?>">
+                        <span class="legende">
+                            <span><?= htmlspecialchars($filmHero['film_titre']) ?></span>
+                            <span>Dernier avis</span>
+                        </span>
+                    </a>
+                <?php endif; ?>
 
             </div>
         </section>
 
-        <hr class="separateur">
-
-        <section class="section-concept">
-            <span class="label-section">Notre concept</span>
+        <section class="section-concept accueil-concept">
+            <span class="label-section">Cinévo</span>
             <div class="concept-layout">
                 <div class="concept-texte">
-                    <p>
-                        Ici, personne ne met de note à un film, encore moins des étoiles. Vous avez adoré, détesté,
-                        pleuré ou piqué du nez au bout de vingt minutes ? Dites-le avec vos mots, comme vous le sentez.
-                        Une sortie de la semaine, un classique que tout le monde a déjà vu sauf vous, une madeleine
-                        de Proust totalement improbable : tout a sa place ici, tant que c'est vraiment votre avis.
-                    </p>
+                    <h2>Pas de<br>note.</h2>
+                    <p>Juste ce que les films vous font ressentir.</p>
                 </div>
                 <div class="concept-cta">
-                    <p>Envie d'en savoir plus sur nous ?</p>
-                    <a href="a-propos.php">
-                        <button class="btn-blanc">Découvrir l'histoire de Cinévo
-                        </button>
-                    </a>
+                    <p>Les films se racontent.</p>
+                    <a href="a-propos.php" class="lien-fleche">En savoir plus</a>
                 </div>
             </div>
         </section>
 
-        <hr class="separateur">
-
-        <section>
+        <section class="accueil-avis">
             <div class="avis-entete">
                 <div>
-                    <span class="label-section">À lire en ce moment</span>
-                    <h2>Avis récents</h2>
+                    <span class="label-section">Les conversations</span>
+                    <h2>À lire.</h2>
                 </div>
-                <a href="avis.php">
-                    <button class="btn-transparent">Voir plus d'avis
-                    </button>
-                </a>
+                <a href="avis.php" class="lien-fleche">Tous les avis</a>
             </div>
 
             <div class="grille-avis grille-avis-accueil">
@@ -125,32 +115,23 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
                             <h3><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
                             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 140)) ?></p>
                             <div class="qui">
-                                <span class="avatar" style="background: oklch(0.55 0.12 <?= $avis['teinte'] ?>);"><?= htmlspecialchars(mb_strtoupper(mb_substr($avis['nom_utilisateur'], 0, 1))) ?></span>
-                                <span><strong><?= htmlspecialchars($avis['nom_utilisateur']) ?></strong> · <?= formaterDateFr($avis['publie_le']) ?></span>
+                                <?= htmlspecialchars($avis['nom_utilisateur']) ?> — <?= formaterDateFr($avis['publie_le']) ?>
                             </div>
                         </div>
                     </a>
                 <?php endforeach; ?>
 
             </div>
-
-            <hr class="separateur">
         </section>
 
-        <section class="appel-action">
+        <section class="appel-action accueil-hasard">
+            <span class="label-section">Au hasard</span>
             <div class="hasard-encart">
                 <div class="hasard-texte">
-                    <span class="label-section">On regarde quoi ce soir ?</span>
-                    <h2>Découvrez un film au hasard, sans algorithme</h2>
-                    <p>
-                        Vous scrollez depuis 20 minutes sans rien trouver ? On connaît. On vous propose cinq
-                        films au hasard : le but, c'est de se laisser guider, loin des recommandations,
-                        et de découvrir un film qui peut (ou pas) vous surprendre.
-                    </p>
-                    <div class="hero-boutons" style="margin-top:20px;">
-                        <a href="hasard.php">
-                            <button class="btn-rouge">Tirer 5 films au hasard</button>
-                        </a>
+                    <h2>Une<br>séance.</h2>
+                    <p>Cinq films. Aucun algorithme.</p>
+                    <div class="hero-boutons">
+                        <a href="hasard.php" class="bouton-principal">Lancer la séance</a>
                     </div>
                 </div>
                 <?php if (!empty($filmsPioche)): ?>
@@ -167,7 +148,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
 
     </main>
 
-        <?php include 'includes/footer.php'; ?>
+    <?php include 'includes/footer.php'; ?>
 
     <script src="js/scripts.js"></script>
 </body>
