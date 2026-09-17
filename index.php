@@ -40,7 +40,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=68">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -54,7 +54,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             <div class="hero-grille">
 
                 <div class="hero-contenu">
-                    <h1>Ce qui reste.</h1>
+                    <h1>Parlons ciné.</h1>
                     <div class="hero-boutons">
                         <a href="avis.php" class="bouton-principal">Découvrir</a>
                     </div>

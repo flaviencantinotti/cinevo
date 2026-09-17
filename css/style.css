@@ -1956,9 +1956,16 @@ input[type="submit"]:hover,
   padding: 0;
   text-align: left;
 }
+/* Le titre partage la ligne avec l'affiche : la colonne de gauche vaut la
+   largeur de page moins l'affiche (400px), la gouttière (80px) et les marges.
+   Le mot le plus long fait 4,6 fois la taille de police, d'où cette taille
+   calculée sur la largeur de fenêtre : sans elle, « PARLONS » ne tient pas sur
+   une ligne et se coupe en deux au milieu du mot. */
 .hero-contenu h1 {
-  font-size: 170px;
-  line-height: 0.86;
+  font-size: clamp(64px, calc((100vw - 660px) / 4.9), 132px);
+  /* Le titre tient sur deux lignes : un interlignage plus serré ferait toucher
+     l'accent du É de « CINÉ » à la lettre de la ligne du dessus. */
+  line-height: 1;
   letter-spacing: -0.05em;
   margin-bottom: 56px;
   color: var(--texte);
@@ -1967,10 +1974,16 @@ input[type="submit"]:hover,
 /* Colonne d'affiche du hero (voir index.php) */
 .hero-grille {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: minmax(0, 1fr) 400px;
   gap: 80px;
   align-items: end;
   width: 100%;
+}
+/* min-width:auto est la valeur par défaut d'un enfant de grille : sans ce 0,
+   le titre impose sa largeur sur une ligne et pousse l'affiche hors de l'écran.
+   Avec 0, la colonne se réduit et le titre passe à la ligne. */
+.hero-grille > * {
+  min-width: 0;
 }
 .hero-affiche img {
   display: block;
@@ -2547,6 +2560,11 @@ textarea:focus {
   .hero-grille {
   grid-template-columns: 1fr;
   gap: 48px;
+}
+  /* L'affiche passe sous le titre : celui-ci retrouve toute la largeur et
+     n'a plus besoin de la taille calculée sur la fenêtre. */
+  .hero-contenu h1 {
+  font-size: clamp(64px, 11vw, 112px);
 }
   .hero-affiche {
   max-width: 320px;
