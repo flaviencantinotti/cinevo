@@ -40,7 +40,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=88">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -106,10 +106,10 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                             <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
                         </div>
                         <div class="corps">
+                            <?php // Petite ligne : le film. Grande ligne : le titre de l'avis,
+                                  // obligatoire depuis ecrire.php. ?>
                             <div class="film"><?= htmlspecialchars($avis['film_titre']) ?></div>
-                            <?php if (!empty($avis['titre'])): ?>
-                                <h3><?= htmlspecialchars($avis['titre']) ?></h3>
-                            <?php endif; ?>
+                            <h3><?= htmlspecialchars($avis['titre']) ?></h3>
                             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 140)) ?></p>
                             <div class="qui">
                                 <?= htmlspecialchars($avis['nom_utilisateur']) ?> — <?= formaterDateFr($avis['publie_le']) ?>
