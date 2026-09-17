@@ -31,7 +31,7 @@ $filmHero = $avisRecents[0] ?? null;
 
 // Petite pile d'affiches, purement decorative, pour illustrer l'appel au
 // tirage aleatoire sans dependre des avis deja publies.
-$filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
+$filmsPioche = $tmdb->getRandomMovies(3);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -40,7 +40,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=67">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=68">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 

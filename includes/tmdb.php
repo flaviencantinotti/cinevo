@@ -168,7 +168,14 @@ class TMDB {
         $films   = [];
         $idsVus  = [];
 
-        for ($i = 0; $i < $count; $i++) {
+        // Chaque tour tire une année au hasard. Certaines ne renvoient rien :
+        // cinéma rare, ou page inexistante pour une année peu fournie. Sans
+        // nouvel essai, le tirage rendait alors moins de films que demandé.
+        $essais    = 0;
+        $essaisMax = $count * 5;
+
+        while (count($films) < $count && $essais < $essaisMax) {
+            $essais++;
             $annee = random_int(1920, (int) date('Y'));
 
             $data = $this->fetch('/discover/movie', [
@@ -193,13 +200,25 @@ class TMDB {
 
         if (!empty($films)) {
             $this->remplirReserve($films);
-            return $films;
         }
 
-        $reserve = $this->lireReserve();
-        shuffle($reserve);
+        // L'API n'a pas suffi : on complète avec la réserve locale plutôt que
+        // de renvoyer une grille trouée.
+        if (count($films) < $count) {
+            $reserve = $this->lireReserve();
+            shuffle($reserve);
 
-        return array_slice($reserve, 0, $count);
+            foreach ($reserve as $film) {
+                if (count($films) >= $count) break;
+
+                if (!in_array($film['id'], $idsVus, true)) {
+                    $films[]  = $film;
+                    $idsVus[] = $film['id'];
+                }
+            }
+        }
+
+        return array_slice($films, 0, $count);
     }
 
     /** On ne garde que les films affichables : avec un titre et une affiche. */

@@ -205,7 +205,7 @@ nav a {
 
 .hero-contenu .hero-boutons {
   margin-top: 30px;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 /* ============ SECTION AVIS ============ */
@@ -1321,9 +1321,6 @@ input[type="submit"] {
 
   .hero-contenu .hero-boutons {
   margin-left: 0;
-}
-
-  .hero-contenu .hero-boutons {
   justify-content: flex-start;
 }
 
