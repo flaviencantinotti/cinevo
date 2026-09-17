@@ -2082,6 +2082,11 @@ button:hover,
 .grille-avis-accueil .carte-avis-accueil h3 {
   min-height: 2.6em; /* 2 lignes de 1,3em */
 }
+/* La ligne du film est vide quand l'avis n'a pas de titre : elle garde sa
+   hauteur pour que le titre démarre au même endroit sur les trois cartes. */
+.grille-avis-accueil .carte-avis-accueil .film {
+  min-height: 1.4em;
+}
 .carte-avis-accueil .affiche {
   border: 0;
   border-radius: 0;

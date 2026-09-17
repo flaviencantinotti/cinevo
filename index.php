@@ -41,7 +41,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=84">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=85">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -107,12 +107,14 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                             <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
                         </div>
                         <?php
-                        // Toutes les cartes gardent les deux mêmes lignes, sinon celles dont
-                        // l'avis n'a pas de titre remontent et la grille se décale. Quand
-                        // l'avis n'est pas titré, le nom du film prend la grande ligne et
-                        // l'année occupe la petite, plutôt que d'écrire deux fois la même chose.
+                        // Le titre de l'avis est facultatif. Sans lui, le nom du film prend la
+                        // grande ligne et la petite reste vide : y remettre le nom du film
+                        // l'écrirait deux fois de suite, y mettre l'année ferait un nombre
+                        // orphelin entre deux titres. La ligne garde sa hauteur (voir
+                        // .carte-avis-accueil .film dans la feuille de style) pour que les
+                        // trois cartes restent alignées.
                         $carteTitre  = $avis['titre'] ?: $avis['film_titre'];
-                        $carteRepere = $avis['titre'] ? $avis['film_titre'] : $avis['film_annee'];
+                        $carteRepere = $avis['titre'] ? $avis['film_titre'] : '';
                         ?>
                         <div class="corps">
                             <div class="film"><?= htmlspecialchars($carteRepere) ?></div>
