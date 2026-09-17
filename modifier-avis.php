@@ -71,7 +71,7 @@ if ($avis) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=87">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=88">
     <title>Cinévo · Modifier mon avis</title>
 </head>
 <body>
@@ -107,8 +107,9 @@ if ($avis) {
             <?= csrf_champ() ?>
 
             <div class="champ">
-                <label for="titre">Titre de votre avis <span class="facultatif">(facultatif)</span></label>
+                <label for="titre">Titre de votre avis</label>
                 <input type="text" id="titre" name="titre" placeholder="Une phrase qui résume votre ressenti..."
+                       maxlength="120" required
                        value="<?= htmlspecialchars($_POST['titre'] ?? $avis['titre']) ?>">
             </div>
 

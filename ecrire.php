@@ -49,6 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!baseDisponible()) {
             $erreur = 'Publication impossible : la base de données ne répond pas. '
                 . 'Votre texte est conservé ci-dessous, réessayez dans un instant.';
+        } elseif ($titre === '') {
+            $erreur = 'Donnez un titre à votre avis.';
+        } elseif (mb_strlen($titre) > 120) {
+            $erreur = 'Le titre ne doit pas dépasser 120 caractères.';
         } elseif ($film_id > 0 && mb_strlen($contenu) >= 20) {
             $stmt = $conn->prepare("INSERT INTO avis (utilisateur_id, film_id, titre, contenu) VALUES (?, ?, ?, ?)");
             $stmt->bind_param('iiss', $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
@@ -67,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=87">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=88">
     <title>Cinévo · Écrire un avis</title>
 </head>
 <body>
@@ -156,8 +160,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="hidden" name="film_id" value="<?= $idSelectionne ?: '' ?>">
 
         <div class="champ">
-            <label for="titre">Titre de votre avis <span class="facultatif">(facultatif)</span></label>
+            <label for="titre">Titre de votre avis</label>
             <input type="text" id="titre" name="titre" placeholder="Une phrase qui résume votre ressenti..."
+                   maxlength="120" required
                    value="<?= htmlspecialchars($_POST['titre'] ?? '') ?>">
         </div>
 

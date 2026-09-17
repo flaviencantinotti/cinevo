@@ -8,7 +8,7 @@
 -- sur un nom d'utilisateur precis). Necessite au moins un compte deja cree sur le site.
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 424, NULL, 'Le noir et blanc n\'est jamais un choix esthétique gratuit chez Spielberg : ici il installe une distance presque documentaire, avant que le rouge du manteau ne vienne tout faire basculer. Un film qu\'on ne regarde pas deux fois par plaisir, mais qu\'on n\'oublie jamais.', '2026-09-13 21:12:00'
+SELECT u.id, 424, 'Le rouge qui fait tout basculer', 'Le noir et blanc n\'est jamais un choix esthétique gratuit chez Spielberg : ici il installe une distance presque documentaire, avant que le rouge du manteau ne vienne tout faire basculer. Un film qu\'on ne regarde pas deux fois par plaisir, mais qu\'on n\'oublie jamais.', '2026-09-13 21:12:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (0 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 424 AND contenu = 'Le noir et blanc n\'est jamais un choix esthétique gratuit chez Spielberg : ici il installe une distance presque documentaire, avant que le rouge du manteau ne vienne tout faire basculer. Un film qu\'on ne regarde pas deux fois par plaisir, mais qu\'on n\'oublie jamais.');
@@ -20,7 +20,7 @@ WHERE u.rn = (1 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 389 AND contenu = 'Toute l\'intrigue se joue dans une seule pièce et pourtant on ne s\'ennuie jamais une seconde : chaque acteur porte le doute différemment, et c\'est passionnant de regarder les visages changer plutôt que les décors.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 475557, NULL, 'Phoenix est hallucinant mais je suis sorti de la salle mal à l\'aise pendant deux jours. Pas sûr d\'avoir eu envie de ça, mais impossible de dire que ce n\'est pas du grand cinéma.', '2026-09-11 22:05:00'
+SELECT u.id, 475557, 'Du grand cinéma, et une sortie difficile', 'Phoenix est hallucinant mais je suis sorti de la salle mal à l\'aise pendant deux jours. Pas sûr d\'avoir eu envie de ça, mais impossible de dire que ce n\'est pas du grand cinéma.', '2026-09-11 22:05:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (2 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 475557 AND contenu = 'Phoenix est hallucinant mais je suis sorti de la salle mal à l\'aise pendant deux jours. Pas sûr d\'avoir eu envie de ça, mais impossible de dire que ce n\'est pas du grand cinéma.');
@@ -38,31 +38,31 @@ WHERE u.rn = (1 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 569094 AND contenu = 'Chaque univers a sa propre grammaire graphique et pourtant tout reste lisible, c\'est un tour de force d\'animation. Miles reste attachant même noyé sous des idées visuelles toutes les trente secondes.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 933260, NULL, 'Je n\'ai pas dormi la nuit d\'après. C\'est gore, c\'est excessif, et pourtant ça dit quelque chose de très juste sur la pression qu\'on met aux femmes à vieillir bien. Pas pour tout le monde, mais je ne l\'oublierai pas.', '2026-08-28 23:02:00'
+SELECT u.id, 933260, 'Excessif, et terriblement juste', 'Je n\'ai pas dormi la nuit d\'après. C\'est gore, c\'est excessif, et pourtant ça dit quelque chose de très juste sur la pression qu\'on met aux femmes à vieillir bien. Pas pour tout le monde, mais je ne l\'oublierai pas.', '2026-08-28 23:02:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (2 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 933260 AND contenu = 'Je n\'ai pas dormi la nuit d\'après. C\'est gore, c\'est excessif, et pourtant ça dit quelque chose de très juste sur la pression qu\'on met aux femmes à vieillir bien. Pas pour tout le monde, mais je ne l\'oublierai pas.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 106646, NULL, 'Trois heures qui passent vite mais qui laissent un arrière-goût bizarre : le film dénonce-t-il vraiment ce monde-là ou finit-il par le rendre désirable ? Je n\'ai toujours pas tranché après plusieurs visionnages.', '2026-08-22 17:45:00'
+SELECT u.id, 106646, 'Dénonce-t-il vraiment ce monde-là ?', 'Trois heures qui passent vite mais qui laissent un arrière-goût bizarre : le film dénonce-t-il vraiment ce monde-là ou finit-il par le rendre désirable ? Je n\'ai toujours pas tranché après plusieurs visionnages.', '2026-08-22 17:45:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (0 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 106646 AND contenu = 'Trois heures qui passent vite mais qui laissent un arrière-goût bizarre : le film dénonce-t-il vraiment ce monde-là ou finit-il par le rendre désirable ? Je n\'ai toujours pas tranché après plusieurs visionnages.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 11, NULL, 'Revu en version originale récemment : ce qui frappe, c\'est à quel point tout semble bricolé avec les moyens du bord, et c\'est précisément ce qui rend l\'univers vivant. Les effets numériques d\'aujourd\'hui ont perdu ce grain-là.', '2026-08-15 20:50:00'
+SELECT u.id, 11, 'Le grain du bricolage', 'Revu en version originale récemment : ce qui frappe, c\'est à quel point tout semble bricolé avec les moyens du bord, et c\'est précisément ce qui rend l\'univers vivant. Les effets numériques d\'aujourd\'hui ont perdu ce grain-là.', '2026-08-15 20:50:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (1 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 11 AND contenu = 'Revu en version originale récemment : ce qui frappe, c\'est à quel point tout semble bricolé avec les moyens du bord, et c\'est précisément ce qui rend l\'univers vivant. Les effets numériques d\'aujourd\'hui ont perdu ce grain-là.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 950387, NULL, 'Emmené mon fils de 8 ans, il a adoré, moi un peu moins convaincu par le scénario. Mais l\'entendre rire pendant une heure et demie, ça n\'a pas de prix.', '2026-08-09 16:20:00'
+SELECT u.id, 950387, 'Mon fils a adoré, moi un peu moins', 'Emmené mon fils de 8 ans, il a adoré, moi un peu moins convaincu par le scénario. Mais l\'entendre rire pendant une heure et demie, ça n\'a pas de prix.', '2026-08-09 16:20:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (2 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 950387 AND contenu = 'Emmené mon fils de 8 ans, il a adoré, moi un peu moins convaincu par le scénario. Mais l\'entendre rire pendant une heure et demie, ça n\'a pas de prix.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 675, NULL, 'Revu la saga en entier cet été et celui-là reste mon préféré : Ombrage est un des meilleurs méchants du cinéma jeunesse, plus effrayante que Voldemort parce que terriblement crédible.', '2026-09-02 20:10:00'
+SELECT u.id, 675, 'Ombrage, plus effrayante que Voldemort', 'Revu la saga en entier cet été et celui-là reste mon préféré : Ombrage est un des meilleurs méchants du cinéma jeunesse, plus effrayante que Voldemort parce que terriblement crédible.', '2026-09-02 20:10:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (0 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 675 AND contenu = 'Revu la saga en entier cet été et celui-là reste mon préféré : Ombrage est un des meilleurs méchants du cinéma jeunesse, plus effrayante que Voldemort parce que terriblement crédible.');
@@ -74,13 +74,13 @@ WHERE u.rn = (1 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 808 AND contenu = 'Les blagues visées adultes passent toujours aussi bien vingt ans après. Rare de voir un film pour enfants qui ne prend jamais les enfants pour des idiots, ni les adultes pour acquis.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 585, NULL, 'La scène des portes est un modèle d\'action et de mise en scène, encore aujourd\'hui. Pixar au sommet de son inventivité visuelle, bien avant de se reposer sur ses suites.', '2026-08-25 21:20:00'
+SELECT u.id, 585, 'La scène des portes, toujours un modèle', 'La scène des portes est un modèle d\'action et de mise en scène, encore aujourd\'hui. Pixar au sommet de son inventivité visuelle, bien avant de se reposer sur ses suites.', '2026-08-25 21:20:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (2 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 585 AND contenu = 'La scène des portes est un modèle d\'action et de mise en scène, encore aujourd\'hui. Pixar au sommet de son inventivité visuelle, bien avant de se reposer sur ses suites.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 1022789, NULL, 'Emmenée ma fille de 6 ans, on est sorties toutes les deux en larmes. Ça parle autant aux enfants qu\'aux parents qui les regardent grandir, ce qui est rare pour une suite.', '2026-08-19 18:05:00'
+SELECT u.id, 1022789, 'On est sorties toutes les deux en larmes', 'Emmenée ma fille de 6 ans, on est sorties toutes les deux en larmes. Ça parle autant aux enfants qu\'aux parents qui les regardent grandir, ce qui est rare pour une suite.', '2026-08-19 18:05:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (0 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 1022789 AND contenu = 'Emmenée ma fille de 6 ans, on est sorties toutes les deux en larmes. Ça parle autant aux enfants qu\'aux parents qui les regardent grandir, ce qui est rare pour une suite.');
@@ -92,13 +92,13 @@ WHERE u.rn = (1 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 911430 AND contenu = 'Techniquement impressionnant, les courses sont filmées avec un vrai sens du rythme. Le scénario en revanche ne surprend jamais une seconde, on connaît l\'arc du pilote vieillissant par cœur.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 1038392, NULL, 'Je n\'ai plus dormi la lumière éteinte pendant une semaine. Efficace du début à la fin, avec de vrais moments de mise en scène plutôt que des jumpscares gratuits.', '2026-08-05 23:15:00'
+SELECT u.id, 1038392, 'Une semaine à dormir la lumière allumée', 'Je n\'ai plus dormi la lumière éteinte pendant une semaine. Efficace du début à la fin, avec de vrais moments de mise en scène plutôt que des jumpscares gratuits.', '2026-08-05 23:15:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (2 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 1038392 AND contenu = 'Je n\'ai plus dormi la lumière éteinte pendant une semaine. Efficace du début à la fin, avec de vrais moments de mise en scène plutôt que des jumpscares gratuits.');
 
 INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
-SELECT u.id, 502356, NULL, 'Fidèle aux jeux sans être paresseux, et visuellement très soigné. Pas le film le plus original de l\'année mais mon neveu de 7 ans l\'a regardé trois fois en une semaine.', '2026-07-29 17:30:00'
+SELECT u.id, 502356, 'Fidèle sans être paresseux', 'Fidèle aux jeux sans être paresseux, et visuellement très soigné. Pas le film le plus original de l\'année mais mon neveu de 7 ans l\'a regardé trois fois en une semaine.', '2026-07-29 17:30:00'
 FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
 WHERE u.rn = (0 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 502356 AND contenu = 'Fidèle aux jeux sans être paresseux, et visuellement très soigné. Pas le film le plus original de l\'année mais mon neveu de 7 ans l\'a regardé trois fois en une semaine.');
