@@ -1102,7 +1102,9 @@ input[type="email"] {
 }
 
 .page-editoriale > h1 {
-  font-size: 64px;
+  /* « Conditions » mesure 6,7 fois la taille de police : au-delà de 10,5vw le
+     mot ne tient plus sur la largeur d'un téléphone. */
+  font-size: clamp(34px, 10.5vw, 64px);
   line-height: 1;
   margin: 20px 0 0;
 }
@@ -1162,7 +1164,9 @@ input[type="email"] {
 }
 
 .corps-texte h2 {
-  font-size: 30px;
+  /* « Responsabilité » mesure 9 fois la taille de police : au-delà de 28px il
+     ne tient plus sur la largeur utile d'un écran de 360px. */
+  font-size: clamp(26px, 7.5vw, 30px);
   margin-bottom: 20px;
 }
 
@@ -1624,6 +1628,16 @@ h1 p {
 body {
   overflow-wrap: break-word;
 }
+
+/* Sur un titre, cette césure tombait n'importe où : « CONDITI / ONS » sur la
+   page des CGU en 390px. Les titres se coupent donc à la syllabe, avec un
+   trait d'union, comme le ferait un typographe. */
+h1,
+h2,
+h3,
+h4 {
+  hyphens: auto;
+}
 pre,
 code,
 textarea {
@@ -2032,11 +2046,41 @@ button:hover,
   padding: 0;
 }
 
+/* Les cinq cartes du tirage sont sur une même ligne : quand un titre passe sur
+   deux lignes, son année descend et la rangée se déchire. La carte occupe toute
+   la hauteur de sa case et l'année se cale en bas. */
+.carte-hasard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.carte-hasard .annee-hasard {
+  margin-top: auto;
+  padding-top: 4px;
+}
+
 .carte-avis-accueil {
   display: flex;
   flex-direction: column;
   gap: 24px;
   color: var(--texte);
+  height: 100%;
+}
+/* Les cartes de la grille n'ont pas la même longueur de texte : sans cela, la
+   ligne « auteur — date » flotte à une hauteur différente dans chaque colonne. */
+.carte-avis-accueil .corps {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.carte-avis-accueil .qui {
+  margin-top: auto;
+  padding-top: 20px;
+}
+/* Deux lignes réservées au titre : sans cela, une carte au titre court fait
+   démarrer son texte 31px plus haut que sa voisine et la rangée se déchire. */
+.grille-avis-accueil .carte-avis-accueil h3 {
+  min-height: 2.6em; /* 2 lignes de 1,3em */
 }
 .carte-avis-accueil .affiche {
   border: 0;
@@ -2158,11 +2202,23 @@ a:hover .affiche-hasard img {
   font-size: 18px;
   margin-bottom: 40px;
 }
+/* La partie structure empile les trois affiches en absolu dans une boîte de
+   230x168 px, en les faisant pivoter. La charte veut une rangée : sans annuler
+   le positionnement absolu, les décalages left/top et la taille du conteneur,
+   les affiches se chevauchaient et débordaient de 39 px, la troisième était
+   presque entièrement cachée. Le :nth-child des rotations est plus précis que
+   ce sélecteur : la remise à plat se fait donc au même niveau. */
 .hasard-pile {
   display: flex;
   gap: 16px;
+  width: auto;
+  height: auto;
 }
-.hasard-pile .affiche {
+.hasard-pile .affiche,
+.hasard-pile .affiche:nth-child(1),
+.hasard-pile .affiche:nth-child(2),
+.hasard-pile .affiche:nth-child(3) {
+  position: static;
   width: 140px;
   border: 0;
   box-shadow: none;
@@ -2509,8 +2565,12 @@ textarea:focus {
   color: var(--rouge);
 }
 
+/* Le pseudo est saisi par le membre et peut faire vingt caractères d'un seul
+   tenant. « Bonjour, maximiliendebesancon. » mesure 14 fois la taille de
+   police : au-delà de 6,2vw il se coupe en deux sur un téléphone. Au-delà de
+   vingt-deux caractères la coupure reprend la main, ce qui reste lisible. */
 .message-accueil h1 {
-  font-size: 72px;
+  font-size: clamp(22px, 6.2vw, 72px);
 }
 
 /* ============================================================
@@ -2574,43 +2634,65 @@ textarea:focus {
 }
 }
 
+/* ============================================================
+   EN-TÊTE REPLIÉ
+
+   Connecté, la barre du haut aligne le logo, cinq liens, la
+   recherche, le pseudo et « Déconnexion » : 976px de contenu, qui
+   ne tiennent plus sous ~1180px. Le burger ne s'affichait qu'à
+   768px, si bien que toute la plage tablette débordait la page de
+   plus de cent pixels. Le repli se déclenche donc ici, et pas
+   dans le bloc mobile.
+   ============================================================ */
+
+@media (max-width: 1180px) {
+  .barre-recherche {
+    display: none;
+  }
+  .menu-burger {
+    display: flex;
+    margin-left: auto;
+  }
+
+  /* Panneau déroulant : le burger de js/scripts.js bascule la classe .open. */
+  nav {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background: var(--fond);
+    border-top: 1px solid var(--filet);
+    border-bottom: 1px solid var(--filet);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 18px;
+    z-index: 200;
+  }
+  nav.open {
+    display: flex;
+  }
+  /* Pas de width:100% : le trait du lien actif s'étirerait sur toute la
+     largeur du panneau au lieu de souligner le mot. */
+  nav a {
+    align-self: flex-start;
+  }
+}
+
 @media (max-width: 768px) {
   .entete {
   height: 64px;
   padding: 0 20px;
   gap: 14px;
 }
-  .barre-recherche {
-  display: none;
-}
-  .menu-burger {
-  display: flex;
-  margin-left: auto;
-}
-
-  /* Panneau déroulant : le burger de js/scripts.js bascule la classe .open. */
+  /* L'en-tête mesure 64px ici, le panneau doit s'ouvrir juste dessous. */
   nav {
-  display: none;
-  position: fixed;
-  top: 64px;
-  left: 0;
-  right: 0;
-  background: var(--fond);
-  border-top: 1px solid var(--filet);
-  border-bottom: 1px solid var(--filet);
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
-  gap: 18px;
-  z-index: 200;
-}
-  nav.open {
-  display: flex;
-}
+    top: 64px;
+  }
   nav a {
-  font-size: 13px;
-  width: 100%;
-}
+    font-size: 13px;
+  }
 
   .contenu {
   padding: 0 20px;
@@ -2697,6 +2779,49 @@ textarea:focus {
   flex-wrap: wrap;
   gap: 16px;
 }
+}
+
+/* Ligne de résultat de recherche : sous 560px, l'affiche, le titre et le
+   bouton ne tiennent plus côte à côte et le titre se coupait en plein mot.
+   Le bouton passe alors à la ligne. */
+@media (max-width: 560px) {
+  .resultat-film {
+    flex-wrap: wrap;
+  }
+  .resultat-film .info-film {
+    flex: 1 1 60%;
+  }
+  .resultat-film .btn-transparent {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
+
+/* ============================================================
+   TRÈS PETITS ÉCRANS
+
+   À 360px (Android courant) puis 320px, le logo, le burger,
+   « Connexion » et « Rejoindre » ne tenaient plus sur la ligne :
+   l'en-tête débordait de 5 puis 45 pixels. On resserre les
+   gouttières et la typographie plutôt que d'escamoter un lien.
+   ============================================================ */
+
+@media (max-width: 400px) {
+  .entete {
+    padding: 0 14px;
+    gap: 10px;
+  }
+  .entete-nav {
+    gap: 12px;
+  }
+  .entete-nav a,
+  .entete-utilisateur {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  .menu-burger {
+    padding: 8px 4px;
+  }
 }
 
 @media (max-width: 480px) {

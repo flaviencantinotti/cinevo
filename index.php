@@ -20,6 +20,7 @@ if (baseDisponible()) {
     while ($result && $row = $result->fetch_assoc()) {
         $film = $tmdb->getMovie((int) $row['film_id']);
         $row['film_titre'] = $film['title'] ?? 'Film';
+        $row['film_annee'] = substr($film['release_date'] ?? '', 0, 4);
         $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
         $avisRecents[]     = $row;
     }
@@ -40,7 +41,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=84">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -105,11 +106,17 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                         <div class="affiche">
                             <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
                         </div>
+                        <?php
+                        // Toutes les cartes gardent les deux mêmes lignes, sinon celles dont
+                        // l'avis n'a pas de titre remontent et la grille se décale. Quand
+                        // l'avis n'est pas titré, le nom du film prend la grande ligne et
+                        // l'année occupe la petite, plutôt que d'écrire deux fois la même chose.
+                        $carteTitre  = $avis['titre'] ?: $avis['film_titre'];
+                        $carteRepere = $avis['titre'] ? $avis['film_titre'] : $avis['film_annee'];
+                        ?>
                         <div class="corps">
-                            <div class="film"><?= htmlspecialchars($avis['film_titre']) ?></div>
-                            <?php if (!empty($avis['titre'])): ?>
-                                <h3><?= htmlspecialchars($avis['titre']) ?></h3>
-                            <?php endif; ?>
+                            <div class="film"><?= htmlspecialchars($carteRepere) ?></div>
+                            <h3><?= htmlspecialchars($carteTitre) ?></h3>
                             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 140)) ?></p>
                             <div class="qui">
                                 <?= htmlspecialchars($avis['nom_utilisateur']) ?> — <?= formaterDateFr($avis['publie_le']) ?>
