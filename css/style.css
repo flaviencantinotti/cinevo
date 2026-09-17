@@ -113,10 +113,6 @@ header {
   min-width: 0;
 }
 
-.barre-recherche input {
-  height: 40px;
-}
-
 nav a {
   text-decoration: none;
   transition: color 0.2s;
@@ -1870,8 +1866,13 @@ nav a.actif {
   width: auto;
   flex-shrink: 0;
 }
-.barre-recherche input {
-  width: 230px;
+/* input[type="search"] est aussi visé par la règle des champs de formulaire,
+   de spécificité égale mais déclarée plus bas : sans ce sélecteur plus précis,
+   la recherche de l'en-tête héritait d'un champ de 40px en 16px, hors d'échelle
+   au milieu d'une barre dont tout le reste fait 18px. */
+.barre-recherche input[type="search"] {
+  width: 210px;
+  height: auto;
   background: var(--fond);
   border: 0;
   border-bottom: 1px solid #555;

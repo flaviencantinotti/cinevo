@@ -54,7 +54,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=63">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=64">
 </head>
 <body>
 
@@ -86,7 +86,6 @@ if ($id > 0) {
             </div>
 
             <div>
-                <span class="label-section">Long métrage · <?= $annee ?></span>
                 <h1 class="titre-film"><?= htmlspecialchars($film['title']) ?></h1>
 
                 <?php
