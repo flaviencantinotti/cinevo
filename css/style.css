@@ -1189,33 +1189,6 @@ input[type="submit"] {
   margin: 0;
 }
 
-.grille-caracteristiques {
-  margin-top: 24px;
-  border-top: 1px solid var(--filet);
-}
-
-.carte-caracteristique {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--filet);
-}
-
-.carte-caracteristique .titre-carac {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 17px;
-  color: var(--texte);
-  margin-bottom: 6px;
-  line-height: 1.3;
-}
-
-.carte-caracteristique p {
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--texte-doux);
-  margin: 0;
-}
-
 .corps-texte section {
   padding-bottom: 48px;
   border-bottom: 1px solid var(--filet);
