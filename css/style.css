@@ -113,10 +113,6 @@ header {
   min-width: 0;
 }
 
-.barre-recherche input {
-  height: 40px;
-}
-
 nav a {
   text-decoration: none;
   transition: color 0.2s;
@@ -1193,33 +1189,6 @@ input[type="submit"] {
   margin: 0;
 }
 
-.grille-caracteristiques {
-  margin-top: 24px;
-  border-top: 1px solid var(--filet);
-}
-
-.carte-caracteristique {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--filet);
-}
-
-.carte-caracteristique .titre-carac {
-  font-family: var(--sans);
-  font-weight: 700;
-  font-size: 17px;
-  color: var(--texte);
-  margin-bottom: 6px;
-  line-height: 1.3;
-}
-
-.carte-caracteristique p {
-  font-family: var(--sans);
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--texte-doux);
-  margin: 0;
-}
-
 .corps-texte section {
   padding-bottom: 48px;
   border-bottom: 1px solid var(--filet);
@@ -1870,8 +1839,13 @@ nav a.actif {
   width: auto;
   flex-shrink: 0;
 }
-.barre-recherche input {
-  width: 230px;
+/* input[type="search"] est aussi visé par la règle des champs de formulaire,
+   de spécificité égale mais déclarée plus bas : sans ce sélecteur plus précis,
+   la recherche de l'en-tête héritait d'un champ de 40px en 16px, hors d'échelle
+   au milieu d'une barre dont tout le reste fait 18px. */
+.barre-recherche input[type="search"] {
+  width: 210px;
+  height: auto;
   background: var(--fond);
   border: 0;
   border-bottom: 1px solid #555;
@@ -1984,14 +1958,6 @@ input[type="submit"]:hover,
   max-width: none;
   padding: 0;
   text-align: left;
-}
-.hero-repere {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--texte-doux);
-  margin-bottom: 56px;
 }
 .hero-contenu h1 {
   font-size: 170px;
@@ -2135,6 +2101,14 @@ input[type="submit"]:hover,
   /* les affiches sont le seul élément en couleur */
   transition: opacity .25s;
 }
+/* .affiche-mini est une vignette placée dans une ligne en flex, pas dans un
+   bloc à elle : le width:100% ci-dessus lui ferait prendre toute la largeur
+   de la ligne et réduirait le titre à zéro. Sa hauteur suffit à la
+   dimensionner, le ratio de l'affiche fait le reste. */
+.affiche-mini {
+  width: auto;
+}
+
 a:hover .affiche img,
 a:hover .affiche-fil img,
 a:hover .affiche-hasard img {
@@ -2671,9 +2645,6 @@ textarea:focus {
   .hero-contenu h1 {
   font-size: clamp(44px, 15vw, 96px);
   margin-bottom: 36px;
-}
-  .hero-repere {
-  margin-bottom: 28px;
 }
   .hero-affiche {
   max-width: none;
