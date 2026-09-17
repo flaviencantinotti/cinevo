@@ -146,10 +146,6 @@ class TMDB {
         return null;
     }
 
-    public function getPopular(int $page = 1): ?array {
-        return $this->fetch('/movie/popular', ['page' => $page], self::CACHE_TIRAGE);
-    }
-
     /**
      * Tire des films au hasard.
      *
@@ -168,7 +164,20 @@ class TMDB {
         $films   = [];
         $idsVus  = [];
 
-        for ($i = 0; $i < $count; $i++) {
+        // Chaque tour tire une année au hasard. Certaines ne renvoient rien :
+        // cinéma rare, ou page inexistante pour une année peu fournie. Sans
+        // nouvel essai, le tirage rendait alors moins de films que demandé.
+        $essais    = 0;
+        $essaisMax = $count * 5;
+
+        // Quand l'API ne répond plus, chaque appel coûte le délai d'attente
+        // complet : insister 25 fois bloquerait la page une minute ou deux.
+        // Deux échecs de suite suffisent à conclure, on passe à la réserve.
+        $echecs    = 0;
+        $echecsMax = 2;
+
+        while (count($films) < $count && $essais < $essaisMax) {
+            $essais++;
             $annee = random_int(1920, (int) date('Y'));
 
             $data = $this->fetch('/discover/movie', [
@@ -178,6 +187,16 @@ class TMDB {
                 'vote_count.gte'       => 50,
                 'primary_release_year' => $annee,
             ], self::CACHE_TIRAGE);
+
+            // fetch() ne rend null que si ni l'API ni le cache n'ont répondu :
+            // c'est une panne, pas une année sans film.
+            if ($data === null) {
+                $echecs++;
+                if ($echecs >= $echecsMax) break;
+                continue;
+            }
+
+            $echecs = 0;
 
             $candidats = array_filter(
                 $this->filtrerFilms($data['results'] ?? []),
@@ -193,13 +212,25 @@ class TMDB {
 
         if (!empty($films)) {
             $this->remplirReserve($films);
-            return $films;
         }
 
-        $reserve = $this->lireReserve();
-        shuffle($reserve);
+        // L'API n'a pas suffi : on complète avec la réserve locale plutôt que
+        // de renvoyer une grille trouée.
+        if (count($films) < $count) {
+            $reserve = $this->lireReserve();
+            shuffle($reserve);
 
-        return array_slice($reserve, 0, $count);
+            foreach ($reserve as $film) {
+                if (count($films) >= $count) break;
+
+                if (!in_array($film['id'], $idsVus, true)) {
+                    $films[]  = $film;
+                    $idsVus[] = $film['id'];
+                }
+            }
+        }
+
+        return array_slice($films, 0, $count);
     }
 
     /** On ne garde que les films affichables : avec un titre et une affiche. */
@@ -298,14 +329,6 @@ class TMDB {
         if (!$posterPath) return 'images/affiche-indisponible.svg';
 
         return $this->imageUrl . '/' . $size . $posterPath;
-    }
-
-    // Contrairement à l'affiche (verticale), le photogramme est une image
-    // large : une scène du film, utilisée en fond du hero.
-    public function getBackdropUrl(?string $backdropPath, string $size = 'w1280'): ?string {
-        if (!$backdropPath) return null;
-
-        return $this->imageUrl . '/' . $size . $backdropPath;
     }
 
     public function derniereErreur(): string {

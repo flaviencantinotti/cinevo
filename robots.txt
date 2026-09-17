@@ -1,15 +1,16 @@
 User-agent: *
 Allow: /
+# Les pages réservées aux membres et les outils techniques n'ont rien à faire
+# dans un index. recherche.php et inscription.php portent leur propre balise
+# robots : les lister ici empêcherait justement les robots d'aller la lire.
 Disallow: /includes/
 Disallow: /connexion.php
-Disallow: /inscription.php
 Disallow: /deconnexion.php
 Disallow: /home.php
 Disallow: /ecrire.php
 Disallow: /mes-avis.php
 Disallow: /modifier-avis.php
 Disallow: /supprimer-avis.php
-Disallow: /recherche.php
 Disallow: /diagnostic.php
 Disallow: /installation.php
 Disallow: /cache/

@@ -98,8 +98,9 @@ Laragon…), puis ouvrir `index.php`.
 
 La base `cinevo` et ses tables sont créées automatiquement au premier
 chargement — il n'y a rien à importer. Les identifiants MySQL par défaut sont
-ceux d'une installation locale (`localhost`, `root`, sans mot de passe) ; à
-adapter dans `includes/db.php` selon votre environnement.
+ceux d'une installation locale (`localhost`, `root`, sans mot de passe) ; pour
+un autre environnement, renseignez `DB_HOST`, `DB_NAME`, `DB_USER` et
+`DB_PASS` dans le `.env` (voir `.env.example`), sans toucher au code.
 
 **4. (Optionnel) Avis de démonstration**
 

@@ -1,21 +1,13 @@
 /* --- Affiche de secours si une image ne se charge pas ---
  * Enregistré hors DOMContentLoaded et en phase de capture, pour ne
- * manquer aucune erreur meme si une image echoue avant que le reste
- * du script se soit initialise. */
+ * manquer aucune erreur même si une image échoue avant que le reste
+ * du script se soit initialisé. */
 (function () {
     var AFFICHE_SECOURS = 'images/affiche-indisponible.svg';
 
     document.addEventListener('error', function (e) {
         var cible = e.target;
         if (!cible || cible.tagName !== 'IMG') return;
-
-        // Le photogramme du hero est large (16/9) : l'affiche de secours,
-        // pensée pour un format portrait, y serait déformée. On masque
-        // simplement l'image, le dégradé posé derrière suffit.
-        if (cible.closest('.hero-fond')) {
-            cible.style.display = 'none';
-            return;
-        }
 
         if (cible.getAttribute('src') !== AFFICHE_SECOURS) {
             cible.src = AFFICHE_SECOURS;
@@ -94,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function construireCarte(film) {
             return '<a href="fiche.php?id=' + film.id + '" class="carte-hasard">' +
-                '<div class="affiche-hasard"><img src="' + film.affiche + '" alt="Affiche de ' + echapperHtml(film.titre) + '" loading="lazy"></div>' +
+                '<div class="affiche-hasard"><img src="' + echapperHtml(film.affiche) + '" alt="Affiche de ' + echapperHtml(film.titre) + '" loading="lazy"></div>' +
                 '<div class="titre-hasard">' + echapperHtml(film.titre) + '</div>' +
                 '<div class="annee-hasard">' + echapperHtml(film.annee) + '</div>' +
                 '</a>';
