@@ -56,7 +56,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                 <div class="hero-contenu">
                     <h1>Parlons ciné.</h1>
                     <div class="hero-boutons">
-                        <a href="avis.php" class="bouton-principal">Découvrir</a>
+                        <a href="decouvrir.php" class="bouton-principal">Découvrir</a>
                     </div>
                 </div>
 
