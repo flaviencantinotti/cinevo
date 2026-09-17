@@ -41,7 +41,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=85">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=87">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -106,19 +106,17 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                         <div class="affiche">
                             <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
                         </div>
-                        <?php
-                        // Le titre de l'avis est facultatif. Sans lui, le nom du film prend la
-                        // grande ligne et la petite reste vide : y remettre le nom du film
-                        // l'écrirait deux fois de suite, y mettre l'année ferait un nombre
-                        // orphelin entre deux titres. La ligne garde sa hauteur (voir
-                        // .carte-avis-accueil .film dans la feuille de style) pour que les
-                        // trois cartes restent alignées.
-                        $carteTitre  = $avis['titre'] ?: $avis['film_titre'];
-                        $carteRepere = $avis['titre'] ? $avis['film_titre'] : '';
-                        ?>
                         <div class="corps">
-                            <div class="film"><?= htmlspecialchars($carteRepere) ?></div>
-                            <h3><?= htmlspecialchars($carteTitre) ?></h3>
+                            <?php // Petite ligne : toujours le film. Grande ligne : toujours le
+                                  // titre de l'avis. Celui-ci est facultatif : quand il manque,
+                                  // la place reste réservée pour que les cartes de la rangée
+                                  // démarrent toutes à la même hauteur. ?>
+                            <div class="film"><?= htmlspecialchars($avis['film_titre']) ?></div>
+                            <?php if ($avis['titre']): ?>
+                                <h3><?= htmlspecialchars($avis['titre']) ?></h3>
+                            <?php else: ?>
+                                <div class="titre-absent" aria-hidden="true"></div>
+                            <?php endif; ?>
                             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 140)) ?></p>
                             <div class="qui">
                                 <?= htmlspecialchars($avis['nom_utilisateur']) ?> — <?= formaterDateFr($avis['publie_le']) ?>

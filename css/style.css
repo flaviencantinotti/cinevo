@@ -2082,10 +2082,15 @@ button:hover,
 .grille-avis-accueil .carte-avis-accueil h3 {
   min-height: 2.6em; /* 2 lignes de 1,3em */
 }
-/* La ligne du film est vide quand l'avis n'a pas de titre : elle garde sa
-   hauteur pour que le titre démarre au même endroit sur les trois cartes. */
-.grille-avis-accueil .carte-avis-accueil .film {
-  min-height: 1.4em;
+/* Un avis sans titre laisse la grande ligne vide : on réserve exactement la
+   même place qu'un h3, sinon le texte de cette carte remonte et la rangée se
+   décale. Le bloc est vide et marqué aria-hidden, il n'est pas annoncé. */
+.grille-avis-accueil .titre-absent {
+  /* Même corps que le h3 : sans lui, le « em » se rapporte au texte courant
+     et la place réservée ne vaut que 41px au lieu des 62px du titre. */
+  font-size: 24px;
+  min-height: 2.6em;
+  margin-bottom: 16px;
 }
 .carte-avis-accueil .affiche {
   border: 0;
