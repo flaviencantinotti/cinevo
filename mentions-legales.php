@@ -10,7 +10,7 @@ require_once 'includes/auth.php';
     <meta name="description" content="Mentions légales de Cinévo : éditeur du site, hébergement, propriété intellectuelle et données personnelles.">
     <meta name="robots" content="noindex, follow">
     <title>Cinévo · Mentions légales</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
 </head>
 <body>
 
@@ -19,7 +19,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <h1>Mentions <em>légales.</em></h1>
+    <h1>Mentions légales.</h1>
     <p class="intro">
         Tout ce que la loi nous oblige à vous dire, dit aussi clairement que possible.
     </p>
@@ -36,7 +36,10 @@ require_once 'includes/auth.php';
             <dl class="liste-definitions">
                 <dt>Nom</dt><dd>Flavien CANTINOTTI, entrepreneur individuel</dd>
                 <dt>Statut</dt><dd>Micro-entreprise</dd>
-                <dt>SIRET</dt><dd>012 345 678 90123</dd>
+                <?php // À remplacer par le numéro réel avant toute mise en ligne :
+                      // « 012 345 678 90123 » était un numéro d'exemple, qu'un
+                      // lecteur pouvait prendre pour un vrai. ?>
+                <dt>SIRET</dt><dd>en cours d'immatriculation</dd>
                 <dt>Adresse</dt><dd>Besançon, France</dd>
                 <dt>Email</dt><dd><a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a></dd>
                 <dt>Directeur de la publication</dt><dd>Flavien CANTINOTTI.</dd>

@@ -6,6 +6,14 @@ require_once 'includes/auth.php';
 $erreur    = '';
 $email     = '';
 $lienReset = '';
+$demandeEnvoyee = false;
+
+// Le lien de réinitialisation ne s'affiche à l'écran que depuis la machine
+// elle-même, comme pour installation.php et diagnostic.php : en ligne, cela
+// permettrait à n'importe qui de prendre la main sur n'importe quel compte.
+// Sur un vrai hébergement, ce lien part par e-mail.
+$adresse = $_SERVER['REMOTE_ADDR'] ?? '';
+$enLocal = in_array($adresse, ['127.0.0.1', '::1', 'localhost'], true);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
@@ -22,11 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $utilisateur = $stmt->get_result()->fetch_assoc();
 
-        if (!$utilisateur) {
-            $erreur = 'Aucun compte n\'est associé à cette adresse e-mail.';
-        } else {
-            $jeton     = genererJetonReinitialisation($conn, (int) $utilisateur['id']);
-            $lienReset = 'reinitialiser-mdp.php?token=' . $jeton;
+        // La réponse est la même que le compte existe ou non : dire « aucun
+        // compte » reviendrait à confirmer quelles adresses sont inscrites.
+        $demandeEnvoyee = true;
+
+        if ($utilisateur) {
+            $jeton = genererJetonReinitialisation($conn, (int) $utilisateur['id']);
+
+            if ($enLocal) {
+                $lienReset = 'reinitialiser-mdp.php?token=' . $jeton;
+            }
         }
     }
 }
@@ -37,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Mot de passe oublié</title>
 </head>
 <body>
@@ -48,19 +61,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="boite-connexion">
         <h1>Mot de passe oublié</h1>
 
-        <?php if ($lienReset): ?>
+        <?php if ($demandeEnvoyee): ?>
 
             <p class="intro" style="text-align:center; margin-top:16px;">
-                Un lien de réinitialisation a été généré pour ce compte.
+                Si un compte existe pour cette adresse, un lien de réinitialisation vient
+                de lui être envoyé. Il est valable une heure.
             </p>
-            <p class="source" style="margin-top:16px; text-align:center;">
-                En production, ce lien vous serait envoyé par e-mail. Sur cette installation
-                locale, sans serveur d'envoi configuré, le voici directement :
-            </p>
-            <p style="text-align:center; margin-top:12px; word-break:break-all;">
-                <a href="<?= htmlspecialchars($lienReset) ?>"><?= htmlspecialchars($lienReset) ?></a>
-            </p>
-            <p class="source" style="margin-top:16px; text-align:center;">Valable une heure.</p>
+
+            <?php if ($lienReset): ?>
+                <p class="source" style="margin-top:16px; text-align:center;">
+                    Installation locale, sans serveur d'envoi : le voici directement.
+                </p>
+                <p style="text-align:center; margin-top:12px; word-break:break-all;">
+                    <a href="<?= htmlspecialchars($lienReset) ?>"><?= htmlspecialchars($lienReset) ?></a>
+                </p>
+            <?php endif; ?>
 
         <?php else: ?>
 
@@ -72,13 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="message-erreur" style="text-align:center;"><?= htmlspecialchars($erreur) ?></p>
             <?php endif; ?>
 
-            <form action="mot-de-passe-oublie.php" method="POST">
+            <form class="formulaire" action="mot-de-passe-oublie.php" method="POST">
                 <?= csrf_champ() ?>
-                <div class="groupe-champ">
+                <div class="champ">
                     <label for="email">Adresse e-mail</label>
                     <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required autocomplete="email">
                 </div>
-                <input type="submit" value="Envoyer le lien">
+                <button type="submit" class="btn-rouge">Envoyer le lien</button>
             </form>
 
         <?php endif; ?>

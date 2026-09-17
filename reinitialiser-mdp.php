@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Nouveau mot de passe</title>
 </head>
 <body>
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 Votre mot de passe a été changé. Vous pouvez maintenant vous connecter.
             </p>
             <div class="hero-boutons" style="margin-top:20px; justify-content:center;">
-                <a href="connexion.php"><button class="btn-rouge">Se connecter</button></a>
+                <a href="connexion.php" class="btn-rouge">Se connecter</a>
             </div>
 
         <?php elseif (!$utilisateurId): ?>
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="message-erreur" style="text-align:center;"><?= htmlspecialchars($erreur) ?></p>
             <?php endif; ?>
             <div class="hero-boutons" style="margin-top:20px; justify-content:center;">
-                <a href="mot-de-passe-oublie.php"><button class="btn-rouge">Refaire une demande</button></a>
+                <a href="mot-de-passe-oublie.php" class="btn-rouge">Refaire une demande</a>
             </div>
 
         <?php else: ?>

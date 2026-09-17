@@ -5,28 +5,20 @@ require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 $tmdb = new TMDB();
 
-$films = $tmdb->getRandomMovies(5);
-
-function formaterFilm(TMDB $tmdb, array $film): array {
-    return [
-        'id'     => $film['id'],
-        'titre'  => $film['title'],
-        'annee'  => substr($film['release_date'] ?? '', 0, 4),
-        'affiche' => $tmdb->getPosterUrl($film['poster_path'], 'w342'),
-    ];
-}
+// Le tirage sert aussi bien à la page complète qu'à la réponse JSON du
+// bouton « Encore 5 films » : on le met en forme une seule fois.
+$filmsAffiches = array_map(fn($film) => [
+    'id'      => $film['id'],
+    'titre'   => $film['title'],
+    'annee'   => substr($film['release_date'] ?? '', 0, 4),
+    'affiche' => $tmdb->getPosterUrl($film['poster_path'], 'w342'),
+], $tmdb->getRandomMovies(5));
 
 if (isset($_GET['ajax'])) {
     header('Content-Type: application/json; charset=utf-8');
-    echo json_encode(array_map(function ($f) use ($tmdb) {
-        return formaterFilm($tmdb, $f);
-    }, $films));
+    echo json_encode($filmsAffiches);
     exit;
 }
-
-$filmsAffiches = array_map(function ($f) use ($tmdb) {
-    return formaterFilm($tmdb, $f);
-}, $films);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -34,7 +26,7 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinq films tirés au hasard, sans algorithme de recommandation. Sortez de votre bulle et découvrez un film à voir ce soir sur Cinévo.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Films au hasard à découvrir · Cinévo</title>
 </head>
 <body>

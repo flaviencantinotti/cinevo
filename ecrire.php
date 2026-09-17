@@ -3,10 +3,12 @@ $page = 'ecrire';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
+require_once 'includes/format.php';
 $tmdb = new TMDB();
 
 $resultats       = [];
 $erreur          = '';
+$aucunResultat   = false;
 $filmSelectionne = null;
 
 $idSelectionne = isset($_GET['id']) ? (int) $_GET['id'] : 0;
@@ -22,12 +24,12 @@ if (!empty($_GET['q'])) {
         $films = array_filter($films, function ($f) {
             return !empty($f['title']) && !empty($f['poster_path']);
         });
-        usort($films, function ($a, $b) {
-            return $b['popularity'] > $a['popularity'] ? 1 : -1;
-        });
+        usort($films, fn($a, $b) => ($b['popularity'] ?? 0) <=> ($a['popularity'] ?? 0));
         $resultats = array_slice($films, 0, 5);
     } else {
-        $erreur = 'Aucun film trouvé pour "' . htmlspecialchars($_GET['q']) . '".';
+        // Ce n'est pas une erreur du formulaire : le message va avec les
+        // résultats, pas dans l'encadré rouge des erreurs de publication.
+        $aucunResultat = true;
     }
 }
 
@@ -65,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Écrire un avis</title>
 </head>
 <body>
@@ -99,46 +101,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      class="affiche-mini">
             <?php endif; ?>
             <div class="info-film">
-                <div class="label-section">Film sélectionné</div>
                 <div class="titre-resultat"><?= htmlspecialchars($filmSelectionne['title']) ?></div>
-                <div class="meta-resultat"><?= substr($filmSelectionne['release_date'] ?? '', 0, 4) ?></div>
+                <div class="meta-resultat"><?= htmlspecialchars(substr($filmSelectionne['release_date'] ?? '', 0, 4)) ?></div>
             </div>
             <a href="ecrire.php" class="btn-transparent">Changer de film</a>
         </div>
 
         <hr class="separateur">
+
+    <?php elseif ($idSelectionne > 0): ?>
+        <?php // Un identifiant est bien passé dans l'URL, mais le catalogue n'a
+              // pas répondu : sans ce message, le formulaire s'ouvrait sur un
+              // film invisible et l'avis partait dans le vide. ?>
+        <p class="intro">
+            Ce film n'a pas pu être chargé pour le moment.
+            <a href="ecrire.php">Cherchez-le à nouveau</a> avant d'écrire votre avis.
+        </p>
+
+        <hr class="separateur">
+    <?php endif; ?>
+
+    <?php if ($aucunResultat): ?>
+        <p class="intro">Aucun film ne correspond à « <?= htmlspecialchars($_GET['q']) ?> ». Vérifiez l'orthographe.</p>
+
+        <hr class="separateur">
     <?php endif; ?>
 
     <?php if (!empty($resultats)): ?>
-        <div class="liste-resultats">
-            <p class="label-section" style="margin-bottom:8px;">
-                <?= count($resultats) ?> résultats pour "<?= htmlspecialchars($_GET['q']) ?>"
-            </p>
 
-            <?php foreach ($resultats as $film):
-                $annee   = substr($film['release_date'] ?? '', 0, 4);
-                $affiche = $tmdb->getPosterUrl($film['poster_path'], 'w92');
-            ?>
-                <a href="ecrire.php?id=<?= (int) $film['id'] ?>" class="resultat-film">
-                    <img src="<?= htmlspecialchars($affiche) ?>" alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
-                         class="affiche-mini" loading="lazy">
-                    <div class="info-film">
-                        <div class="titre-resultat"><?= htmlspecialchars($film['title']) ?></div>
-                        <div class="meta-resultat">
-                            <?= $annee ?>
-                            <?php if (!empty($film['original_title']) && $film['original_title'] !== $film['title']): ?>
-                                · <em><?= htmlspecialchars($film['original_title']) ?></em>
-                            <?php endif; ?>
-                        </div>
-                        <?php if (!empty($film['overview'])): ?>
-                            <div class="apercu">
-                                <?= htmlspecialchars(mb_substr($film['overview'], 0, 100)) ?>…
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        </div>
+        <?php $lienFilm = 'ecrire.php'; include 'includes/resultats-films.php'; ?>
 
         <hr class="separateur">
     <?php endif; ?>
@@ -149,15 +140,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h2>Connectez-vous pour publier votre avis</h2>
             <p>
                 La rédaction d'un avis est réservée aux membres, pour que chaque avis reste rattaché
-                à une vraie personne. Créer un compte est gratuit et prend 30 secondes.
+                à une vraie personne. Créer un compte est gratuit et prend trente secondes.
             </p>
             <div class="hero-boutons" style="margin-top:20px;">
-                <a href="inscription.php">
-                    <button class="btn-rouge">Créer un compte</button>
-                </a>
-                <a href="connexion.php">
-                    <button class="btn-blanc">Déjà inscrit ? Connexion</button>
-                </a>
+                <a href="inscription.php" class="btn-rouge">Rejoindre Cinévo</a>
+                <a href="connexion.php" class="btn-blanc">Déjà inscrit ? Connexion</a>
             </div>
         </section>
 
@@ -182,9 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="boutons-form">
-            <a href="fiche.php?id=<?= $idSelectionne ?: '' ?>">
-                <button type="button" class="btn-blanc">Annuler</button>
-            </a>
+            <a href="<?= $idSelectionne ? 'fiche.php?id=' . $idSelectionne : 'index.php' ?>" class="btn-blanc">Annuler</a>
             <button type="submit" class="btn-rouge" id="btnPublier">Publier l'avis</button>
         </div>
 

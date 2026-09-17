@@ -3,11 +3,12 @@ $page = 'recherche';
 
 require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
+require_once 'includes/format.php';
 $tmdb = new TMDB();
 
-$resultats = [];
-$erreur    = '';
-$query     = trim($_GET['q'] ?? '');
+$resultats     = [];
+$aucunResultat = false;
+$query         = trim($_GET['q'] ?? '');
 
 if ($query !== '') {
     $data = $tmdb->searchMovie($query);
@@ -17,12 +18,10 @@ if ($query !== '') {
         $films = array_filter($films, function($f) {
             return !empty($f['title']) && !empty($f['poster_path']);
         });
-        usort($films, function($a, $b) {
-            return $b['popularity'] > $a['popularity'] ? 1 : -1;
-        });
+        usort($films, fn($a, $b) => ($b['popularity'] ?? 0) <=> ($a['popularity'] ?? 0));
         $resultats = array_slice($films, 0, 20);
     } else {
-        $erreur = 'Aucun résultat pour "' . htmlspecialchars($query) . '".';
+        $aucunResultat = true;
     }
 }
 ?>
@@ -33,7 +32,7 @@ if ($query !== '') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Recherchez un film et retrouvez les avis et critiques écrits par la communauté Cinévo, sans notes ni classement.">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Recherche<?= $query ? ' · ' . htmlspecialchars($query) : '' ?></title>
 </head>
 <body>
@@ -43,49 +42,22 @@ if ($query !== '') {
 <main class="contenu">
 
     <div class="entete-page">
-        <h1><?= $query ? 'Résultats pour <em>' . htmlspecialchars($query) . '</em>' : 'Chercher un film' ?></h1>
+        <h1><?= $query ? 'Résultats pour ' . htmlspecialchars($query) : 'Chercher un film' ?></h1>
     </div>
 
     <hr class="separateur">
 
-    <?php if ($erreur): ?>
-        <p class="message-erreur"><?= $erreur ?></p>
+    <?php if (empty($query)): ?>
+        <p class="intro">Entrez un titre dans la barre de recherche pour lancer une recherche.</p>
 
-    <?php elseif (empty($query)): ?>
-        <p class="message-erreur">Entrez un titre dans la barre de recherche.</p>
+    <?php elseif ($aucunResultat): ?>
+        <p class="intro">
+            Aucun film ne correspond à « <?= htmlspecialchars($query) ?> ».
+            Vérifiez l'orthographe, ou tentez le <a href="hasard.php">tirage au hasard</a>.
+        </p>
 
     <?php else: ?>
-        <div class="liste-resultats">
-            <p class="label-section" style="margin-bottom:16px;">
-                <?= count($resultats) ?> résultats
-            </p>
-
-            <?php foreach ($resultats as $film):
-                $annee   = substr($film['release_date'] ?? '', 0, 4);
-                $affiche = $tmdb->getPosterUrl($film['poster_path'], 'w92');
-            ?>
-                <a href="fiche.php?id=<?= (int) $film['id'] ?>" class="resultat-film">
-                    <img src="<?= htmlspecialchars($affiche) ?>"
-                         alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
-                         class="affiche-mini"
-                         loading="lazy">
-                    <div class="info-film">
-                        <div class="titre-resultat"><?= htmlspecialchars($film['title']) ?></div>
-                        <div class="meta-resultat">
-                            <?= $annee ?>
-                            <?php if (!empty($film['original_title']) && $film['original_title'] !== $film['title']): ?>
-                                · <em><?= htmlspecialchars($film['original_title']) ?></em>
-                            <?php endif; ?>
-                        </div>
-                        <?php if (!empty($film['overview'])): ?>
-                            <div class="apercu">
-                                <?= htmlspecialchars(mb_substr($film['overview'], 0, 120)) ?>…
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </a>
-            <?php endforeach; ?>
-        </div>
+        <?php $lienFilm = 'fiche.php'; include 'includes/resultats-films.php'; ?>
     <?php endif; ?>
 
 </main>

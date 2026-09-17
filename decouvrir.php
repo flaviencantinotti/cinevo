@@ -8,7 +8,7 @@ require_once 'includes/auth.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo est la plateforme d'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Découvrir Cinévo · La plateforme d'avis cinéma sans notes</title>
 </head>
 <body>
@@ -18,7 +18,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
 
     <div class="ouverture-decouvrir">
-        <h1>Cinévo,<br><em>mode d'emploi.</em></h1>
+        <h1>Cinévo,<br>mode d'emploi.</h1>
         <p class="intro-decouvrir">
             Marre de la guerre des notes sur 5 ou sur 10, fatigué(e) de ne pas avoir de réels échanges
             autour d'un film ? Vous voulez juste partager votre avis et découvrir celui des autres ?
@@ -50,8 +50,9 @@ require_once 'includes/auth.php';
             <div class="etape-decouvrir">
                 <h3>Écrivez votre avis</h3>
                 <p>
-                    Deux phrases ou dix paragraphes, peu importe : une poignée de mots suffit largement,
-                    et il n'y a pas de longueur maximale. Ni note à cocher, juste ce que le film vous a fait.
+                    Deux phrases ou dix paragraphes, peu importe : vingt caractères suffisent pour
+                    publier, et il n'y a pas de longueur maximale. Pas de note à cocher, pas de
+                    cases à remplir : juste ce que le film vous a fait.
                 </p>
             </div>
             <div class="etape-decouvrir">
@@ -107,14 +108,10 @@ require_once 'includes/auth.php';
 
     <section class="cta-decouvrir">
         <h2>Prêt(e) à rejoindre la communauté Cinévo ?</h2>
-        <p>Créer un compte pour publier vos critiques de films est gratuit, sans algorithme et ça prend 30 secondes.</p>
+        <p>Créer un compte est gratuit, sans algorithme, et prend trente secondes.</p>
         <div class="hero-boutons" style="margin-top:20px;">
-            <a href="inscription.php">
-                <button class="btn-rouge">Rejoindre Cinévo</button>
-            </a>
-            <a href="connexion.php">
-                <button class="btn-blanc">Déjà inscrit ? Connexion</button>
-            </a>
+            <a href="inscription.php" class="btn-rouge">Rejoindre Cinévo</a>
+            <a href="connexion.php" class="btn-blanc">Déjà inscrit ? Connexion</a>
         </div>
     </section>
 </main>

@@ -154,7 +154,7 @@ if (!baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Mon profil</title>
 </head>
 <body>
@@ -175,14 +175,18 @@ if (!baseDisponible()) {
     <?php else: ?>
 
         <div class="encart" style="margin-bottom:24px;">
-            <h4>Photo de profil</h4>
+            <h2>Photo de profil</h2>
             <div style="display:flex; align-items:center; gap:20px; margin-top:14px; flex-wrap:wrap;">
                 <?= avatarHtml($utilisateur['nom_utilisateur'], $utilisateur['photo_profil'], 'avatar-grand') ?>
-                <form action="profil.php" method="POST" enctype="multipart/form-data" style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <form action="profil.php" method="POST" enctype="multipart/form-data">
                     <?= csrf_champ() ?>
                     <input type="hidden" name="action" value="photo">
-                    <input type="file" name="photo" accept="image/jpeg,image/png,image/webp" required>
-                    <button type="submit" class="btn-rouge">Enregistrer la photo</button>
+                    <div class="champ">
+                        <label for="photo">Choisir une image</label>
+                        <input type="file" id="photo" name="photo" class="champ-fichier"
+                               accept="image/jpeg,image/png,image/webp" required>
+                    </div>
+                    <button type="submit" class="btn-rouge" style="margin-top:16px;">Enregistrer la photo</button>
                 </form>
                 <?php if (!empty($utilisateur['photo_profil'])): ?>
                     <form action="profil.php" method="POST">
@@ -202,7 +206,7 @@ if (!baseDisponible()) {
         </div>
 
         <div class="encart" style="margin-bottom:24px;">
-            <h4>Adresse e-mail</h4>
+            <h2>Adresse e-mail</h2>
             <p class="source" style="margin-top:4px;">Actuelle : <?= htmlspecialchars($utilisateur['email']) ?></p>
             <form action="profil.php" method="POST" style="margin-top:14px; max-width:420px;">
                 <?= csrf_champ() ?>
@@ -226,7 +230,7 @@ if (!baseDisponible()) {
         </div>
 
         <div class="encart">
-            <h4>Mot de passe</h4>
+            <h2>Mot de passe</h2>
             <form action="profil.php" method="POST" style="margin-top:14px; max-width:420px;">
                 <?= csrf_champ() ?>
                 <input type="hidden" name="action" value="mot_de_passe">

@@ -25,12 +25,12 @@ if (baseDisponible()) {
     }
 }
 
-// L'affiche du hero est celle du dernier avis publie : le seul element en
-// couleur de la page, et un point d'entree vers la discussion la plus recente.
+// L'affiche du hero est celle du dernier avis publié : le seul élément en
+// couleur de la page, et un point d'entrée vers la discussion la plus récente.
 $filmHero = $avisRecents[0] ?? null;
 
-// Petite pile d'affiches, purement decorative, pour illustrer l'appel au
-// tirage aleatoire sans dependre des avis deja publies.
+// Petite pile d'affiches, purement décorative, pour illustrer l'appel au
+// tirage aléatoire sans dépendre des avis déjà publiés.
 $filmsPioche = $tmdb->getRandomMovies(3);
 ?>
 <!DOCTYPE html>
@@ -40,11 +40,11 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
-<body class="page-index">
+<body>
 
     <?php include 'includes/header.php'; ?>
 
@@ -73,7 +73,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             </div>
         </section>
 
-        <section class="section-concept accueil-concept">
+        <section>
             <div class="concept-layout">
                 <div class="concept-texte">
                     <h2>Pas de<br>note.</h2>
@@ -86,11 +86,9 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             </div>
         </section>
 
-        <section class="accueil-avis">
+        <section>
             <div class="avis-entete">
-                <div>
-                    <h2>À lire.</h2>
-                </div>
+                <h2>À lire.</h2>
                 <a href="avis.php" class="lien-fleche">Tous les avis</a>
             </div>
 
@@ -109,7 +107,9 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                         </div>
                         <div class="corps">
                             <div class="film"><?= htmlspecialchars($avis['film_titre']) ?></div>
-                            <h3><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
+                            <?php if (!empty($avis['titre'])): ?>
+                                <h3><?= htmlspecialchars($avis['titre']) ?></h3>
+                            <?php endif; ?>
                             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 140)) ?></p>
                             <div class="qui">
                                 <?= htmlspecialchars($avis['nom_utilisateur']) ?> — <?= formaterDateFr($avis['publie_le']) ?>
@@ -121,7 +121,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             </div>
         </section>
 
-        <section class="appel-action accueil-hasard">
+        <section class="appel-action">
             <div class="hasard-encart">
                 <div class="hasard-texte">
                     <h2>Une<br>séance.</h2>

@@ -22,9 +22,10 @@ if ($id > 0) {
         $annee = substr($film['release_date'] ?? '', 0, 4);
 
         if (!empty($film['runtime'])) {
-            $heures = floor($film['runtime'] / 60);
+            $heures = intdiv($film['runtime'], 60);
             $mins   = $film['runtime'] % 60;
-            $duree  = $heures . ' h ' . $mins . ' min';
+            // Un court métrage n'a pas à s'annoncer « 0 h 45 min ».
+            $duree  = $heures > 0 ? $heures . ' h ' . $mins . ' min' : $mins . ' min';
         }
 
         foreach (($film['credits']['crew'] ?? []) as $membre) {
@@ -54,7 +55,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
 </head>
 <body>
 
@@ -67,9 +68,7 @@ if ($id > 0) {
         <div style="text-align:center; padding: 80px 0;">
             <h1>Film introuvable.</h1>
             <p class="intro">L'identifiant ne correspond à aucun film connu.</p>
-            <a href="index.php" style="margin-top:24px; display:inline-block;">
-                <button class="btn-rouge">Retour à l'accueil</button>
-            </a>
+            <a href="index.php" style="margin-top:24px; display:inline-block;" class="btn-rouge">Retour à l'accueil</a>
         </div>
 
     <?php else: ?>
@@ -108,16 +107,12 @@ if ($id > 0) {
                 <?php endif; ?>
 
                 <div class="boutons-actions">
-                    <a href="ecrire.php?id=<?= $id ?>">
-                        <button class="btn-rouge">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    <a href="ecrire.php?id=<?= $id ?>" class="btn-rouge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M14 4l6 6-11 11H3v-6z"></path>
                                 <path d="M14 4l3-3 6 6-3 3"></path>
                             </svg>
-                            Écrire un avis
-                        </button>
-                    </a>
+                            Écrire un avis</a>
                 </div>
 
                 <div class="ou-voir">
@@ -175,12 +170,8 @@ if ($id > 0) {
 
         <section>
             <div class="entete-section">
-                <div>
-                    <h2 style="margin-top:8px;">Avis sur le film</h2>
-                </div>
-                <a href="ecrire.php?id=<?= $id ?>" style="margin-left:auto;">
-                    <button class="btn-rouge">Écrire un avis</button>
-                </a>
+                <h2>Avis sur le film</h2>
+                <a href="ecrire.php?id=<?= $id ?>" class="btn-rouge" style="margin-left:auto;">Écrire un avis</a>
             </div>
 
             <p class="intro" style="margin-top:12px;">
@@ -233,12 +224,8 @@ if ($id > 0) {
                                 <?php // L'auteur retrouve ses propres avis directement sur la fiche du film. ?>
                                 <?php if (estConnecte() && $avis['utilisateur_id'] == $_SESSION['utilisateur_id']): ?>
                                     <div class="actions-avis" style="margin-top:8px;">
-                                        <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>">
-                                            <button class="btn-blanc">Modifier</button>
-                                        </a>
-                                        <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>">
-                                            <button class="btn-transparent btn-danger">Supprimer</button>
-                                        </a>
+                                        <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>" class="btn-blanc">Modifier</a>
+                                        <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>" class="btn-transparent btn-danger">Supprimer</a>
                                     </div>
                                 <?php endif; ?>
                             </div>
@@ -247,9 +234,7 @@ if ($id > 0) {
 
                     <div class="salon-reponse">
                         <p>Pas d'accord, ou envie d'ajouter votre avis sur <?= htmlspecialchars($film['title']) ?> ?</p>
-                        <a href="ecrire.php?id=<?= $id ?>">
-                            <button class="btn-rouge">Répondre</button>
-                        </a>
+                        <a href="ecrire.php?id=<?= $id ?>" class="btn-rouge">Répondre</a>
                     </div>
                 </div>
             <?php endif; ?>

@@ -34,7 +34,7 @@ while ($result && $row = $result->fetch_assoc()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Mon fil</title>
 </head>
 <body>
@@ -65,14 +65,14 @@ while ($result && $row = $result->fetch_assoc()) {
                                 <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
                             </div>
                             <div class="corps-fil">
-                                <h3 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h3>
+                                <h2 class="avis-titre"><?= htmlspecialchars($avis['titre'] ?: $avis['film_titre']) ?></h2>
                                 <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 160)) ?></p>
                             </div>
                         </a>
                         <div class="avis-bas">
                             <?= avatarHtml($avis['nom_utilisateur'], $avis['photo_profil']) ?>
                             <span class="avis-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?></span>
-                            <span style="color: #8A8378;">sur</span>
+                            <span class="avis-liaison">sur</span>
                             <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
                             <span style="margin-left: auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
                         </div>
@@ -80,22 +80,18 @@ while ($result && $row = $result->fetch_assoc()) {
                 <?php endforeach; ?>
 
             </div>
-            <a href="avis.php">
-                <button class="btn-blanc" style="margin-top: 20px;">Voir plus d'avis.</button>
-            </a>
+            <a href="avis.php" class="btn-blanc" style="margin-top:20px;">Voir plus d'avis</a>
         </div>
 
         <aside class="colonne-lateral">
             <div class="encart">
-                <h4>Le parti pris</h4>
-                <p>Pas de note, pas de classement, pas d'algorithme. Nous valorisons l'humain et ces émotions.</p>
+                <h2>Le parti pris</h2>
+                <p>Pas de note, pas de classement, pas d'algorithme. On préfère l'humain et ce qu'il ressent.</p>
             </div>
             <div class="encart">
-                <h4>Écrire un avis</h4>
+                <h2>Écrire un avis</h2>
                 <p>Un film vous a marqué ? Partagez ce qu'il vous a fait.</p>
-                <a href="ecrire.php" style="display:inline-block; margin-top:12px;">
-                    <button class="btn-rouge" style="width:100%;">Commencer à écrire</button>
-                </a>
+                <a href="ecrire.php" class="btn-rouge" style="margin-top:12px;">Commencer à écrire</a>
             </div>
         </aside>
     </div>

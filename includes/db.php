@@ -13,10 +13,13 @@ require_once __DIR__ . '/config.php';
  *   baseDisponible()  true si les requêtes peuvent être exécutées
  */
 
-$host   = 'localhost';
-$dbname = 'cinevo';
-$user   = 'root';
-$pass   = '';
+// Identifiants lus dans le .env comme la clé TMDB, avec les valeurs d'un
+// XAMPP fraîchement installé par défaut : le projet démarre sans rien
+// configurer en local, et se déploie sans toucher au code.
+$host   = config_valeur('DB_HOST', 'localhost');
+$dbname = config_valeur('DB_NAME', 'cinevo');
+$user   = config_valeur('DB_USER', 'root');
+$pass   = config_valeur('DB_PASS', '');
 
 // On récupère les erreurs mysqli à la main plutôt que sous forme d'exception,
 // pour pouvoir afficher un message au lieu d'interrompre la page.
@@ -39,7 +42,7 @@ if (@$lien->real_connect($host, $user, $pass)) {
 if ($conn !== null) {
     $conn->set_charset('utf8mb4');
 
-    $conn->query("CREATE DATABASE IF NOT EXISTS `cinevo` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+    $conn->query("CREATE DATABASE IF NOT EXISTS `" . $conn->real_escape_string($dbname) . "` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
     if (!$conn->select_db($dbname)) {
         $dbErreur = 'Base « ' . $dbname . ' » inaccessible';
@@ -47,7 +50,13 @@ if ($conn !== null) {
     }
 }
 
-if ($conn !== null) {
+// Création et mises à jour du schéma. Rejouer neuf requêtes (quatre CREATE
+// TABLE, cinq SHOW COLUMNS) à chaque chargement de page ne sert à rien une
+// fois les tables en place : un fichier témoin dans cache/ note que c'est
+// fait. Le supprimer relance l'opération : diagnostic.php s'en charge.
+$temoinSchema = __DIR__ . '/../cache/schema-ok';
+
+if ($conn !== null && !is_file($temoinSchema)) {
     $conn->query("
         CREATE TABLE IF NOT EXISTS utilisateurs (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -103,9 +112,14 @@ if ($conn !== null) {
 
     // Nom du fichier de la photo de profil (dans uploads/avatars/), vide si
     // l'utilisateur n'en a pas envoyé : on retombe alors sur l'avatar par
-    // défaut (initiale sur fond coloré).
+    // défaut, l'initiale du pseudo dans un carré.
     ajouterColonneSiAbsente($conn, 'utilisateurs', 'photo_profil', 'VARCHAR(255) NULL DEFAULT NULL');
     renommerColonneSiExiste($conn, 'avis', 'created_at', 'publie_le DATETIME DEFAULT CURRENT_TIMESTAMP');
+
+    if (!is_dir(dirname($temoinSchema))) {
+        @mkdir(dirname($temoinSchema), 0775, true);
+    }
+    @file_put_contents($temoinSchema, date('c'));
 }
 
 // Renomme une colonne uniquement si elle existe encore sous son ancien nom.

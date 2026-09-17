@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/auth.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Page introuvable · Cinévo</title>
 </head>
 <body>
@@ -21,15 +21,11 @@ require_once __DIR__ . '/includes/auth.php';
         <h1 style="margin-top:16px;">Cette page n'existe pas.</h1>
         <p class="intro" style="margin:16px auto 0; max-width:480px;">
             Le lien est peut-être cassé, ou la page a été déplacée. Direction l'accueil,
-            ou une idée de film au hasard en attendant.
+            ou cinq films au hasard en attendant.
         </p>
         <div class="hero-boutons" style="margin-top:28px; justify-content:center;">
-            <a href="index.php">
-                <button class="btn-rouge">Retour à l'accueil</button>
-            </a>
-            <a href="hasard.php">
-                <button class="btn-blanc">Un film au hasard</button>
-            </a>
+            <a href="index.php" class="btn-rouge">Retour à l'accueil</a>
+            <a href="hasard.php" class="btn-blanc">Cinq films au hasard</a>
         </div>
     </div>
 

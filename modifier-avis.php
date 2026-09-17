@@ -71,7 +71,7 @@ if ($avis) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Modifier mon avis</title>
 </head>
 <body>
@@ -95,9 +95,9 @@ if ($avis) {
 
     <?php if (!$avis): ?>
 
-        <p class="intro">Cet avis est introuvable, ou il ne vous appartient pas.</p>
+        <p class="intro">Cet avis n'existe pas, ou ne vous appartient pas.</p>
         <div class="hero-boutons" style="margin-top:20px;">
-            <a href="mes-avis.php"><button class="btn-rouge">Retour à mes avis</button></a>
+            <a href="mes-avis.php" class="btn-rouge">Retour à mes avis</a>
         </div>
 
     <?php else: ?>
@@ -119,9 +119,7 @@ if ($avis) {
             </div>
 
             <div class="boutons-form">
-                <a href="mes-avis.php">
-                    <button type="button" class="btn-blanc">Annuler</button>
-                </a>
+                <a href="mes-avis.php" class="btn-blanc">Annuler</a>
                 <button type="submit" class="btn-rouge" id="btnPublier">Enregistrer</button>
             </div>
 

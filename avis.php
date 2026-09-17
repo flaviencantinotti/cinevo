@@ -80,7 +80,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tous les avis et critiques de films publiés par la communauté Cinévo, sans notes ni classement, triés du plus récent au plus ancien.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Tous les avis et critiques de films · Cinévo</title>
 </head>
 <body>
@@ -124,19 +124,15 @@ if (baseDisponible()) {
     </div>
 
     <?php if ($totalPages > 1): ?>
-        <div class="hero-boutons" style="margin-top:32px; justify-content:center;">
+        <nav class="pagination" aria-label="Pages de discussions">
             <?php if ($pageListe > 1): ?>
-                <a href="avis.php?page=<?= $pageListe - 1 ?>">
-                    <button class="btn-blanc">Précédent</button>
-                </a>
+                <a href="avis.php?page=<?= $pageListe - 1 ?>" class="btn-blanc">Précédent</a>
             <?php endif; ?>
-            <span class="label-section" style="align-self:center;">Page <?= $pageListe ?> / <?= $totalPages ?></span>
+            <span class="label-section">Page <?= $pageListe ?> / <?= $totalPages ?></span>
             <?php if ($pageListe < $totalPages): ?>
-                <a href="avis.php?page=<?= $pageListe + 1 ?>">
-                    <button class="btn-rouge">Suivant</button>
-                </a>
+                <a href="avis.php?page=<?= $pageListe + 1 ?>" class="btn-rouge">Suivant</a>
             <?php endif; ?>
-        </div>
+        </nav>
     <?php endif; ?>
 
     <hr class="separateur">

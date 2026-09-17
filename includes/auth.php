@@ -55,6 +55,11 @@ function connecter($conn, $email, $password) {
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($password, $user['mot_de_passe'])) {
+        // Nouvel identifiant de session à la connexion : si quelqu'un a réussi
+        // à faire utiliser une session de son choix au visiteur avant qu'il ne
+        // se connecte, cet identifiant-là ne donne accès à rien.
+        session_regenerate_id(true);
+
         $_SESSION['utilisateur_id'] = $user['id'];
         $_SESSION['nom_utilisateur'] = $user['nom_utilisateur'];
         return true;
@@ -63,6 +68,16 @@ function connecter($conn, $email, $password) {
 }
 
 function deconnecter() {
+    // Vider $_SESSION puis détruire la session ne suffit pas : sans effacer
+    // aussi le cookie, le navigateur continue de présenter l'ancien
+    // identifiant à chaque requête.
+    $_SESSION = [];
+
+    if (ini_get('session.use_cookies')) {
+        $p = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
+    }
+
     session_destroy();
     header('Location: index.php');
     exit;

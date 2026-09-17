@@ -9,7 +9,7 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi et comment les gérer ou les supprimer.">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Politique cookies</title>
 </head>
 <body>
@@ -19,7 +19,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <h1>Politique <em>cookies.</em></h1>
+    <h1>Politique cookies.</h1>
     <p class="intro">
         Comment Cinévo utilise les cookies, et surtout ce qu'on n'utilise pas.
     </p>
@@ -34,14 +34,14 @@ require_once 'includes/auth.php';
         <section>
             <h2>Qu'est-ce qu'un cookie ?</h2>
             <p>
-                Le site Cinévo utilise la technologie des cookies pour améliorer la navigation
-                ainsi que l'expérience des utilisateurs. Lors de la consultation, ces cookies
-                peuvent être enregistrés sur les navigateurs du terminal utilisé (ordinateur,
-                tablette, smartphone).
+                Un cookie est un petit fichier déposé par un site sur le terminal que vous
+                utilisez (ordinateur, tablette, smartphone). Cinévo n'en dépose qu'un seul,
+                celui qui vous garde connecté à votre compte d'une page à l'autre.
             </p>
             <p>
-                Un cookie possède une durée de validité variable. En tout état de cause,
-                cette durée n'excède pas 13 mois.
+                Un cookie possède une durée de validité variable. Celui de Cinévo est un
+                cookie de session : il expire dès que vous fermez votre navigateur. En tout
+                état de cause, aucun cookie déposé ici ne dépasse 13 mois.
             </p>
         </section>
 
@@ -50,18 +50,19 @@ require_once 'includes/auth.php';
             <ul>
                 <li>
                     <strong>Cookies strictement nécessaires.</strong>
-                    Indispensables au fonctionnement du site : ils maintiennent votre session
-                    connectée, ne nécessitent pas votre consentement et ne peuvent pas être désactivés.
+                    Le seul que Cinévo dépose : le cookie de session, qui vous garde connecté
+                    d'une page à l'autre. Il ne nécessite pas votre consentement, ne peut pas
+                    être désactivé, et disparaît à la fermeture du navigateur.
                 </li>
                 <li>
-                    <strong>Cookies fonctionnels et de performance.</strong>
-                    Ils collectent des informations anonymes sur l'utilisation du site pour en
-                    améliorer le contenu et les fonctionnalités. Votre consentement n'est pas obligatoire.
+                    <strong>Cookies de mesure d'audience.</strong>
+                    Cinévo n'en dépose aucun : aucune statistique de navigation n'est collectée,
+                    ni par nous ni par un service tiers.
                 </li>
                 <li>
-                    <strong>Cookies basés sur le consentement.</strong>
-                    Ce sont les cookies marketing ou publicitaires, et Cinévo n'en utilise aucun :
-                    pas de publicité personnalisée, pas de tracking commercial.
+                    <strong>Cookies marketing ou publicitaires.</strong>
+                    Cinévo n'en dépose aucun non plus : pas de publicité personnalisée,
+                    pas de traceur commercial, rien à refuser.
                 </li>
             </ul>
         </section>

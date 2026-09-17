@@ -12,6 +12,12 @@
  */
 
 require_once __DIR__ . '/includes/tmdb.php';
+
+// db.php ne rejoue la création des tables que si ce témoin est absent. Ouvrir
+// le diagnostic le supprime : le schéma est donc revérifié à chaque passage
+// ici, ce qui est précisément le rôle de cette page.
+@unlink(__DIR__ . '/cache/schema-ok');
+
 require_once __DIR__ . '/includes/db.php';
 
 $enConsole = (PHP_SAPI === 'cli');
@@ -121,7 +127,7 @@ if ($enConsole) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Diagnostic technique · Cinévo</title>
 </head>
 <body>
@@ -156,9 +162,9 @@ if ($enConsole) {
     </table>
 
     <div class="hero-boutons" style="margin-top:28px;">
-        <a href="diagnostic.php?prechauffer=1"><button class="btn-rouge">Préchauffer le cache</button></a>
-        <a href="diagnostic.php?exporter=1"><button class="btn-blanc">Exporter le catalogue</button></a>
-        <a href="index.php"><button class="btn-blanc">Retour au site</button></a>
+        <a href="diagnostic.php?prechauffer=1" class="btn-rouge">Préchauffer le cache</a>
+        <a href="diagnostic.php?exporter=1" class="btn-blanc">Exporter le catalogue</a>
+        <a href="index.php" class="btn-blanc">Retour au site</a>
     </div>
 
     <hr class="separateur">

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Créez votre compte Cinévo gratuitement et rejoignez une communauté de cinéphiles qui écrit ses avis sur les films, sans notes ni algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Inscription gratuite · Cinévo</title>
 </head>
 <body>
@@ -66,19 +66,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form class="formulaire" action="inscription.php" method="POST">
             <?= csrf_champ() ?>
-            <label for="username">Nom d'utilisateur</label>
-            <input type="text" id="username" name="username" value="<?= htmlspecialchars($username) ?>" required>
+            <div class="champ">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" maxlength="50" value="<?= htmlspecialchars($username) ?>" required>
+            </div>
+            <div class="champ">
+                <label for="email">Adresse e-mail</label>
+                <input type="email" id="email" name="email" maxlength="100" value="<?= htmlspecialchars($email) ?>" required autocomplete="email">
+            </div>
+            <div class="champ">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" minlength="6" required autocomplete="new-password">
+            </div>
+            <div class="champ">
+                <label for="confirm">Confirmer le mot de passe</label>
+                <input type="password" id="confirm" name="confirm" minlength="6" required autocomplete="new-password">
+            </div>
 
-            <label for="email">Adresse e-mail</label>
-            <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required autocomplete="email">
-
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" required autocomplete="new-password">
-
-            <label for="confirm">Confirmer le mot de passe</label>
-            <input type="password" id="confirm" name="confirm" required autocomplete="new-password">
-
-            <button type="submit">S'inscrire</button>
+            <button type="submit" class="btn-rouge">Créer mon compte</button>
         </form>
 
         <p class="source" style="text-align:center; margin-top:14px;">

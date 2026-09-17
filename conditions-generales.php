@@ -10,7 +10,7 @@ require_once 'includes/auth.php';
     <meta name="description" content="Conditions générales d'utilisation de Cinévo : création de compte, contenu publié par les membres, règles de conduite et modération.">
     <meta name="robots" content="noindex, follow">
     <title>Cinévo · Conditions générales d'utilisation</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
 </head>
 <body>
 
@@ -19,7 +19,7 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <h1>Conditions <em>générales.</em></h1>
+    <h1>Conditions générales.</h1>
     <p class="intro">
         Ce qui encadre l'utilisation de Cinévo, écrit sans jargon juridique inutile.
     </p>
@@ -90,7 +90,8 @@ require_once 'includes/auth.php';
                 Cinévo n'a pas d'obligation générale de surveillance des contenus, mais retire
                 promptement tout contenu manifestement illicite qui lui est signalé (voir la
                 <a href="mentions-legales.php">responsabilité éditoriale</a>). Un contenu ou un
-                compte qui enfreint l'article 04 peut être supprimé sans préavis.
+                compte qui enfreint la section « Ce qui n'est pas toléré » peut être supprimé
+                sans préavis.
             </p>
         </section>
 

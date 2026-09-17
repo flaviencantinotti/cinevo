@@ -45,7 +45,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Mes avis</title>
 </head>
 <body>
@@ -90,18 +90,14 @@ if (baseDisponible()) {
                 </a>
 
                 <div class="avis-bas">
-                    <span style="color:#8A8378;">sur</span>
+                    <span class="avis-liaison">sur</span>
                     <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
                     <span style="margin-left:auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
                 </div>
 
                 <div class="actions-avis">
-                    <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>">
-                        <button class="btn-blanc">Modifier</button>
-                    </a>
-                    <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>">
-                        <button class="btn-transparent btn-danger">Supprimer</button>
-                    </a>
+                    <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>" class="btn-blanc">Modifier</a>
+                    <a href="supprimer-avis.php?id=<?= (int) $avis['id'] ?>" class="btn-transparent btn-danger">Supprimer</a>
                 </div>
             </article>
         <?php endforeach; ?>

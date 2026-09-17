@@ -62,7 +62,7 @@ $tmdb = new TMDB();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Installation · Cinévo</title>
 </head>
 <body>
@@ -86,8 +86,8 @@ $tmdb = new TMDB();
 
         <p class="intro"><?= htmlspecialchars($succes) ?></p>
         <div class="hero-boutons" style="margin-top:20px;">
-            <a href="diagnostic.php?prechauffer=1"><button class="btn-rouge">Préchauffer le cache</button></a>
-            <a href="index.php"><button class="btn-blanc">Aller sur le site</button></a>
+            <a href="diagnostic.php?prechauffer=1" class="btn-rouge">Préchauffer le cache</a>
+            <a href="index.php" class="btn-blanc">Aller sur le site</a>
         </div>
 
     <?php elseif ($dejaConfig): ?>
@@ -97,7 +97,7 @@ $tmdb = new TMDB();
             Pour la remplacer, modifiez le fichier <code>.env</code> à la main.
         </p>
         <div class="hero-boutons" style="margin-top:20px;">
-            <a href="diagnostic.php"><button class="btn-rouge">Vérifier l'installation</button></a>
+            <a href="diagnostic.php" class="btn-rouge">Vérifier l'installation</a>
         </div>
 
     <?php else: ?>
@@ -117,7 +117,7 @@ $tmdb = new TMDB();
             <label for="cle">Clé API TMDB</label>
             <input type="text" id="cle" name="cle" required autocomplete="off"
                    placeholder="Collez ici votre clé (API Key v3)">
-            <input type="submit" value="Vérifier et enregistrer">
+            <button type="submit" class="btn-rouge">Vérifier et enregistrer</button>
         </form>
 
         <p class="source" style="margin-top:14px;">

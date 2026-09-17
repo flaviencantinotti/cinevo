@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=70">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=71">
     <title>Cinévo · Connexion</title>
 </head>
 <body>
@@ -46,17 +46,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="message-erreur"><?= htmlspecialchars($erreur) ?></p>
         <?php endif; ?>
 
-        <form action="connexion.php" method="POST">
+        <form class="formulaire" action="connexion.php" method="POST">
             <?= csrf_champ() ?>
-            <div class="groupe-champ">
+            <div class="champ">
                 <label for="email">Adresse e-mail</label>
                 <input type="email" id="email" name="email" value="<?= htmlspecialchars($email) ?>" required autocomplete="email">
             </div>
-            <div class="groupe-champ">
+            <div class="champ">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required autocomplete="current-password">
             </div>
-            <input type="submit" value="Se connecter">
+            <button type="submit" class="btn-rouge">Se connecter</button>
         </form>
 
         <p class="lien-alternatif"><a href="mot-de-passe-oublie.php">Mot de passe oublié ?</a></p>

@@ -49,10 +49,6 @@ p {
   margin: 0;
 }
 
-em {
-  font-style: normal;
-}
-
 /* Style de base des liens dans le texte (repris par les classes plus
    spécifiques comme .lien-carte ou .lien-film quand il en faut un autre). */
 
@@ -156,13 +152,9 @@ nav a {
 
 /* ============ BOUTONS ============ */
 
-.btn-rouge {
-  height: 36px;
-}
-
-.btn-blanc {
-  height: 36px;
-}
+/* Pas de hauteur fixe : la charte a remplacé les boutons pleins par un mot
+   souligné. Un bloc de 36 px décrochait le trait du texte de quinze pixels,
+   alors que les liens-flèches, eux, soulignent le mot au plus près. */
 
 /* ============ HERO (page accueil) ============ */
 
@@ -171,11 +163,9 @@ nav a {
 }
 
 /*
- * Le hero n'affiche pas d'affiche de film : un photogramme en fond,
- * avec le nom du site et une présentation complète de ce qu'il propose.
- * Il déborde volontairement du conteneur pour occuper toute la largeur
- * de l'écran, et remonte sous l'en-tête (marge négative = padding-top
- * de .contenu, à garder synchronisée avec les media-queries ci-dessous).
+ * Le hero déborde volontairement du conteneur pour occuper toute la largeur
+ * de l'écran, et remonte sous l'en-tête (marge négative = padding-top de
+ * .contenu, à garder synchronisée avec les media-queries ci-dessous).
  */
 .hero {
   position: relative;
@@ -575,7 +565,7 @@ nav a {
   gap: 12px;
 }
 
-.encart h4 {
+.encart h2 {
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 600;
@@ -594,26 +584,10 @@ nav a {
   text-align: center;
 }
 
-.groupe-champ {
-  font-family: var(--sans);
-  margin-top: 15px;
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-.groupe-champ label {
-  display: block;
-  margin-bottom: 5px;
-}
-
 input[type="text"],
 input[type="password"],
 input[type="email"] {
   width: 100%;
-}
-
-input[type="submit"] {
-  margin-top: 10px;
 }
 
 .lien-alternatif {
@@ -956,10 +930,6 @@ input[type="submit"] {
   resize: vertical;
 }
 
-.boutons-form input[type="submit"] {
-  height: auto;
-}
-
 /* ============ PAGES (découvrir, à propos...) ============ */
 
 /* ---------- ouverture (page decouvrir) ---------- */
@@ -969,10 +939,6 @@ input[type="submit"] {
   font-weight: 800;
   line-height: 1.1;
   margin: 0 0 28px;
-}
-
-.ouverture-decouvrir h1 em {
-  color: var(--texte);
 }
 
 .intro-decouvrir {
@@ -1139,10 +1105,6 @@ input[type="submit"] {
   font-size: 64px;
   line-height: 1;
   margin: 20px 0 0;
-}
-
-.page-editoriale > h1 em {
-  color: var(--texte);
 }
 
 .meta-article {
@@ -1512,9 +1474,6 @@ input[type="email"] {
   width: 100%;
 }
 
-  input[type="submit"] {
-  width: 100%;
-}
 }
 
 /* ============ DIAGNOSTIC ============ */
@@ -1588,30 +1547,12 @@ input[type="email"] {
   border-top: 1px solid var(--filet);
 }
 
-.actions-avis .btn-transparent {
-  height: 36px;
-  padding: 0 14px;
-  border: 1px solid currentColor;
-  border-radius: 4px;
-}
-
-.btn-danger {
-  color: var(--rouge);
-}
-
-.btn-danger:hover {
-  background: var(--fond);
-}
-
 .message-succes {
   font-family: var(--sans);
   color: var(--texte);
   margin-top: 12px;
 }
 
-/* Dans style.css, --noir est la couleur du TEXTE et --beige celle du FOND.
-   Passer en thème sombre n'est donc pas « tout mettre en noir » : il faut
-   inverser les deux rôles, sinon le texte devient noir sur noir. */
 /* ================================================================
    DEUXIÈME PARTIE — LA CHARTE NOIR ET BLANC
 
@@ -1673,11 +1614,7 @@ h4 {
 }
 
 /* L'italique du design précédent n'a plus de rôle : tout est capitale. */
-h1 em {
-  font-style: normal;
-}
-
-p {
+h1 p {
   color: var(--texte-meta);
   line-height: 1.75;
 }
@@ -1736,15 +1673,15 @@ table {
   padding-top: 0;
 }
 
+/* Petit repère en capitales : compteur de résultats, numéro de page. Ce n'est
+   plus un sur-titre de section, ceux-ci ont été remplacés par de vrais titres. */
 .label-section {
-  display: block;
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--texte-doux);
-  margin-bottom: 56px;
   background: none;
   padding: 0;
 }
@@ -1874,8 +1811,6 @@ button,
 .btn-rouge,
 .btn-blanc,
 .btn-transparent,
-input[type="submit"],
-.boutons-form input[type="submit"],
 .formulaire button,
 .formulaire-contact button,
 .formulaire-avis button {
@@ -1895,17 +1830,32 @@ input[type="submit"],
   cursor: pointer;
   box-shadow: none;
 }
+/* Les actions qui mènent ailleurs sont des <a> portant une classe de bouton
+   (un <button> dans un <a> n'est pas du HTML valide). Un lien est inline par
+   défaut : sans ceci, il ignorerait la hauteur et les marges du bouton. */
+a.btn-rouge,
+a.btn-blanc,
+a.btn-transparent {
+  display: inline-block;
+}
+
 button:hover,
 .btn-rouge:hover,
 .btn-blanc:hover,
 .btn-transparent:hover,
-input[type="submit"]:hover,
-.boutons-form input[type="submit"]:hover,
 .formulaire button:hover,
 .formulaire-contact button:hover,
 .formulaire-avis button:hover {
   background: transparent;
   background-color: transparent;
+  color: var(--rouge);
+  border-bottom-color: var(--rouge);
+}
+
+/* « Supprimer » est déjà rouge au repos, là où le reste du site réserve le
+   rouge au survol : c'est le seul geste irréversible du site. */
+.btn-danger,
+.btn-danger:hover {
   color: var(--rouge);
   border-bottom-color: var(--rouge);
 }
@@ -2052,10 +2002,6 @@ input[type="submit"]:hover,
   gap: 32px;
   margin-bottom: 64px;
 }
-.avis-entete .label-section {
-  margin-bottom: 24px;
-}
-
 .grille-avis,
 .grille-avis-accueil {
   display: grid;
@@ -2308,6 +2254,12 @@ a:hover .affiche-hasard img {
 .formulaire-recherche {
   max-width: 720px;
 }
+/* Les champs n'ont pas de marge à eux : c'est le formulaire qui les espace,
+   une seule valeur pour toutes les pages de compte. */
+.formulaire {
+  gap: 20px;
+  text-align: left;
+}
 
 /* Les pages de compte sont des colonnes étroites : le titre pleine page
    du reste du site y serait hors d'échelle. */
@@ -2329,7 +2281,6 @@ a:hover .affiche-hasard img {
 .lien-alternatif a:hover {
   color: var(--rouge);
 }
-.groupe-champ label,
 .formulaire label,
 .champ label {
   font-family: var(--mono);
@@ -2429,6 +2380,30 @@ textarea:focus {
 
 /* ============ CHARTE · FIL / COLONNES ============ */
 
+/* Les trois éléments de la pagination sur une seule ligne, alignés sur la
+   même base : le compteur est du texte, les deux autres des liens soulignés. */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 32px;
+  margin-top: 32px;
+}
+
+.avis-liaison {
+  color: var(--texte-meta);
+}
+
+/* Le sélecteur de fichier garde son bouton natif (son libellé vient du
+   navigateur), mais le reste suit la typographie du site. */
+.champ-fichier {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--texte-doux);
+  padding: 12px 0;
+  border: 0;
+}
+
 .page-home,
 .colonne-principale,
 .colonne-lateral {
@@ -2439,7 +2414,7 @@ textarea:focus {
   grid-template-columns: 1fr 320px;
   gap: 96px;
 }
-.encart h4 {
+.encart h2 {
   color: var(--texte);
   margin-bottom: 16px;
 }
@@ -2468,18 +2443,16 @@ textarea:focus {
   text-transform: uppercase;
   color: var(--texte-doux);
 }
-/* style.css peint une bulle sur deux en aplat (var(--texte)) avec du texte
-   var(--texte) : en thème sombre les deux valent blanc, donc texte invisible
-   dès qu'un film a deux avis. Ici aucune bulle n'a de fond, l'alternance se
-   lit au filet de gauche. */
+/* Un message sur deux passe à droite (row-reverse) : son filet doit passer à
+   droite avec lui, sinon il reste seul à l'autre bout de la ligne. Et les deux
+   côtés gardent la même couleur de texte : un avis n'est pas moins lisible
+   parce qu'il est le deuxième. */
 .message:nth-child(even) .message-bulle {
   background: none;
-  color: var(--texte-meta);
-  border-left: 1px solid var(--filet);
-  border-right: 0;
-}
-.message:nth-child(even) .message-bulle .message-titre {
-  color: var(--texte);
+  border-left: 0;
+  border-right: 1px solid var(--filet);
+  padding-left: 0;
+  padding-right: 24px;
 }
 .salon-reponse {
   border-top: 1px solid var(--filet);
@@ -2488,8 +2461,8 @@ textarea:focus {
 
 /* ============ CHARTE · PIED DE PAGE ============ */
 
-/* style.css met 48px de padding sur .fond-footer : sans cette remise a zero,
-   le bloc interne de 1280px depasse la page de 48px vers la droite. */
+/* La première partie met 48px de padding sur .fond-footer : sans cette remise
+   à zéro, le bloc interne de 1280px dépasse la page de 48px vers la droite. */
 .fond-footer {
   background: var(--fond);
   border-top: 1px solid var(--filet);
@@ -2542,10 +2515,10 @@ textarea:focus {
 
 /* ============================================================
    RESPONSIVE
-   La couche noir et blanc pose ses règles sans media query et
-   passe donc APRÈS celles de style.css : elle annulait tout le
-   comportement mobile existant (burger compris). Ce bloc le
-   rétablit dans le vocabulaire du nouveau design.
+   La charte pose ses règles sans media query et passe donc après
+   celles de la partie structure : elle annulait tout le comportement
+   mobile existant (burger compris). Ce bloc le rétablit dans le
+   vocabulaire du nouveau design.
    ============================================================ */
 
 @media (max-width: 1024px) {
@@ -2648,10 +2621,6 @@ textarea:focus {
   .separateur {
   margin: 48px 0;
 }
-  .label-section {
-  margin-bottom: 28px;
-}
-
   .hero,
 .hero-accueil {
   min-height: auto;
@@ -2739,11 +2708,13 @@ textarea:focus {
   align-items: flex-start;
   gap: 20px;
 }
-  /* style.css étirait les boutons sur toute la largeur : un bouton n'est
-     plus qu'un mot souligné, il doit s'arrêter au mot. */
+  /* La partie structure étirait les boutons sur toute la largeur : un bouton
+     n'est plus qu'un mot souligné, il doit s'arrêter au mot. */
   .hero-boutons a,
 .hero-boutons button,
+.boutons-form a,
 .boutons-form button,
+.boutons-actions a,
 .boutons-actions button {
   width: auto;
 }
