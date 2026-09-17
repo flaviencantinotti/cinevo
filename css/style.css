@@ -2135,6 +2135,14 @@ input[type="submit"]:hover,
   /* les affiches sont le seul élément en couleur */
   transition: opacity .25s;
 }
+/* .affiche-mini est une vignette placée dans une ligne en flex, pas dans un
+   bloc à elle : le width:100% ci-dessus lui ferait prendre toute la largeur
+   de la ligne et réduirait le titre à zéro. Sa hauteur suffit à la
+   dimensionner, le ratio de l'affiche fait le reste. */
+.affiche-mini {
+  width: auto;
+}
+
 a:hover .affiche img,
 a:hover .affiche-fil img,
 a:hover .affiche-hasard img {
