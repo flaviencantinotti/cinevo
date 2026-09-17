@@ -9,7 +9,7 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pourquoi Cinévo existe, qui l'a écrit et la seule règle qui y tient : aucun ton snob toléré. Un site d'avis cinéma sans notes ni algorithme.">
     <title>À propos de Cinévo · Pourquoi ce site existe</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=67">
 </head>
 <body>
 
@@ -18,7 +18,6 @@ require_once 'includes/auth.php';
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section">À propos de Cinévo</span>
         <h1>L'histoire derrière Cinévo</h1>
         <p class="intro">
             Ici, personne ne met de note à un film. On l'écrit, on en discute, et c'est tout.
@@ -29,7 +28,7 @@ require_once 'includes/auth.php';
     <hr class="separateur">
 
     <section>
-        <span class="label-section">Pourquoi ce site existe</span>
+        <h2>Pourquoi ce site existe</h2>
 
         <div class="concept-layout" style="margin-top:20px;">
             <div class="concept-texte">

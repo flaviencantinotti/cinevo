@@ -34,7 +34,7 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinq films tirés au hasard, sans algorithme de recommandation. Sortez de votre bulle et découvrez un film à voir ce soir sur Cinévo.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=67">
     <title>Films au hasard à découvrir · Cinévo</title>
 </head>
 <body>
@@ -44,7 +44,6 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
 <main class="contenu">
 
     <div class="entete-page">
-        <span class="label-section">Cinq films, tirés au sort</span>
         <h1>Au hasard</h1>
         <p class="intro">
             On regarde quoi ce soir ? L'éternelle question qui reste sans réponse pendant de
@@ -89,7 +88,6 @@ $filmsAffiches = array_map(function ($f) use ($tmdb) {
     <hr class="separateur">
 
     <section class="section-communaute">
-        <span class="label-section">Comment ça marche</span>
         <h2>Un vrai tirage au sort, pas une suggestion déguisée</h2>
         <p>
             Cette page pioche cinq films dans un large catalogue, sans tenir compte de votre historique de

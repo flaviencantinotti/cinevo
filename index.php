@@ -40,7 +40,7 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=67">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -54,7 +54,6 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
             <div class="hero-grille">
 
                 <div class="hero-contenu">
-                    <p class="hero-repere">Cinévo</p>
                     <h1>Ce qui reste.</h1>
                     <div class="hero-boutons">
                         <a href="avis.php" class="bouton-principal">Découvrir</a>
@@ -75,7 +74,6 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
         </section>
 
         <section class="section-concept accueil-concept">
-            <span class="label-section">Cinévo</span>
             <div class="concept-layout">
                 <div class="concept-texte">
                     <h2>Pas de<br>note.</h2>
@@ -91,7 +89,6 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
         <section class="accueil-avis">
             <div class="avis-entete">
                 <div>
-                    <span class="label-section">Les conversations</span>
                     <h2>À lire.</h2>
                 </div>
                 <a href="avis.php" class="lien-fleche">Tous les avis</a>
@@ -125,7 +122,6 @@ $filmsPioche = array_slice($tmdb->getRandomMovies(3), 0, 3);
         </section>
 
         <section class="appel-action accueil-hasard">
-            <span class="label-section">Au hasard</span>
             <div class="hasard-encart">
                 <div class="hasard-texte">
                     <h2>Une<br>séance.</h2>

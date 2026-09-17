@@ -10,7 +10,7 @@ require_once 'includes/auth.php';
     <meta name="description" content="Conditions générales d'utilisation de Cinévo : création de compte, contenu publié par les membres, règles de conduite et modération.">
     <meta name="robots" content="noindex, follow">
     <title>Cinévo · Conditions générales d'utilisation</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=67">
 </head>
 <body>
 
@@ -19,7 +19,6 @@ require_once 'includes/auth.php';
 <main class="contenu">
   <div class="page-editoriale">
 
-    <span class="label-section">À lire avant de publier</span>
     <h1>Conditions <em>générales.</em></h1>
     <p class="intro">
         Ce qui encadre l'utilisation de Cinévo, écrit sans jargon juridique inutile.

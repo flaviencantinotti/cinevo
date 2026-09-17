@@ -54,7 +54,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=65">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=67">
 </head>
 <body>
 
@@ -176,7 +176,6 @@ if ($id > 0) {
         <section>
             <div class="entete-section">
                 <div>
-                    <span class="label-section">Tri chronologique · plus récent en premier</span>
                     <h2 style="margin-top:8px;">Avis sur le film</h2>
                 </div>
                 <a href="ecrire.php?id=<?= $id ?>" style="margin-left:auto;">

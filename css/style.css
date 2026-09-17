@@ -1959,14 +1959,6 @@ input[type="submit"]:hover,
   padding: 0;
   text-align: left;
 }
-.hero-repere {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--texte-doux);
-  margin-bottom: 56px;
-}
 .hero-contenu h1 {
   font-size: 170px;
   line-height: 0.86;
@@ -2653,9 +2645,6 @@ textarea:focus {
   .hero-contenu h1 {
   font-size: clamp(44px, 15vw, 96px);
   margin-bottom: 36px;
-}
-  .hero-repere {
-  margin-bottom: 28px;
 }
   .hero-affiche {
   max-width: none;
