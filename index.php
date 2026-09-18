@@ -40,7 +40,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=89">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -55,8 +55,13 @@ $filmsPioche = $tmdb->getRandomMovies(3);
 
                 <div class="hero-contenu">
                     <h1>Parlons ciné.</h1>
+                    <?php // La deuxième phrase est insécable : sur un téléphone, la ligne se
+                          // coupait après « On en » et laissait « parle. » tout seul. ?>
+                    <p class="hero-accroche">Ici, on ne note pas les films. <span>On en parle.</span></p>
                     <div class="hero-boutons">
-                        <a href="decouvrir.php" class="bouton-principal">Découvrir</a>
+                        <?php // Mène aux discussions, le cœur du site : « Comment ça marche »,
+                              // plus bas sur la page, couvre déjà la page Découvrir. ?>
+                        <a href="avis.php" class="bouton-principal">Lire les avis</a>
                     </div>
                 </div>
 
@@ -143,9 +148,9 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                 <?php if (!empty($filmsPioche)): ?>
                     <div class="hasard-pile">
                         <?php foreach ($filmsPioche as $film): ?>
-                            <div class="affiche">
+                            <a href="fiche.php?id=<?= (int) $film['id'] ?>" class="affiche">
                                 <img src="<?= htmlspecialchars($tmdb->getPosterUrl($film['poster_path'] ?? null)) ?>" alt="Affiche de <?= htmlspecialchars($film['title'] ?? '') ?>" loading="lazy">
-                            </div>
+                            </a>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>

@@ -9,7 +9,7 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pourquoi Cinévo existe, qui l'a écrit et la seule règle qui y tient : aucun ton snob toléré. Un site d'avis cinéma sans notes ni algorithme.">
     <title>À propos de Cinévo · Pourquoi ce site existe</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=89">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
 </head>
 <body>
 
