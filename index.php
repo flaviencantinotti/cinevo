@@ -83,9 +83,9 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                 <div class="concept-texte">
                     <h2>Pas de<br>note.</h2>
                     <p>
-                        Ici, un film ne se résume jamais à trois étoiles et demie. On écrit ce
-                        qu'il nous a fait, en deux phrases ou en dix paragraphes, et chaque film
-                        commenté ouvre une discussion que tout le monde peut lire.
+                        Quelques lignes ou dix paragraphes : c'est vous qui décidez. Chaque film
+                        commenté ouvre une discussion, et les avis s'enchaînent dans l'ordre où
+                        ils arrivent. Rien n'est trié, rien n'est poussé en avant.
                     </p>
                 </div>
                 <?php // La colonne de droite est une accroche en capitales (.concept-cta p) :
