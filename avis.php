@@ -35,32 +35,47 @@ if (baseDisponible()) {
     $stmt->execute();
     $filmsRow = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
+    // Une seule requête pour les avis des dix films affichés, au lieu de deux
+    // requêtes par film : la page en réclamait une cinquantaine. Le volume est
+    // borné par la pagination, le tri se termine donc en PHP.
+    $idsFilms = array_map(fn($ligne) => (int) $ligne['film_id'], $filmsRow);
+
+    $avisParFilm = [];
+
+    if (!empty($idsFilms)) {
+        $trous  = implode(',', array_fill(0, count($idsFilms), '?'));
+        $stmtAvis = $conn->prepare("
+            SELECT avis.film_id, avis.contenu, utilisateurs.nom_utilisateur, utilisateurs.photo_profil
+            FROM avis
+            JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
+            WHERE avis.film_id IN ($trous)
+            ORDER BY avis.publie_le DESC
+        ");
+        $stmtAvis->bind_param(str_repeat('i', count($idsFilms)), ...$idsFilms);
+        $stmtAvis->execute();
+
+        foreach ($stmtAvis->get_result()->fetch_all(MYSQLI_ASSOC) as $ligneAvis) {
+            $avisParFilm[(int) $ligneAvis['film_id']][] = $ligneAvis;
+        }
+    }
+
     foreach ($filmsRow as $ligne) {
-        $filmId = (int) $ligne['film_id'];
+        $filmId   = (int) $ligne['film_id'];
+        $avisFilm = $avisParFilm[$filmId] ?? [];
 
-        $stmtDernier = $conn->prepare("
-            SELECT avis.titre, avis.contenu, utilisateurs.nom_utilisateur
-            FROM avis
-            JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-            WHERE avis.film_id = ?
-            ORDER BY avis.publie_le DESC
-            LIMIT 1
-        ");
-        $stmtDernier->bind_param('i', $filmId);
-        $stmtDernier->execute();
-        $dernierAvis = $stmtDernier->get_result()->fetch_assoc();
-
-        $stmtAuteurs = $conn->prepare("
-            SELECT DISTINCT utilisateurs.nom_utilisateur, utilisateurs.photo_profil
-            FROM avis
-            JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-            WHERE avis.film_id = ?
-            ORDER BY avis.publie_le DESC
-            LIMIT 3
-        ");
-        $stmtAuteurs->bind_param('i', $filmId);
-        $stmtAuteurs->execute();
-        $auteurs = $stmtAuteurs->get_result()->fetch_all(MYSQLI_ASSOC);
+        // Les avis arrivent du plus récent au plus ancien : le premier est le
+        // dernier message, et les trois premiers auteurs distincts illustrent
+        // la discussion.
+        $auteurs = [];
+        foreach ($avisFilm as $unAvis) {
+            if (count($auteurs) >= 3) break;
+            if (!isset($auteurs[$unAvis['nom_utilisateur']])) {
+                $auteurs[$unAvis['nom_utilisateur']] = [
+                    'nom_utilisateur' => $unAvis['nom_utilisateur'],
+                    'photo_profil'    => $unAvis['photo_profil'],
+                ];
+            }
+        }
 
         $film = $tmdb->getMovie($filmId);
 
@@ -68,8 +83,8 @@ if (baseDisponible()) {
             'film_id'     => $filmId,
             'film_titre'  => $film['title'] ?? 'Film',
             'nb_avis'     => (int) $ligne['nb_avis'],
-            'dernier'     => $dernierAvis,
-            'auteurs'     => $auteurs,
+            'dernier'     => $avisFilm[0] ?? null,
+            'auteurs'     => array_values($auteurs),
         ];
     }
 }
@@ -80,7 +95,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Tous les avis et critiques de films publiés par la communauté Cinévo, sans notes ni classement, triés du plus récent au plus ancien.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Tous les avis et critiques de films · Cinévo</title>
 </head>
 <body>

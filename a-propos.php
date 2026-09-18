@@ -9,7 +9,7 @@ require_once 'includes/auth.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pourquoi Cinévo existe, qui l'a écrit et la seule règle qui y tient : aucun ton snob toléré. Un site d'avis cinéma sans notes ni algorithme.">
     <title>À propos de Cinévo · Pourquoi ce site existe</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
 </head>
 <body>
 
@@ -103,7 +103,7 @@ require_once 'includes/auth.php';
     <section class="cta-decouvrir">
         <h2>Envie de rejoindre la conversation ?</h2>
         <p>Créer un compte prend trente secondes. C'est gratuit, et ça le restera.</p>
-        <div class="hero-boutons" style="margin-top:20px;">
+        <div class="hero-boutons">
             <a href="inscription.php" class="btn-rouge">Rejoindre Cinévo</a>
             <a href="decouvrir.php" class="btn-blanc">En savoir plus</a>
         </div>

@@ -62,7 +62,7 @@ $tmdb = new TMDB();
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Installation · Cinévo</title>
 </head>
 <body>
@@ -85,7 +85,7 @@ $tmdb = new TMDB();
     <?php elseif ($succes): ?>
 
         <p class="intro"><?= htmlspecialchars($succes) ?></p>
-        <div class="hero-boutons" style="margin-top:20px;">
+        <div class="hero-boutons">
             <a href="diagnostic.php?prechauffer=1" class="btn-rouge">Préchauffer le cache</a>
             <a href="index.php" class="btn-blanc">Aller sur le site</a>
         </div>
@@ -96,7 +96,7 @@ $tmdb = new TMDB();
             Une clé TMDB est déjà configurée sur cette machine : il n'y a rien à faire.
             Pour la remplacer, modifiez le fichier <code>.env</code> à la main.
         </p>
-        <div class="hero-boutons" style="margin-top:20px;">
+        <div class="hero-boutons">
             <a href="diagnostic.php" class="btn-rouge">Vérifier l'installation</a>
         </div>
 

@@ -761,7 +761,6 @@ input[type="email"] {
   font-weight: 600;
 }
 
-.facultatif,
 .minimum {
   font-weight: 400;
 }
@@ -1704,7 +1703,6 @@ table {
 .meta-resultat,
 .annee-hasard,
 .compteur,
-.facultatif,
 .minimum {
   font-family: var(--mono);
   font-size: 11px;
@@ -2446,6 +2444,118 @@ textarea:focus {
 }
 .question-decouvrir p {
   font-size: 15px;
+}
+
+/* ============================================================
+   MOTIFS DE PAGE
+
+   Ces règles remplacent des attributs style= qui se répétaient
+   d'un fichier à l'autre. Elles sont nommées par composant, pour
+   qu'on sache en les lisant à quoi elles servent.
+   ============================================================ */
+
+/* Bloc d'annonce centré : page introuvable, film introuvable. */
+.bloc-centre {
+  text-align: center;
+  padding: 100px 0;
+}
+.bloc-centre h1 {
+  margin-top: 16px;
+}
+.bloc-centre .intro {
+  margin: 16px auto 0;
+  max-width: 480px;
+}
+.bloc-centre .bouton-espace {
+  margin-top: 24px;
+}
+
+/* Variante centrée de la rangée de boutons. */
+.hero-boutons-centre {
+  justify-content: center;
+  margin-top: 28px;
+}
+
+/* Précision de second plan : plateforme absente, aucun avis. */
+.note-discrete {
+  color: var(--texte-meta);
+  font-size: 14px;
+  margin-top: 12px;
+}
+.note-espacee {
+  font-size: inherit;
+  margin-top: 24px;
+}
+
+/* Date poussée à droite de la ligne de bas de carte. */
+.avis-date {
+  margin-left: auto;
+}
+
+/* ============ PAGES DE COMPTE ============ */
+/* Connexion, inscription, mot de passe oublié et réinitialisation partagent
+   la même colonne étroite et le même rythme vertical. */
+
+.boite-connexion .intro,
+.boite-inscription .intro,
+.boite-connexion .source,
+.boite-inscription .source {
+  margin-top: 16px;
+}
+
+/* Le lien de réinitialisation est une longue suite de caractères sans espace :
+   sans coupure, il élargit la colonne. */
+.lien-brut {
+  margin-top: 12px;
+  word-break: break-all;
+}
+
+/* ============ PAGE MON PROFIL ============ */
+/* Les trois encarts suivent la même trame : un titre, un formulaire étroit,
+   puis les messages de retour. Une seule règle pour les trois. */
+
+.page-profil .encart {
+  margin-bottom: 24px;
+}
+.page-profil .encart:last-child {
+  margin-bottom: 0;
+}
+.page-profil .encart form {
+  margin-top: 14px;
+  max-width: 420px;
+}
+/* Les formulaires de la ligne d'avatar sont deux boutons côte à côte : ni la
+   marge ni la largeur maximale des formulaires en colonne ne s'y appliquent. */
+.page-profil .ligne-avatar form {
+  margin-top: 0;
+  max-width: none;
+}
+.page-profil .encart .champ + .champ {
+  margin-top: 12px;
+}
+.page-profil .encart form button {
+  margin-top: 14px;
+}
+.page-profil .ligne-avatar .btn-rouge {
+  margin-top: 16px;
+}
+.page-profil .encart h2 + .source {
+  margin-top: 4px;
+}
+.page-profil .encart .source,
+.page-profil .encart .message-erreur,
+.page-profil .encart .message-succes {
+  margin-top: 12px;
+}
+
+/* Photo de profil : l'avatar, le sélecteur de fichier et le bouton de retour
+   à l'avatar par défaut sur une même ligne, qui se replie si besoin. */
+.ligne-avatar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 14px;
+  flex-wrap: wrap;
 }
 
 /* ============ CHARTE · FIL / COLONNES ============ */

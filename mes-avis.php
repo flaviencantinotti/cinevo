@@ -29,14 +29,7 @@ if (baseDisponible()) {
     ");
     $stmt->bind_param('i', $_SESSION['utilisateur_id']);
     $stmt->execute();
-    $result = $stmt->get_result();
-
-    while ($row = $result->fetch_assoc()) {
-        $film = $tmdb->getMovie((int) $row['film_id']);
-        $row['film_titre'] = $film['title'] ?? 'Film';
-        $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
-        $mesAvis[] = $row;
-    }
+    $mesAvis = ajouterFilms($tmdb, $stmt->get_result()->fetch_all(MYSQLI_ASSOC));
 }
 ?>
 <!DOCTYPE html>
@@ -45,7 +38,7 @@ if (baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Mes avis</title>
 </head>
 <body>
@@ -92,7 +85,7 @@ if (baseDisponible()) {
                 <div class="avis-bas">
                     <span class="avis-liaison">sur</span>
                     <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
-                    <span style="margin-left:auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
+                    <span class="avis-date"><?= formaterDateFr($avis['publie_le']) ?></span>
                 </div>
 
                 <div class="actions-avis">

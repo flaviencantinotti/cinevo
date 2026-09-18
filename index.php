@@ -17,12 +17,7 @@ if (baseDisponible()) {
         LIMIT 3
     ");
 
-    while ($result && $row = $result->fetch_assoc()) {
-        $film = $tmdb->getMovie((int) $row['film_id']);
-        $row['film_titre'] = $film['title'] ?? 'Film';
-        $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
-        $avisRecents[]     = $row;
-    }
+    $avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : []);
 }
 
 // L'affiche du hero est celle du dernier avis publié : le seul élément en
@@ -40,7 +35,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 

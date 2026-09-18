@@ -55,7 +55,7 @@ if ($id > 0) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
 </head>
 <body>
 
@@ -65,10 +65,10 @@ if ($id > 0) {
 
     <?php if (!$film): ?>
 
-        <div style="text-align:center; padding: 80px 0;">
+        <div class="bloc-centre">
             <h1>Film introuvable.</h1>
             <p class="intro">L'identifiant ne correspond à aucun film connu.</p>
-            <a href="index.php" style="margin-top:24px; display:inline-block;" class="btn-rouge">Retour à l'accueil</a>
+            <a href="index.php" class="btn-rouge bouton-espace">Retour à l'accueil</a>
         </div>
 
     <?php else: ?>
@@ -156,7 +156,7 @@ if ($id > 0) {
                     <?php endforeach; ?>
 
                     <?php if (empty($abonnement) && empty($location)): ?>
-                        <p style="color:var(--texte-meta); font-size:14px; margin-top:12px;">
+                        <p class="note-discrete">
                             Aucune plateforme disponible en France pour le moment.
                         </p>
                     <?php endif; ?>
@@ -202,7 +202,7 @@ if ($id > 0) {
             <?php if (!baseDisponible()): ?>
                 <?= messageBaseIndisponible('L\'affichage des avis') ?>
             <?php elseif (empty($avisFilm)): ?>
-                <p style="color:var(--texte-meta); margin-top:24px;">
+                <p class="note-discrete note-espacee">
                     Aucun avis pour ce film. Soyez le premier à en écrire un.
                 </p>
             <?php else: ?>

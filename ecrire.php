@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Écrire un avis</title>
 </head>
 <body>
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 La rédaction d'un avis est réservée aux membres, pour que chaque avis reste rattaché
                 à une vraie personne. Créer un compte est gratuit et prend trente secondes.
             </p>
-            <div class="hero-boutons" style="margin-top:20px;">
+            <div class="hero-boutons">
                 <a href="inscription.php" class="btn-rouge">Rejoindre Cinévo</a>
                 <a href="connexion.php" class="btn-blanc">Déjà inscrit ? Connexion</a>
             </div>

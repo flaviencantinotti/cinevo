@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Créez votre compte Cinévo gratuitement et rejoignez une communauté de cinéphiles qui écrit ses avis sur les films, sans notes ni algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Inscription gratuite · Cinévo</title>
 </head>
 <body>
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1>Inscrivez-vous</h1>
 
         <?php if ($erreur): ?>
-            <p class="message-erreur" style="text-align:center;"><?= htmlspecialchars($erreur) ?></p>
+            <p class="message-erreur"><?= htmlspecialchars($erreur) ?></p>
         <?php endif; ?>
 
         <form class="formulaire" action="inscription.php" method="POST">
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn-rouge">Créer mon compte</button>
         </form>
 
-        <p class="source" style="text-align:center; margin-top:14px;">
+        <p class="source">
             En vous inscrivant, vous acceptez les <a href="conditions-generales.php">conditions générales d'utilisation</a>.
         </p>
 
