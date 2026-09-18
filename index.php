@@ -40,7 +40,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=88">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -55,8 +55,21 @@ $filmsPioche = $tmdb->getRandomMovies(3);
 
                 <div class="hero-contenu">
                     <h1>Parlons ciné.</h1>
+                    <?php // La deuxième phrase est insécable : sur un téléphone, la ligne se
+                          // coupait après « On en » et laissait « parle. » tout seul. ?>
+                    <p class="hero-accroche">Ici, on ne note pas les films. <span>On en parle.</span></p>
                     <div class="hero-boutons">
-                        <a href="decouvrir.php" class="bouton-principal">Découvrir</a>
+                        <?php
+                        // Chaque section de la page mène déjà à sa destination : « Comment ça
+                        // marche » vers Découvrir, « Tous les avis » vers les discussions,
+                        // « Tirer cinq films » vers le hasard. Le hero garde donc la seule
+                        // action qui manquait à l'accueil : passer du côté de ceux qui écrivent.
+                        ?>
+                        <?php if (estConnecte()): ?>
+                            <a href="ecrire.php" class="bouton-principal">Écrire un avis</a>
+                        <?php else: ?>
+                            <a href="inscription.php" class="bouton-principal">Rejoindre Cinévo</a>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -77,11 +90,17 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             <div class="concept-layout">
                 <div class="concept-texte">
                     <h2>Pas de<br>note.</h2>
-                    <p>Juste ce que les films vous font ressentir.</p>
+                    <p>
+                        Quelques lignes ou dix paragraphes : c'est vous qui décidez. Chaque film
+                        commenté ouvre une discussion, et les avis s'enchaînent dans l'ordre où
+                        ils arrivent. Rien n'est trié, rien n'est poussé en avant.
+                    </p>
                 </div>
+                <?php // La colonne de droite est une accroche en capitales (.concept-cta p) :
+                      // elle doit rester courte, l'explication tient dans la colonne de gauche. ?>
                 <div class="concept-cta">
-                    <p>Les films se racontent.</p>
-                    <a href="a-propos.php" class="lien-fleche">En savoir plus</a>
+                    <p>Le site en quatre étapes.</p>
+                    <a href="decouvrir.php" class="lien-fleche">Comment ça marche</a>
                 </div>
             </div>
         </section>
@@ -125,17 +144,21 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             <div class="hasard-encart">
                 <div class="hasard-texte">
                     <h2>Une<br>séance.</h2>
-                    <p>Cinq films. Aucun algorithme.</p>
+                    <p>
+                        Vous ne savez pas quoi regarder ce soir ? On pioche cinq films au hasard
+                        dans tout le catalogue, sans tenir compte de ce que vous avez déjà vu ni
+                        de ce qui marche en ce moment. Relancez autant de fois qu'il faudra.
+                    </p>
                     <div class="hero-boutons">
-                        <a href="hasard.php" class="bouton-principal">Lancer la séance</a>
+                        <a href="hasard.php" class="bouton-principal">Tirer cinq films au hasard</a>
                     </div>
                 </div>
                 <?php if (!empty($filmsPioche)): ?>
                     <div class="hasard-pile">
                         <?php foreach ($filmsPioche as $film): ?>
-                            <div class="affiche">
+                            <a href="fiche.php?id=<?= (int) $film['id'] ?>" class="affiche">
                                 <img src="<?= htmlspecialchars($tmdb->getPosterUrl($film['poster_path'] ?? null)) ?>" alt="Affiche de <?= htmlspecialchars($film['title'] ?? '') ?>" loading="lazy">
-                            </div>
+                            </a>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>

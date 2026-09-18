@@ -1935,6 +1935,19 @@ button:hover,
   color: var(--texte);
 }
 
+/* Sous-titre du hero : il dit ce qu'est le site à qui arrive pour la première
+   fois. Taille modeste assumée, il ne doit pas concurrencer le titre. */
+.hero-accroche {
+  max-width: 46ch;
+  margin: -32px 0 40px;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--texte-doux);
+}
+.hero-accroche span {
+  white-space: nowrap;
+}
+
 /* Colonne d'affiche du hero (voir index.php) */
 .hero-grille {
   display: grid;
@@ -2111,7 +2124,8 @@ button:hover,
 
 a:hover .affiche img,
 a:hover .affiche-fil img,
-a:hover .affiche-hasard img {
+a:hover .affiche-hasard img,
+a.affiche:hover img {
   opacity: .78;
 }
 
