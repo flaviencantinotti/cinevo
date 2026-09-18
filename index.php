@@ -59,9 +59,17 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                           // coupait après « On en » et laissait « parle. » tout seul. ?>
                     <p class="hero-accroche">Ici, on ne note pas les films. <span>On en parle.</span></p>
                     <div class="hero-boutons">
-                        <?php // Mène aux discussions, le cœur du site : « Comment ça marche »,
-                              // plus bas sur la page, couvre déjà la page Découvrir. ?>
-                        <a href="avis.php" class="bouton-principal">Lire les avis</a>
+                        <?php
+                        // Chaque section de la page mène déjà à sa destination : « Comment ça
+                        // marche » vers Découvrir, « Tous les avis » vers les discussions,
+                        // « Tirer cinq films » vers le hasard. Le hero garde donc la seule
+                        // action qui manquait à l'accueil : passer du côté de ceux qui écrivent.
+                        ?>
+                        <?php if (estConnecte()): ?>
+                            <a href="ecrire.php" class="bouton-principal">Écrire un avis</a>
+                        <?php else: ?>
+                            <a href="inscription.php" class="bouton-principal">Rejoindre Cinévo</a>
+                        <?php endif; ?>
                     </div>
                 </div>
 
