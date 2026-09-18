@@ -40,6 +40,20 @@ function tailleIniEnOctets($valeur) {
     }
 }
 
+// Complète des lignes d'avis venues de la base avec le titre et l'affiche du
+// film, que seul le catalogue TMDB connaît. Trois pages affichent ces cartes
+// (accueil, fil, mes avis) et faisaient toutes la même boucle.
+function ajouterFilms(TMDB $tmdb, array $lignes) {
+    foreach ($lignes as &$ligne) {
+        $film = $tmdb->getMovie((int) $ligne['film_id']);
+
+        $ligne['film_titre'] = $film['title'] ?? 'Film';
+        $ligne['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
+    }
+
+    return $lignes;
+}
+
 // Avatar d'un membre : sa photo de profil si elle existe encore sur le
 // disque, sinon un carré portant son initiale. L'apparence est entièrement
 // tenue par la feuille de style : la charte ne garde en couleur que les

@@ -21,12 +21,7 @@ $result = baseDisponible() ? $conn->query("
     LIMIT 10
 ") : null;
 
-while ($result && $row = $result->fetch_assoc()) {
-    $film = $tmdb->getMovie((int) $row['film_id']);
-    $row['film_titre'] = $film['title'] ?? 'Film';
-    $row['affiche']    = $tmdb->getPosterUrl($film['poster_path'] ?? null);
-    $avisRecents[]     = $row;
-}
+$avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : []);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -34,7 +29,7 @@ while ($result && $row = $result->fetch_assoc()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Mon fil</title>
 </head>
 <body>
@@ -74,7 +69,7 @@ while ($result && $row = $result->fetch_assoc()) {
                             <span class="avis-auteur"><?= htmlspecialchars($avis['nom_utilisateur']) ?></span>
                             <span class="avis-liaison">sur</span>
                             <a href="fiche.php?id=<?= (int) $avis['film_id'] ?>" class="lien-film"><?= htmlspecialchars($avis['film_titre']) ?></a>
-                            <span style="margin-left: auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
+                            <span class="avis-date"><?= formaterDateFr($avis['publie_le']) ?></span>
                         </div>
                     </article>
                 <?php endforeach; ?>

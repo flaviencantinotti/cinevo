@@ -61,7 +61,7 @@ if ($avis) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Supprimer mon avis</title>
 </head>
 <body>
@@ -83,7 +83,7 @@ if ($avis) {
     <?php if (!$avis): ?>
 
         <p class="intro">Cet avis n'existe pas, ou ne vous appartient pas.</p>
-        <div class="hero-boutons" style="margin-top:20px;">
+        <div class="hero-boutons">
             <a href="mes-avis.php" class="btn-rouge">Retour à mes avis</a>
         </div>
 
@@ -100,7 +100,7 @@ if ($avis) {
             <?php endif; ?>
             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 300)) ?></p>
             <div class="avis-bas">
-                <span style="margin-left:auto;"><?= formaterDateFr($avis['publie_le']) ?></span>
+                <span class="avis-date"><?= formaterDateFr($avis['publie_le']) ?></span>
             </div>
         </article>
 

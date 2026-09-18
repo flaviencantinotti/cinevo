@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Mot de passe oublié</title>
 </head>
 <body>
@@ -63,28 +63,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if ($demandeEnvoyee): ?>
 
-            <p class="intro" style="text-align:center; margin-top:16px;">
+            <p class="intro">
                 Si un compte existe pour cette adresse, un lien de réinitialisation vient
                 de lui être envoyé. Il est valable une heure.
             </p>
 
             <?php if ($lienReset): ?>
-                <p class="source" style="margin-top:16px; text-align:center;">
+                <p class="source">
                     Installation locale, sans serveur d'envoi : le voici directement.
                 </p>
-                <p style="text-align:center; margin-top:12px; word-break:break-all;">
+                <p class="lien-brut">
                     <a href="<?= htmlspecialchars($lienReset) ?>"><?= htmlspecialchars($lienReset) ?></a>
                 </p>
             <?php endif; ?>
 
         <?php else: ?>
 
-            <p class="intro" style="text-align:center; margin-top:16px;">
+            <p class="intro">
                 Indiquez votre adresse e-mail, on vous envoie un lien pour en choisir un nouveau.
             </p>
 
             <?php if ($erreur): ?>
-                <p class="message-erreur" style="text-align:center;"><?= htmlspecialchars($erreur) ?></p>
+                <p class="message-erreur"><?= htmlspecialchars($erreur) ?></p>
             <?php endif; ?>
 
             <form class="formulaire" action="mot-de-passe-oublie.php" method="POST">

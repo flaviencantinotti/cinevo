@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Nouveau mot de passe</title>
 </head>
 <body>
@@ -55,29 +55,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if ($succes): ?>
 
-            <p class="intro" style="text-align:center; margin-top:16px;">
+            <p class="intro">
                 Votre mot de passe a été changé. Vous pouvez maintenant vous connecter.
             </p>
-            <div class="hero-boutons" style="margin-top:20px; justify-content:center;">
+            <div class="hero-boutons hero-boutons-centre">
                 <a href="connexion.php" class="btn-rouge">Se connecter</a>
             </div>
 
         <?php elseif (!$utilisateurId): ?>
 
-            <p class="intro" style="text-align:center; margin-top:16px;">
+            <p class="intro">
                 Ce lien est invalide ou a expiré.
             </p>
             <?php if ($erreur): ?>
-                <p class="message-erreur" style="text-align:center;"><?= htmlspecialchars($erreur) ?></p>
+                <p class="message-erreur"><?= htmlspecialchars($erreur) ?></p>
             <?php endif; ?>
-            <div class="hero-boutons" style="margin-top:20px; justify-content:center;">
+            <div class="hero-boutons hero-boutons-centre">
                 <a href="mot-de-passe-oublie.php" class="btn-rouge">Refaire une demande</a>
             </div>
 
         <?php else: ?>
 
             <?php if ($erreur): ?>
-                <p class="message-erreur" style="text-align:center;"><?= htmlspecialchars($erreur) ?></p>
+                <p class="message-erreur"><?= htmlspecialchars($erreur) ?></p>
             <?php endif; ?>
 
             <form class="formulaire" action="reinitialiser-mdp.php" method="POST">

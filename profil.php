@@ -154,10 +154,10 @@ if (!baseDisponible()) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=92">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
     <title>Cinévo · Mon profil</title>
 </head>
-<body>
+<body class="page-profil">
 
 <?php include 'includes/header.php'; ?>
 
@@ -174,9 +174,9 @@ if (!baseDisponible()) {
         <?= messageBaseIndisponible('Votre profil') ?>
     <?php else: ?>
 
-        <div class="encart" style="margin-bottom:24px;">
+        <div class="encart">
             <h2>Photo de profil</h2>
-            <div style="display:flex; align-items:center; gap:20px; margin-top:14px; flex-wrap:wrap;">
+            <div class="ligne-avatar">
                 <?= avatarHtml($utilisateur['nom_utilisateur'], $utilisateur['photo_profil'], 'avatar-grand') ?>
                 <form action="profil.php" method="POST" enctype="multipart/form-data">
                     <?= csrf_champ() ?>
@@ -186,7 +186,7 @@ if (!baseDisponible()) {
                         <input type="file" id="photo" name="photo" class="champ-fichier"
                                accept="image/jpeg,image/png,image/webp" required>
                     </div>
-                    <button type="submit" class="btn-rouge" style="margin-top:16px;">Enregistrer la photo</button>
+                    <button type="submit" class="btn-rouge">Enregistrer la photo</button>
                 </form>
                 <?php if (!empty($utilisateur['photo_profil'])): ?>
                     <form action="profil.php" method="POST">
@@ -196,63 +196,63 @@ if (!baseDisponible()) {
                     </form>
                 <?php endif; ?>
             </div>
-            <p class="source" style="margin-top:12px;">JPG, PNG ou WebP, <?= $tailleMaxMo ?> Mo maximum.</p>
+            <p class="source">JPG, PNG ou WebP, <?= $tailleMaxMo ?> Mo maximum.</p>
             <?php if ($erreurPhoto): ?>
-                <p class="message-erreur" style="margin-top:12px;"><?= htmlspecialchars($erreurPhoto) ?></p>
+                <p class="message-erreur"><?= htmlspecialchars($erreurPhoto) ?></p>
             <?php endif; ?>
             <?php if ($succesPhoto): ?>
-                <p class="message-succes" style="margin-top:12px;"><?= htmlspecialchars($succesPhoto) ?></p>
+                <p class="message-succes"><?= htmlspecialchars($succesPhoto) ?></p>
             <?php endif; ?>
         </div>
 
-        <div class="encart" style="margin-bottom:24px;">
+        <div class="encart">
             <h2>Adresse e-mail</h2>
-            <p class="source" style="margin-top:4px;">Actuelle : <?= htmlspecialchars($utilisateur['email']) ?></p>
-            <form action="profil.php" method="POST" style="margin-top:14px; max-width:420px;">
+            <p class="source">Actuelle : <?= htmlspecialchars($utilisateur['email']) ?></p>
+            <form action="profil.php" method="POST">
                 <?= csrf_champ() ?>
                 <input type="hidden" name="action" value="email">
                 <div class="champ">
                     <label for="email">Nouvelle adresse e-mail</label>
                     <input type="email" id="email" name="email" required autocomplete="email">
                 </div>
-                <div class="champ" style="margin-top:12px;">
+                <div class="champ">
                     <label for="mdp_email">Mot de passe actuel</label>
                     <input type="password" id="mdp_email" name="mot_de_passe_actuel" required autocomplete="current-password">
                 </div>
-                <button type="submit" class="btn-rouge" style="margin-top:14px;">Changer l'e-mail</button>
+                <button type="submit" class="btn-rouge">Changer l'e-mail</button>
             </form>
             <?php if ($erreurEmail): ?>
-                <p class="message-erreur" style="margin-top:12px;"><?= htmlspecialchars($erreurEmail) ?></p>
+                <p class="message-erreur"><?= htmlspecialchars($erreurEmail) ?></p>
             <?php endif; ?>
             <?php if ($succesEmail): ?>
-                <p class="message-succes" style="margin-top:12px;"><?= htmlspecialchars($succesEmail) ?></p>
+                <p class="message-succes"><?= htmlspecialchars($succesEmail) ?></p>
             <?php endif; ?>
         </div>
 
         <div class="encart">
             <h2>Mot de passe</h2>
-            <form action="profil.php" method="POST" style="margin-top:14px; max-width:420px;">
+            <form action="profil.php" method="POST">
                 <?= csrf_champ() ?>
                 <input type="hidden" name="action" value="mot_de_passe">
                 <div class="champ">
                     <label for="mdp_actuel">Mot de passe actuel</label>
                     <input type="password" id="mdp_actuel" name="mot_de_passe_actuel" required autocomplete="current-password">
                 </div>
-                <div class="champ" style="margin-top:12px;">
+                <div class="champ">
                     <label for="nouveau_mdp">Nouveau mot de passe</label>
                     <input type="password" id="nouveau_mdp" name="nouveau_mot_de_passe" required autocomplete="new-password">
                 </div>
-                <div class="champ" style="margin-top:12px;">
+                <div class="champ">
                     <label for="confirmation">Confirmer le nouveau mot de passe</label>
                     <input type="password" id="confirmation" name="confirmation" required autocomplete="new-password">
                 </div>
-                <button type="submit" class="btn-rouge" style="margin-top:14px;">Changer le mot de passe</button>
+                <button type="submit" class="btn-rouge">Changer le mot de passe</button>
             </form>
             <?php if ($erreurMdp): ?>
-                <p class="message-erreur" style="margin-top:12px;"><?= htmlspecialchars($erreurMdp) ?></p>
+                <p class="message-erreur"><?= htmlspecialchars($erreurMdp) ?></p>
             <?php endif; ?>
             <?php if ($succesMdp): ?>
-                <p class="message-succes" style="margin-top:12px;"><?= htmlspecialchars($succesMdp) ?></p>
+                <p class="message-succes"><?= htmlspecialchars($succesMdp) ?></p>
             <?php endif; ?>
         </div>
 
