@@ -40,7 +40,7 @@ $filmsPioche = $tmdb->getRandomMovies(3);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=88">
+    <link rel="stylesheet" type="text/css" href="css/style.css?v=89">
     <title>Cinévo · Le cinéma se lit aussi</title>
 </head>
 
@@ -77,11 +77,17 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             <div class="concept-layout">
                 <div class="concept-texte">
                     <h2>Pas de<br>note.</h2>
-                    <p>Juste ce que les films vous font ressentir.</p>
+                    <p>
+                        Ici, un film ne se résume jamais à trois étoiles et demie. On écrit ce
+                        qu'il nous a fait, en deux phrases ou en dix paragraphes, et chaque film
+                        commenté ouvre une discussion que tout le monde peut lire.
+                    </p>
                 </div>
+                <?php // La colonne de droite est une accroche en capitales (.concept-cta p) :
+                      // elle doit rester courte, l'explication tient dans la colonne de gauche. ?>
                 <div class="concept-cta">
-                    <p>Les films se racontent.</p>
-                    <a href="a-propos.php" class="lien-fleche">En savoir plus</a>
+                    <p>Le site en quatre étapes.</p>
+                    <a href="decouvrir.php" class="lien-fleche">Comment ça marche</a>
                 </div>
             </div>
         </section>
@@ -125,9 +131,13 @@ $filmsPioche = $tmdb->getRandomMovies(3);
             <div class="hasard-encart">
                 <div class="hasard-texte">
                     <h2>Une<br>séance.</h2>
-                    <p>Cinq films. Aucun algorithme.</p>
+                    <p>
+                        Vous ne savez pas quoi regarder ce soir ? On pioche cinq films au hasard
+                        dans tout le catalogue, sans tenir compte de ce que vous avez déjà vu ni
+                        de ce qui marche en ce moment. Relancez autant de fois qu'il faudra.
+                    </p>
                     <div class="hero-boutons">
-                        <a href="hasard.php" class="bouton-principal">Lancer la séance</a>
+                        <a href="hasard.php" class="bouton-principal">Tirer cinq films au hasard</a>
                     </div>
                 </div>
                 <?php if (!empty($filmsPioche)): ?>
