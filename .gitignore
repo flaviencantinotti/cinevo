@@ -5,3 +5,6 @@
 uploads/avatars/*
 !uploads/avatars/.gitkeep
 !uploads/avatars/.htaccess
+
+# Diaporama de soutenance : images et PDF, regenerables, hors du code du site.
+dossier/
