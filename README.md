@@ -30,7 +30,6 @@ et la façon dont je les corrige.
 **Films**
 - Recherche par titre
 - Fiche détaillée : synopsis, distribution, plateformes de streaming disponibles
-- Page découverte, avec filtres sur la popularité et les votes
 - Tirage au hasard, pour ceux qui ne savent pas quoi regarder
 
 **Comptes et avis**
@@ -39,6 +38,8 @@ et la façon dont je les corrige.
 - Consultation des avis publiés
 
 **Le reste**
+- Page mode d'emploi (`decouvrir.php`) : comment le site fonctionne, et une foire
+  aux questions
 - Pages légales : mentions, cookies, à propos, contact
 - `sitemap.php` et `robots.txt`
 
