@@ -109,3 +109,58 @@ FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS tota
 WHERE u.rn = (1 MOD u.total) + 1
 AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 198663 AND contenu = 'Le concept de départ est vraiment prenant, le mystère du labyrinthe fonctionne bien pendant une heure. Puis le film semble ne plus savoir où aller et enchaîne les révélations un peu forcées.');
 
+-- --------------------------------------------------------------------------
+-- Seconds avis : sept films recoivent une deuxieme voix, l'un d'eux une
+-- troisieme. Sans eux, chaque film n'aurait qu'un seul avis et la page des
+-- discussions ne montrerait jamais le cas qu'elle est faite pour montrer.
+-- Les indices de rotation sont choisis pour qu'un film ne recoive pas deux
+-- fois le meme auteur.
+-- --------------------------------------------------------------------------
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 424, 'Je l\'ai vu à seize ans, je le revois autrement', 'On me l\'avait montré au lycée et je n\'avais retenu que le choc. En le revoyant adulte, ce qui me frappe c\'est la lenteur assumée : le film prend le temps de montrer l\'administration de l\'horreur, et c\'est peut-être ça le plus difficile à soutenir.', '2026-09-14 20:05:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (1 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 424 AND contenu = 'On me l\'avait montré au lycée et je n\'avais retenu que le choc. En le revoyant adulte, ce qui me frappe c\'est la lenteur assumée : le film prend le temps de montrer l\'administration de l\'horreur, et c\'est peut-être ça le plus difficile à soutenir.');
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 389, 'Un cours de rhétorique déguisé en film', 'Ce que j\'aime ici, c\'est qu\'aucun argument n\'est gratuit : chaque revirement tient à un détail qu\'on avait sous les yeux. Je l\'ai utilisé en formation pour expliquer ce qu\'est une démonstration, et ça marche mieux que n\'importe quel manuel.', '2026-09-15 18:30:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (2 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 389 AND contenu = 'Ce que j\'aime ici, c\'est qu\'aucun argument n\'est gratuit : chaque revirement tient à un détail qu\'on avait sous les yeux. Je l\'ai utilisé en formation pour expliquer ce qu\'est une démonstration, et ça marche mieux que n\'importe quel manuel.');
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 475557, 'Techniquement irréprochable, moralement glissant', 'Je comprends l\'enthousiasme, la mise en scène est impeccable et l\'interprétation impressionnante. Mais je reste mal à l\'aise avec la complaisance du regard : à force d\'épouser son point de vue, le film finit par le rendre confortable.', '2026-09-16 21:40:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (0 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 475557 AND contenu = 'Je comprends l\'enthousiasme, la mise en scène est impeccable et l\'interprétation impressionnante. Mais je reste mal à l\'aise avec la complaisance du regard : à force d\'épouser son point de vue, le film finit par le rendre confortable.');
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 475557, 'Le débat autour du film m\'a plus marqué que le film', 'Je l\'ai vu après avoir lu tout ce qu\'on en disait, et c\'est peut-être une erreur : j\'attendais un scandale, j\'ai trouvé un portrait assez classique. Bien fait, mais moins sulfureux que sa réputation.', '2026-09-17 19:15:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (1 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 475557 AND contenu = 'Je l\'ai vu après avoir lu tout ce qu\'on en disait, et c\'est peut-être une erreur : j\'attendais un scandale, j\'ai trouvé un portrait assez classique. Bien fait, mais moins sulfureux que sa réputation.');
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 933260, 'Je n\'ai pas tenu jusqu\'au bout, et c\'est un compliment', 'J\'ai coupé à vingt minutes de la fin parce que je n\'en pouvais plus, ce qui veut bien dire que le film fait exactement ce qu\'il annonce. Je ne le reverrai pas, mais je ne peux pas lui reprocher d\'avoir visé juste.', '2026-09-18 22:25:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (0 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 933260 AND contenu = 'J\'ai coupé à vingt minutes de la fin parce que je n\'en pouvais plus, ce qui veut bien dire que le film fait exactement ce qu\'il annonce. Je ne le reverrai pas, mais je ne peux pas lui reprocher d\'avoir visé juste.');
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 106646, 'Trois heures de fête, et un vide une fois la lumière rallumée', 'On rit beaucoup, on est emporté, et c\'est bien le problème : je suis sorti en me demandant si j\'avais regardé une charge ou une publicité. La question reste ouverte pour moi, et c\'est ce qui rend le film intéressant à discuter.', '2026-09-19 20:50:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (1 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 106646 AND contenu = 'On rit beaucoup, on est emporté, et c\'est bien le problème : je suis sorti en me demandant si j\'avais regardé une charge ou une publicité. La question reste ouverte pour moi, et c\'est ce qui rend le film intéressant à discuter.');
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 808, 'Mes enfants rient aux mêmes endroits que moi, vingt ans après', 'Je l\'ai remis pour eux sans trop y croire et j\'ai retrouvé exactement ce qui m\'avait plu : des personnages secondaires qui volent chaque scène, et une tendresse qui ne tombe jamais dans le sirop.', '2026-09-20 17:10:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (2 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 808 AND contenu = 'Je l\'ai remis pour eux sans trop y croire et j\'ai retrouvé exactement ce qui m\'avait plu : des personnages secondaires qui volent chaque scène, et une tendresse qui ne tombe jamais dans le sirop.');
+
+INSERT INTO avis (utilisateur_id, film_id, titre, contenu, publie_le)
+SELECT u.id, 585, 'La fin me fait toujours le même effet', 'Tout le film tient sur une idée très simple et la pousse jusqu\'au bout sans jamais tricher. Les dernières minutes m\'ont cueilli comme la première fois, et pourtant je savais exactement ce qui allait arriver.', '2026-09-21 21:00:00'
+FROM (SELECT id, ROW_NUMBER() OVER (ORDER BY id) AS rn, COUNT(*) OVER () AS total FROM utilisateurs) u
+WHERE u.rn = (0 MOD u.total) + 1
+AND NOT EXISTS (SELECT 1 FROM avis WHERE film_id = 585 AND contenu = 'Tout le film tient sur une idée très simple et la pousse jusqu\'au bout sans jamais tricher. Les dernières minutes m\'ont cueilli comme la première fois, et pourtant je savais exactement ce qui allait arriver.');
