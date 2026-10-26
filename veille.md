@@ -17,9 +17,19 @@ Pas de dépendance tierce dans le projet (pas de `composer.json` / `package.json
 
 ## Cadence
 
-- **Hebdomadaire (30 min)** : lecture OWASP / CERT-FR / Hacker News, mise à jour du registre.
-- **Avant chaque mise en ligne** : relecture rapide de la checklist ci-dessous sur les pages modifiées.
-- **Mensuel** : revue du registre, vérification de la version PHP utilisée face aux dernières releases.
+Je suis en formation, et la veille que je tiens ici est celle d'un débutant : elle
+avance par à-coups, quand j'ouvre un sujet, pas sur un rythme régulier. Plutôt que
+d'annoncer une fréquence que le registre ne montre pas, voici ce que je m'impose
+réellement :
+
+- **Avant de clore une fonctionnalité** : la checklist ci-dessous, appliquée aux
+  pages que je viens de toucher.
+- **À chaque sujet ouvert** : je lis la source, je note ce que j'en tire, et je
+  consigne la correction si Cinévo est concerné.
+
+Le registre ci-dessous porte sur l'audit du 8 juillet 2026, qui a couvert
+l'ensemble du code existant à cette date. Les entrées sont datées du jour où la
+faille a été trouvée, pas du jour où je l'ai corrigée.
 
 ## Checklist avant de clore une fonctionnalité
 

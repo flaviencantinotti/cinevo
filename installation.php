@@ -16,10 +16,19 @@ $adresse    = $_SERVER['REMOTE_ADDR'] ?? '';
 $enLocal    = in_array($adresse, ['127.0.0.1', '::1', 'localhost'], true);
 $dejaConfig = TMDB_API_KEY !== '';
 
+// Depuis l'extérieur, la page n'existe pas : même réponse que diagnostic.php.
+// Annoncer un assistant d'installation à un visiteur distant, c'est lui
+// apprendre qu'il y en a un.
+if (!$enLocal) {
+    http_response_code(404);
+    require __DIR__ . '/404.php';
+    exit;
+}
+
 $erreur  = '';
 $succes  = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $enLocal && !$dejaConfig) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dejaConfig) {
     if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
         $erreur = 'Requête invalide, merci de réessayer.';
     } else {
@@ -75,14 +84,7 @@ $tmdb = new TMDB();
 
     <hr class="separateur">
 
-    <?php if (!$enLocal): ?>
-
-        <p class="message-erreur">
-            Cet assistant n'est utilisable que depuis la machine sur laquelle le site
-            est installé. Ouvrez-le via <code>localhost</code>.
-        </p>
-
-    <?php elseif ($succes): ?>
+    <?php if ($succes): ?>
 
         <p class="intro"><?= htmlspecialchars($succes) ?></p>
         <div class="hero-boutons">
