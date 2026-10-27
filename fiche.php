@@ -94,10 +94,16 @@ if (!$film) {
                 <h1 class="titre-film"><?= htmlspecialchars($film['title']) ?></h1>
 
                 <?php
-                $infosPresentes = array_filter([$realisateur, $annee, $duree], fn($v) => $v !== '');
+                $infosPresentes = [];
+
+                foreach ([$realisateur, $annee, $duree] as $info) {
+                    if ($info !== '') {
+                        $infosPresentes[] = htmlspecialchars($info);
+                    }
+                }
                 ?>
                 <div class="infos-film">
-                    <?= implode(' <span class="sep">·</span> ', array_map('htmlspecialchars', $infosPresentes)) ?>
+                    <?= implode(' <span class="sep">·</span> ', $infosPresentes) ?>
                 </div>
 
                 <?php if (!empty($genres)): ?>

@@ -71,7 +71,6 @@ class TMDB {
         return $this->cache->getPerime($cle);
     }
 
-    /** Requête HTTP avec cURL, ou file_get_contents si cURL n'est pas installé. */
     /** Requête HTTP vers l'API. */
     private function appelHttp($url) {
         $contexte = stream_context_create([
@@ -171,10 +170,13 @@ class TMDB {
 
             $echecs = 0;
 
-            $candidats = array_filter(
-                $this->filtrerFilms($data['results'] ?? []),
-                function ($film) use ($idsVus) { return !in_array($film['id'], $idsVus, true); }
-            );
+            $candidats = [];
+
+            foreach ($this->filtrerFilms($data['results']) as $film) {
+                if (!in_array($film['id'], $idsVus, true)) {
+                    $candidats[] = $film;
+                }
+            }
 
             if (!empty($candidats)) {
                 $film     = $candidats[array_rand($candidats)];
@@ -246,7 +248,7 @@ class TMDB {
 
         $reserve = array_slice(array_values($reserve), -100);
 
-        @file_put_contents($this->fichierReserve(), json_encode($reserve), LOCK_EX);
+        @file_put_contents($this->fichierReserve(), json_encode($reserve));
     }
 
     /** Réserve locale, ou à défaut le catalogue livré avec le projet. */

@@ -21,10 +21,25 @@ if (!empty($_GET['q'])) {
 
     if ($data && !empty($data['results'])) {
         $films = $data['results'];
-        $films = array_filter($films, function ($f) {
-            return !empty($f['title']) && !empty($f['poster_path']);
+        // On ne garde que les films qui ont un titre et une affiche.
+        $filmsRetenus = [];
+
+        foreach ($films as $f) {
+            if (!empty($f['title']) && !empty($f['poster_path'])) {
+                $filmsRetenus[] = $f;
+            }
+        }
+
+        $films = $filmsRetenus;
+        // Tri du plus populaire au moins populaire.
+        usort($films, function ($a, $b) {
+            $popA = isset($a['popularity']) ? $a['popularity'] : 0;
+            $popB = isset($b['popularity']) ? $b['popularity'] : 0;
+
+            if ($popA == $popB) return 0;
+
+            return ($popA > $popB) ? -1 : 1;
         });
-        usort($films, fn($a, $b) => ($b['popularity'] ?? 0) <=> ($a['popularity'] ?? 0));
         $resultats = array_slice($films, 0, 5);
     } else {
         // Ce n'est pas une erreur du formulaire : le message va avec les
