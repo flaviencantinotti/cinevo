@@ -38,6 +38,12 @@ if ($id > 0) {
         $genres = $film['genres'] ?? [];
     }
 }
+
+// Un film inconnu n'est pas une page valide : on le dit au navigateur et aux
+// moteurs de recherche, sinon « Film introuvable » finit indexé comme du contenu.
+if (!$film) {
+    http_response_code(404);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
