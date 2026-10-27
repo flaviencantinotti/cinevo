@@ -7,12 +7,18 @@ $tmdb = new TMDB();
 
 // Le tirage sert aussi bien à la page complète qu'à la réponse JSON du
 // bouton « Encore 5 films » : on le met en forme une seule fois.
-$filmsAffiches = array_map(fn($film) => [
-    'id'      => $film['id'],
-    'titre'   => $film['title'],
-    'annee'   => substr($film['release_date'] ?? '', 0, 4),
-    'affiche' => $tmdb->getPosterUrl($film['poster_path'], 'w342'),
-], $tmdb->getRandomMovies(5));
+$filmsAffiches = [];
+
+foreach ($tmdb->getRandomMovies(5) as $film) {
+    $dateSortie = isset($film['release_date']) ? $film['release_date'] : '';
+
+    $filmsAffiches[] = [
+        'id'      => $film['id'],
+        'titre'   => $film['title'],
+        'annee'   => substr($dateSortie, 0, 4),
+        'affiche' => $tmdb->getPosterUrl($film['poster_path'], 'w342'),
+    ];
+}
 
 if (isset($_GET['ajax'])) {
     header('Content-Type: application/json; charset=utf-8');

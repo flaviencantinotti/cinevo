@@ -38,7 +38,11 @@ if (baseDisponible()) {
     // Une seule requête pour les avis des dix films affichés, au lieu de deux
     // requêtes par film : la page en réclamait une cinquantaine. Le volume est
     // borné par la pagination, le tri se termine donc en PHP.
-    $idsFilms = array_map(fn($ligne) => (int) $ligne['film_id'], $filmsRow);
+    $idsFilms = [];
+
+    foreach ($filmsRow as $ligne) {
+        $idsFilms[] = (int) $ligne['film_id'];
+    }
 
     $avisParFilm = [];
 

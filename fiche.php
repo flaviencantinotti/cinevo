@@ -38,6 +38,12 @@ if ($id > 0) {
         $genres = $film['genres'] ?? [];
     }
 }
+
+// Un film inconnu n'est pas une page valide : on le dit au navigateur et aux
+// moteurs de recherche, sinon « Film introuvable » finit indexé comme du contenu.
+if (!$film) {
+    http_response_code(404);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -88,10 +94,16 @@ if ($id > 0) {
                 <h1 class="titre-film"><?= htmlspecialchars($film['title']) ?></h1>
 
                 <?php
-                $infosPresentes = array_filter([$realisateur, $annee, $duree], fn($v) => $v !== '');
+                $infosPresentes = [];
+
+                foreach ([$realisateur, $annee, $duree] as $info) {
+                    if ($info !== '') {
+                        $infosPresentes[] = htmlspecialchars($info);
+                    }
+                }
                 ?>
                 <div class="infos-film">
-                    <?= implode(' <span class="sep">·</span> ', array_map('htmlspecialchars', $infosPresentes)) ?>
+                    <?= implode(' <span class="sep">·</span> ', $infosPresentes) ?>
                 </div>
 
                 <?php if (!empty($genres)): ?>

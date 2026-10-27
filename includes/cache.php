@@ -10,7 +10,7 @@
  */
 class Cache {
 
-    private string $dossier;
+    private $dossier;
 
     public function __construct() {
         $this->dossier = __DIR__ . '/../cache';
@@ -20,13 +20,20 @@ class Cache {
         }
     }
 
-    // Le nom du fichier est un condensé de la clé, pour éviter les
-    // caractères interdits dans un nom de fichier.
-    private function chemin(string $cle): string {
-        return $this->dossier . '/' . sha1($cle) . '.json';
+    // La clé est une URL : on remplace les caractères interdits dans un nom
+    // de fichier pour obtenir un nom lisible.
+    private function chemin($cle) {
+        $nom = preg_replace('/[^a-z0-9]+/i', '-', $cle);
+        $nom = trim($nom, '-');
+
+        // Un nom de fichier ne peut pas dépasser 255 caractères : une longue
+        // recherche produirait un nom trop long et l'écriture échouerait.
+        $nom = substr($nom, 0, 150);
+
+        return $this->dossier . '/' . $nom . '.json';
     }
 
-    private function lire(string $cle): ?array {
+    private function lire($cle) {
         $fichier = $this->chemin($cle);
 
         if (!is_readable($fichier)) return null;
@@ -42,7 +49,7 @@ class Cache {
     }
 
     /** Renvoie la donnée si elle a moins de $ttl secondes, sinon null. */
-    public function get(string $cle, int $ttl): ?array {
+    public function get($cle, $ttl) {
         $entree = $this->lire($cle);
 
         if ($entree === null) return null;
@@ -53,26 +60,26 @@ class Cache {
     }
 
     /** Renvoie la donnée même périmée : dernier recours si l'API est muette. */
-    public function getPerime(string $cle): ?array {
+    public function getPerime($cle) {
         $entree = $this->lire($cle);
 
         return $entree === null ? null : $entree['donnees'];
     }
 
-    public function set(string $cle, array $donnees): void {
+    public function set($cle, $donnees) {
         $entree = [
             'date'    => time(),
             'donnees' => $donnees,
         ];
 
-        @file_put_contents($this->chemin($cle), json_encode($entree), LOCK_EX);
+        @file_put_contents($this->chemin($cle), json_encode($entree));
     }
 
-    public function estActif(): bool {
+    public function estActif() {
         return is_writable($this->dossier);
     }
 
-    public function dossier(): string {
+    public function dossier() {
         return $this->dossier;
     }
 }

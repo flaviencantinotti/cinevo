@@ -3,6 +3,11 @@
     Require all denied
 </FilesMatch>
 
+# Les fichiers partages sont charges par PHP depuis le disque, jamais appeles
+# par le navigateur. Ouvert au public, includes/header.php renvoie un fragment
+# de page orphelin, qu'un moteur de recherche pourrait indexer.
+RedirectMatch 404 ^/includes/
+
 # Le cache ne contient que des données publiques de TMDB, mais rien
 # ne justifie d'y accéder directement depuis le navigateur.
 RedirectMatch 404 ^/cache/
