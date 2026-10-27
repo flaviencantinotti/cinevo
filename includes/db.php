@@ -50,10 +50,10 @@ if ($conn !== null) {
     }
 }
 
-// Création et mises à jour du schéma. Rejouer neuf requêtes (quatre CREATE
-// TABLE, cinq SHOW COLUMNS) à chaque chargement de page ne sert à rien une
-// fois les tables en place : un fichier témoin dans cache/ note que c'est
-// fait. Le supprimer relance l'opération : diagnostic.php s'en charge.
+// Création du schéma. Rejouer les quatre CREATE TABLE à chaque chargement de
+// page ne sert à rien une fois les tables en place : un fichier témoin dans
+// cache/ note que c'est fait. Le supprimer relance l'opération :
+// diagnostic.php s'en charge.
 $temoinSchema = __DIR__ . '/../cache/schema-ok';
 
 if ($conn !== null && !is_file($temoinSchema)) {
@@ -63,6 +63,7 @@ if ($conn !== null && !is_file($temoinSchema)) {
             nom_utilisateur VARCHAR(50) UNIQUE NOT NULL,
             email VARCHAR(100) UNIQUE NOT NULL,
             mot_de_passe VARCHAR(255) NOT NULL,
+            photo_profil VARCHAR(255) NULL DEFAULT NULL,
             inscrit_le DATETIME DEFAULT CURRENT_TIMESTAMP
         )
     ");
@@ -104,41 +105,10 @@ if ($conn !== null && !is_file($temoinSchema)) {
         )
     ");
 
-    // Renomme les colonnes d'une base créée avec une ancienne version du
-    // projet (en anglais), pour ne pas casser un environnement déjà en place.
-    renommerColonneSiExiste($conn, 'utilisateurs', 'username', 'nom_utilisateur VARCHAR(50) UNIQUE NOT NULL');
-    renommerColonneSiExiste($conn, 'utilisateurs', 'password', 'mot_de_passe VARCHAR(255) NOT NULL');
-    renommerColonneSiExiste($conn, 'utilisateurs', 'created_at', 'inscrit_le DATETIME DEFAULT CURRENT_TIMESTAMP');
-
-    // Nom du fichier de la photo de profil (dans uploads/avatars/), vide si
-    // l'utilisateur n'en a pas envoyé : on retombe alors sur l'avatar par
-    // défaut, l'initiale du pseudo dans un carré.
-    ajouterColonneSiAbsente($conn, 'utilisateurs', 'photo_profil', 'VARCHAR(255) NULL DEFAULT NULL');
-    renommerColonneSiExiste($conn, 'avis', 'created_at', 'publie_le DATETIME DEFAULT CURRENT_TIMESTAMP');
-
     if (!is_dir(dirname($temoinSchema))) {
         @mkdir(dirname($temoinSchema), 0775, true);
     }
     @file_put_contents($temoinSchema, date('c'));
-}
-
-// Renomme une colonne uniquement si elle existe encore sous son ancien nom.
-function renommerColonneSiExiste($conn, $table, $ancienNom, $nouvelleDefinition) {
-    $resultat = $conn->query("SHOW COLUMNS FROM `$table` LIKE '$ancienNom'");
-
-    if ($resultat && $resultat->num_rows > 0) {
-        $conn->query("ALTER TABLE `$table` CHANGE `$ancienNom` $nouvelleDefinition");
-    }
-}
-
-// Ajoute une colonne uniquement si elle n'existe pas déjà, pour faire évoluer
-// une base déjà en place sans rien casser.
-function ajouterColonneSiAbsente($conn, $table, $colonne, $definition) {
-    $resultat = $conn->query("SHOW COLUMNS FROM `$table` LIKE '$colonne'");
-
-    if ($resultat && $resultat->num_rows === 0) {
-        $conn->query("ALTER TABLE `$table` ADD COLUMN `$colonne` $definition");
-    }
 }
 
 // La base est-elle utilisable ?

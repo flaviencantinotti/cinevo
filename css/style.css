@@ -2986,3 +2986,15 @@ textarea:focus {
   margin-bottom: 6px;
 }
 }
+
+/* Affiche de secours. Si l'image d'un film ne se charge pas, c'est le fond du
+   conteneur qui se voit : une affiche de remplacement, sans JavaScript. */
+.affiche,
+.affiche-fil,
+.affiche-hasard,
+.affiche-mini,
+.grande-affiche,
+.hero-affiche {
+  background: var(--fond-releve) url('../images/affiche-indisponible.svg') center / contain no-repeat;
+}
+

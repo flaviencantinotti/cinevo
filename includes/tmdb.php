@@ -18,13 +18,13 @@ class TMDB {
 
     const TIMEOUT = 4; // secondes accordées à chaque appel
 
-    private string $apiKey;
-    private string $baseUrl;
-    public  string $imageUrl;
-    private Cache  $cache;
+    private $apiKey;
+    private $baseUrl;
+    public $imageUrl;
+    private $cache;
 
     // Dernière erreur rencontrée, affichée par la page de diagnostic.
-    private string $erreur = '';
+    private $erreur = '';
 
     public function __construct() {
         $this->apiKey   = TMDB_API_KEY;
@@ -37,7 +37,7 @@ class TMDB {
      * Appelle l'API, en passant d'abord par le cache.
      * Si l'appel échoue, on ressert la version en cache même périmée.
      */
-    private function fetch(string $endpoint, array $params = [], int $ttl = self::CACHE_FILM): ?array {
+    private function fetch($endpoint, $params = [], $ttl = self::CACHE_FILM) {
         $params['language'] = 'fr-FR';
 
         $cle = $endpoint . '?' . http_build_query($params);
@@ -53,54 +53,27 @@ class TMDB {
         $params['api_key'] = $this->apiKey;
         $url = $this->baseUrl . $endpoint . '?' . http_build_query($params);
 
-        // Deux essais : une coupure réseau très brève ne doit pas suffire
-        // à faire échouer la page.
-        for ($essai = 1; $essai <= 2; $essai++) {
-            $reponse = $this->appelHttp($url);
+        $reponse = $this->appelHttp($url);
 
-            if ($reponse !== null) {
-                $donnees = json_decode($reponse, true);
+        if ($reponse !== null) {
+            $donnees = json_decode($reponse, true);
 
-                // TMDB renvoie "success" à false quand la clé est mauvaise.
-                if (is_array($donnees) && !isset($donnees['success'])) {
-                    $this->cache->set($cle, $donnees);
-                    $this->erreur = '';
-                    return $donnees;
-                }
-
-                $this->erreur = 'Réponse refusée par TMDB';
-                break;
+            // TMDB renvoie "success" à false quand la clé est mauvaise.
+            if (is_array($donnees) && !isset($donnees['success'])) {
+                $this->cache->set($cle, $donnees);
+                $this->erreur = '';
+                return $donnees;
             }
+
+            $this->erreur = 'Réponse refusée par TMDB';
         }
 
         return $this->cache->getPerime($cle);
     }
 
     /** Requête HTTP avec cURL, ou file_get_contents si cURL n'est pas installé. */
-    private function appelHttp(string $url): ?string {
-        if (function_exists('curl_init')) {
-            $ch = curl_init($url);
-
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, self::TIMEOUT);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, self::TIMEOUT);
-
-            // Certaines installations WAMP/XAMPP n'ont pas de certificats :
-            // on peut alors indiquer un cacert.pem dans le .env.
-            if (TMDB_CA_BUNDLE !== '') {
-                curl_setopt($ch, CURLOPT_CAINFO, TMDB_CA_BUNDLE);
-            }
-
-            $reponse = curl_exec($ch);
-            $erreur  = curl_error($ch);
-            curl_close($ch);
-
-            if ($reponse !== false) return $reponse;
-
-            $this->erreur = $erreur;
-            return null;
-        }
-
+    /** Requête HTTP vers l'API. */
+    private function appelHttp($url) {
         $contexte = stream_context_create([
             'http' => ['timeout' => self::TIMEOUT]
         ]);
@@ -115,14 +88,14 @@ class TMDB {
         return $reponse;
     }
 
-    public function searchMovie(string $query, int $page = 1): ?array {
+    public function searchMovie($query, $page = 1) {
         return $this->fetch('/search/movie', [
             'query' => $query,
             'page'  => $page,
         ], self::CACHE_RECHERCHE);
     }
 
-    public function getMovie(int $id): ?array {
+    public function getMovie($id) {
         $film = $this->fetch("/movie/{$id}", [
             'append_to_response' => 'credits,watch/providers'
         ]);
@@ -136,7 +109,7 @@ class TMDB {
     }
 
     /** Cherche un film par id dans la réserve, puis dans le catalogue livré avec le projet. */
-    private function trouverDansSecours(int $id): ?array {
+    private function trouverDansSecours($id) {
         foreach ($this->lireReserve() as $film) {
             if ((int) $film['id'] === $id) {
                 return $film;
@@ -160,7 +133,7 @@ class TMDB {
      * l'année une seule fois pour tout le tirage donnerait 5 films de la
      * même année, ce qui n'est pas mieux.
      */
-    public function getRandomMovies(int $count = 5): array {
+    public function getRandomMovies($count = 5) {
         $films   = [];
         $idsVus  = [];
 
@@ -200,7 +173,7 @@ class TMDB {
 
             $candidats = array_filter(
                 $this->filtrerFilms($data['results'] ?? []),
-                fn($film) => !in_array($film['id'], $idsVus, true)
+                function ($film) use ($idsVus) { return !in_array($film['id'], $idsVus, true); }
             );
 
             if (!empty($candidats)) {
@@ -234,7 +207,7 @@ class TMDB {
     }
 
     /** On ne garde que les films affichables : avec un titre et une affiche. */
-    private function filtrerFilms(array $films): array {
+    private function filtrerFilms($films) {
         $garde = [];
 
         foreach ($films as $film) {
@@ -246,16 +219,16 @@ class TMDB {
         return $garde;
     }
 
-    private function fichierReserve(): string {
+    private function fichierReserve() {
         return $this->cache->dossier() . '/reserve-films.json';
     }
 
-    private function fichierCatalogue(): string {
+    private function fichierCatalogue() {
         return __DIR__ . '/../data/catalogue.json';
     }
 
     /** Ajoute les films à la réserve, sans doublon, en gardant les 100 derniers. */
-    private function remplirReserve(array $films): void {
+    private function remplirReserve($films) {
         if (!$this->cache->estActif()) return;
 
         $reserve = [];
@@ -277,7 +250,7 @@ class TMDB {
     }
 
     /** Réserve locale, ou à défaut le catalogue livré avec le projet. */
-    private function lireReserve(): array {
+    private function lireReserve() {
         $films = $this->lireFichierFilms($this->fichierReserve());
 
         if (empty($films)) {
@@ -287,7 +260,7 @@ class TMDB {
         return $films;
     }
 
-    private function lireFichierFilms(string $fichier): array {
+    private function lireFichierFilms($fichier) {
         if (!is_readable($fichier)) return [];
 
         $films = json_decode(@file_get_contents($fichier), true);
@@ -299,7 +272,7 @@ class TMDB {
      * Copie la réserve dans data/catalogue.json, qui lui est versionné.
      * À lancer une fois depuis une machine où l'API répond.
      */
-    public function exporterCatalogue(): int {
+    public function exporterCatalogue() {
         $films = $this->lireFichierFilms($this->fichierReserve());
 
         if (empty($films)) return 0;
@@ -317,29 +290,29 @@ class TMDB {
         return count($films);
     }
 
-    public function tailleReserve(): int {
+    public function tailleReserve() {
         return count($this->lireFichierFilms($this->fichierReserve()));
     }
 
-    public function tailleCatalogue(): int {
+    public function tailleCatalogue() {
         return count($this->lireFichierFilms($this->fichierCatalogue()));
     }
 
-    public function getPosterUrl(?string $posterPath, string $size = 'w342'): string {
+    public function getPosterUrl($posterPath, $size = 'w342') {
         if (!$posterPath) return 'images/affiche-indisponible.svg';
 
         return $this->imageUrl . '/' . $size . $posterPath;
     }
 
-    public function derniereErreur(): string {
+    public function derniereErreur() {
         return $this->erreur;
     }
 
-    public function cleConfiguree(): bool {
+    public function cleConfiguree() {
         return $this->apiKey !== '';
     }
 
-    public function cacheActif(): bool {
+    public function cacheActif() {
         return $this->cache->estActif();
     }
 }

@@ -1,20 +1,3 @@
-/* --- Affiche de secours si une image ne se charge pas ---
- * Enregistré hors DOMContentLoaded et en phase de capture, pour ne
- * manquer aucune erreur même si une image échoue avant que le reste
- * du script se soit initialisé. */
-(function () {
-    var AFFICHE_SECOURS = 'images/affiche-indisponible.svg';
-
-    document.addEventListener('error', function (e) {
-        var cible = e.target;
-        if (!cible || cible.tagName !== 'IMG') return;
-
-        if (cible.getAttribute('src') !== AFFICHE_SECOURS) {
-            cible.src = AFFICHE_SECOURS;
-        }
-    }, true); // en phase de capture : l'évènement « error » ne remonte pas
-})();
-
 document.addEventListener('DOMContentLoaded', function () {
 
     /* --- Menu burger --- */
