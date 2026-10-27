@@ -2753,6 +2753,21 @@ textarea:focus {
 .hasard-encart {
   gap: 56px;
 }
+  /* Entre 768 et 1024 px, la colonne de texte ne pouvait pas se comprimer
+     (min-width: auto sur une piste 1fr) et la rangée d'affiches gardait sa
+     largeur : à 900 px la page débordait de 59 px sur la droite. */
+  .hasard-texte {
+  min-width: 0;
+}
+  .hasard-texte h2 {
+  font-size: 64px;
+}
+  .hasard-pile .affiche,
+.hasard-pile .affiche:nth-child(1),
+.hasard-pile .affiche:nth-child(2),
+.hasard-pile .affiche:nth-child(3) {
+  width: 112px;
+}
   .contenu > section {
   padding: 80px 0;
 }
