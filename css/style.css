@@ -1,42 +1,19 @@
-/* Les polices sont chargées par un <link> dans includes/header.php : un
-   @import ici serait téléchargé en cascade, après ce fichier, et retarderait
-   d'autant le premier affichage. */
-
-/* ============ VARIABLES ============
-   Charte noir et blanc : le fond est noir, le texte blanc, et le rouge
-   n'apparaît qu'au survol. Les affiches de films sont le seul élément
-   du site à garder ses couleurs d'origine. */
 :root {
   --fond: #000;
-  /* fond de page */
   --fond-releve: #0A0A0A;
-  /* fond à peine détaché : vignettes, encarts */
-
   --texte: #fff;
-  /* texte principal, filets actifs, bordures */
   --texte-doux: #A0A0A0;
-  /* texte courant secondaire */
   --texte-meta: #8A8A8A;
-  /* méta, labels, légendes */
-
   --filet: #333;
-  /* séparateurs et bordures au repos */
   --rouge: #E7241B;
-  /* survol et messages d'erreur, jamais au repos */
-
   --sans: 'Archivo', system-ui, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, monospace;
 }
-
-/* ============ BASE ============ */
 
 * {
   box-sizing: border-box;
 }
 
-/* html n'est pas plafonné à 1280px : il sert à absorber, sans rien couper,
-   le débordement d'un pixel que peut créer 100vw à cause de la barre de
-   défilement verticale (le hero, lui, doit vraiment atteindre les bords). */
 html {
   overflow-x: hidden;
 }
@@ -49,9 +26,6 @@ p {
   margin: 0;
 }
 
-/* Style de base des liens dans le texte (repris par les classes plus
-   spécifiques comme .lien-carte ou .lien-film quand il en faut un autre). */
-
 h1,
 h2,
 h3,
@@ -59,26 +33,18 @@ h4 {
   margin: 0;
 }
 
-/* ============ LAYOUT ============ */
-
 .contenu {
   margin: auto;
 }
-
-/* petit label en majuscules (ex : "Long métrage · 2021") */
 
 .source {
   margin-top: 24px;
 }
 
-/* Phrase de bas de bloc. Distincte de .source, réservée aux crédits courts
-   que la charte affiche en petites capitales. */
 .note-bas {
   line-height: 1.7;
   max-width: 760px;
 }
-
-/* ============ HEADER ============ */
 
 header {
   display: flex;
@@ -119,7 +85,6 @@ nav a {
   white-space: nowrap;
 }
 
-/* Menu burger */
 .menu-burger {
   display: none;
   flex-direction: column;
@@ -150,23 +115,10 @@ nav a {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ============ BOUTONS ============ */
-
-/* Pas de hauteur fixe : la charte a remplacé les boutons pleins par un mot
-   souligné. Un bloc de 36 px décrochait le trait du texte de quinze pixels,
-   alors que les liens-flèches, eux, soulignent le mot au plus près. */
-
-/* ============ HERO (page accueil) ============ */
-
 .hero-boutons {
   margin-top: 20px;
 }
 
-/*
- * Le hero déborde volontairement du conteneur pour occuper toute la largeur
- * de l'écran, et remonte sous l'en-tête (marge négative = padding-top de
- * .contenu, à garder synchronisée avec les media-queries ci-dessous).
- */
 .hero {
   position: relative;
   overflow: hidden;
@@ -174,12 +126,6 @@ nav a {
   margin-right: calc(50% - 50vw);
   margin-top: -48px;
 }
-
-/* Photogramme en fond : une vraie photo (pellicule tenue en main), avec un
-   dégradé de secours si jamais le fichier venait à manquer. */
-
-/* Voile sombre, plus marqué à droite : le texte y est posé, la pellicule
-   reste visible à gauche. Garantit la lisibilité quelle que soit l'image. */
 
 .hero-contenu {
   position: relative;
@@ -197,8 +143,6 @@ nav a {
   margin-top: 30px;
   justify-content: flex-start;
 }
-
-/* ============ SECTION AVIS ============ */
 
 .carte-avis {
   display: flex;
@@ -289,8 +233,6 @@ nav a {
   flex-shrink: 0;
 }
 
-/* ============ NOTRE CONCEPT (page accueil) ============ */
-
 .concept-layout {
   margin-top: 24px;
 }
@@ -315,8 +257,6 @@ nav a {
 .concept-cta p {
   margin: 0 0 16px;
 }
-
-/* ============ CARTES AVIS RECENTS AVEC AFFICHE (accueil) ============ */
 
 .carte-avis-accueil {
   text-decoration: none;
@@ -360,13 +300,6 @@ nav a {
   align-items: center;
   gap: 8px;
 }
-
-/* ============ SALON DE DISCUSSION (fiche film) ============
- * Les avis d'un même film s'affichent comme un fil de discussion :
- * chaque avis est un message, en bulle, alternant de côté. Ce n'est pas
- * un vrai système de réponses (la base ne relie pas les avis entre eux),
- * mais une mise en scène des avis existants comme une conversation.
- */
 
 .salon {
   margin-top: 24px;
@@ -445,11 +378,6 @@ nav a {
   margin: 0;
 }
 
-/* ============ LISTE DES DISCUSSIONS (avis.php) ============
- * Les avis sont regroupés par film : chaque ligne montre le dernier
- * message et le nombre d'avis publiés sur ce film, pas une note.
- */
-
 .apercu-discussion {
   display: flex;
   align-items: center;
@@ -499,8 +427,6 @@ nav a {
   white-space: nowrap;
 }
 
-/* ============ FOOTER ============ */
-
 .fond-footer {
   margin-top: 90px;
   font-size: 14px;
@@ -533,8 +459,6 @@ nav a {
 .fond-footer a {
   text-decoration: none;
 }
-
-/* ============ HOME (fil d'avis) ============ */
 
 .message-accueil {
   display: flex;
@@ -577,8 +501,6 @@ nav a {
   line-height: 1.5;
 }
 
-/* ============ CONNEXION ============ */
-
 .boite-connexion {
   width: 50%;
   text-align: center;
@@ -606,9 +528,6 @@ input[type="email"] {
   margin-top: 12px;
 }
 
-/* ============ INSCRIPTION ============ */
-
-/* Même carte que la connexion, pour que les deux pages se ressemblent. */
 .boite-inscription {
   width: 50%;
   text-align: center;
@@ -636,8 +555,6 @@ input[type="email"] {
 .formulaire button {
   margin: 15px auto;
 }
-
-/* ============ FICHE FILM ============ */
 
 .detail-film {
   padding-top: 48px;
@@ -729,8 +646,6 @@ input[type="email"] {
   margin-bottom: 0;
 }
 
-/* ============ ECRIRE UN AVIS ============ */
-
 .entete-page {
   margin-bottom: 0;
 }
@@ -794,8 +709,6 @@ input[type="email"] {
   gap: 12px;
   align-items: center;
 }
-
-/* ============ RECHERCHE ============ */
 
 .liste-resultats {
   max-width: 700px;
@@ -869,8 +782,6 @@ input[type="email"] {
   width: auto;
 }
 
-/* ============ AU HASARD ============ */
-
 .grille-hasard {
   margin-top: 24px;
 }
@@ -905,8 +816,6 @@ input[type="email"] {
   margin-top: 2px;
 }
 
-/* ============ CONTACT ============ */
-
 .formulaire-contact {
   margin-top: 40px;
   display: flex;
@@ -929,10 +838,6 @@ input[type="email"] {
   resize: vertical;
 }
 
-/* ============ PAGES (découvrir, à propos...) ============ */
-
-/* ---------- ouverture (page decouvrir) ---------- */
-
 .ouverture-decouvrir h1 {
   font-family: var(--sans);
   font-weight: 800;
@@ -948,13 +853,10 @@ input[type="email"] {
   margin-bottom: 28px;
 }
 
-/* Un deuxième paragraphe d'intro s'enchaîne sans reprendre la ligne du haut. */
 .intro-decouvrir + .intro-decouvrir {
   border-top: none;
   padding-top: 0;
 }
-
-/* ---------- questions/reponses en accordeon (page decouvrir) ---------- */
 
 .grille-questions {
   margin-top: 24px;
@@ -994,8 +896,6 @@ input[type="email"] {
   padding: 0 4px 20px;
 }
 
-/* ---------- comment ça marche, en 4 étapes (page decouvrir) ---------- */
-
 .grille-etapes {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1023,8 +923,6 @@ input[type="email"] {
   color: var(--texte);
   text-decoration: underline;
 }
-
-/* ---------- cta final (page decouvrir) ---------- */
 
 .cta-decouvrir h2 {
   margin-bottom: 10px;
@@ -1093,7 +991,6 @@ input[type="email"] {
   top: 10px;
 }
 
-/* Pages éditoriales */
 .page-editoriale {
   max-width: 760px;
   margin: 0 auto;
@@ -1101,8 +998,6 @@ input[type="email"] {
 }
 
 .page-editoriale > h1 {
-  /* « Conditions » mesure 6,7 fois la taille de police : au-delà de 10,5vw le
-     mot ne tient plus sur la largeur d'un téléphone. */
   font-size: clamp(34px, 10.5vw, 64px);
   line-height: 1;
   margin: 20px 0 0;
@@ -1134,8 +1029,6 @@ input[type="email"] {
   max-width: 720px;
 }
 
-/* ============ PAGE À PROPOS : composants visuels natifs du site ============ */
-
 .carte-citation {
   align-self: center;
   background: var(--fond);
@@ -1163,8 +1056,6 @@ input[type="email"] {
 }
 
 .corps-texte h2 {
-  /* « Responsabilité » mesure 9 fois la taille de police : au-delà de 28px il
-     ne tient plus sur la largeur utile d'un écran de 360px. */
   font-size: clamp(26px, 7.5vw, 30px);
   margin-bottom: 20px;
 }
@@ -1233,8 +1124,6 @@ input[type="email"] {
   border-top: 1px solid var(--filet);
 }
 
-/* ============ RESPONSIVE 1024px ============ */
-
 @media (max-width: 1024px) {
   .contenu {
   width: 100%;
@@ -1256,8 +1145,6 @@ input[type="email"] {
   grid-template-columns: repeat(3, 1fr);
 }
 }
-
-/* ============ RESPONSIVE 768px (tablette) ============ */
 
 @media (max-width: 768px) {
 
@@ -1426,8 +1313,6 @@ input[type="email"] {
 }
 }
 
-/* ============ RESPONSIVE 480px (mobile) ============ */
-
 @media (max-width: 480px) {
   h1 {
   font-size: 32px;
@@ -1478,8 +1363,6 @@ input[type="email"] {
 }
 
 }
-
-/* ============ DIAGNOSTIC ============ */
 
 .table-diagnostic {
   width: 100%;
@@ -1540,8 +1423,6 @@ input[type="email"] {
 }
 }
 
-/* ============ ACTIONS SUR SES PROPRES AVIS ============ */
-
 .actions-avis {
   display: flex;
   gap: 10px;
@@ -1555,20 +1436,6 @@ input[type="email"] {
   color: var(--texte);
   margin-top: 12px;
 }
-
-/* ================================================================
-   DEUXIÈME PARTIE — LA CHARTE NOIR ET BLANC
-
-   Tout ce qui précède décrit la STRUCTURE des pages : grilles,
-   gabarits, enchaînement des blocs. Ce qui suit impose l'APPARENCE :
-   fond noir, texte blanc, typographie Archivo et JetBrains Mono,
-   rouge au survol uniquement.
-
-   Les deux parties sont séparées volontairement. L'ordre compte :
-   ces règles passent après pour pouvoir redéfinir les précédentes.
-   ================================================================ */
-
-/* ============ CHARTE · BASE ============ */
 
 body {
   background: var(--fond);
@@ -1596,8 +1463,7 @@ h4 {
   font-weight: 700;
   color: var(--texte);
 }
-/* clamp() plutôt qu'une taille fixe : à 118px en dur, le titre débordait
-   dès que la fenêtre se réduisait. */
+
 h1 {
   font-size: clamp(44px, 8vw, 118px);
 }
@@ -1616,21 +1482,15 @@ h4 {
   letter-spacing: -0.02em;
 }
 
-/* L'italique du design précédent n'a plus de rôle : tout est capitale. */
 h1 p {
   color: var(--texte-meta);
   line-height: 1.75;
 }
 
-/* Une URL ou un e-mail sans espace ne se coupe pas et élargit toute la page
-   sur mobile : on autorise la césure, et les blocs de code défilent. */
 body {
   overflow-wrap: break-word;
 }
 
-/* Sur un titre, cette césure tombait n'importe où : « CONDITI / ONS » sur la
-   page des CGU en 390px. Les titres se coupent donc à la syllabe, avec un
-   trait d'union, comme le ferait un typographe. */
 h1,
 h2,
 h3,
@@ -1658,17 +1518,12 @@ table {
   outline-offset: 3px;
 }
 
-/* ============ CHARTE · LAYOUT ============ */
-
 .contenu {
   width: 100%;
   max-width: 1280px;
   padding: 0 80px;
 }
 
-/* Le filet disparaît (la séparation vient du border-top des sections), mais
-   l'élément garde son écart : en display:none, les blocs qu'il séparait se
-   retrouvaient collés, chapô contre première ligne de liste. */
 .separateur {
   height: 0;
   background: none;
@@ -1676,7 +1531,6 @@ table {
   margin: 72px 0;
 }
 
-/* Chaque <section> devient un bloc respirant séparé par un seul filet. */
 .contenu > section {
   padding: 104px 0;
   border-top: 1px solid var(--filet);
@@ -1686,8 +1540,6 @@ table {
   padding-top: 0;
 }
 
-/* Petit repère en capitales : compteur de résultats, numéro de page. Ce n'est
-   plus un sur-titre de section, ceux-ci ont été remplacés par de vrais titres. */
 .label-section {
   font-family: var(--mono);
   font-size: 11px;
@@ -1710,8 +1562,6 @@ table {
   text-transform: uppercase;
   color: var(--texte-doux);
 }
-
-/* ============ CHARTE · EN-TÊTE ============ */
 
 header {
   background: var(--fond);
@@ -1753,8 +1603,6 @@ nav {
   gap: 26px;
 }
 
-/* .entete-nav > a vise « Connexion » / « Déconnexion », placés hors du <nav>
-   par header.php : sans eux, ces liens gardent l'ancienne typo. */
 nav a,
 .entete-utilisateur,
 .entete-nav > a {
@@ -1785,10 +1633,7 @@ nav a.actif {
   width: auto;
   flex-shrink: 0;
 }
-/* input[type="search"] est aussi visé par la règle des champs de formulaire,
-   de spécificité égale mais déclarée plus bas : sans ce sélecteur plus précis,
-   la recherche de l'en-tête héritait d'un champ de 40px en 16px, hors d'échelle
-   au milieu d'une barre dont tout le reste fait 18px. */
+
 .barre-recherche input[type="search"] {
   width: 210px;
   height: auto;
@@ -1816,9 +1661,6 @@ nav a.actif {
   background: var(--texte);
 }
 
-/* ============ CHARTE · BOUTONS ============ */
-/* Plus aucun fond plein : le bouton est un mot souligné, rouge au survol. */
-
 button,
 .btn-rouge,
 .btn-blanc,
@@ -1842,9 +1684,7 @@ button,
   cursor: pointer;
   box-shadow: none;
 }
-/* Les actions qui mènent ailleurs sont des <a> portant une classe de bouton
-   (un <button> dans un <a> n'est pas du HTML valide). Un lien est inline par
-   défaut : sans ceci, il ignorerait la hauteur et les marges du bouton. */
+
 a.btn-rouge,
 a.btn-blanc,
 a.btn-transparent {
@@ -1864,8 +1704,6 @@ button:hover,
   border-bottom-color: var(--rouge);
 }
 
-/* « Supprimer » est déjà rouge au repos, là où le reste du site réserve le
-   rouge au survol : c'est le seul geste irréversible du site. */
 .btn-danger,
 .btn-danger:hover {
   color: var(--rouge);
@@ -1895,10 +1733,6 @@ button:hover,
   align-items: center;
 }
 
-/* ============ CHARTE · HERO ============ */
-/* Pleine page, sans photo de fond : le titre porte tout, l'affiche est
-   le seul élément en couleur. */
-
 .hero,
 .hero-accueil {
   min-height: calc(100vh - 80px);
@@ -1918,23 +1752,15 @@ button:hover,
   padding: 0;
   text-align: left;
 }
-/* Le titre partage la ligne avec l'affiche : la colonne de gauche vaut la
-   largeur de page moins l'affiche (400px), la gouttière (80px) et les marges.
-   Le mot le plus long fait 4,6 fois la taille de police, d'où cette taille
-   calculée sur la largeur de fenêtre : sans elle, « PARLONS » ne tient pas sur
-   une ligne et se coupe en deux au milieu du mot. */
+
 .hero-contenu h1 {
   font-size: clamp(64px, calc((100vw - 660px) / 4.9), 132px);
-  /* Le titre tient sur deux lignes : un interlignage plus serré ferait toucher
-     l'accent du É de « CINÉ » à la lettre de la ligne du dessus. */
   line-height: 1;
   letter-spacing: -0.05em;
   margin-bottom: 56px;
   color: var(--texte);
 }
 
-/* Sous-titre du hero : il dit ce qu'est le site à qui arrive pour la première
-   fois. Taille modeste assumée, il ne doit pas concurrencer le titre. */
 .hero-accroche {
   max-width: 46ch;
   margin: -32px 0 40px;
@@ -1946,7 +1772,6 @@ button:hover,
   white-space: nowrap;
 }
 
-/* Colonne d'affiche du hero (voir index.php) */
 .hero-grille {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 400px;
@@ -1954,9 +1779,7 @@ button:hover,
   align-items: end;
   width: 100%;
 }
-/* min-width:auto est la valeur par défaut d'un enfant de grille : sans ce 0,
-   le titre impose sa largeur sur une ligne et pousse l'affiche hors de l'écran.
-   Avec 0, la colonne se réduit et le titre passe à la ligne. */
+
 .hero-grille > * {
   min-width: 0;
 }
@@ -1974,8 +1797,6 @@ button:hover,
   text-transform: uppercase;
 }
 
-/* ============ CHARTE · CONCEPT ============ */
-
 .concept-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1989,8 +1810,7 @@ button:hover,
   font-size: 96px;
   margin-bottom: 32px;
 }
-/* Pas de plafond ici : la colonne de la grille donne déjà la bonne justesse,
-   et un max-width fixe étranglait les blocs de texte longs (à propos). */
+
 .concept-texte p {
   font-size: 18px;
   max-width: none;
@@ -2016,9 +1836,6 @@ button:hover,
   text-transform: uppercase;
   color: var(--texte);
 }
-
-/* ============ CHARTE · AVIS / CARTES ============ */
-/* Les cartes perdent cadre, fond et ombre : ce sont des colonnes de texte. */
 
 .avis-entete {
   display: flex;
@@ -2057,9 +1874,6 @@ button:hover,
   padding: 0;
 }
 
-/* Les cinq cartes du tirage sont sur une même ligne : quand un titre passe sur
-   deux lignes, son année descend et la rangée se déchire. La carte occupe toute
-   la hauteur de sa case et l'année se cale en bas. */
 .carte-hasard {
   display: flex;
   flex-direction: column;
@@ -2077,8 +1891,7 @@ button:hover,
   color: var(--texte);
   height: 100%;
 }
-/* Les cartes de la grille n'ont pas la même longueur de texte : sans cela, la
-   ligne « auteur — date » flotte à une hauteur différente dans chaque colonne. */
+
 .carte-avis-accueil .corps {
   display: flex;
   flex-direction: column;
@@ -2088,10 +1901,9 @@ button:hover,
   margin-top: auto;
   padding-top: 20px;
 }
-/* Deux lignes réservées au titre : sans cela, une carte au titre court fait
-   démarrer son texte 31px plus haut que sa voisine et la rangée se déchire. */
+
 .grille-avis-accueil .carte-avis-accueil h3 {
-  min-height: 2.6em; /* 2 lignes de 1,3em */
+  min-height: 2.6em;
 }
 .carte-avis-accueil .affiche {
   border: 0;
@@ -2109,13 +1921,9 @@ button:hover,
   border: 0;
   border-radius: 0;
   filter: none;
-  /* les affiches sont le seul élément en couleur */
   transition: opacity .25s;
 }
-/* .affiche-mini est une vignette placée dans une ligne en flex, pas dans un
-   bloc à elle : le width:100% ci-dessus lui ferait prendre toute la largeur
-   de la ligne et réduirait le titre à zéro. Sa hauteur suffit à la
-   dimensionner, le ratio de l'affiche fait le reste. */
+
 .affiche-mini {
   width: auto;
 }
@@ -2177,8 +1985,6 @@ a.affiche:hover img {
   color: var(--texte-doux);
 }
 
-/* includes/format.php ne pose plus de couleur en style inline : la feuille
-   gouverne seule, sans !important pour la contrer. */
 .avatar,
 .avatars-empiles .avatar,
 .message .avatar {
@@ -2194,8 +2000,6 @@ a.affiche:hover img {
   border-radius: 0;
   filter: grayscale(1);
 }
-
-/* ============ CHARTE · HASARD ============ */
 
 .hasard-encart {
   display: grid;
@@ -2214,12 +2018,7 @@ a.affiche:hover img {
   font-size: 18px;
   margin-bottom: 40px;
 }
-/* La partie structure empile les trois affiches en absolu dans une boîte de
-   230x168 px, en les faisant pivoter. La charte veut une rangée : sans annuler
-   le positionnement absolu, les décalages left/top et la taille du conteneur,
-   les affiches se chevauchaient et débordaient de 39 px, la troisième était
-   presque entièrement cachée. Le :nth-child des rotations est plus précis que
-   ce sélecteur : la remise à plat se fait donc au même niveau. */
+
 .hasard-pile {
   display: flex;
   gap: 16px;
@@ -2241,8 +2040,6 @@ a.affiche:hover img {
   grid-template-columns: repeat(5, 1fr);
   gap: 24px;
 }
-
-/* ============ CHARTE · FICHE FILM ============ */
 
 .detail-film {
   display: grid;
@@ -2288,8 +2085,6 @@ a.affiche:hover img {
   border: 0;
 }
 
-/* .entete-page est un conteneur (label + h1 + chapô), pas un label : le
-   styler comme tel mettait tout le chapô en capitales espacées. */
 .entete-page {
   border: 0;
   text-align: left;
@@ -2314,23 +2109,18 @@ a.affiche:hover img {
   border-bottom: 1px solid var(--filet);
 }
 
-/* ============ CHARTE · FORMULAIRES ============ */
-
 .formulaire,
 .formulaire-avis,
 .formulaire-contact,
 .formulaire-recherche {
   max-width: 720px;
 }
-/* Les champs n'ont pas de marge à eux : c'est le formulaire qui les espace,
-   une seule valeur pour toutes les pages de compte. */
+
 .formulaire {
   gap: 20px;
   text-align: left;
 }
 
-/* Les pages de compte sont des colonnes étroites : le titre pleine page
-   du reste du site y serait hors d'échelle. */
 .boite-connexion h1,
 .boite-inscription h1 {
   font-size: 40px;
@@ -2398,8 +2188,6 @@ textarea:focus {
   border-bottom: 1px solid var(--texte);
 }
 
-/* ============ CHARTE · DÉCOUVRIR ============ */
-
 .ouverture-decouvrir h1 {
   font-size: clamp(40px, 9vw, 118px);
 }
@@ -2446,15 +2234,6 @@ textarea:focus {
   font-size: 15px;
 }
 
-/* ============================================================
-   MOTIFS DE PAGE
-
-   Ces règles remplacent des attributs style= qui se répétaient
-   d'un fichier à l'autre. Elles sont nommées par composant, pour
-   qu'on sache en les lisant à quoi elles servent.
-   ============================================================ */
-
-/* Bloc d'annonce centré : page introuvable, film introuvable. */
 .bloc-centre {
   text-align: center;
   padding: 100px 0;
@@ -2470,13 +2249,11 @@ textarea:focus {
   margin-top: 24px;
 }
 
-/* Variante centrée de la rangée de boutons. */
 .hero-boutons-centre {
   justify-content: center;
   margin-top: 28px;
 }
 
-/* Précision de second plan : plateforme absente, aucun avis. */
 .note-discrete {
   color: var(--texte-meta);
   font-size: 14px;
@@ -2487,14 +2264,9 @@ textarea:focus {
   margin-top: 24px;
 }
 
-/* Date poussée à droite de la ligne de bas de carte. */
 .avis-date {
   margin-left: auto;
 }
-
-/* ============ PAGES DE COMPTE ============ */
-/* Connexion, inscription, mot de passe oublié et réinitialisation partagent
-   la même colonne étroite et le même rythme vertical. */
 
 .boite-connexion .intro,
 .boite-inscription .intro,
@@ -2503,16 +2275,10 @@ textarea:focus {
   margin-top: 16px;
 }
 
-/* Le lien de réinitialisation est une longue suite de caractères sans espace :
-   sans coupure, il élargit la colonne. */
 .lien-brut {
   margin-top: 12px;
   word-break: break-all;
 }
-
-/* ============ PAGE MON PROFIL ============ */
-/* Les trois encarts suivent la même trame : un titre, un formulaire étroit,
-   puis les messages de retour. Une seule règle pour les trois. */
 
 .page-profil .encart {
   margin-bottom: 24px;
@@ -2524,8 +2290,7 @@ textarea:focus {
   margin-top: 14px;
   max-width: 420px;
 }
-/* Les formulaires de la ligne d'avatar sont deux boutons côte à côte : ni la
-   marge ni la largeur maximale des formulaires en colonne ne s'y appliquent. */
+
 .page-profil .ligne-avatar form {
   margin-top: 0;
   max-width: none;
@@ -2548,8 +2313,6 @@ textarea:focus {
   margin-top: 12px;
 }
 
-/* Photo de profil : l'avatar, le sélecteur de fichier et le bouton de retour
-   à l'avatar par défaut sur une même ligne, qui se replie si besoin. */
 .ligne-avatar {
   display: flex;
   align-items: center;
@@ -2558,10 +2321,6 @@ textarea:focus {
   flex-wrap: wrap;
 }
 
-/* ============ CHARTE · FIL / COLONNES ============ */
-
-/* Les trois éléments de la pagination sur une seule ligne, alignés sur la
-   même base : le compteur est du texte, les deux autres des liens soulignés. */
 .pagination {
   display: flex;
   justify-content: center;
@@ -2574,8 +2333,6 @@ textarea:focus {
   color: var(--texte-meta);
 }
 
-/* Le sélecteur de fichier garde son bouton natif (son libellé vient du
-   navigateur), mais le reste suit la typographie du site. */
 .champ-fichier {
   font-family: var(--sans);
   font-size: 15px;
@@ -2602,8 +2359,6 @@ textarea:focus {
   font-size: 15px;
 }
 
-/* ============ CHARTE · DISCUSSIONS ============ */
-
 .message {
   border: 0;
   padding: 0 0 48px;
@@ -2623,10 +2378,7 @@ textarea:focus {
   text-transform: uppercase;
   color: var(--texte-doux);
 }
-/* Un message sur deux passe à droite (row-reverse) : son filet doit passer à
-   droite avec lui, sinon il reste seul à l'autre bout de la ligne. Et les deux
-   côtés gardent la même couleur de texte : un avis n'est pas moins lisible
-   parce qu'il est le deuxième. */
+
 .message:nth-child(even) .message-bulle {
   background: none;
   border-left: 0;
@@ -2639,10 +2391,6 @@ textarea:focus {
   padding-top: 40px;
 }
 
-/* ============ CHARTE · PIED DE PAGE ============ */
-
-/* La première partie met 48px de padding sur .fond-footer : sans cette remise
-   à zéro, le bloc interne de 1280px dépasse la page de 48px vers la droite. */
 .fond-footer {
   background: var(--fond);
   border-top: 1px solid var(--filet);
@@ -2689,21 +2437,9 @@ textarea:focus {
   color: var(--rouge);
 }
 
-/* Le pseudo est saisi par le membre et peut faire vingt caractères d'un seul
-   tenant. « Bonjour, maximiliendebesancon. » mesure 14 fois la taille de
-   police : au-delà de 6,2vw il se coupe en deux sur un téléphone. Au-delà de
-   vingt-deux caractères la coupure reprend la main, ce qui reste lisible. */
 .message-accueil h1 {
   font-size: clamp(22px, 6.2vw, 72px);
 }
-
-/* ============================================================
-   RESPONSIVE
-   La charte pose ses règles sans media query et passe donc après
-   celles de la partie structure : elle annulait tout le comportement
-   mobile existant (burger compris). Ce bloc le rétablit dans le
-   vocabulaire du nouveau design.
-   ============================================================ */
 
 @media (max-width: 1024px) {
   .contenu {
@@ -2718,8 +2454,7 @@ textarea:focus {
   grid-template-columns: 1fr;
   gap: 48px;
 }
-  /* L'affiche passe sous le titre : celui-ci retrouve toute la largeur et
-     n'a plus besoin de la taille calculée sur la fenêtre. */
+
   .hero-contenu h1 {
   font-size: clamp(64px, 11vw, 112px);
 }
@@ -2731,8 +2466,7 @@ textarea:focus {
   grid-template-columns: 1fr;
   gap: 48px;
 }
-  /* min-width:auto est la valeur par défaut d'un enfant de grille : sans
-     ce 0, un titre long impose sa largeur et fait déborder la colonne. */
+
   .detail-film > * {
   min-width: 0;
 }
@@ -2753,9 +2487,7 @@ textarea:focus {
 .hasard-encart {
   gap: 56px;
 }
-  /* Entre 768 et 1024 px, la colonne de texte ne pouvait pas se comprimer
-     (min-width: auto sur une piste 1fr) et la rangée d'affiches gardait sa
-     largeur : à 900 px la page débordait de 59 px sur la droite. */
+
   .hasard-texte {
   min-width: 0;
 }
@@ -2773,17 +2505,6 @@ textarea:focus {
 }
 }
 
-/* ============================================================
-   EN-TÊTE REPLIÉ
-
-   Connecté, la barre du haut aligne le logo, cinq liens, la
-   recherche, le pseudo et « Déconnexion » : 976px de contenu, qui
-   ne tiennent plus sous ~1180px. Le burger ne s'affichait qu'à
-   768px, si bien que toute la plage tablette débordait la page de
-   plus de cent pixels. Le repli se déclenche donc ici, et pas
-   dans le bloc mobile.
-   ============================================================ */
-
 @media (max-width: 1180px) {
   .barre-recherche {
     display: none;
@@ -2793,7 +2514,6 @@ textarea:focus {
     margin-left: auto;
   }
 
-  /* Panneau déroulant : le burger de js/scripts.js bascule la classe .open. */
   nav {
     display: none;
     position: fixed;
@@ -2812,8 +2532,7 @@ textarea:focus {
   nav.open {
     display: flex;
   }
-  /* Pas de width:100% : le trait du lien actif s'étirerait sur toute la
-     largeur du panneau au lieu de souligner le mot. */
+
   nav a {
     align-self: flex-start;
   }
@@ -2825,7 +2544,7 @@ textarea:focus {
   padding: 0 20px;
   gap: 14px;
 }
-  /* L'en-tête mesure 64px ici, le panneau doit s'ouvrir juste dessous. */
+
   nav {
     top: 64px;
   }
@@ -2920,9 +2639,6 @@ textarea:focus {
 }
 }
 
-/* Ligne de résultat de recherche : sous 560px, l'affiche, le titre et le
-   bouton ne tiennent plus côte à côte et le titre se coupait en plein mot.
-   Le bouton passe alors à la ligne. */
 @media (max-width: 560px) {
   .resultat-film {
     flex-wrap: wrap;
@@ -2935,15 +2651,6 @@ textarea:focus {
     margin-left: 0;
   }
 }
-
-/* ============================================================
-   TRÈS PETITS ÉCRANS
-
-   À 360px (Android courant) puis 320px, le logo, le burger,
-   « Connexion » et « Rejoindre » ne tenaient plus sur la ligne :
-   l'en-tête débordait de 5 puis 45 pixels. On resserre les
-   gouttières et la typographie plutôt que d'escamoter un lien.
-   ============================================================ */
 
 @media (max-width: 400px) {
   .entete {
@@ -2972,8 +2679,7 @@ textarea:focus {
   align-items: flex-start;
   gap: 20px;
 }
-  /* La partie structure étirait les boutons sur toute la largeur : un bouton
-     n'est plus qu'un mot souligné, il doit s'arrêter au mot. */
+
   .hero-boutons a,
 .hero-boutons button,
 .boutons-form a,
@@ -2987,8 +2693,6 @@ textarea:focus {
 }
 }
 
-/* Affiche de secours. Si l'image d'un film ne se charge pas, c'est le fond du
-   conteneur qui se voit : une affiche de remplacement, sans JavaScript. */
 .affiche,
 .affiche-fil,
 .affiche-hasard,
@@ -2997,4 +2701,3 @@ textarea:focus {
 .hero-affiche {
   background: var(--fond-releve) url('../images/affiche-indisponible.svg') center / contain no-repeat;
 }
-

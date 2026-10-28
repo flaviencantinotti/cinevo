@@ -55,9 +55,7 @@ function connecter($conn, $email, $password) {
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($password, $user['mot_de_passe'])) {
-        // Nouvel identifiant de session à la connexion : si quelqu'un a réussi
-        // à faire utiliser une session de son choix au visiteur avant qu'il ne
-        // se connecte, cet identifiant-là ne donne accès à rien.
+
         session_regenerate_id(true);
 
         $_SESSION['utilisateur_id'] = $user['id'];
@@ -68,9 +66,7 @@ function connecter($conn, $email, $password) {
 }
 
 function deconnecter() {
-    // Vider $_SESSION puis détruire la session ne suffit pas : sans effacer
-    // aussi le cookie, le navigateur continue de présenter l'ancien
-    // identifiant à chaque requête.
+
     $_SESSION = [];
 
     if (ini_get('session.use_cookies')) {
@@ -83,9 +79,6 @@ function deconnecter() {
     exit;
 }
 
-// Crée un jeton de réinitialisation de mot de passe, valable une heure.
-// Retourne le jeton en clair (à mettre dans le lien envoyé à l'utilisateur) ;
-// seul son hachage est stocké en base, comme pour un mot de passe.
 function genererJetonReinitialisation($conn, $utilisateurId) {
     $jeton = bin2hex(random_bytes(32));
     $hache = hash('sha256', $jeton);
@@ -98,8 +91,6 @@ function genererJetonReinitialisation($conn, $utilisateurId) {
     return $jeton;
 }
 
-// Retourne l'utilisateur_id associé à un jeton valide (non expiré, non
-// utilisé), ou null si le jeton est invalide.
 function utilisateurDepuisJeton($conn, $jeton) {
     $hache = hash('sha256', $jeton);
 
@@ -114,7 +105,6 @@ function utilisateurDepuisJeton($conn, $jeton) {
     return $ligne ? (int) $ligne['utilisateur_id'] : null;
 }
 
-// Marque un jeton comme utilisé, pour qu'il ne serve pas deux fois.
 function invaliderJeton($conn, $jeton) {
     $hache = hash('sha256', $jeton);
     $stmt = $conn->prepare("UPDATE reinitialisations_mdp SET utilise = 1 WHERE jeton_hache = ?");

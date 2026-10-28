@@ -1,21 +1,7 @@
 <?php
-/**
- * Page de vérification, à ouvrir avant une démonstration.
- *
- * Elle contrôle que tout est en place et permet de remplir le cache pendant
- * que le réseau fonctionne. La clé API n'est jamais affichée.
- * Fonctionne aussi en console : php diagnostic.php
- *
- * Accessible uniquement depuis la machine elle-même (comme installation.php) :
- * elle révèle des détails techniques (erreurs de connexion base de données,
- * état du cache) qui n'ont rien à faire devant un visiteur.
- */
 
 require_once __DIR__ . '/includes/tmdb.php';
 
-// db.php ne rejoue la création des tables que si ce témoin est absent. Ouvrir
-// le diagnostic le supprime : le schéma est donc revérifié à chaque passage
-// ici, ce qui est précisément le rôle de cette page.
 @unlink(__DIR__ . '/cache/schema-ok');
 
 require_once __DIR__ . '/includes/db.php';
@@ -33,8 +19,6 @@ if (!$enConsole && !$enLocal) {
 $tmdb      = new TMDB();
 $message   = '';
 
-// Remplit la réserve en enchaînant plusieurs tirages, chacun piochant
-// une page différente du catalogue.
 if ($enConsole || isset($_GET['prechauffer'])) {
     $avant = $tmdb->tailleReserve();
 
@@ -53,7 +37,6 @@ if (isset($_GET['exporter'])) {
         : 'Rien à exporter : préchauffez d\'abord le cache pendant que l\'API répond.';
 }
 
-// Chaque contrôle : intitulé, réussite, détail, et s'il est bloquant.
 $controles = [];
 
 $transport = function_exists('curl_init') ? 'cURL' : (ini_get('allow_url_fopen') ? 'file_get_contents' : '');
@@ -75,7 +58,6 @@ $controles[] = ['Clé API renseignée', $tmdb->cleConfiguree(),
 $controles[] = ['Dossier de cache inscriptible', $tmdb->cacheActif(),
     $tmdb->cacheActif() ? 'actif' : 'donnez les droits d\'écriture sur le dossier cache/', true];
 
-// Appel réel à l'API, avec un film dont l'identifiant ne change jamais.
 $film = $tmdb->getMovie(550);
 $apiRepond = !empty($film['title']);
 
@@ -99,7 +81,6 @@ if (!baseDisponible()) {
         'recherche, fiche film et tirage au hasard restent accessibles', false];
 }
 
-// Tout va bien si aucun contrôle bloquant n'a échoué.
 $toutVaBien = true;
 foreach ($controles as $controle) {
     if ($controle[3] && !$controle[1]) $toutVaBien = false;

@@ -17,8 +17,6 @@ $id     = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $erreur = '';
 $avis   = null;
 
-// Même vérification que pour la modification : on ne récupère l'avis que
-// s'il appartient à l'utilisateur connecté.
 if (baseDisponible() && $id > 0) {
     $requete = $conn->prepare("
         SELECT id, film_id, titre, contenu, publie_le
@@ -30,8 +28,6 @@ if (baseDisponible() && $id > 0) {
     $avis = $requete->get_result()->fetch_assoc();
 }
 
-// La suppression se fait uniquement en POST : un simple lien visité par
-// erreur (ou par un robot) ne doit jamais effacer quoi que ce soit.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
         $erreur = 'Requête invalide, merci de réessayer.';

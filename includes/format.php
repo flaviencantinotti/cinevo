@@ -1,8 +1,5 @@
 <?php
 
-// Petites fonctions d'affichage utilisées par plusieurs pages.
-
-// Transforme une date SQL en date lisible : « 14 mars 2026 ».
 function formaterDateFr($datetime) {
     $mois = [1 => 'janvier', 2 => 'février', 3 => 'mars', 4 => 'avril', 5 => 'mai', 6 => 'juin',
              7 => 'juillet', 8 => 'août', 9 => 'septembre', 10 => 'octobre', 11 => 'novembre', 12 => 'décembre'];
@@ -12,7 +9,6 @@ function formaterDateFr($datetime) {
     return (int) $date->format('j') . ' ' . $mois[(int) $date->format('n')] . ' ' . $date->format('Y');
 }
 
-// Coupe un texte trop long et ajoute des points de suspension.
 function extrait($texte, $longueur = 160) {
     if (mb_strlen($texte) > $longueur) {
         return mb_substr($texte, 0, $longueur) . '…';
@@ -21,8 +17,6 @@ function extrait($texte, $longueur = 160) {
     return $texte;
 }
 
-// Convertit une valeur de php.ini ("2M", "8M", "512K"...) en octets, pour
-// comparer une limite serveur à une taille de fichier réelle.
 function tailleIniEnOctets($valeur) {
     $valeur = trim((string) $valeur);
     if ($valeur === '' || $valeur === '-1') {
@@ -40,9 +34,6 @@ function tailleIniEnOctets($valeur) {
     }
 }
 
-// Complète des lignes d'avis venues de la base avec le titre et l'affiche du
-// film, que seul le catalogue TMDB connaît. Trois pages affichent ces cartes
-// (accueil, fil, mes avis) et faisaient toutes la même boucle.
 function ajouterFilms(TMDB $tmdb, array $lignes) {
     foreach ($lignes as &$ligne) {
         $film = $tmdb->getMovie((int) $ligne['film_id']);
@@ -54,10 +45,6 @@ function ajouterFilms(TMDB $tmdb, array $lignes) {
     return $lignes;
 }
 
-// Avatar d'un membre : sa photo de profil si elle existe encore sur le
-// disque, sinon un carré portant son initiale. L'apparence est entièrement
-// tenue par la feuille de style : la charte ne garde en couleur que les
-// affiches de films.
 function avatarHtml($nomUtilisateur, $photoProfil = null, $classesSupp = '') {
     $classes = trim('avatar ' . $classesSupp);
 

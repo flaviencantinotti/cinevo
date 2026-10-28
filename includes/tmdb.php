@@ -2,27 +2,19 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/cache.php';
 
-/**
- * Accès à l'API TMDB.
- *
- * Les réponses passent par un cache fichier. Si l'API ne répond pas, le
- * site reste consultable grâce au catalogue de films livré avec le projet.
- */
 class TMDB {
 
-    // Durées de cache, en secondes.
-    const CACHE_FILM      = 86400; // une fiche film ne change quasiment jamais
+    const CACHE_FILM      = 86400;
     const CACHE_RECHERCHE = 3600;
     const CACHE_TIRAGE    = 1800;
 
-    const TIMEOUT = 4; // secondes accordées à chaque appel
+    const TIMEOUT = 4;
 
     private $apiKey;
     private $baseUrl;
     public $imageUrl;
     private $cache;
 
-    // Dernière erreur rencontrée, affichée par la page de diagnostic.
     private $erreur = '';
 
     public function __construct() {
@@ -32,10 +24,6 @@ class TMDB {
         $this->cache    = new Cache();
     }
 
-    /**
-     * Appelle l'API, en passant d'abord par le cache.
-     * Rend null si ni le cache ni l'API n'ont répondu.
-     */
     private function fetch($endpoint, $params = [], $ttl = self::CACHE_FILM) {
         $params['language'] = 'fr-FR';
 
@@ -57,7 +45,6 @@ class TMDB {
         if ($reponse !== null) {
             $donnees = json_decode($reponse, true);
 
-            // TMDB renvoie "success" à false quand la clé est mauvaise.
             if (is_array($donnees) && !isset($donnees['success'])) {
                 $this->cache->set($cle, $donnees);
                 $this->erreur = '';
@@ -70,7 +57,6 @@ class TMDB {
         return null;
     }
 
-    /** Requête HTTP vers l'API. */
     private function appelHttp($url) {
         $contexte = stream_context_create([
             'http' => ['timeout' => self::TIMEOUT]
@@ -100,13 +86,9 @@ class TMDB {
 
         if ($film !== null) return $film;
 
-        // Ni l'API ni le cache n'ont répondu : on cherche au moins le titre
-        // et l'affiche dans la réserve ou le catalogue de secours, pour ne
-        // pas afficher "film introuvable" alors qu'on le connaît déjà.
         return $this->trouverDansSecours($id);
     }
 
-    /** Cherche un film par id dans la réserve, puis dans le catalogue livré avec le projet. */
     private function trouverDansSecours($id) {
         foreach ($this->lireReserve() as $film) {
             if ((int) $film['id'] === $id) {
@@ -117,33 +99,13 @@ class TMDB {
         return null;
     }
 
-    /**
-     * Tire des films au hasard.
-     *
-     * On pioche une page au hasard dans le catalogue, ce qui donne un
-     * tirage différent à chaque appel. Les films obtenus sont mis de côté
-     * dans une réserve, utilisée si l'API devient injoignable.
-     *
-     * Trier par popularité seule confine le tirage aux blockbusters
-     * récents : les 20 premières pages de "popularity.desc" ne sortent
-     * quasiment jamais un film de patrimoine. Chaque film du tirage pioche
-     * donc sa propre année au hasard (de 1920 à aujourd'hui) : ancrer
-     * l'année une seule fois pour tout le tirage donnerait 5 films de la
-     * même année, ce qui n'est pas mieux.
-     */
     public function getRandomMovies($count = 5) {
         $films   = [];
         $idsVus  = [];
 
-        // Chaque tour tire une année au hasard. Certaines ne renvoient rien :
-        // cinéma rare, ou page inexistante pour une année peu fournie. Sans
-        // nouvel essai, le tirage rendait alors moins de films que demandé.
         $essais    = 0;
         $essaisMax = $count * 5;
 
-        // Quand l'API ne répond plus, chaque appel coûte le délai d'attente
-        // complet : insister 25 fois bloquerait la page une minute ou deux.
-        // Deux échecs de suite suffisent à conclure, on passe à la réserve.
         $echecs    = 0;
         $echecsMax = 2;
 
@@ -159,8 +121,6 @@ class TMDB {
                 'primary_release_year' => $annee,
             ], self::CACHE_TIRAGE);
 
-            // fetch() ne rend null que si ni l'API ni le cache n'ont répondu :
-            // c'est une panne, pas une année sans film.
             if ($data === null) {
                 $echecs++;
                 if ($echecs >= $echecsMax) break;
@@ -188,8 +148,6 @@ class TMDB {
             $this->remplirReserve($films);
         }
 
-        // L'API n'a pas suffi : on complète avec la réserve locale plutôt que
-        // de renvoyer une grille trouée.
         if (count($films) < $count) {
             $reserve = $this->lireReserve();
             shuffle($reserve);
@@ -207,7 +165,6 @@ class TMDB {
         return array_slice($films, 0, $count);
     }
 
-    /** On ne garde que les films affichables : avec un titre et une affiche. */
     private function filtrerFilms($films) {
         $garde = [];
 
@@ -228,13 +185,11 @@ class TMDB {
         return __DIR__ . '/../data/catalogue.json';
     }
 
-    /** Ajoute les films à la réserve, sans doublon, en gardant les 100 derniers. */
     private function remplirReserve($films) {
         if (!$this->cache->estActif()) return;
 
         $reserve = [];
 
-        // On indexe par identifiant : un film déjà présent est simplement remplacé.
         foreach (array_merge($this->lireReserve(), $films) as $film) {
             $reserve[$film['id']] = [
                 'id'            => $film['id'],
@@ -250,7 +205,6 @@ class TMDB {
         @file_put_contents($this->fichierReserve(), json_encode($reserve));
     }
 
-    /** Réserve locale, ou à défaut le catalogue livré avec le projet. */
     private function lireReserve() {
         $films = $this->lireFichierFilms($this->fichierReserve());
 
@@ -269,10 +223,6 @@ class TMDB {
         return is_array($films) ? $this->filtrerFilms($films) : [];
     }
 
-    /**
-     * Copie la réserve dans data/catalogue.json, qui lui est versionné.
-     * À lancer une fois depuis une machine où l'API répond.
-     */
     public function exporterCatalogue() {
         $films = $this->lireFichierFilms($this->fichierReserve());
 

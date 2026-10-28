@@ -21,7 +21,7 @@ if (!empty($_GET['q'])) {
 
     if ($data && !empty($data['results'])) {
         $films = $data['results'];
-        // On ne garde que les films qui ont un titre et une affiche.
+
         $filmsRetenus = [];
 
         foreach ($films as $f) {
@@ -31,7 +31,7 @@ if (!empty($_GET['q'])) {
         }
 
         $films = $filmsRetenus;
-        // Tri du plus populaire au moins populaire.
+
         usort($films, function ($a, $b) {
             $popA = isset($a['popularity']) ? $a['popularity'] : 0;
             $popB = isset($b['popularity']) ? $b['popularity'] : 0;
@@ -42,8 +42,7 @@ if (!empty($_GET['q'])) {
         });
         $resultats = array_slice($films, 0, 5);
     } else {
-        // Ce n'est pas une erreur du formulaire : le message va avec les
-        // résultats, pas dans l'encadré rouge des erreurs de publication.
+
         $aucunResultat = true;
     }
 }
@@ -129,9 +128,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <hr class="separateur">
 
     <?php elseif ($idSelectionne > 0): ?>
-        <?php // Un identifiant est bien passé dans l'URL, mais le catalogue n'a
-              // pas répondu : sans ce message, le formulaire s'ouvrait sur un
-              // film invisible et l'avis partait dans le vide. ?>
         <p class="intro">
             Ce film n'a pas pu être chargé pour le moment.
             <a href="ecrire.php">Cherchez-le à nouveau</a> avant d'écrire votre avis.

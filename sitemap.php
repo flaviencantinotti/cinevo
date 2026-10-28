@@ -1,5 +1,5 @@
 <?php
-// Domaine du site : à adapter une fois le nom de domaine définitif connu.
+
 define('SITE_URL', 'https://cinevo.fr');
 
 require_once 'includes/db.php';
@@ -21,7 +21,6 @@ $pagesStatiques = [
 
 $films = [];
 
-// Sans base, le sitemap se limite aux pages statiques plutôt que d'échouer.
 $result = baseDisponible() ? $conn->query("
     SELECT film_id, MAX(publie_le) AS derniere_maj
     FROM avis

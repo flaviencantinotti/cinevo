@@ -1,26 +1,13 @@
-# Bloque l'accès direct aux fichiers sensibles
 <FilesMatch "^\.env">
     Require all denied
 </FilesMatch>
 
-# Les fichiers partages sont charges par PHP depuis le disque, jamais appeles
-# par le navigateur. Ouvert au public, includes/header.php renvoie un fragment
-# de page orphelin, qu'un moteur de recherche pourrait indexer.
-RedirectMatch 404 ^/includes/
-
-# Le cache ne contient que des données publiques de TMDB, mais rien
-# ne justifie d'y accéder directement depuis le navigateur.
-RedirectMatch 404 ^/cache/
-
-# Le dossier .git contient tout l'historique du projet. Laissé accessible, il
-# permet de reconstituer le code source entier depuis le navigateur.
-RedirectMatch 404 ^/\.git
-
-# Les fichiers SQL livrés avec le projet servent à l'installation en local.
-# Servis au public, ils donnent le schéma de la base et les données de départ.
 <FilesMatch "\.sql$">
     Require all denied
 </FilesMatch>
 
-# Page 404 personnalisee, a l'identite du site plutot que l'erreur brute du serveur.
+RedirectMatch 404 ^/includes/
+RedirectMatch 404 ^/cache/
+RedirectMatch 404 ^/\.git
+
 ErrorDocument 404 /404.php

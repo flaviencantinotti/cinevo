@@ -36,9 +36,6 @@ require_once 'includes/auth.php';
             <dl class="liste-definitions">
                 <dt>Nom</dt><dd>Flavien CANTINOTTI, entrepreneur individuel</dd>
                 <dt>Statut</dt><dd>Micro-entreprise</dd>
-                <?php // À remplacer par le numéro réel avant toute mise en ligne :
-                      // « 012 345 678 90123 » était un numéro d'exemple, qu'un
-                      // lecteur pouvait prendre pour un vrai. ?>
                 <dt>SIRET</dt><dd>en cours d'immatriculation</dd>
                 <dt>Adresse</dt><dd>Besançon, France</dd>
                 <dt>Email</dt><dd><a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a></dd>

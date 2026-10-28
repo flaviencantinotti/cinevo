@@ -1,13 +1,4 @@
 <?php
-/**
- * Assistant de configuration à usage local.
- *
- * Permet de renseigner la clé TMDB depuis le navigateur, sans passer par un
- * éditeur de texte, lorsqu'on installe le projet sur une nouvelle machine.
- *
- * Deux garde-fous : la page n'est accessible que depuis la machine elle-même,
- * et elle refuse d'agir si une clé est déjà configurée.
- */
 
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/tmdb.php';
@@ -16,9 +7,6 @@ $adresse    = $_SERVER['REMOTE_ADDR'] ?? '';
 $enLocal    = in_array($adresse, ['127.0.0.1', '::1', 'localhost'], true);
 $dejaConfig = TMDB_API_KEY !== '';
 
-// Depuis l'extérieur, la page n'existe pas : même réponse que diagnostic.php.
-// Annoncer un assistant d'installation à un visiteur distant, c'est lui
-// apprendre qu'il y en a un.
 if (!$enLocal) {
     http_response_code(404);
     require __DIR__ . '/404.php';
@@ -37,8 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$dejaConfig) {
         if (!preg_match('/^[A-Za-z0-9._-]{16,256}$/', $cle)) {
             $erreur = 'Cette clé n\'a pas un format valide.';
         } else {
-            // On vérifie la clé auprès de TMDB avant de l'enregistrer, pour ne
-            // pas écrire un .env qui ne fonctionnera pas.
+
             $test = @file_get_contents(
                 TMDB_BASE_URL . '/movie/550?api_key=' . urlencode($cle),
                 false,

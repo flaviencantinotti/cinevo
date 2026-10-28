@@ -5,8 +5,6 @@ require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 $tmdb = new TMDB();
 
-// Le tirage sert aussi bien à la page complète qu'à la réponse JSON du
-// bouton « Encore 5 films » : on le met en forme une seule fois.
 $filmsAffiches = [];
 
 foreach ($tmdb->getRandomMovies(5) as $film) {
@@ -73,10 +71,6 @@ if (isset($_GET['ajax'])) {
         <?php endforeach; ?>
     </div>
 
-    <?php // Un formulaire plutôt qu'un bouton seul : sans JavaScript, il recharge
-          // la page, et comme le tirage est refait à chaque chargement, cela suffit
-          // à obtenir cinq nouveaux films. Avec JavaScript, l'envoi est bloqué et
-          // seule la grille est remplacée. ?>
     <form method="GET" action="hasard.php" class="hero-boutons" style="margin-top:32px;">
         <button class="btn-rouge" id="btnHasard" type="submit">
             Encore 5 films au hasard
