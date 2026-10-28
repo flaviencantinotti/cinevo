@@ -61,17 +61,6 @@ if (baseDisponible()) {
         $filmId   = (int) $ligne['film_id'];
         $avisFilm = $avisParFilm[$filmId] ?? [];
 
-        $auteurs = [];
-        foreach ($avisFilm as $unAvis) {
-            if (count($auteurs) >= 3) break;
-            if (!isset($auteurs[$unAvis['nom_utilisateur']])) {
-                $auteurs[$unAvis['nom_utilisateur']] = [
-                    'nom_utilisateur' => $unAvis['nom_utilisateur'],
-                    'photo_profil'    => $unAvis['photo_profil'],
-                ];
-            }
-        }
-
         $film = $tmdb->getMovie($filmId);
 
         $discussions[] = [
@@ -79,7 +68,6 @@ if (baseDisponible()) {
             'film_titre'  => $film['title'] ?? 'Film',
             'nb_avis'     => (int) $ligne['nb_avis'],
             'dernier'     => $avisFilm[0] ?? null,
-            'auteurs'     => array_values($auteurs),
         ];
     }
 }
@@ -116,11 +104,6 @@ if (baseDisponible()) {
 
         <?php foreach ($discussions as $discussion): ?>
             <a href="fiche.php?id=<?= $discussion['film_id'] ?>" class="apercu-discussion">
-                <div class="avatars-empiles">
-                    <?php foreach ($discussion['auteurs'] as $auteur): ?>
-                        <?= avatarHtml($auteur['nom_utilisateur'], $auteur['photo_profil']) ?>
-                    <?php endforeach; ?>
-                </div>
                 <div class="corps">
                     <div class="film"><?= htmlspecialchars($discussion['film_titre']) ?></div>
                     <?php if ($discussion['dernier']): ?>

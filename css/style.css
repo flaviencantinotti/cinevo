@@ -386,21 +386,6 @@ nav a {
   color: inherit;
 }
 
-.avatars-empiles {
-  display: flex;
-  flex-shrink: 0;
-}
-
-.avatars-empiles .avatar {
-  width: 30px;
-  height: 30px;
-  margin-left: -10px;
-}
-
-.avatars-empiles .avatar:first-child {
-  margin-left: 0;
-}
-
 .apercu-discussion .corps {
   flex: 1;
   min-width: 0;
@@ -1850,11 +1835,15 @@ button:hover,
   grid-template-columns: 1fr 1fr 1fr;
   gap: 64px;
 }
-.liste-avis,
-.liste-discussions {
+.liste-avis {
   display: flex;
   flex-direction: column;
   gap: 64px;
+}
+
+.liste-discussions {
+  display: flex;
+  flex-direction: column;
 }
 
 .carte-avis,
@@ -1872,6 +1861,15 @@ button:hover,
   border-radius: 0;
   box-shadow: none;
   padding: 0;
+}
+
+.apercu-discussion {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--filet);
+}
+
+.apercu-discussion:last-child {
+  border-bottom: none;
 }
 
 .carte-hasard {
@@ -1986,7 +1984,6 @@ a.affiche:hover img {
 }
 
 .avatar,
-.avatars-empiles .avatar,
 .message .avatar {
   background: var(--fond);
   border: 1px solid var(--texte);
@@ -2594,8 +2591,7 @@ textarea:focus {
 .hasard-texte h2 {
   font-size: clamp(40px, 13vw, 72px);
 }
-  .liste-avis,
-.liste-discussions {
+  .liste-avis {
   gap: 40px;
 }
 
