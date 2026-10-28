@@ -75,7 +75,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 '</a>';
         }
 
-        btnHasard.addEventListener('click', function () {
+        btnHasard.addEventListener('click', function (e) {
+            // Sans cette ligne, le formulaire rechargerait la page en plus du fetch.
+            e.preventDefault();
+
             btnHasard.disabled = true;
             var contenuOriginal = btnHasard.innerHTML;
             btnHasard.textContent = 'Tirage en cours...';
