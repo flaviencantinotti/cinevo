@@ -508,6 +508,10 @@ input[type="email"] {
   text-decoration: underline;
 }
 
+.formulaire-contact + .lien-alternatif {
+  text-align: left;
+}
+
 .message-erreur {
   font-family: var(--sans);
   margin-top: 12px;
@@ -2336,6 +2340,25 @@ textarea:focus {
   color: var(--texte-doux);
   padding: 12px 0;
   border: 0;
+}
+
+.champ-fichier::file-selector-button {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--texte);
+  padding: 6px 0;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.champ-fichier::file-selector-button:hover {
+  color: var(--rouge);
+  border-bottom-color: var(--rouge);
 }
 
 .page-home,
