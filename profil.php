@@ -18,9 +18,6 @@ $succesPhoto = '';
 
 $utilisateurId = (int) $_SESSION['utilisateur_id'];
 
-// Formats et taille acceptés pour la photo de profil. La limite affichée et
-// vérifiée tient compte de upload_max_filesize : au-delà, PHP rejette l'envoi
-// avant même que notre propre contrôle de taille s'exécute.
 $typesAutorises  = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
 $limiteServeur   = tailleIniEnOctets(ini_get('upload_max_filesize'));
 $tailleMaxOctets = min(3 * 1024 * 1024, $limiteServeur);
@@ -96,8 +93,7 @@ if (!baseDisponible()) {
         } elseif ($fichier['size'] > $tailleMaxOctets) {
             $erreurPhoto = 'L\'image ne doit pas dépasser ' . $tailleMaxMo . ' Mo.';
         } else {
-            // On vérifie le vrai type du fichier (pas seulement son extension),
-            // pour ne pas se fier à ce que le navigateur prétend envoyer.
+
             $typeReel = mime_content_type($fichier['tmp_name']);
 
             if (!isset($typesAutorises[$typeReel])) {
@@ -111,8 +107,7 @@ if (!baseDisponible()) {
                     $nomFichier = 'u' . $utilisateurId . '-' . bin2hex(random_bytes(8)) . '.' . $typesAutorises[$typeReel];
 
                     if (move_uploaded_file($fichier['tmp_name'], $dossier . $nomFichier)) {
-                        // On supprime l'ancienne photo, sinon le dossier grossit indéfiniment
-                        // à chaque changement.
+
                         if (!empty($utilisateur['photo_profil']) && is_file($dossier . $utilisateur['photo_profil'])) {
                             @unlink($dossier . $utilisateur['photo_profil']);
                         }

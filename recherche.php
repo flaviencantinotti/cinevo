@@ -15,7 +15,7 @@ if ($query !== '') {
 
     if ($data && !empty($data['results'])) {
         $films = $data['results'];
-        // On ne garde que les films qui ont un titre et une affiche.
+
         $filmsRetenus = [];
 
         foreach ($films as $f) {
@@ -25,7 +25,7 @@ if ($query !== '') {
         }
 
         $films = $filmsRetenus;
-        // Tri du plus populaire au moins populaire.
+
         usort($films, function ($a, $b) {
             $popA = isset($a['popularity']) ? $a['popularity'] : 0;
             $popB = isset($b['popularity']) ? $b['popularity'] : 0;

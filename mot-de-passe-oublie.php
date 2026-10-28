@@ -8,10 +8,6 @@ $email     = '';
 $lienReset = '';
 $demandeEnvoyee = false;
 
-// Le lien de réinitialisation ne s'affiche à l'écran que depuis la machine
-// elle-même, comme pour installation.php et diagnostic.php : en ligne, cela
-// permettrait à n'importe qui de prendre la main sur n'importe quel compte.
-// Sur un vrai hébergement, ce lien part par e-mail.
 $adresse = $_SERVER['REMOTE_ADDR'] ?? '';
 $enLocal = in_array($adresse, ['127.0.0.1', '::1', 'localhost'], true);
 
@@ -30,8 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
         $utilisateur = $stmt->get_result()->fetch_assoc();
 
-        // La réponse est la même que le compte existe ou non : dire « aucun
-        // compte » reviendrait à confirmer quelles adresses sont inscrites.
         $demandeEnvoyee = true;
 
         if ($utilisateur) {

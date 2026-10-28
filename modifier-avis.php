@@ -16,9 +16,6 @@ $id      = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $erreur  = '';
 $avis    = null;
 
-// On récupère l'avis en vérifiant qu'il appartient bien à l'utilisateur
-// connecté : sans cette condition, n'importe qui pourrait modifier
-// l'avis d'un autre en changeant l'identifiant dans l'URL.
 if (baseDisponible() && $id > 0) {
     $requete = $conn->prepare("
         SELECT id, film_id, titre, contenu
@@ -58,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Titre du film, pour rappeler de quoi parle l'avis.
 $filmTitre = '';
 if ($avis) {
     $film = $tmdb->getMovie((int) $avis['film_id']);

@@ -20,12 +20,8 @@ if (baseDisponible()) {
     $avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : []);
 }
 
-// L'affiche du hero est celle du dernier avis publié : le seul élément en
-// couleur de la page, et un point d'entrée vers la discussion la plus récente.
 $filmHero = $avisRecents[0] ?? null;
 
-// Petite pile d'affiches, purement décorative, pour illustrer l'appel au
-// tirage aléatoire sans dépendre des avis déjà publiés.
 $filmsPioche = $tmdb->getRandomMovies(3);
 ?>
 <!DOCTYPE html>
@@ -50,16 +46,8 @@ $filmsPioche = $tmdb->getRandomMovies(3);
 
                 <div class="hero-contenu">
                     <h1>Parlons ciné.</h1>
-                    <?php // La deuxième phrase est insécable : sur un téléphone, la ligne se
-                          // coupait après « On en » et laissait « parle. » tout seul. ?>
                     <p class="hero-accroche">Ici, on ne note pas les films. <span>On en parle.</span></p>
                     <div class="hero-boutons">
-                        <?php
-                        // Chaque section de la page mène déjà à sa destination : « Comment ça
-                        // marche » vers Découvrir, « Tous les avis » vers les discussions,
-                        // « Tirer cinq films » vers le hasard. Le hero garde donc la seule
-                        // action qui manquait à l'accueil : passer du côté de ceux qui écrivent.
-                        ?>
                         <?php if (estConnecte()): ?>
                             <a href="ecrire.php" class="bouton-principal">Écrire un avis</a>
                         <?php else: ?>
@@ -91,8 +79,6 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                         ils arrivent. Rien n'est trié, rien n'est poussé en avant.
                     </p>
                 </div>
-                <?php // La colonne de droite est une accroche en capitales (.concept-cta p) :
-                      // elle doit rester courte, l'explication tient dans la colonne de gauche. ?>
                 <div class="concept-cta">
                     <p>Le site en quatre étapes.</p>
                     <a href="decouvrir.php" class="lien-fleche">Comment ça marche</a>
@@ -120,8 +106,6 @@ $filmsPioche = $tmdb->getRandomMovies(3);
                             <img src="<?= htmlspecialchars($avis['affiche']) ?>" alt="Affiche de <?= htmlspecialchars($avis['film_titre']) ?>" loading="lazy">
                         </div>
                         <div class="corps">
-                            <?php // Petite ligne : le film. Grande ligne : le titre de l'avis,
-                                  // obligatoire depuis ecrire.php. ?>
                             <div class="film"><?= htmlspecialchars($avis['film_titre']) ?></div>
                             <h3><?= htmlspecialchars($avis['titre']) ?></h3>
                             <p class="avis-texte"><?= htmlspecialchars(extrait($avis['contenu'], 140)) ?></p>

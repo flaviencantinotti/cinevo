@@ -105,12 +105,16 @@ un autre environnement, renseignez `DB_HOST`, `DB_NAME`, `DB_USER` et
 
 **4. (Optionnel) Avis de démonstration**
 
-Pour ne pas partir d'un site vide, `data/avis-demo.sql` contient une vingtaine
-d'avis prêts à l'emploi, rattachés aux comptes existants par pseudo (aucun id
-fixe). Sans danger à relancer plusieurs fois : les doublons sont ignorés.
+Pour ne pas partir d'un site vide, `data/avis-demo.sql` contient vingt-cinq
+avis prêts à l'emploi. Ils sont répartis à tour de rôle sur les comptes déjà
+créés, quels que soient leurs pseudos et leurs identifiants. Sans danger à
+relancer plusieurs fois : les doublons sont ignorés.
+
+L'option `--default-character-set=utf8mb4` n'est pas facultative : sans elle,
+les accents sont enregistrés de travers et les doublons ne sont plus reconnus.
 
 ```bash
-mysql -u root cinevo < data/avis-demo.sql
+mysql -u root cinevo --default-character-set=utf8mb4 < data/avis-demo.sql
 ```
 
 **Après avoir modifié le CSS**
@@ -118,7 +122,7 @@ mysql -u root cinevo < data/avis-demo.sql
 Les pages appellent la feuille de style avec un numéro de version :
 
 ```html
-<link rel="stylesheet" type="text/css" href="css/style.css?v=2">
+<link rel="stylesheet" type="text/css" href="css/style.css?v=94">
 ```
 
 Incrémentez ce numéro après chaque modification de `css/style.css`. Sans cela,

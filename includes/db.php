@@ -1,28 +1,11 @@
 <?php
 require_once __DIR__ . '/config.php';
 
-/**
- * Connexion à la base de données.
- *
- * L'absence de base n'interrompt plus le chargement : les pages qui ont besoin
- * de MySQL affichent un message clair, celles qui n'en dépendent pas (recherche,
- * fiche film, tirage au hasard) restent consultables.
- *
- * Après inclusion de ce fichier :
- *   $conn             mysqli connecté, ou null
- *   baseDisponible()  true si les requêtes peuvent être exécutées
- */
-
-// Identifiants lus dans le .env comme la clé TMDB, avec les valeurs d'un
-// XAMPP fraîchement installé par défaut : le projet démarre sans rien
-// configurer en local, et se déploie sans toucher au code.
 $host   = config_valeur('DB_HOST', 'localhost');
 $dbname = config_valeur('DB_NAME', 'cinevo');
 $user   = config_valeur('DB_USER', 'root');
 $pass   = config_valeur('DB_PASS', '');
 
-// On récupère les erreurs mysqli à la main plutôt que sous forme d'exception,
-// pour pouvoir afficher un message au lieu d'interrompre la page.
 mysqli_report(MYSQLI_REPORT_OFF);
 
 $conn     = null;
@@ -30,7 +13,6 @@ $dbErreur = '';
 
 $lien = mysqli_init();
 
-// Sans ce délai, une base éteinte peut bloquer la page très longtemps.
 $lien->options(MYSQLI_OPT_CONNECT_TIMEOUT, 3);
 
 if (@$lien->real_connect($host, $user, $pass)) {
@@ -50,10 +32,6 @@ if ($conn !== null) {
     }
 }
 
-// Création du schéma. Rejouer les quatre CREATE TABLE à chaque chargement de
-// page ne sert à rien une fois les tables en place : un fichier témoin dans
-// cache/ note que c'est fait. Le supprimer relance l'opération :
-// diagnostic.php s'en charge.
 $temoinSchema = __DIR__ . '/../cache/schema-ok';
 
 if ($conn !== null && !is_file($temoinSchema)) {
@@ -80,7 +58,6 @@ if ($conn !== null && !is_file($temoinSchema)) {
         )
     ");
 
-    // Messages envoyés depuis le formulaire de contact (page contact.php).
     $conn->query("
         CREATE TABLE IF NOT EXISTS messages_contact (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -91,8 +68,6 @@ if ($conn !== null && !is_file($temoinSchema)) {
         )
     ");
 
-    // Jetons de réinitialisation de mot de passe : on stocke un hachage du
-    // jeton, jamais le jeton lui-même, comme pour un mot de passe.
     $conn->query("
         CREATE TABLE IF NOT EXISTS reinitialisations_mdp (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -111,20 +86,16 @@ if ($conn !== null && !is_file($temoinSchema)) {
     @file_put_contents($temoinSchema, date('c'));
 }
 
-// La base est-elle utilisable ?
 function baseDisponible() {
     global $conn;
     return $conn !== null;
 }
 
-// Détail de la panne, affiché par la page de diagnostic.
 function baseErreur() {
     global $dbErreur;
     return $dbErreur;
 }
 
-// Encart affiché à la place d'un contenu qui vient de la base.
-// $action décrit ce qui est momentanément impossible.
 function messageBaseIndisponible($action = 'Cette partie du site') {
     return '<p class="message-erreur">'
         . htmlspecialchars($action)

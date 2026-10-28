@@ -24,7 +24,7 @@ if ($id > 0) {
         if (!empty($film['runtime'])) {
             $heures = intdiv($film['runtime'], 60);
             $mins   = $film['runtime'] % 60;
-            // Un court métrage n'a pas à s'annoncer « 0 h 45 min ».
+
             $duree  = $heures > 0 ? $heures . ' h ' . $mins . ' min' : $mins . ' min';
         }
 
@@ -39,8 +39,6 @@ if ($id > 0) {
     }
 }
 
-// Un film inconnu n'est pas une page valide : on le dit au navigateur et aux
-// moteurs de recherche, sinon « Film introuvable » finit indexé comme du contenu.
 if (!$film) {
     http_response_code(404);
 }
@@ -83,7 +81,6 @@ if (!$film) {
 
             <div>
                 <div class="grande-affiche">
-                    <?php // Sans affiche, getPosterUrl renvoie une image de remplacement. ?>
                     <img src="<?= htmlspecialchars($tmdb->getPosterUrl($film['poster_path'], 'w342')) ?>"
                          alt="Affiche de <?= htmlspecialchars($film['title']) ?>"
                          style="width:100%; height:100%; object-fit:cover;">
@@ -208,9 +205,6 @@ if (!$film) {
             }
             ?>
 
-            <?php // Les avis d'un même film s'affichent en fil de discussion : chaque
-                  // avis devient un message, en bulle, alternant de côté. ?>
-
             <?php if (!baseDisponible()): ?>
                 <?= messageBaseIndisponible('L\'affichage des avis') ?>
             <?php elseif (empty($avisFilm)): ?>
@@ -233,7 +227,6 @@ if (!$film) {
                                     <?= nl2br(htmlspecialchars($avis['contenu'])) ?>
                                 </div>
 
-                                <?php // L'auteur retrouve ses propres avis directement sur la fiche du film. ?>
                                 <?php if (estConnecte() && $avis['utilisateur_id'] == $_SESSION['utilisateur_id']): ?>
                                     <div class="actions-avis" style="margin-top:8px;">
                                         <a href="modifier-avis.php?id=<?= (int) $avis['id'] ?>" class="btn-blanc">Modifier</a>

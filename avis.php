@@ -5,11 +5,8 @@ require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
 $tmdb = new TMDB();
 
-// La page regroupe les avis par film : chaque film devient une discussion,
-// avec son dernier message et le nombre d'avis publiés (jamais une note).
 $parPage      = 10;
-// Ne pas nommer cette variable $pageCourante : includes/header.php utilise
-// déjà ce nom pour l'onglet actif et écraserait ce numéro de page.
+
 $pageListe    = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
 $offset       = ($pageListe - 1) * $parPage;
 
@@ -35,9 +32,6 @@ if (baseDisponible()) {
     $stmt->execute();
     $filmsRow = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    // Une seule requête pour les avis des dix films affichés, au lieu de deux
-    // requêtes par film : la page en réclamait une cinquantaine. Le volume est
-    // borné par la pagination, le tri se termine donc en PHP.
     $idsFilms = [];
 
     foreach ($filmsRow as $ligne) {
@@ -67,9 +61,6 @@ if (baseDisponible()) {
         $filmId   = (int) $ligne['film_id'];
         $avisFilm = $avisParFilm[$filmId] ?? [];
 
-        // Les avis arrivent du plus récent au plus ancien : le premier est le
-        // dernier message, et les trois premiers auteurs distincts illustrent
-        // la discussion.
         $auteurs = [];
         foreach ($avisFilm as $unAvis) {
             if (count($auteurs) >= 3) break;

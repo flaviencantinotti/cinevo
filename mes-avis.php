@@ -13,7 +13,6 @@ if (!estConnecte()) {
 
 $tmdb = new TMDB();
 
-// Message transmis après une modification ou une suppression réussie.
 $confirmation = '';
 if (isset($_GET['modifie']))  $confirmation = 'Votre avis a été modifié.';
 if (isset($_GET['supprime'])) $confirmation = 'Votre avis a été supprimé.';

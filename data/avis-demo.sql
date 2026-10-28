@@ -2,7 +2,7 @@
 -- A importer une seule fois. En PowerShell (XAMPP) :
 --   Get-Content data/avis-demo.sql -Raw -Encoding UTF8 | C:\xampp\mysql\bin\mysql.exe -u root cinevo --default-character-set=utf8mb4
 -- En bash/mac/linux :
---   mysql -u root cinevo < data/avis-demo.sql
+--   mysql -u root cinevo --default-character-set=utf8mb4 < data/avis-demo.sql
 --
 -- Les avis sont repartis sur les comptes existants, quel que soit leur pseudo (aucune dependance
 -- sur un nom d'utilisateur precis). Necessite au moins un compte deja cree sur le site.

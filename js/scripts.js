@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    /* --- Menu burger --- */
     var btn = document.getElementById('burgerBtn');
     var nav = document.getElementById('mainNav');
 
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    /* --- Compteur de caractères (page écrire) --- */
     var zoneAvis  = document.getElementById('avis');
     var compteur  = document.getElementById('compteur');
     var btnPublier = document.getElementById('btnPublier');
@@ -56,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    /* --- Films au hasard (page hasard.php) --- */
     var btnHasard   = document.getElementById('btnHasard');
     var grilleHasard = document.getElementById('grilleHasard');
 
@@ -75,7 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 '</a>';
         }
 
-        btnHasard.addEventListener('click', function () {
+        btnHasard.addEventListener('click', function (e) {
+
+            e.preventDefault();
+
             btnHasard.disabled = true;
             var contenuOriginal = btnHasard.innerHTML;
             btnHasard.textContent = 'Tirage en cours...';
