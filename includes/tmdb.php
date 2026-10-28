@@ -5,9 +5,8 @@ require_once __DIR__ . '/cache.php';
 /**
  * Accès à l'API TMDB.
  *
- * Les réponses passent par un cache fichier, et plusieurs secours sont
- * prévus pour que le site reste consultable si l'API ne répond pas :
- * cache périmé, puis catalogue de films livré avec le projet.
+ * Les réponses passent par un cache fichier. Si l'API ne répond pas, le
+ * site reste consultable grâce au catalogue de films livré avec le projet.
  */
 class TMDB {
 
@@ -35,7 +34,7 @@ class TMDB {
 
     /**
      * Appelle l'API, en passant d'abord par le cache.
-     * Si l'appel échoue, on ressert la version en cache même périmée.
+     * Rend null si ni le cache ni l'API n'ont répondu.
      */
     private function fetch($endpoint, $params = [], $ttl = self::CACHE_FILM) {
         $params['language'] = 'fr-FR';
@@ -47,7 +46,7 @@ class TMDB {
 
         if ($this->apiKey === '') {
             $this->erreur = 'Clé API absente : vérifiez le fichier .env';
-            return $this->cache->getPerime($cle);
+            return null;
         }
 
         $params['api_key'] = $this->apiKey;
@@ -68,7 +67,7 @@ class TMDB {
             $this->erreur = 'Réponse refusée par TMDB';
         }
 
-        return $this->cache->getPerime($cle);
+        return null;
     }
 
     /** Requête HTTP vers l'API. */

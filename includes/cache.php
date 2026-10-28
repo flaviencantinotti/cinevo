@@ -4,9 +4,7 @@
  * Cache fichier des réponses de l'API TMDB.
  *
  * Chaque réponse est stockée dans un fichier JSON accompagné de sa date.
- * On peut ensuite la relire soit si elle est encore fraîche (get), soit
- * même si elle est périmée (getPerime), ce qui sert de secours quand
- * l'API ne répond plus.
+ * Elle n'est relue que si elle est encore fraîche.
  */
 class Cache {
 
@@ -33,7 +31,8 @@ class Cache {
         return $this->dossier . '/' . $nom . '.json';
     }
 
-    private function lire($cle) {
+    /** Renvoie la donnée si elle a moins de $ttl secondes, sinon null. */
+    public function get($cle, $ttl) {
         $fichier = $this->chemin($cle);
 
         if (!is_readable($fichier)) return null;
@@ -43,27 +42,12 @@ class Cache {
 
         $entree = json_decode($contenu, true);
 
+        // Un fichier tronqué ou modifié à la main ne doit pas être servi.
         if (!isset($entree['date']) || !isset($entree['donnees'])) return null;
-
-        return $entree;
-    }
-
-    /** Renvoie la donnée si elle a moins de $ttl secondes, sinon null. */
-    public function get($cle, $ttl) {
-        $entree = $this->lire($cle);
-
-        if ($entree === null) return null;
 
         if (time() - $entree['date'] > $ttl) return null;
 
         return $entree['donnees'];
-    }
-
-    /** Renvoie la donnée même périmée : dernier recours si l'API est muette. */
-    public function getPerime($cle) {
-        $entree = $this->lire($cle);
-
-        return $entree === null ? null : $entree['donnees'];
     }
 
     public function set($cle, $donnees) {
