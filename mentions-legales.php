@@ -37,7 +37,7 @@ require_once 'includes/auth.php';
                 <dt>Nom</dt><dd>Flavien CANTINOTTI, entrepreneur individuel</dd>
                 <dt>Statut</dt><dd>Micro-entreprise</dd>
                 <dt>SIRET</dt><dd>en cours d'immatriculation</dd>
-                <dt>Adresse</dt><dd>Besançon, France</dd>
+                <dt>Adresse</dt><dd>Rouffange, France</dd>
                 <dt>Email</dt><dd><a href="mailto:hello@cinevo.fr">hello@cinevo.fr</a></dd>
                 <dt>Directeur de la publication</dt><dd>Flavien CANTINOTTI.</dd>
             </dl>
@@ -45,12 +45,11 @@ require_once 'includes/auth.php';
 
         <section>
             <h2>Hébergement</h2>
-            <dl class="liste-definitions">
-                <dt>Hébergeur</dt><dd>OVH SAS</dd>
-                <dt>Adresse</dt><dd>2 rue Kellermann, 59100 Roubaix, France</dd>
-                <dt>Téléphone</dt><dd>+33 9 72 10 10 07</dd>
-                <dt>Site</dt><dd><a href="https://www.ovh.com" target="_blank" rel="noopener">www.ovh.com</a></dd>
-            </dl>
+            <p>
+                Le site n'est pas encore mis en ligne : il fonctionne aujourd'hui en
+                local. Les coordonnées de l'hébergeur seront renseignées ici lors de la
+                mise en ligne, en même temps que le numéro SIRET ci-dessus.
+            </p>
         </section>
 
         <section>
