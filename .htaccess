@@ -12,5 +12,15 @@ RedirectMatch 404 ^/includes/
 # ne justifie d'y accéder directement depuis le navigateur.
 RedirectMatch 404 ^/cache/
 
+# Le dossier .git contient tout l'historique du projet. Laissé accessible, il
+# permet de reconstituer le code source entier depuis le navigateur.
+RedirectMatch 404 ^/\.git
+
+# Les fichiers SQL livrés avec le projet servent à l'installation en local.
+# Servis au public, ils donnent le schéma de la base et les données de départ.
+<FilesMatch "\.sql$">
+    Require all denied
+</FilesMatch>
+
 # Page 404 personnalisee, a l'identite du site plutot que l'erreur brute du serveur.
 ErrorDocument 404 /404.php
