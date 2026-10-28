@@ -8,7 +8,7 @@
 -- En PowerShell (XAMPP) :
 --   Get-Content data/titres-avis.sql -Raw -Encoding UTF8 | C:\xampp\mysql\bin\mysql.exe -u root cinevo --default-character-set=utf8mb4
 -- En bash :
---   mysql -u root cinevo < data/titres-avis.sql
+--   mysql -u root cinevo --default-character-set=utf8mb4 < data/titres-avis.sql
 
 UPDATE avis SET titre = 'La métaphore prend toute la place'
  WHERE (titre IS NULL OR titre = '') AND contenu LIKE 'Pas totalement d\'accord%';
