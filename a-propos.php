@@ -84,7 +84,7 @@ require_once 'includes/auth.php';
         <section>
             <h2>Qui est derrière ?</h2>
             <p>
-                Je m'appelle <strong>Flavien</strong>, je développe depuis Besançon, et Cinévo est né
+                Je m'appelle <strong>Flavien</strong>, je développe depuis le Jura, et Cinévo est né
                 en mai 2026 pendant ma formation au titre RNCP 37674 (Développeur Web et Web Mobile,
                 DWWM).
             </p>

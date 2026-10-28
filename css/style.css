@@ -386,21 +386,6 @@ nav a {
   color: inherit;
 }
 
-.avatars-empiles {
-  display: flex;
-  flex-shrink: 0;
-}
-
-.avatars-empiles .avatar {
-  width: 30px;
-  height: 30px;
-  margin-left: -10px;
-}
-
-.avatars-empiles .avatar:first-child {
-  margin-left: 0;
-}
-
 .apercu-discussion .corps {
   flex: 1;
   min-width: 0;
@@ -521,6 +506,10 @@ input[type="email"] {
 
 .lien-alternatif a {
   text-decoration: underline;
+}
+
+.formulaire-contact + .lien-alternatif {
+  text-align: left;
 }
 
 .message-erreur {
@@ -925,7 +914,7 @@ input[type="email"] {
 }
 
 .cta-decouvrir h2 {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .cta-decouvrir p {
@@ -1152,11 +1141,11 @@ input[type="email"] {
   padding-left: 16px;
 }
 
-  nav {
+  .entete nav {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-  nav a {
+  .entete nav a {
   padding: 8px 0;
 }
 
@@ -1603,7 +1592,7 @@ nav {
   gap: 26px;
 }
 
-nav a,
+.entete nav a,
 .entete-utilisateur,
 .entete-nav > a {
   font-family: var(--mono);
@@ -1617,7 +1606,7 @@ nav a,
   border: 0;
   border-bottom: 1px solid transparent;
 }
-nav a:hover,
+.entete nav a:hover,
 .entete-utilisateur:hover,
 .entete-nav > a:hover {
   color: var(--rouge);
@@ -1850,11 +1839,24 @@ button:hover,
   grid-template-columns: 1fr 1fr 1fr;
   gap: 64px;
 }
-.liste-avis,
-.liste-discussions {
+
+.grille-avis .carte-avis {
+  display: flex;
+  flex-direction: column;
+}
+
+.grille-avis .actions-avis {
+  margin-top: auto;
+}
+.liste-avis {
   display: flex;
   flex-direction: column;
   gap: 64px;
+}
+
+.liste-discussions {
+  display: flex;
+  flex-direction: column;
 }
 
 .carte-avis,
@@ -1872,6 +1874,15 @@ button:hover,
   border-radius: 0;
   box-shadow: none;
   padding: 0;
+}
+
+.apercu-discussion {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--filet);
+}
+
+.apercu-discussion:last-child {
+  border-bottom: none;
 }
 
 .carte-hasard {
@@ -1986,7 +1997,6 @@ a.affiche:hover img {
 }
 
 .avatar,
-.avatars-empiles .avatar,
 .message .avatar {
   background: var(--fond);
   border: 1px solid var(--texte);
@@ -2341,6 +2351,25 @@ textarea:focus {
   border: 0;
 }
 
+.champ-fichier::file-selector-button {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--texte);
+  padding: 6px 0;
+  margin-right: 16px;
+  cursor: pointer;
+}
+
+.champ-fichier::file-selector-button:hover {
+  color: var(--rouge);
+  border-bottom-color: var(--rouge);
+}
+
 .page-home,
 .colonne-principale,
 .colonne-lateral {
@@ -2514,7 +2543,7 @@ textarea:focus {
     margin-left: auto;
   }
 
-  nav {
+  .entete nav {
     display: none;
     position: fixed;
     top: 80px;
@@ -2529,11 +2558,11 @@ textarea:focus {
     gap: 18px;
     z-index: 200;
   }
-  nav.open {
+  .entete nav.open {
     display: flex;
   }
 
-  nav a {
+  .entete nav a {
     align-self: flex-start;
   }
 }
@@ -2545,10 +2574,10 @@ textarea:focus {
   gap: 14px;
 }
 
-  nav {
+  .entete nav {
     top: 64px;
   }
-  nav a {
+  .entete nav a {
     font-size: 13px;
   }
 
@@ -2594,8 +2623,7 @@ textarea:focus {
 .hasard-texte h2 {
   font-size: clamp(40px, 13vw, 72px);
 }
-  .liste-avis,
-.liste-discussions {
+  .liste-avis {
   gap: 40px;
 }
 
