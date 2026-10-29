@@ -2,7 +2,7 @@
 
 Registre daté de la veille effectuée sur le projet, exigé par le référentiel DWWM (compétences 1, 3, 4, 6, 7, 8) et par le dossier projet ("description de la veille effectuée sur les vulnérabilités de sécurité, description des vulnérabilités éventuellement trouvées et des failles potentiellement corrigées").
 
-> Stack réelle du projet : PHP 8.4 vanilla + MySQL (mysqli), sans framework, sans gestionnaire de dépendances (pas de Composer, pas de npm). Les recommandations ci-dessous sont adaptées à cette stack, pas à un projet Symfony/Doctrine.
+> Stack réelle du projet : PHP 8.2 vanilla + MySQL (mysqli), sans framework, sans gestionnaire de dépendances (pas de Composer, pas de npm). Les recommandations ci-dessous sont adaptées à cette stack, pas à un projet Symfony/Doctrine.
 
 ## Sources suivies
 
