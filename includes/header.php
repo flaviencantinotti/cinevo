@@ -21,7 +21,7 @@ $pageCourante = isset($page) ? $page : '';
 
         <div class="entete-nav">
             <form method="GET" action="recherche.php" class="barre-recherche">
-                <input type="search" name="q" placeholder="Chercher un film">
+                <input type="search" name="q" placeholder="Chercher un film" aria-label="Chercher un film">
             </form>
             <button class="menu-burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">
                 <span></span><span></span><span></span>

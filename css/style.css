@@ -827,6 +827,12 @@ input[type="email"] {
   resize: vertical;
 }
 
+.formulaire-contact .champ input[type="text"]:focus,
+.formulaire-contact .champ input[type="email"]:focus,
+.formulaire-contact .champ textarea:focus {
+  border-color: var(--rouge);
+}
+
 .ouverture-decouvrir h1 {
   font-family: var(--sans);
   font-weight: 800;

@@ -107,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <form method="GET" action="ecrire.php" class="formulaire-recherche">
         <input type="text" name="q" placeholder="Chercher un film par titre..."
+               aria-label="Chercher un film par titre"
                value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
         <button type="submit" class="btn-rouge">Chercher</button>
     </form>
