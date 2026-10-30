@@ -827,6 +827,12 @@ input[type="email"] {
   resize: vertical;
 }
 
+.formulaire-contact .champ input[type="text"]:focus,
+.formulaire-contact .champ input[type="email"]:focus,
+.formulaire-contact .champ textarea:focus {
+  border-color: var(--rouge);
+}
+
 .ouverture-decouvrir h1 {
   font-family: var(--sans);
   font-weight: 800;
@@ -1130,9 +1136,6 @@ input[type="email"] {
   font-size: 42px;
 }
 
-  .grille-hasard {
-  grid-template-columns: repeat(3, 1fr);
-}
 }
 
 @media (max-width: 768px) {

@@ -49,7 +49,7 @@ et la façon dont je les corrige.
 
 | | |
 |---|---|
-| Back-end | PHP 8.4 (vanilla), MySQL via mysqli |
+| Back-end | PHP 8.2 (vanilla), MySQL via mysqli |
 | Front-end | HTML, CSS, JavaScript |
 | Données films | API TMDB (`/search/movie`, `/movie/{id}`, `/movie/popular`, `/discover/movie`) |
 | Dépendances | aucune |
@@ -58,7 +58,7 @@ et la façon dont je les corrige.
 
 ## Installation
 
-**Prérequis** : PHP 8.4, MySQL, et une clé API TMDB (gratuite sur
+**Prérequis** : PHP 8.2 ou plus récent, MySQL, et une clé API TMDB (gratuite sur
 [themoviedb.org](https://www.themoviedb.org/settings/api)).
 
 **1. Récupérer le projet**
