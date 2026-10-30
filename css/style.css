@@ -1136,9 +1136,6 @@ input[type="email"] {
   font-size: 42px;
 }
 
-  .grille-hasard {
-  grid-template-columns: repeat(3, 1fr);
-}
 }
 
 @media (max-width: 768px) {
