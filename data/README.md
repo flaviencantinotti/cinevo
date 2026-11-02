@@ -10,12 +10,9 @@ le dépôt, et c'est ce qui rend le projet fonctionnel dès le clone.
 
 ## Le générer ou le mettre à jour
 
-Depuis une machine où la clé TMDB est configurée et le réseau disponible :
-
-1. ouvrir `diagnostic.php` ;
-2. cliquer sur **Préchauffer le cache** ;
-3. cliquer sur **Exporter le catalogue** ;
-4. commiter le fichier produit :
+Depuis une machine où la clé TMDB est configurée et le réseau disponible, la
+classe `TMDB` expose `exporterCatalogue()`, qui écrit dans ce fichier les films
+déjà rencontrés. Une fois le fichier produit, il suffit de le commiter :
 
 ```bash
 git add data/catalogue.json

@@ -71,13 +71,7 @@ cd cinevo
 **2. Renseigner la clé TMDB**
 
 La clé n'est jamais versionnée : sur une machine fraîchement clonée, il faut la
-renseigner une fois. Deux façons de faire, au choix.
-
-*Depuis le navigateur* — ouvrir `installation.php`, coller la clé, valider. Elle
-est vérifiée auprès de TMDB puis enregistrée. L'assistant n'est accessible que
-depuis la machine elle-même.
-
-*À la main* :
+renseigner une fois.
 
 ```bash
 cp .env.example .env
@@ -174,19 +168,11 @@ Oublier de démarrer MySQL est plus fréquent qu'une panne d'API, et cela suffis
   l'indisponibilité, et le formulaire de rédaction **conserve le texte saisi**.
 - `sitemap.php` se limite alors aux pages statiques.
 
-**Avant une démonstration**
+**Sans réseau du tout**
 
-Ouvrir `diagnostic.php` dans le navigateur (ou lancer `php diagnostic.php` en
-console). La page contrôle PHP, la clé API, le cache, la base de données et
-effectue un vrai appel à TMDB. Le bouton **Préchauffer le cache** remplit la
-réserve hors ligne pendant que la connexion fonctionne.
-
-```bash
-php diagnostic.php   # code de sortie 0 si tout est prêt
-```
-
-Cette page est un outil de vérification : elle est à retirer avant une mise en
-production.
+Le catalogue de 100 films livré dans `data/catalogue.json` permet à l'accueil, aux
+discussions et au tirage de fonctionner immédiatement, même sur un clone neuf et
+sans connexion.
 
 ---
 
@@ -211,14 +197,12 @@ cinevo/
 ├── index.php          accueil
 ├── recherche.php      recherche de films
 ├── fiche.php          fiche d'un film
-├── decouvrir.php      exploration par filtres
+├── decouvrir.php      mode d'emploi et foire aux questions
 ├── hasard.php         tirage aléatoire
 ├── ecrire.php         rédaction d'un avis
 ├── avis.php           avis publiés
 ├── inscription.php · connexion.php · deconnexion.php
 ├── contact.php · a-propos.php · mentions-legales.php · cookies.php
-├── diagnostic.php     vérification technique avant démonstration
-├── installation.php   assistant de configuration de la clé API
 ├── .env.example       modèle de configuration
 └── veille.md          journal de veille et de sécurité
 ```
