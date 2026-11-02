@@ -34,13 +34,18 @@ et la façon dont je les corrige.
 
 **Comptes et avis**
 - Inscription, connexion, déconnexion
+- Mot de passe oublié : réinitialisation par jeton à usage unique
 - Rédaction d'un avis sur un film
 - Consultation des avis publiés
+- Espace personnel : retrouver ses propres avis, les modifier, les supprimer
+- Profil : changer son adresse e-mail ou son mot de passe, envoyer une photo
+  de profil
 
 **Le reste**
 - Page mode d'emploi (`decouvrir.php`) : comment le site fonctionne, et une foire
   aux questions
-- Pages légales : mentions, cookies, à propos, contact
+- Pages légales : mentions, conditions générales, cookies, à propos, contact
+- Page 404 personnalisée
 - `sitemap.php` et `robots.txt`
 
 ---
@@ -51,7 +56,7 @@ et la façon dont je les corrige.
 |---|---|
 | Back-end | PHP 8.2 (vanilla), MySQL via mysqli |
 | Front-end | HTML, CSS, JavaScript |
-| Données films | API TMDB (`/search/movie`, `/movie/{id}`, `/movie/popular`, `/discover/movie`) |
+| Données films | API TMDB (`/search/movie`, `/movie/{id}`, `/discover/movie`) |
 | Dépendances | aucune |
 
 ---
@@ -88,8 +93,8 @@ bas : seules la recherche et les fiches détaillées sont indisponibles.
 
 **3. Lancer**
 
-Placer le dossier dans le répertoire web de votre serveur local (WAMP, MAMP,
-Laragon…), puis ouvrir `index.php`.
+Placer le dossier dans le répertoire web de votre serveur local (XAMPP, WAMP,
+MAMP, Laragon…), puis ouvrir `index.php`.
 
 La base `cinevo` et ses tables sont créées automatiquement au premier
 chargement — il n'y a rien à importer. Les identifiants MySQL par défaut sont
@@ -121,14 +126,10 @@ présentable dans ces deux cas.
 
 ### Si l'API TMDB est injoignable
 
-- **Deux moyens d'appel** : cURL en premier, `file_get_contents` en secours si
-  l'extension cURL n'est pas activée sur le serveur.
-- **Délai court et nouvelle tentative** : 4 secondes par essai, deux essais au
-  maximum. Une API lente ne fige jamais la page plus de quelques secondes.
+- **Délai court** : 4 secondes maximum par appel. Une API lente ne fige jamais la
+  page plus de quelques secondes.
 - **Cache disque** (`cache/`) : les fiches films sont gardées 24 h, les
   recherches 1 h, les tirages 30 min. Cela allège aussi le nombre d'appels.
-- **Cache périmé servi en dernier recours** : si l'API ne répond plus, la
-  dernière version connue est réutilisée plutôt que d'afficher une page vide.
 - **Réserve de films hors ligne** : chaque tirage réussi alimente un stock local
   de 100 films. Coupez le réseau, la page « Au hasard » continue de tirer
   cinq films différents à chaque clic.
@@ -137,7 +138,7 @@ présentable dans ces deux cas.
   dès le premier chargement, sur n'importe quelle machine. Les affiches passent
   par le CDN de TMDB, qui ne demande aucune clé. Voir `data/README.md` pour le
   régénérer.
-- **Affiche de remplacement** : une image qui ne se charge pas est remplacée par
+- **Affiche de remplacement** : un film dont TMDB ne fournit pas d'affiche reçoit
   un visuel neutre, la mise en page ne se casse pas.
 - **Repli sur les variables d'environnement** du serveur si le `.env` est absent.
 
@@ -169,30 +170,45 @@ sans connexion.
 ```
 cinevo/
 ├── includes/
-│   ├── config.php     constantes et lecture du .env
-│   ├── db.php         connexion MySQL tolérante à la panne, création des tables
-│   ├── auth.php       inscription, connexion, session
-│   ├── tmdb.php       appels à l'API TMDB, cache et repli hors ligne
-│   ├── cache.php      cache fichier des réponses de l'API
+│   ├── config.php          constantes et lecture du .env
+│   ├── db.php              connexion MySQL tolérante à la panne, création des tables
+│   ├── auth.php            inscription, connexion, session, jetons CSRF
+│   ├── tmdb.php            appels à l'API TMDB, cache et repli hors ligne
+│   ├── cache.php           cache fichier des réponses de l'API
+│   ├── format.php          dates, extraits, avatars
+│   ├── resultats-films.php gabarit de liste de films, partagé par deux pages
 │   ├── header.php
 │   └── footer.php
-├── cache/             réponses TMDB mises en cache (ignoré par Git)
+├── cache/                  réponses TMDB mises en cache (ignoré par Git)
 ├── data/
-│   └── catalogue.json catalogue de secours, versionné
+│   ├── catalogue.json      catalogue de secours, versionné
+│   ├── avis-demo.sql       vingt-cinq avis de démonstration
+│   ├── titres-avis.sql     complète les avis importés avant les titres
+│   └── README.md           comment régénérer le catalogue
+├── uploads/avatars/        photos de profil (contenu ignoré par Git)
 ├── css/
 ├── js/
 ├── images/
-├── index.php          accueil
-├── recherche.php      recherche de films
-├── fiche.php          fiche d'un film
-├── decouvrir.php      mode d'emploi et foire aux questions
-├── hasard.php         tirage aléatoire
-├── ecrire.php         rédaction d'un avis
-├── avis.php           avis publiés
+│
+├── index.php               accueil
+├── home.php                fil personnel du membre connecté
+├── recherche.php           recherche de films
+├── fiche.php               fiche d'un film
+├── hasard.php              tirage aléatoire
+├── decouvrir.php           mode d'emploi et foire aux questions
+├── avis.php                discussions en cours
+├── ecrire.php              rédaction d'un avis
+├── mes-avis.php · modifier-avis.php · supprimer-avis.php
 ├── inscription.php · connexion.php · deconnexion.php
-├── contact.php · a-propos.php · mentions-legales.php · cookies.php
-├── .env.example       modèle de configuration
-└── veille.md          journal de veille et de sécurité
+├── mot-de-passe-oublie.php · reinitialiser-mdp.php
+├── profil.php              e-mail, mot de passe, photo de profil
+├── contact.php · a-propos.php · mentions-legales.php
+├── conditions-generales.php · cookies.php
+├── 404.php · sitemap.php · robots.txt
+│
+├── .htaccess               refuse l'accès au .env, aux .sql, à includes/ et cache/
+├── .env.example            modèle de configuration
+└── veille.md               journal de veille et de sécurité
 ```
 
 ---
@@ -206,12 +222,15 @@ Le projet a fait l'objet d'un passage au crible du Top 10 OWASP, documenté dans
   requête ; les seules requêtes directes sont du SQL statique, sans variable
 - **Mots de passe hachés** avec `password_hash()` / `password_verify()`,
   jamais stockés en clair
-- **Jetons CSRF** sur les formulaires POST (connexion, inscription, publication
-  d'un avis)
+- **Jetons CSRF** sur la totalité des formulaires POST : les neuf pages du site
+  qui traitent un POST vérifient le jeton, sans exception
 - **Échappement systématique des sorties** avec `htmlspecialchars()`, contre les
   injections de script
-- **Cookies de session** en `HttpOnly`, `SameSite` et `Secure`
+- **Cookies de session** en `HttpOnly` et `SameSite`, avec `Secure` activé dès que
+  le site est servi en HTTPS
 - **Clé API hors du dépôt**, dans un `.env` ignoré par Git
+- **Fichiers sensibles fermés** par `.htaccess` : le `.env`, les `.sql`, `includes/`
+  et `cache/` ne sont pas servis par Apache
 
 Les jetons CSRF et les attributs de cookies ont d'abord manqué. Je les ai
 identifiés en relisant le projet à la lumière des recommandations OWASP, puis
@@ -221,8 +240,9 @@ corrigés — c'est justement ce que retrace `veille.md`.
 
 ## Limites connues
 
-- Le formulaire de contact affiche un message de confirmation mais n'envoie
-  rien : il reste à brancher un service d'envoi de mail.
+- Les messages du formulaire de contact sont enregistrés en base (table
+  `messages_contact`) mais ne partent pas par mail : il reste à brancher un
+  service d'envoi.
 - Pas de pagination au-delà de la première page de résultats renvoyée par TMDB.
 - Le site n'est pas encore déployé en ligne. Il tourne en local.
 
@@ -232,7 +252,7 @@ corrigés — c'est justement ce que retrace `veille.md`.
 
 - Mise en ligne sur un hébergement mutualisé
 - Notes chiffrées en plus des avis rédigés
-- Espace personnel : retrouver ses propres avis, les modifier, les supprimer
+- Envoi par mail des messages de contact et des liens de réinitialisation
 
 ---
 
