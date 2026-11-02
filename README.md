@@ -111,18 +111,6 @@ les accents sont enregistrés de travers et les doublons ne sont plus reconnus.
 mysql -u root cinevo --default-character-set=utf8mb4 < data/avis-demo.sql
 ```
 
-**Après avoir modifié le CSS**
-
-Les pages appellent la feuille de style avec un numéro de version :
-
-```html
-<link rel="stylesheet" type="text/css" href="css/style.css?v=94">
-```
-
-Incrémentez ce numéro après chaque modification de `css/style.css`. Sans cela,
-les navigateurs qui ont déjà visité le site continuent d'afficher l'ancienne
-version gardée en cache, et les changements semblent ne pas s'appliquer.
-
 ---
 
 ## Robustesse en cas de panne

@@ -59,7 +59,7 @@ if (!$film) {
         <meta name="robots" content="noindex, follow">
         <title>Film introuvable · Cinévo</title>
     <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css?v=94">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
