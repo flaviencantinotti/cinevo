@@ -27,9 +27,10 @@ réellement :
 - **À chaque sujet ouvert** : je lis la source, je note ce que j'en tire, et je
   consigne la correction si Cinévo est concerné.
 
-Le registre ci-dessous porte sur l'audit du 8 juillet 2026, qui a couvert
-l'ensemble du code existant à cette date. Les entrées sont datées du jour où la
-faille a été trouvée, pas du jour où je l'ai corrigée.
+Les quatre premières entrées du registre portent sur l'audit du 8 juillet 2026,
+qui a couvert l'ensemble du code existant à cette date. La cinquième est venue
+plus tard, en relisant mon propre dossier de projet. Les entrées sont datées du
+jour où la faille a été trouvée, pas du jour où je l'ai corrigée.
 
 ## Checklist avant de clore une fonctionnalité
 
@@ -109,3 +110,19 @@ Vérification que la clé `TMDB_API_KEY` (stockée dans `.env`) n'a jamais été
 - [x] Confirmation que `.gitignore` couvre bien le fichier
 
 **Statut :** Non concerné — déjà conforme, à surveiller à chaque nouveau commit.
+
+## 2026-10-28 — Dossier `.git` et fichiers `.sql` servis par le serveur
+
+**Source :** relecture de mon propre dossier de projet (l'arborescence du dépôt, dans les spécifications techniques)
+**Catégorie :** Vulnérabilité
+**Concerné Cinévo ?** Oui
+
+**Résumé en 2-3 lignes :**
+En relisant l'arborescence décrite dans mon dossier, j'ai vu que mon `.htaccess` fermait bien `.env`, `includes/` et `cache/`, mais laissait le dossier `.git` et les fichiers `.sql` accessibles depuis le navigateur. Un `.git` servi par le serveur permet de reconstituer tout le code source et son historique ; un `.sql` livre la structure de la base et les données de démonstration.
+
+**Action prise / à prendre :**
+- [x] `RedirectMatch 404 ^/\.git` ajouté au `.htaccess`
+- [x] `<FilesMatch "\.sql$">` + `Require all denied` ajouté au `.htaccess`
+- [ ] À revérifier le jour du déploiement : un `.htaccess` n'est pris en compte que si l'hébergeur autorise `AllowOverride`
+
+**Statut :** Corrigé le 2026-10-28.
