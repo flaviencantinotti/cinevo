@@ -138,8 +138,9 @@ présentable dans ces deux cas.
   dès le premier chargement, sur n'importe quelle machine. Les affiches passent
   par le CDN de TMDB, qui ne demande aucune clé. Voir `data/README.md` pour le
   régénérer.
-- **Affiche de remplacement** : un film dont TMDB ne fournit pas d'affiche reçoit
-  un visuel neutre, la mise en page ne se casse pas.
+- **Affiche de remplacement** : un visuel neutre est posé en fond CSS sur chaque
+  affiche. Qu'une image ne se charge pas ou que TMDB n'en fournisse aucune, c'est
+  lui qui apparaît — sans JavaScript. La mise en page ne se casse pas.
 - **Repli sur les variables d'environnement** du serveur si le `.env` est absent.
 
 ### Si MySQL ne répond pas
