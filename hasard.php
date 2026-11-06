@@ -23,19 +23,13 @@ if (isset($_GET['ajax'])) {
     echo json_encode($filmsAffiches);
     exit;
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Cinq films tirés au hasard, sans algorithme de recommandation. Sortez de votre bulle et découvrez un film à voir ce soir sur Cinévo.">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Films au hasard à découvrir · Cinévo</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Films au hasard à découvrir · Cinévo',
+    'description' => 'Cinq films tirés au hasard, sans algorithme de recommandation. Sortez de votre bulle et découvrez un film à voir ce soir sur Cinévo.',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -101,8 +95,4 @@ if (isset($_GET['ajax'])) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

@@ -1,20 +1,14 @@
 <?php
 $page = 'mentions-legales';
 require_once 'includes/auth.php';
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mentions légales de Cinévo : éditeur du site, hébergement, propriété intellectuelle et données personnelles.">
-    <meta name="robots" content="noindex, follow">
-    <title>Cinévo · Mentions légales</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Mentions légales',
+    'description' => 'Mentions légales de Cinévo : éditeur du site, hébergement, propriété intellectuelle et données personnelles.',
+    'robots'      => 'noindex, follow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
   <div class="page-editoriale">
@@ -120,8 +114,4 @@ require_once 'includes/auth.php';
   </div>
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

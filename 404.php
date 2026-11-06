@@ -1,19 +1,13 @@
 <?php
 $page = '404';
 require_once __DIR__ . '/includes/auth.php';
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Page introuvable · Cinévo</title>
-</head>
-<body>
 
-<?php include __DIR__ . '/includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Page introuvable · Cinévo',
+    'robots'      => 'noindex, nofollow',
+];
+include __DIR__ . '/includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -31,8 +25,4 @@ require_once __DIR__ . '/includes/auth.php';
 
 </main>
 
-<?php include __DIR__ . '/includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include __DIR__ . '/includes/fin-page.php'; ?>

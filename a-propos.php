@@ -1,19 +1,13 @@
 <?php
 $page = 'a-propos';
 require_once 'includes/auth.php';
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Pourquoi Cinévo existe, qui l'a écrit et la seule règle qui y tient : aucun ton snob toléré. Un site d'avis cinéma sans notes ni algorithme.">
-    <title>À propos de Cinévo · Pourquoi ce site existe</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'À propos de Cinévo · Pourquoi ce site existe',
+    'description' => 'Pourquoi Cinévo existe, qui l\'a écrit et la seule règle qui y tient : aucun ton snob toléré. Un site d\'avis cinéma sans notes ni algorithme.',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -111,8 +105,4 @@ require_once 'includes/auth.php';
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

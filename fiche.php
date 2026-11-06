@@ -42,28 +42,23 @@ if ($id > 0) {
 if (!$film) {
     http_response_code(404);
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php if ($film): ?>
-        <?php
-            $descriptionMeta = trim(($realisateur ? $realisateur . ' · ' : '') . ($film['overview'] ?? ''));
-            $descriptionMeta = $descriptionMeta !== '' ? $descriptionMeta : 'Lisez les avis et critiques de la communauté Cinévo sur ' . $film['title'] . '.';
-        ?>
-        <meta name="description" content="<?= htmlspecialchars(mb_substr($descriptionMeta, 0, 155)) ?>">
-        <title><?= htmlspecialchars($film['title']) ?> (<?= $annee ?>) · Critique et avis | Cinévo</title>
-    <?php else: ?>
-        <meta name="robots" content="noindex, follow">
-        <title>Film introuvable · Cinévo</title>
-    <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+if ($film) {
+    $descriptionMeta = trim(($realisateur ? $realisateur . ' · ' : '') . ($film['overview'] ?? ''));
+    $descriptionMeta = $descriptionMeta !== '' ? $descriptionMeta : 'Lisez les avis et critiques de la communauté Cinévo sur ' . $film['title'] . '.';
+
+    $meta = [
+        'titre'       => $film['title'] . ' (' . $annee . ') · Critique et avis | Cinévo',
+        'description' => mb_substr($descriptionMeta, 0, 155),
+    ];
+} else {
+    $meta = [
+        'titre'  => 'Film introuvable · Cinévo',
+        'robots' => 'noindex, follow',
+    ];
+}
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -249,8 +244,4 @@ if (!$film) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

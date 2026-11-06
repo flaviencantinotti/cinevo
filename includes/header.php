@@ -2,22 +2,11 @@
 require_once __DIR__ . '/auth.php';
 $pageCourante = isset($page) ? $page : '';
 ?>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <header>
     <div class="entete">
         <a href="index.php" class="logo">CINÉVO</a>
 
-        <nav id="mainNav">
-            <a href="decouvrir.php" <?= $pageCourante === 'decouvrir' ? 'class="actif"' : '' ?>>Découvrir</a>
-            <a href="avis.php" <?= $pageCourante === 'avis' ? 'class="actif"' : '' ?>>Discussions</a>
-            <a href="hasard.php" <?= $pageCourante === 'hasard' ? 'class="actif"' : '' ?>>Au hasard</a>
-            <?php if (estConnecte()): ?>
-                <a href="home.php" <?= $pageCourante === 'home' ? 'class="actif"' : '' ?>>Mon fil</a>
-                <a href="mes-avis.php" <?= $pageCourante === 'mes-avis' ? 'class="actif"' : '' ?>>Mes avis</a>
-            <?php endif; ?>
-        </nav>
+        <?php include __DIR__ . '/nav.php'; ?>
 
         <div class="entete-nav">
             <form method="GET" action="recherche.php" class="barre-recherche">

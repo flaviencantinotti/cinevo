@@ -142,19 +142,14 @@ if (!baseDisponible()) {
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Mon profil</title>
-</head>
-<body class="page-profil">
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Mon profil',
+    'robots'      => 'noindex, nofollow',
+    'classe_body' => 'page-profil',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -255,8 +250,4 @@ if (!baseDisponible()) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>
