@@ -34,7 +34,8 @@ if ($conn !== null) {
     }
 }
 
-$temoinSchema = __DIR__ . '/../cache/schema-ok';
+// Un témoin par base. Base supprimée à la main : supprimer aussi son témoin, sinon les tables ne sont pas recréées.
+$temoinSchema = __DIR__ . '/../cache/schema-ok-' . preg_replace('/\W/', '_', $dbname);
 
 if ($conn !== null && !is_file($temoinSchema)) {
     $conn->query("
@@ -90,6 +91,7 @@ if ($conn !== null && !is_file($temoinSchema)) {
 
 // Connectée, la base ne doit plus échouer en silence : une requête ratée lève une exception.
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+set_exception_handler('repondreErreurInattendue');
 
 require_once __DIR__ . '/modeles/avis.php';
 require_once __DIR__ . '/modeles/utilisateurs.php';
