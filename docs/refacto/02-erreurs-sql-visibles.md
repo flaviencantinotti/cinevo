@@ -1,5 +1,13 @@
 # Étape 2 : une erreur SQL doit faire du bruit
 
+## Mots à connaître
+
+- **Exception** : un signal d'erreur que PHP « lance » (`throw`). Il remonte jusqu'à un
+  `try ... catch` qui l'attrape. Si personne ne l'attrape, la page s'arrête.
+- **Code `302` et `500`** : codes de réponse HTTP. `302` veut dire « va voir ailleurs »
+  (une redirection), `500` veut dire « le serveur a rencontré un problème ».
+- **Mode strict** : le réglage de mysqli où une requête qui échoue lève une exception.
+
 ## Le problème
 
 Dans `includes/db.php`, une ligne dit à PHP : « ne me signale aucune erreur MySQL ».
@@ -19,6 +27,8 @@ trop grand pour la colonne `INT` de la base :
 |---|---|---|
 | Avant | `302` vers la fiche du film, comme si tout allait bien | non (0 ligne en base) |
 | Après | `500` : l'erreur remonte | non (0 ligne en base) |
+
+(Depuis, `ecrire.php` vérifie aussi que le `film_id` tient dans la colonne : voir la leçon 06.)
 
 Avant, le visiteur croit avoir publié son avis, et il n'existe nulle part. C'est le
 pire cas : un bug qui ne laisse aucune trace, et que personne ne verra avant qu'un
@@ -50,7 +60,7 @@ une colonne `UNIQUE`). Le nombre `1062` est écrit une seule fois, avec un nom.
 
 **`inscrire()` et le changement d'e-mail de `profil.php`.** Ces deux endroits
 comptaient sur l'échec silencieux : « si `execute()` renvoie `false`, c'est que
-l'e-mail existe déjà ». Avec le mode strict, l'échec devient une exception, donc on
+l'e-mail existe déjà » (pour `inscrire()`, le nom d'utilisateur aussi est `UNIQUE`). Avec le mode strict, l'échec devient une exception, donc on
 l'attrape, et **on ne traite que le doublon** :
 
 ```php
@@ -76,10 +86,13 @@ Le dossier `tests/` est nouveau. Pour les lancer :
 php tests/lancer.php
 ```
 
-`tests/erreurs-sql-test.php` vérifie les trois comportements de `inscrire()` : succès,
-doublon (renvoie `false`), autre erreur (relancée). Les tests utilisent de **faux
-objets** à la place de la vraie base : ils sont rapides et ne risquent pas d'abîmer
-des données.
+`tests/erreurs-sql-test.php` vérifie les comportements de `inscrire()` : succès,
+doublon (renvoie `false`), autre erreur (relancée), et le rôle de `estDoublon()`.
+
+Ces tests utilisent de **faux objets** à la place de la vraie base. Un faux objet a les
+mêmes méthodes que le vrai (`prepare`, `execute`...), mais au lieu d'interroger MySQL il
+note le SQL reçu et renvoie les lignes qu'on a choisies. Le test peut alors vérifier ce
+qui a été demandé, sans base et sans risque d'abîmer des données.
 
 Un test qui ne peut jamais échouer ne prouve rien. On l'a donc essayé à l'envers :
 en cassant volontairement `estDoublon()` pour qu'elle réponde toujours « oui », deux
@@ -96,11 +109,13 @@ résultat sont **identiques** avant et après la modification.
 
 ## Ce qu'il reste à faire (et qui n'est pas dans cette étape)
 
-- En production, une exception non attrapée affiche une page blanche (code 500), parce
-  que `display_errors` est coupé. C'est déjà mieux qu'un faux succès, mais on peut faire
-  une vraie page d'erreur.
-- Dans `db.php`, le fichier `cache/schema-ok` est écrit même si la création des tables
-  a échoué. Le site ne retenterait alors jamais de les créer. À corriger séparément.
+- Une exception non attrapée dépendait du réglage `display_errors` du serveur : page
+  blanche, ou message brut avec chemins et SQL. La leçon 06 ajoute un filet : le détail
+  va dans le journal, le visiteur voit un message neutre. Une vraie page d'erreur
+  dessinée reste à faire.
+- Dans `db.php`, le témoin `cache/schema-ok-<base>` est écrit même si la création des
+  tables a échoué. Le site ne retenterait alors jamais de les créer. À corriger
+  séparément.
 
 ## À retenir pour l'oral
 

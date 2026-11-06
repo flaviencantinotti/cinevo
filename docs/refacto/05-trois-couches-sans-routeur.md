@@ -1,9 +1,10 @@
 # Étape 5 : mettre un nom sur les trois couches
 
-## Ce que tu as déjà, sans le savoir
+## Les trois couches, sans framework
 
-Après les étapes 1 à 4, ton projet est découpé en **trois couches**. C'est ce qu'on
-appelle MVC, et tu ne t'en es pas rendu compte parce qu'on n'a installé aucun framework :
+Après les étapes 1 à 4, le projet est découpé en **trois couches**. C'est ce qu'on
+appelle MVC, et il n'a fallu aucun **framework** (une grosse boîte à outils toute faite,
+comme Laravel) pour y arriver :
 
 | Couche | Rôle | Où elle vit chez toi |
 |---|---|---|
@@ -13,10 +14,16 @@ appelle MVC, et tu ne t'en es pas rendu compte parce qu'on n'a installé aucun f
 
 Dans une page, on lit toujours dans le même ordre : d'abord le contrôleur (jusqu'à
 `include 'includes/debut-page.php'`), ensuite la vue. Sur `profil.php`, un commentaire
-marque la frontière : « Fin du contrôleur : en dessous, que de l'affichage ».
+marque la frontière : « Fin du contrôleur : en dessous, que de l'affichage ». Les autres
+pages n'ont pas ce commentaire, mais la frontière est toujours le même `include`.
 
 C'est la forme la plus simple de MVC, souvent appelée **« une page = un contrôleur »**.
 Pour un site de cette taille, c'est le bon choix.
+
+**Où ranger `validation.php` ?** On peut le défendre côté contrôleur (on vérifie ce que le
+visiteur a tapé) ou côté modèle (ce sont des règles du métier, valables même sans
+formulaire). Ici, on l'a mis avec le contrôleur parce que ses fonctions renvoient des
+messages faits pour l'écran. Le plus important est de savoir expliquer ton choix.
 
 ## Le dernier nettoyage : l'envoi de la photo
 
@@ -32,8 +39,10 @@ On a séparé deux questions :
 2. **Que fait-on d'un fichier acceptable ?** (le ranger, supprimer l'ancien, mettre à
    jour la base). Cela reste dans la page, à plat : 3 niveaux au lieu de 5.
 
-Le contrôle du type lit le **contenu** du fichier (`mime_content_type`), pas son nom.
-Un fichier `virus.php` renommé en `photo.png` reste refusé, et inversement.
+Tu contrôlais déjà le type d'après le **contenu** du fichier (`mime_content_type`), pas
+d'après son nom : c'est le bon réflexe, on l'a gardé tel quel. Un fichier `virus.php`
+renommé en `photo.png` est refusé. Une vraie image est acceptée quel que soit son nom,
+et rangée avec la bonne extension.
 
 Cinq tests couvrent la règle, dont un vrai PNG de 1 pixel et un faux PNG qui contient du
 texte. En retirant le contrôle du type, le test du faux PNG devient rouge.
@@ -54,18 +63,25 @@ toutes les URL et appelle le bon contrôleur) apporte :
 
 Mais il coûte un fichier de réécriture d'URL (`.htaccess`), un changement de tous les
 liens du site et un risque de casser le référencement existant. Pour 22 pages, le gain
-est faible. Ça pourrait faire une **deuxième PR**, à part, quand les URL propres
+est faible. Ça pourrait faire une **deuxième proposition de modification (PR)**, à part, quand les URL propres
 deviendront utiles.
 
 ## Ce qui reste à faire (hors de cette PR)
 
 Ces points ne relèvent pas d'une refonte de structure, donc on les a laissés :
 
-- une vraie page d'erreur 500 (aujourd'hui, PHP affiche son message brut) ;
-- `cache/schema-ok` est écrit même si la création d'une table échoue ;
+- une vraie page d'erreur 500, dessinée comme le reste du site (le filet de la leçon 06
+  affiche seulement un message neutre) ;
+- `cache/schema-ok-<base>` est écrit même si la création d'une table échoue ;
 - le lien de réinitialisation du mot de passe, l'envoi des e-mails, la limitation des
   tentatives de connexion, les polices Google (RGPD) et la gestion d'un rôle admin :
   c'est de la sécurité et du produit, à traiter à part.
+
+## Pour t'entraîner
+
+Dans `profil.php`, le contrôleur est déjà bien séparé de la vue. Choisis une autre page
+de ton choix et vérifie : y a-t-il encore du SQL, ou un calcul, après `debut-page.php` ?
+Si oui, remonte-le au-dessus. (C'était le cas de `fiche.php`, corrigé dans la leçon 06.)
 
 ## À retenir pour l'oral
 

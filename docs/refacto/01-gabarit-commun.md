@@ -11,12 +11,12 @@ chacun, le même bloc encore : footer, script, `</body>`, `</html>`.
 
 - **Changer quelque chose coûte 22 modifications.** Ajouter une icône d'onglet,
   c'était 22 fichiers à ouvrir, et il suffit d'en oublier un.
-- **Les copies dérivent.** Quatre pages (`a-propos`, `conditions-generales`,
-  `cookies`, `mentions-legales`) écrivaient `charset="UTF-8"` et `initial-scale=1.0`,
+- **Les copies dérivent.** Trois pages (`a-propos`, `conditions-generales`,
+  `mentions-legales`) écrivaient `charset="UTF-8"` et `initial-scale=1.0`,
   les autres `charset="utf-8"` et `initial-scale=1`. Personne ne l'a voulu : c'est
   ce qui arrive quand on copie-colle.
 - **Le vrai contenu de la page est noyé.** Dans `contact.php`, ce qui compte (le
-  formulaire) commençait après 15 lignes de décor.
+  formulaire) commençait après une douzaine de lignes de décor.
 
 ## La règle
 
@@ -45,7 +45,7 @@ de recherche) passe par un petit tableau `$meta`, que la page remplit avant
 d'appeler le gabarit :
 
 ```php
-// avant : 15 lignes de HTML en tête de contact.php
+// avant : une douzaine de lignes de HTML en tête de contact.php
 // après :
 $meta = [
     'titre'       => 'Contact · Cinévo',
@@ -73,8 +73,8 @@ Un seul tableau nommé `$meta` réduit le risque de collision à un seul nom.
 ## Comment on a vérifié que rien n'a cassé
 
 On a lancé le site avant et après, et comparé le HTML produit par chaque page.
-Sur les 16 pages dont le contenu ne change pas d'une visite à l'autre, il est
-identique, aux détails près suivants :
+Parmi les 18 pages visibles sans être connecté, 16 ont un contenu stable d'une visite
+à l'autre : leur HTML est identique, aux détails près suivants :
 
 - les polices Google sont désormais dans le `<head>` (leur place normale) et plus au
   milieu du `<body>` ;
@@ -83,7 +83,8 @@ identique, aux détails près suivants :
   même pour le navigateur.
 
 L'accueil et « Au hasard » changent à chaque visite (le tirage est aléatoire), on les
-a donc seulement vérifiés à l'œil.
+a donc seulement vérifiés à l'œil. Les pages qui demandent une connexion sont
+couvertes par le parcours décrit à l'étape 2.
 
 Retiens la méthode : **avant de remanier du code qui marche, on se donne un moyen de
 prouver qu'il marche toujours après.** Ici, c'est comparer le HTML. Ailleurs, ce

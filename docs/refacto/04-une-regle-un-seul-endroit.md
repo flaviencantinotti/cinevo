@@ -1,5 +1,15 @@
 # Étape 4 : une règle, un seul endroit
 
+## Mots à connaître
+
+- **Jeton CSRF** : un code secret glissé dans chaque formulaire. Il prouve que le
+  formulaire vient bien de Cinévo, et pas d'un autre site qui essaierait d'agir à la
+  place du visiteur.
+- **Constante** (`const`) : une valeur nommée qu'on ne peut plus changer pendant
+  l'exécution.
+- **Octets et caractères** : `strlen` compte des octets (un `é` en prend 2),
+  `mb_strlen` compte des caractères.
+
 ## Le problème
 
 Certaines règles du site étaient écrites plusieurs fois, parfois avec de petites
@@ -7,9 +17,9 @@ différences :
 
 | Règle | Combien de copies | Où |
 |---|---|---|
-| Vérifier le jeton CSRF et afficher « Requête invalide… » | 10 | toutes les pages avec un formulaire |
+| Vérifier le jeton CSRF et afficher « Requête invalide… » | 9 | toutes les pages avec un formulaire |
 | « Il faut être connecté, sinon retour à la connexion » | 6 | profil, mes avis, modifier, supprimer, home, écrire |
-| Un mot de passe fait au moins 6 caractères | 3 (et 3 formulations) | inscription, profil, réinitialisation, plus `minlength="6"` dans le HTML |
+| Un mot de passe fait au moins 6 caractères | 3 (dont 2 formulations) | inscription, profil, réinitialisation, plus `minlength="6"` dans le HTML |
 | Une adresse e-mail est valide | 4 | inscription, profil, contact, mot de passe oublié |
 
 Le plus grave n'est pas le nombre de copies. C'est qu'**une copie manquait**. La page
@@ -22,7 +32,7 @@ Voici ce que ça donne sur le site d'origine, essayé pour de vrai :
 |---|---|---|
 | Modifier un avis avec un titre vide | « Avis modifié », et le titre est effacé | refusé : « Donnez un titre à votre avis. » |
 | Modifier un avis avec un titre de 300 caractères | « Avis modifié », mais la base refuse en silence | refusé : « Le titre ne doit pas dépasser 120 caractères. » |
-| Contact avec un e-mail de plus de 100 caractères | aucune erreur affichée, message non enregistré | refusé : « Cette adresse e-mail est trop longue. » |
+| Contact avec un e-mail de plus de 100 caractères | « Votre message a bien été envoyé » s'affiche, mais rien n'est enregistré | refusé : « Cette adresse e-mail est trop longue. » |
 
 Quand une règle est copiée à plusieurs endroits, un jour quelqu'un la corrige à un
 endroit et oublie les autres. Ici, c'est arrivé avant même d'avoir à la corriger.
@@ -35,7 +45,7 @@ Attention à ne pas en faire un dogme : deux morceaux de code qui se ressemblent
 hasard ne doivent pas forcément être fusionnés. Ce qu'on fusionne, c'est **une même
 décision** (« un mot de passe fait 6 caractères au moins »), pas deux boucles qui se
 ressemblent. Preuve : on a laissé séparés les messages « la base de données ne répond
-pas ». Ils ont 7 formulations parce que chaque page a un contexte différent
+pas ». Ils ont 8 formulations parce que chaque page a un contexte différent
 (publication, modification, suppression…), et ils évolueront chacun de leur côté.
 
 ## Ce qui a changé
@@ -50,9 +60,10 @@ erreurTitreAvis($titre)                      // non vide, 120 caractères au plu
 erreurContenuAvis($contenu)                  // 20 caractères au moins
 ```
 
-Les nombres (6, 100, 120, 20) sont des constantes nommées, écrites une fois. Le
-`minlength` des formulaires HTML les utilise aussi, donc le navigateur et le serveur ne
-peuvent plus se contredire.
+Les nombres (6, 100, 120, 20) sont des constantes nommées, écrites une fois. Les
+`minlength` des formulaires HTML (6 et 20) les utilisent aussi : le navigateur et le
+serveur ne peuvent plus se contredire sur ces deux-là. Les `maxlength` (120, 100) sont
+encore écrits en dur dans le HTML : c'est un bon exercice (voir plus bas).
 
 Pourquoi renvoyer un message plutôt que `true`/`false` ? Parce que la page n'a ensuite
 qu'à l'afficher, sans réécrire le texte. Et l'ordre des contrôles reste lisible dans la
@@ -67,12 +78,18 @@ page :
 } elseif ($password !== $confirm) { ... } elseif (strlen($password) < 6) { ... }
 
 // après
+$emailInvalide = erreurEmail($email);                      // un message, ou null
+$mdpInvalide   = erreurMotDePasse($password, $confirm);
+// ...
 } elseif ($emailInvalide) {
     $erreur = $emailInvalide;
 } elseif ($mdpInvalide) {
     $erreur = $mdpInvalide;
 }
 ```
+
+En PHP, `null` compte comme « faux » dans un `if` : `elseif ($emailInvalide)` veut dire
+« s'il y a un message d'erreur ».
 
 **`includes/auth.php`** gagne trois éléments :
 - `exigerConnexion()` remplace les 4 lignes recopiées dans 6 pages ;
@@ -101,16 +118,23 @@ il repasse au vert.
 
 ## Comment on a vérifié que rien d'autre n'a bougé
 
-Le parcours complet sur vraie base, rejoué avant et après : **seules les 4 lignes du
-tableau plus haut changent**, les 37 autres sont identiques. Le HTML des pages est
-inchangé.
+Le parcours complet sur vraie base, rejoué avant et après : **seules les lignes des
+cas du tableau plus haut changent** (modification d'avis et contact), les autres sont
+identiques. Le changement du message du profil et la limite d'e-mail de « mot de passe
+oublié » ne sont pas dans ce parcours : ils sont couverts par les tests des règles. Le
+HTML des pages est inchangé.
+
+Le tableau « avant » décrit le site d'origine. Depuis l'étape 2, le mode strict fait que
+ces cas lèvent une exception au lieu de rater en silence : c'est ce que la leçon 06
+corrige pour les champs qu'on avait oubliés.
 
 ## Pour t'entraîner
 
 Le compteur de caractères en JavaScript (`js/scripts.js`) contient encore `var MIN = 20`
 écrit en dur. La règle existe donc toujours à un endroit de trop. Comment ferais-tu pour
 que le JavaScript lise la valeur de `AVIS_LONGUEUR_MIN` ? (Piste : un attribut `data-min`
-sur le `<textarea>`.)
+sur le `<textarea>`, que le JavaScript lit avec `textarea.dataset.min`.) Même question
+pour les `maxlength` (120 et 100) écrits en dur dans le HTML.
 
 ## À retenir pour l'oral
 
