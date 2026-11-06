@@ -17,3 +17,19 @@ verifie('titre de 121 caractères refusé (compté en caractères, pas en octets
 
 verifie('avis de 19 caractères refusé', erreurContenuAvis(str_repeat('é', 19)) !== null);
 verifie('avis de 20 caractères accepté', erreurContenuAvis(str_repeat('é', 20)) === null);
+
+$types   = ['image/png' => 'png'];
+$tmpPng  = tempnam(sys_get_temp_dir(), 'ph');
+file_put_contents($tmpPng, base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='));
+$tmpTxt  = tempnam(sys_get_temp_dir(), 'ph');
+file_put_contents($tmpTxt, 'pas une image');
+$envoi = fn($erreur, $taille, $tmp) => ['error' => $erreur, 'size' => $taille, 'tmp_name' => $tmp];
+
+verifie('photo : aucun fichier choisi refusé', erreurPhotoTeleversee($envoi(UPLOAD_ERR_NO_FILE, 0, ''), 1000, $types) === 'Choisissez une image avant de valider.');
+verifie('photo : limite du serveur dépassée refusée', str_contains(erreurPhotoTeleversee($envoi(UPLOAD_ERR_INI_SIZE, 0, ''), 3145728, $types), 'serveur (3 Mo)'));
+verifie('photo : fichier trop gros refusé', str_contains(erreurPhotoTeleversee($envoi(UPLOAD_ERR_OK, 2000, $tmpPng), 1000, $types), 'ne doit pas dépasser'));
+verifie('photo : un texte n\'est pas une image', str_contains(erreurPhotoTeleversee($envoi(UPLOAD_ERR_OK, 13, $tmpTxt), 1000, $types), 'Format non supporté'));
+verifie('photo : un vrai PNG accepté', erreurPhotoTeleversee($envoi(UPLOAD_ERR_OK, 70, $tmpPng), 1000, $types) === null);
+
+unlink($tmpPng);
+unlink($tmpTxt);

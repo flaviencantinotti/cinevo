@@ -50,3 +50,30 @@ function erreurContenuAvis($contenu) {
 
     return null;
 }
+
+function erreurPhotoTeleversee($fichier, $tailleMaxOctets, array $typesAutorises) {
+    $tailleMaxMo = round($tailleMaxOctets / 1024 / 1024, 1);
+
+    if (!$fichier || $fichier['error'] === UPLOAD_ERR_NO_FILE) {
+        return 'Choisissez une image avant de valider.';
+    }
+
+    if ($fichier['error'] === UPLOAD_ERR_INI_SIZE || $fichier['error'] === UPLOAD_ERR_FORM_SIZE) {
+        return 'L\'image dépasse la taille maximale autorisée par le serveur (' . $tailleMaxMo . ' Mo).';
+    }
+
+    if ($fichier['error'] !== UPLOAD_ERR_OK) {
+        return 'L\'envoi a échoué, réessayez.';
+    }
+
+    if ($fichier['size'] > $tailleMaxOctets) {
+        return 'L\'image ne doit pas dépasser ' . $tailleMaxMo . ' Mo.';
+    }
+
+    // Le type vient du contenu du fichier, jamais du nom ni du type annoncé par le navigateur.
+    if (!isset($typesAutorises[mime_content_type($fichier['tmp_name'])])) {
+        return 'Format non supporté : utilisez une image JPG, PNG ou WebP.';
+    }
+
+    return null;
+}

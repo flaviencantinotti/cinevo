@@ -78,42 +78,29 @@ if (!baseDisponible()) {
 
         $fichier = $_FILES['photo'] ?? null;
 
-        if (!$fichier || $fichier['error'] === UPLOAD_ERR_NO_FILE) {
-            $erreurPhoto = 'Choisissez une image avant de valider.';
-        } elseif ($fichier['error'] === UPLOAD_ERR_INI_SIZE || $fichier['error'] === UPLOAD_ERR_FORM_SIZE) {
-            $erreurPhoto = 'L\'image dépasse la taille maximale autorisée par le serveur (' . $tailleMaxMo . ' Mo).';
-        } elseif ($fichier['error'] !== UPLOAD_ERR_OK) {
-            $erreurPhoto = 'L\'envoi a échoué, réessayez.';
-        } elseif ($fichier['size'] > $tailleMaxOctets) {
-            $erreurPhoto = 'L\'image ne doit pas dépasser ' . $tailleMaxMo . ' Mo.';
+        $photoInvalide = erreurPhotoTeleversee($fichier, $tailleMaxOctets, $typesAutorises);
+        $dossier       = __DIR__ . '/uploads/avatars/';
+
+        if ($photoInvalide) {
+            $erreurPhoto = $photoInvalide;
+        } elseif (!is_dir($dossier) || !is_writable($dossier)) {
+            $erreurPhoto = 'Envoi impossible : le dossier de destination n\'est pas accessible en écriture.';
         } else {
+            $extension  = $typesAutorises[mime_content_type($fichier['tmp_name'])];
+            $nomFichier = 'u' . $utilisateurId . '-' . bin2hex(random_bytes(8)) . '.' . $extension;
 
-            $typeReel = mime_content_type($fichier['tmp_name']);
+            if (move_uploaded_file($fichier['tmp_name'], $dossier . $nomFichier)) {
 
-            if (!isset($typesAutorises[$typeReel])) {
-                $erreurPhoto = 'Format non supporté : utilisez une image JPG, PNG ou WebP.';
-            } else {
-                $dossier = __DIR__ . '/uploads/avatars/';
-
-                if (!is_dir($dossier) || !is_writable($dossier)) {
-                    $erreurPhoto = 'Envoi impossible : le dossier de destination n\'est pas accessible en écriture.';
-                } else {
-                    $nomFichier = 'u' . $utilisateurId . '-' . bin2hex(random_bytes(8)) . '.' . $typesAutorises[$typeReel];
-
-                    if (move_uploaded_file($fichier['tmp_name'], $dossier . $nomFichier)) {
-
-                        if (!empty($utilisateur['photo_profil']) && is_file($dossier . $utilisateur['photo_profil'])) {
-                            @unlink($dossier . $utilisateur['photo_profil']);
-                        }
-
-                        changerPhoto($conn, $utilisateurId, $nomFichier);
-
-                        $utilisateur['photo_profil'] = $nomFichier;
-                        $succesPhoto = 'Votre photo de profil a été mise à jour.';
-                    } else {
-                        $erreurPhoto = 'Envoi impossible, réessayez.';
-                    }
+                if (!empty($utilisateur['photo_profil']) && is_file($dossier . $utilisateur['photo_profil'])) {
+                    @unlink($dossier . $utilisateur['photo_profil']);
                 }
+
+                changerPhoto($conn, $utilisateurId, $nomFichier);
+
+                $utilisateur['photo_profil'] = $nomFichier;
+                $succesPhoto = 'Votre photo de profil a été mise à jour.';
+            } else {
+                $erreurPhoto = 'Envoi impossible, réessayez.';
             }
         }
 
@@ -133,6 +120,7 @@ if (!baseDisponible()) {
     }
 }
 
+// Fin du contrôleur : en dessous, que de l'affichage.
 $meta = [
     'titre'       => 'Cinévo · Mon profil',
     'robots'      => 'noindex, nofollow',
