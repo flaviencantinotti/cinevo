@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/erreurs-sql.php';
 
 $host   = config_valeur('DB_HOST', 'localhost');
 $dbname = config_valeur('DB_NAME', 'cinevo');
 $user   = config_valeur('DB_USER', 'root');
 $pass   = config_valeur('DB_PASS', '');
 
+// Connexion impossible = cas prévu (mode dégradé), donc géré à la main plus bas.
 mysqli_report(MYSQLI_REPORT_OFF);
 
 $conn     = null;
@@ -85,6 +87,9 @@ if ($conn !== null && !is_file($temoinSchema)) {
     }
     @file_put_contents($temoinSchema, date('c'));
 }
+
+// Connectée, la base ne doit plus échouer en silence : une requête ratée lève une exception.
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 function baseDisponible() {
     global $conn;

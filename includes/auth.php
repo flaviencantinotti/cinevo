@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/erreurs-sql.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     $enHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
 
@@ -41,10 +43,15 @@ function inscrire($conn, $username, $email, $password) {
     $hash = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $conn->prepare("INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe) VALUES (?, ?, ?)");
     $stmt->bind_param('sss', $username, $email, $hash);
-    if ($stmt->execute()) {
+    try {
+        $stmt->execute();
         return true;
+    } catch (mysqli_sql_exception $erreur) {
+        if (estDoublon($erreur)) {
+            return false;
+        }
+        throw $erreur;
     }
-    return false;
 }
 
 function connecter($conn, $email, $password) {

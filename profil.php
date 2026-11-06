@@ -52,10 +52,14 @@ if (!baseDisponible()) {
             $stmt = $conn->prepare("UPDATE utilisateurs SET email = ? WHERE id = ?");
             $stmt->bind_param('si', $nouvelEmail, $utilisateurId);
 
-            if ($stmt->execute()) {
+            try {
+                $stmt->execute();
                 $utilisateur['email'] = $nouvelEmail;
                 $succesEmail = 'Votre adresse e-mail a été mise à jour.';
-            } else {
+            } catch (mysqli_sql_exception $erreur) {
+                if (!estDoublon($erreur)) {
+                    throw $erreur;
+                }
                 $erreurEmail = 'Cette adresse e-mail est déjà utilisée par un autre compte.';
             }
         }
