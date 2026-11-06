@@ -4,6 +4,12 @@ const MOT_DE_PASSE_LONGUEUR_MIN = 6;
 const EMAIL_LONGUEUR_MAX        = 100;
 const TITRE_AVIS_LONGUEUR_MAX   = 120;
 const AVIS_LONGUEUR_MIN         = 20;
+// Bien en dessous de la colonne TEXT (65535 octets, soit environ 16000 caractères accentués).
+const AVIS_LONGUEUR_MAX         = 10000;
+// Plus grand INT de la base : au-delà, l'INSERT d'un film_id échoue.
+const ENTIER_SQL_MAX            = 2147483647;
+const NOM_CONTACT_LONGUEUR_MAX  = 100;
+const MESSAGE_CONTACT_LONGUEUR_MAX = 5000;
 
 // Chaque fonction renvoie le message à afficher, ou null quand la valeur est correcte.
 
@@ -46,6 +52,26 @@ function erreurTitreAvis($titre) {
 function erreurContenuAvis($contenu) {
     if (mb_strlen($contenu) < AVIS_LONGUEUR_MIN) {
         return 'Votre avis doit faire au moins ' . AVIS_LONGUEUR_MIN . ' caractères.';
+    }
+
+    if (mb_strlen($contenu) > AVIS_LONGUEUR_MAX) {
+        return 'Votre avis ne doit pas dépasser ' . AVIS_LONGUEUR_MAX . ' caractères.';
+    }
+
+    return null;
+}
+
+function erreurNomContact($nom) {
+    if (mb_strlen($nom) > NOM_CONTACT_LONGUEUR_MAX) {
+        return 'Le nom ne doit pas dépasser ' . NOM_CONTACT_LONGUEUR_MAX . ' caractères.';
+    }
+
+    return null;
+}
+
+function erreurMessageContact($message) {
+    if (mb_strlen($message) > MESSAGE_CONTACT_LONGUEUR_MAX) {
+        return 'Le message ne doit pas dépasser ' . MESSAGE_CONTACT_LONGUEUR_MAX . ' caractères.';
     }
 
     return null;

@@ -95,7 +95,7 @@ include 'includes/debut-page.php';
 
             <div class="champ">
                 <label for="avis">Votre avis <span class="minimum">20 caractères minimum</span></label>
-                <textarea id="avis" name="avis" rows="8" required minlength="<?= AVIS_LONGUEUR_MIN ?>"><?= htmlspecialchars($_POST['avis'] ?? $avis['contenu']) ?></textarea>
+                <textarea id="avis" name="avis" rows="8" required minlength="<?= AVIS_LONGUEUR_MIN ?>" maxlength="<?= AVIS_LONGUEUR_MAX ?>"><?= htmlspecialchars($_POST['avis'] ?? $avis['contenu']) ?></textarea>
                 <div class="compteur"><span id="compteur">0</span> caractères</div>
             </div>
 

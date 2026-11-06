@@ -18,6 +18,14 @@ verifie('titre de 121 caractères refusé (compté en caractères, pas en octets
 verifie('avis de 19 caractères refusé', erreurContenuAvis(str_repeat('é', 19)) !== null);
 verifie('avis de 20 caractères accepté', erreurContenuAvis(str_repeat('é', 20)) === null);
 
+verifie('avis de 10000 caractères accepté', erreurContenuAvis(str_repeat('é', AVIS_LONGUEUR_MAX)) === null);
+verifie('avis de 10001 caractères refusé', str_contains(erreurContenuAvis(str_repeat('é', AVIS_LONGUEUR_MAX + 1)), 'ne doit pas dépasser'));
+
+verifie('nom de contact de 100 caractères accepté', erreurNomContact(str_repeat('é', 100)) === null);
+verifie('nom de contact de 101 caractères refusé', erreurNomContact(str_repeat('é', 101)) !== null);
+verifie('message de contact de 5000 caractères accepté', erreurMessageContact(str_repeat('é', 5000)) === null);
+verifie('message de contact de 5001 caractères refusé', erreurMessageContact(str_repeat('é', 5001)) !== null);
+
 $types   = ['image/png' => 'png'];
 $tmpPng  = tempnam(sys_get_temp_dir(), 'ph');
 file_put_contents($tmpPng, base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='));

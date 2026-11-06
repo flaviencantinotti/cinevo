@@ -18,12 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email   = trim($_POST['email'] ?? '');
         $message = trim($_POST['message'] ?? '');
 
-        $emailInvalide = erreurEmail($email);
+        $emailInvalide   = erreurEmail($email);
+        $nomInvalide     = erreurNomContact($nom);
+        $messageInvalide = erreurMessageContact($message);
 
         if ($nom === '' || $email === '' || $message === '') {
             $erreur = 'Merci de remplir tous les champs.';
         } elseif ($emailInvalide) {
             $erreur = $emailInvalide;
+        } elseif ($nomInvalide) {
+            $erreur = $nomInvalide;
+        } elseif ($messageInvalide) {
+            $erreur = $messageInvalide;
         } elseif (!baseDisponible()) {
             $erreur = 'Envoi impossible : la base de données ne répond pas. '
                 . 'Écrivez-nous directement à hello@cinevo.fr en attendant.';
@@ -60,7 +66,7 @@ include 'includes/debut-page.php';
         <?= csrf_champ() ?>
         <div class="champ">
             <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom" value="<?= htmlspecialchars($nom) ?>" required>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" maxlength="<?= NOM_CONTACT_LONGUEUR_MAX ?>" value="<?= htmlspecialchars($nom) ?>" required>
         </div>
         <div class="champ">
             <label for="email">E-mail</label>
@@ -68,7 +74,7 @@ include 'includes/debut-page.php';
         </div>
         <div class="champ">
             <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Votre message..." rows="6" required><?= htmlspecialchars($message) ?></textarea>
+            <textarea id="message" name="message" placeholder="Votre message..." rows="6" maxlength="<?= MESSAGE_CONTACT_LONGUEUR_MAX ?>" required><?= htmlspecialchars($message) ?></textarea>
         </div>
         <div class="boutons-form">
             <button type="submit" class="btn-rouge">Envoyer</button>

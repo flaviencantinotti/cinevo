@@ -58,19 +58,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titre   = trim($_POST['titre'] ?? '');
         $contenu = trim($_POST['avis'] ?? '');
 
-        $titreInvalide = erreurTitreAvis($titre);
+        $titreInvalide   = erreurTitreAvis($titre);
+        $contenuInvalide = erreurContenuAvis($contenu);
 
         if (!baseDisponible()) {
             $erreur = 'Publication impossible : la base de données ne répond pas. '
                 . 'Votre texte est conservé ci-dessous, réessayez dans un instant.';
         } elseif ($titreInvalide) {
             $erreur = $titreInvalide;
-        } elseif ($film_id > 0 && erreurContenuAvis($contenu) === null) {
+        } elseif ($contenuInvalide) {
+            $erreur = $contenuInvalide;
+        } elseif ($film_id <= 0 || $film_id > ENTIER_SQL_MAX) {
+            $erreur = 'Choisissez un film avant de publier votre avis.';
+        } else {
             ajouterAvis($conn, $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
             header('Location: fiche.php?id=' . $film_id);
             exit;
-        } else {
-            $erreur = 'Avis trop court ou film manquant.';
         }
     }
 }
@@ -171,7 +174,7 @@ include 'includes/debut-page.php';
         <div class="champ">
             <label for="avis">Votre avis <span class="minimum">20 caractères minimum</span></label>
             <textarea id="avis" name="avis" placeholder="Écrivez librement ce que ce film vous a fait..."
-                      rows="8" required minlength="<?= AVIS_LONGUEUR_MIN ?>"><?= htmlspecialchars($_POST['avis'] ?? '') ?></textarea>
+                      rows="8" required minlength="<?= AVIS_LONGUEUR_MIN ?>" maxlength="<?= AVIS_LONGUEUR_MAX ?>"><?= htmlspecialchars($_POST['avis'] ?? '') ?></textarea>
             <div class="compteur"><span id="compteur">0</span> caractères</div>
         </div>
 
