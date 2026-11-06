@@ -43,6 +43,12 @@ if (!$film) {
     http_response_code(404);
 }
 
+$avisFilm = [];
+
+if ($film && baseDisponible()) {
+    $avisFilm = avisDuFilm($conn, $id);
+}
+
 if ($film) {
     $descriptionMeta = trim(($realisateur ? $realisateur . ' · ' : '') . ($film['overview'] ?? ''));
     $descriptionMeta = $descriptionMeta !== '' ? $descriptionMeta : 'Lisez les avis et critiques de la communauté Cinévo sur ' . $film['title'] . '.';
@@ -182,14 +188,6 @@ include 'includes/debut-page.php';
                 Aucune note ni classement ici : seulement l'avis de la communauté Cinévo sur
                 <?= htmlspecialchars($film['title']) ?>, dans ses propres mots.
             </p>
-
-            <?php
-            $avisFilm = [];
-
-            if (baseDisponible()) {
-                $avisFilm = avisDuFilm($conn, $id);
-            }
-            ?>
 
             <?php if (!baseDisponible()): ?>
                 <?= messageBaseIndisponible('L\'affichage des avis') ?>

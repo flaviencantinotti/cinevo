@@ -1,4 +1,6 @@
 <?php
+// += complète les clés que la page n'a pas données, sans écraser les autres.
+// Les trois htmlspecialchars n'ont pas les mêmes options : on garde l'ancien HTML à l'octet près.
 $meta += ['description' => '', 'robots' => '', 'classe_body' => ''];
 ?>
 <!DOCTYPE html>
