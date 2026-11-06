@@ -3,11 +3,9 @@ $page = 'profil';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/format.php';
+require_once 'includes/validation.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $erreurEmail = '';
 $succesEmail = '';
@@ -26,36 +24,34 @@ $tailleMaxMo     = round($tailleMaxOctets / 1024 / 1024, 1);
 if (!baseDisponible()) {
     $erreurEmail = 'Cette page est momentanément indisponible : la base de données ne répond pas.';
 } else {
-    $stmt = $conn->prepare("SELECT nom_utilisateur, email, mot_de_passe, photo_profil FROM utilisateurs WHERE id = ?");
-    $stmt->bind_param('i', $utilisateurId);
-    $stmt->execute();
-    $utilisateur = $stmt->get_result()->fetch_assoc();
+    $utilisateur = trouverUtilisateur($conn, $utilisateurId);
 
     if (!$utilisateur) {
         deconnecter();
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreurEmail = $erreurMdp = $erreurPhoto = 'Requête invalide, merci de réessayer.';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrf_verifie_post()) {
+        $erreurEmail = $erreurMdp = $erreurPhoto = ERREUR_CSRF;
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'email') {
 
         $nouvelEmail       = trim($_POST['email'] ?? '');
         $motDePasseActuel  = trim($_POST['mot_de_passe_actuel'] ?? '');
 
+        $emailInvalide = erreurEmail($nouvelEmail);
+
         if (!password_verify($motDePasseActuel, $utilisateur['mot_de_passe'])) {
             $erreurEmail = 'Mot de passe incorrect.';
-        } elseif (!filter_var($nouvelEmail, FILTER_VALIDATE_EMAIL)) {
-            $erreurEmail = 'Cette adresse e-mail n\'est pas valide.';
-        } elseif (strlen($nouvelEmail) > 100) {
-            $erreurEmail = 'Cette adresse e-mail est trop longue.';
+        } elseif ($emailInvalide) {
+            $erreurEmail = $emailInvalide;
         } else {
-            $stmt = $conn->prepare("UPDATE utilisateurs SET email = ? WHERE id = ?");
-            $stmt->bind_param('si', $nouvelEmail, $utilisateurId);
-
-            if ($stmt->execute()) {
+            try {
+                changerEmail($conn, $utilisateurId, $nouvelEmail);
                 $utilisateur['email'] = $nouvelEmail;
                 $succesEmail = 'Votre adresse e-mail a été mise à jour.';
-            } else {
+            } catch (mysqli_sql_exception $erreur) {
+                if (!estDoublon($erreur)) {
+                    throw $erreur;
+                }
                 $erreurEmail = 'Cette adresse e-mail est déjà utilisée par un autre compte.';
             }
         }
@@ -66,17 +62,15 @@ if (!baseDisponible()) {
         $nouveauMdp       = trim($_POST['nouveau_mot_de_passe'] ?? '');
         $confirmation     = trim($_POST['confirmation'] ?? '');
 
+        $mdpInvalide = erreurMotDePasse($nouveauMdp, $confirmation);
+
         if (!password_verify($motDePasseActuel, $utilisateur['mot_de_passe'])) {
             $erreurMdp = 'Mot de passe actuel incorrect.';
-        } elseif ($nouveauMdp !== $confirmation) {
-            $erreurMdp = 'Les mots de passe ne correspondent pas.';
-        } elseif (strlen($nouveauMdp) < 6) {
-            $erreurMdp = 'Le nouveau mot de passe doit faire au moins 6 caractères.';
+        } elseif ($mdpInvalide) {
+            $erreurMdp = $mdpInvalide;
         } else {
             $hash = password_hash($nouveauMdp, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?");
-            $stmt->bind_param('si', $hash, $utilisateurId);
-            $stmt->execute();
+            changerMotDePasse($conn, $utilisateurId, $hash);
             $succesMdp = 'Votre mot de passe a été changé.';
         }
 
@@ -84,44 +78,29 @@ if (!baseDisponible()) {
 
         $fichier = $_FILES['photo'] ?? null;
 
-        if (!$fichier || $fichier['error'] === UPLOAD_ERR_NO_FILE) {
-            $erreurPhoto = 'Choisissez une image avant de valider.';
-        } elseif ($fichier['error'] === UPLOAD_ERR_INI_SIZE || $fichier['error'] === UPLOAD_ERR_FORM_SIZE) {
-            $erreurPhoto = 'L\'image dépasse la taille maximale autorisée par le serveur (' . $tailleMaxMo . ' Mo).';
-        } elseif ($fichier['error'] !== UPLOAD_ERR_OK) {
-            $erreurPhoto = 'L\'envoi a échoué, réessayez.';
-        } elseif ($fichier['size'] > $tailleMaxOctets) {
-            $erreurPhoto = 'L\'image ne doit pas dépasser ' . $tailleMaxMo . ' Mo.';
+        $photoInvalide = erreurPhotoTeleversee($fichier, $tailleMaxOctets, $typesAutorises);
+        $dossier       = __DIR__ . '/uploads/avatars/';
+
+        if ($photoInvalide) {
+            $erreurPhoto = $photoInvalide;
+        } elseif (!is_dir($dossier) || !is_writable($dossier)) {
+            $erreurPhoto = 'Envoi impossible : le dossier de destination n\'est pas accessible en écriture.';
         } else {
+            $extension  = $typesAutorises[mime_content_type($fichier['tmp_name'])];
+            $nomFichier = 'u' . $utilisateurId . '-' . bin2hex(random_bytes(8)) . '.' . $extension;
 
-            $typeReel = mime_content_type($fichier['tmp_name']);
+            if (move_uploaded_file($fichier['tmp_name'], $dossier . $nomFichier)) {
 
-            if (!isset($typesAutorises[$typeReel])) {
-                $erreurPhoto = 'Format non supporté : utilisez une image JPG, PNG ou WebP.';
-            } else {
-                $dossier = __DIR__ . '/uploads/avatars/';
-
-                if (!is_dir($dossier) || !is_writable($dossier)) {
-                    $erreurPhoto = 'Envoi impossible : le dossier de destination n\'est pas accessible en écriture.';
-                } else {
-                    $nomFichier = 'u' . $utilisateurId . '-' . bin2hex(random_bytes(8)) . '.' . $typesAutorises[$typeReel];
-
-                    if (move_uploaded_file($fichier['tmp_name'], $dossier . $nomFichier)) {
-
-                        if (!empty($utilisateur['photo_profil']) && is_file($dossier . $utilisateur['photo_profil'])) {
-                            @unlink($dossier . $utilisateur['photo_profil']);
-                        }
-
-                        $stmt = $conn->prepare("UPDATE utilisateurs SET photo_profil = ? WHERE id = ?");
-                        $stmt->bind_param('si', $nomFichier, $utilisateurId);
-                        $stmt->execute();
-
-                        $utilisateur['photo_profil'] = $nomFichier;
-                        $succesPhoto = 'Votre photo de profil a été mise à jour.';
-                    } else {
-                        $erreurPhoto = 'Envoi impossible, réessayez.';
-                    }
+                if (!empty($utilisateur['photo_profil']) && is_file($dossier . $utilisateur['photo_profil'])) {
+                    @unlink($dossier . $utilisateur['photo_profil']);
                 }
+
+                changerPhoto($conn, $utilisateurId, $nomFichier);
+
+                $utilisateur['photo_profil'] = $nomFichier;
+                $succesPhoto = 'Votre photo de profil a été mise à jour.';
+            } else {
+                $erreurPhoto = 'Envoi impossible, réessayez.';
             }
         }
 
@@ -133,28 +112,22 @@ if (!baseDisponible()) {
                 @unlink($chemin);
             }
 
-            $stmt = $conn->prepare("UPDATE utilisateurs SET photo_profil = NULL WHERE id = ?");
-            $stmt->bind_param('i', $utilisateurId);
-            $stmt->execute();
+            changerPhoto($conn, $utilisateurId, null);
 
             $utilisateur['photo_profil'] = null;
             $succesPhoto = 'Votre photo a été supprimée, vous revenez à l\'avatar par défaut.';
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Mon profil</title>
-</head>
-<body class="page-profil">
 
-<?php include 'includes/header.php'; ?>
+// Fin du contrôleur : en dessous, que de l'affichage.
+$meta = [
+    'titre'       => 'Cinévo · Mon profil',
+    'robots'      => 'noindex, nofollow',
+    'classe_body' => 'page-profil',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -255,8 +228,4 @@ if (!baseDisponible()) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

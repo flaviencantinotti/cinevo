@@ -6,10 +6,7 @@ require_once 'includes/db.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $tmdb = new TMDB();
 
@@ -20,29 +17,15 @@ if (isset($_GET['supprime'])) $confirmation = 'Votre avis a été supprimé.';
 $mesAvis = [];
 
 if (baseDisponible()) {
-    $stmt = $conn->prepare("
-        SELECT id, film_id, titre, contenu, publie_le
-        FROM avis
-        WHERE utilisateur_id = ?
-        ORDER BY publie_le DESC
-    ");
-    $stmt->bind_param('i', $_SESSION['utilisateur_id']);
-    $stmt->execute();
-    $mesAvis = ajouterFilms($tmdb, $stmt->get_result()->fetch_all(MYSQLI_ASSOC));
+    $mesAvis = ajouterFilms($tmdb, avisDeLUtilisateur($conn, $_SESSION['utilisateur_id']));
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Mes avis</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Mes avis',
+    'robots'      => 'noindex, nofollow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -98,8 +81,4 @@ if (baseDisponible()) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

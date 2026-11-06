@@ -9,35 +9,19 @@ $tmdb = new TMDB();
 $avisRecents = [];
 
 if (baseDisponible()) {
-    $result = $conn->query("
-        SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur
-        FROM avis
-        JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-        ORDER BY avis.publie_le DESC
-        LIMIT 3
-    ");
-
-    $avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : []);
+    $avisRecents = ajouterFilms($tmdb, derniersAvis($conn, 3));
 }
 
 $filmHero = $avisRecents[0] ?? null;
 
 $filmsPioche = $tmdb->getRandomMovies(3);
+
+$meta = [
+    'titre'       => 'Cinévo · Le cinéma se lit aussi',
+    'description' => 'Cinévo, le site d\'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu\'elle a vu et ressenti, sans algorithme.',
+];
+include 'includes/debut-page.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Cinévo, le site d'avis et critiques de films sans notes ni étoiles. Une communauté de cinéphiles qui écrit ce qu'elle a vu et ressenti, sans algorithme.">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Le cinéma se lit aussi</title>
-</head>
-
-<body>
-
-    <?php include 'includes/header.php'; ?>
 
     <main class="contenu">
 
@@ -146,9 +130,4 @@ $filmsPioche = $tmdb->getRandomMovies(3);
 
     </main>
 
-    <?php include 'includes/footer.php'; ?>
-
-    <script src="js/scripts.js"></script>
-</body>
-
-</html>
+    <?php include 'includes/fin-page.php'; ?>

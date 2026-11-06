@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/config.php';
+require_once __DIR__ . '/erreurs-sql.php';
 
 $host   = config_valeur('DB_HOST', 'localhost');
 $dbname = config_valeur('DB_NAME', 'cinevo');
 $user   = config_valeur('DB_USER', 'root');
 $pass   = config_valeur('DB_PASS', '');
 
+// Connexion impossible = cas prévu (mode dégradé), donc géré à la main plus bas.
 mysqli_report(MYSQLI_REPORT_OFF);
 
 $conn     = null;
@@ -32,7 +34,8 @@ if ($conn !== null) {
     }
 }
 
-$temoinSchema = __DIR__ . '/../cache/schema-ok';
+// Un témoin par base. Base supprimée à la main : supprimer aussi son témoin, sinon les tables ne sont pas recréées.
+$temoinSchema = __DIR__ . '/../cache/schema-ok-' . preg_replace('/\W/', '_', $dbname);
 
 if ($conn !== null && !is_file($temoinSchema)) {
     $conn->query("
@@ -85,6 +88,14 @@ if ($conn !== null && !is_file($temoinSchema)) {
     }
     @file_put_contents($temoinSchema, date('c'));
 }
+
+// Connectée, la base ne doit plus échouer en silence : une requête ratée lève une exception.
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+set_exception_handler('repondreErreurInattendue');
+
+require_once __DIR__ . '/modeles/avis.php';
+require_once __DIR__ . '/modeles/utilisateurs.php';
+require_once __DIR__ . '/modeles/messages-contact.php';
 
 function baseDisponible() {
     global $conn;

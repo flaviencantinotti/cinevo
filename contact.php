@@ -2,6 +2,7 @@
 $page = 'contact';
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
+require_once 'includes/validation.php';
 
 $erreur  = '';
 $succes  = false;
@@ -10,43 +11,43 @@ $email   = '';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } else {
         $nom     = trim($_POST['nom'] ?? '');
         $email   = trim($_POST['email'] ?? '');
         $message = trim($_POST['message'] ?? '');
 
+        $emailInvalide   = erreurEmail($email);
+        $nomInvalide     = erreurNomContact($nom);
+        $messageInvalide = erreurMessageContact($message);
+
         if ($nom === '' || $email === '' || $message === '') {
             $erreur = 'Merci de remplir tous les champs.';
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $erreur = 'Cette adresse e-mail n\'est pas valide.';
+        } elseif ($emailInvalide) {
+            $erreur = $emailInvalide;
+        } elseif ($nomInvalide) {
+            $erreur = $nomInvalide;
+        } elseif ($messageInvalide) {
+            $erreur = $messageInvalide;
         } elseif (!baseDisponible()) {
             $erreur = 'Envoi impossible : la base de données ne répond pas. '
                 . 'Écrivez-nous directement à hello@cinevo.fr en attendant.';
         } else {
-            $stmt = $conn->prepare("INSERT INTO messages_contact (nom, email, message) VALUES (?, ?, ?)");
-            $stmt->bind_param('sss', $nom, $email, $message);
-            $stmt->execute();
+            enregistrerMessageContact($conn, $nom, $email, $message);
 
             $succes  = true;
             $nom = $email = $message = '';
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Une question, une suggestion ou une remarque sur Cinévo ? Contactez l'équipe directement via ce formulaire.">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Contact · Cinévo</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Contact · Cinévo',
+    'description' => 'Une question, une suggestion ou une remarque sur Cinévo ? Contactez l\'équipe directement via ce formulaire.',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -65,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?= csrf_champ() ?>
         <div class="champ">
             <label for="nom">Nom</label>
-            <input type="text" id="nom" name="nom" placeholder="Votre nom" value="<?= htmlspecialchars($nom) ?>" required>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom" maxlength="<?= NOM_CONTACT_LONGUEUR_MAX ?>" value="<?= htmlspecialchars($nom) ?>" required>
         </div>
         <div class="champ">
             <label for="email">E-mail</label>
@@ -73,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="champ">
             <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Votre message..." rows="6" required><?= htmlspecialchars($message) ?></textarea>
+            <textarea id="message" name="message" placeholder="Votre message..." rows="6" maxlength="<?= MESSAGE_CONTACT_LONGUEUR_MAX ?>" required><?= htmlspecialchars($message) ?></textarea>
         </div>
         <div class="boutons-form">
             <button type="submit" class="btn-rouge">Envoyer</button>
@@ -86,8 +87,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

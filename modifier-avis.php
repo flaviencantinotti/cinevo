@@ -4,11 +4,9 @@ $page = 'mes-avis';
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 require_once 'includes/tmdb.php';
+require_once 'includes/validation.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $tmdb = new TMDB();
 
@@ -17,19 +15,12 @@ $erreur  = '';
 $avis    = null;
 
 if (baseDisponible() && $id > 0) {
-    $requete = $conn->prepare("
-        SELECT id, film_id, titre, contenu
-        FROM avis
-        WHERE id = ? AND utilisateur_id = ?
-    ");
-    $requete->bind_param('ii', $id, $_SESSION['utilisateur_id']);
-    $requete->execute();
-    $avis = $requete->get_result()->fetch_assoc();
+    $avis = trouverAvisDeLUtilisateur($conn, $id, $_SESSION['utilisateur_id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Modification impossible : la base de données ne répond pas.';
     } elseif (!$avis) {
@@ -38,16 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titre   = trim($_POST['titre'] ?? '');
         $contenu = trim($_POST['avis'] ?? '');
 
-        if (mb_strlen($contenu) < 20) {
-            $erreur = 'Votre avis doit faire au moins 20 caractères.';
+        $titreInvalide   = erreurTitreAvis($titre);
+        $contenuInvalide = erreurContenuAvis($contenu);
+
+        if ($titreInvalide) {
+            $erreur = $titreInvalide;
+        } elseif ($contenuInvalide) {
+            $erreur = $contenuInvalide;
         } else {
-            $requete = $conn->prepare("
-                UPDATE avis
-                SET titre = ?, contenu = ?
-                WHERE id = ? AND utilisateur_id = ?
-            ");
-            $requete->bind_param('ssii', $titre, $contenu, $id, $_SESSION['utilisateur_id']);
-            $requete->execute();
+            modifierAvis($conn, $id, $_SESSION['utilisateur_id'], $titre, $contenu);
 
             header('Location: mes-avis.php?modifie=1');
             exit;
@@ -60,19 +50,13 @@ if ($avis) {
     $film = $tmdb->getMovie((int) $avis['film_id']);
     $filmTitre = $film['title'] ?? 'ce film';
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Modifier mon avis</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Modifier mon avis',
+    'robots'      => 'noindex, nofollow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -111,7 +95,7 @@ if ($avis) {
 
             <div class="champ">
                 <label for="avis">Votre avis <span class="minimum">20 caractères minimum</span></label>
-                <textarea id="avis" name="avis" rows="8" required minlength="20"><?= htmlspecialchars($_POST['avis'] ?? $avis['contenu']) ?></textarea>
+                <textarea id="avis" name="avis" rows="8" required minlength="<?= AVIS_LONGUEUR_MIN ?>" maxlength="<?= AVIS_LONGUEUR_MAX ?>"><?= htmlspecialchars($_POST['avis'] ?? $avis['contenu']) ?></textarea>
                 <div class="compteur"><span id="compteur">0</span> caractères</div>
             </div>
 
@@ -126,8 +110,4 @@ if ($avis) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

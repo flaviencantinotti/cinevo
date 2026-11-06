@@ -5,36 +5,18 @@ require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $tmdb = new TMDB();
 
-$avisRecents = [];
-$result = baseDisponible() ? $conn->query("
-    SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur, utilisateurs.photo_profil
-    FROM avis
-    JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-    ORDER BY avis.publie_le DESC
-    LIMIT 10
-") : null;
+$avisRecents = baseDisponible() ? ajouterFilms($tmdb, derniersAvis($conn, 10)) : [];
 
-$avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : []);
+$meta = [
+    'titre'       => 'Cinévo · Mon fil',
+    'robots'      => 'noindex, nofollow',
+];
+include 'includes/debut-page.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Mon fil</title>
-</head>
-<body>
-
-<?php include 'includes/header.php'; ?>
 
 <main class="contenu">
 
@@ -93,8 +75,4 @@ $avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : 
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

@@ -2,6 +2,7 @@
 $page = 'reinitialiser-mdp';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_once 'includes/validation.php';
 
 $jeton  = $_GET['token'] ?? ($_POST['token'] ?? '');
 $erreur = '';
@@ -10,8 +11,8 @@ $succes = false;
 $utilisateurId = (baseDisponible() && $jeton !== '') ? utilisateurDepuisJeton($conn, $jeton) : null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Impossible pour le moment : la base de données ne répond pas.';
     } elseif (!$utilisateurId) {
@@ -20,34 +21,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST['password'] ?? '');
         $confirm  = trim($_POST['confirm'] ?? '');
 
-        if ($password !== $confirm) {
-            $erreur = 'Les mots de passe ne correspondent pas.';
-        } elseif (strlen($password) < 6) {
-            $erreur = 'Le mot de passe doit faire au moins 6 caractères.';
+        $mdpInvalide = erreurMotDePasse($password, $confirm);
+
+        if ($mdpInvalide) {
+            $erreur = $mdpInvalide;
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?");
-            $stmt->bind_param('si', $hash, $utilisateurId);
-            $stmt->execute();
+            changerMotDePasse($conn, $utilisateurId, $hash);
 
             invaliderJeton($conn, $jeton);
             $succes = true;
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Nouveau mot de passe</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Nouveau mot de passe',
+    'robots'      => 'noindex, nofollow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
     <div class="boite-inscription">
@@ -97,8 +90,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

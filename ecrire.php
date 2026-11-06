@@ -4,6 +4,7 @@ require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
+require_once 'includes/validation.php';
 $tmdb = new TMDB();
 
 $resultats       = [];
@@ -48,49 +49,41 @@ if (!empty($_GET['q'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!estConnecte()) {
-        header('Location: connexion.php');
-        exit;
-    }
+    exigerConnexion();
 
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } else {
         $film_id = (int) ($_POST['film_id'] ?? 0);
         $titre   = trim($_POST['titre'] ?? '');
         $contenu = trim($_POST['avis'] ?? '');
 
+        $titreInvalide   = erreurTitreAvis($titre);
+        $contenuInvalide = erreurContenuAvis($contenu);
+
         if (!baseDisponible()) {
             $erreur = 'Publication impossible : la base de données ne répond pas. '
                 . 'Votre texte est conservé ci-dessous, réessayez dans un instant.';
-        } elseif ($titre === '') {
-            $erreur = 'Donnez un titre à votre avis.';
-        } elseif (mb_strlen($titre) > 120) {
-            $erreur = 'Le titre ne doit pas dépasser 120 caractères.';
-        } elseif ($film_id > 0 && mb_strlen($contenu) >= 20) {
-            $stmt = $conn->prepare("INSERT INTO avis (utilisateur_id, film_id, titre, contenu) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param('iiss', $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
-            $stmt->execute();
+        } elseif ($titreInvalide) {
+            $erreur = $titreInvalide;
+        } elseif ($contenuInvalide) {
+            $erreur = $contenuInvalide;
+        } elseif ($film_id <= 0 || $film_id > ENTIER_SQL_MAX) {
+            $erreur = 'Choisissez un film avant de publier votre avis.';
+        } else {
+            ajouterAvis($conn, $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
             header('Location: fiche.php?id=' . $film_id);
             exit;
-        } else {
-            $erreur = 'Avis trop court ou film manquant.';
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Écrire un avis</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Écrire un avis',
+    'robots'      => 'noindex, nofollow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -181,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="champ">
             <label for="avis">Votre avis <span class="minimum">20 caractères minimum</span></label>
             <textarea id="avis" name="avis" placeholder="Écrivez librement ce que ce film vous a fait..."
-                      rows="8" required minlength="20"><?= htmlspecialchars($_POST['avis'] ?? '') ?></textarea>
+                      rows="8" required minlength="<?= AVIS_LONGUEUR_MIN ?>" maxlength="<?= AVIS_LONGUEUR_MAX ?>"><?= htmlspecialchars($_POST['avis'] ?? '') ?></textarea>
             <div class="compteur"><span id="compteur">0</span> caractères</div>
         </div>
 
@@ -196,8 +189,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

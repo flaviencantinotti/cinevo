@@ -1,20 +1,14 @@
 <?php
 $page = 'cookies';
 require_once 'includes/auth.php';
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi et comment les gérer ou les supprimer.">
-    <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Politique cookies</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Politique cookies',
+    'description' => 'La politique cookies de Cinévo : quels cookies sont utilisés, pourquoi et comment les gérer ou les supprimer.',
+    'robots'      => 'noindex, follow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
   <div class="page-editoriale">
@@ -90,8 +84,4 @@ require_once 'includes/auth.php';
   </div>
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

@@ -9,8 +9,8 @@ $email  = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
 
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Connexion impossible : la base de données ne répond pas.';
     } else {
@@ -24,19 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Connexion</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Connexion',
+    'robots'      => 'noindex, follow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
     <div class="boite-connexion">
@@ -64,8 +58,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

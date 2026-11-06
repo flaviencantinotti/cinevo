@@ -2,6 +2,7 @@
 $page = 'mot-de-passe-oublie';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_once 'includes/validation.php';
 
 $erreur    = '';
 $email     = '';
@@ -13,23 +14,21 @@ $enLocal = in_array($adresse, ['127.0.0.1', '::1', 'localhost'], true);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
+    $emailInvalide = erreurEmail($email);
 
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Impossible pour le moment : la base de données ne répond pas.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $erreur = 'Cette adresse e-mail n\'est pas valide.';
+    } elseif ($emailInvalide) {
+        $erreur = $emailInvalide;
     } else {
-        $stmt = $conn->prepare("SELECT id FROM utilisateurs WHERE email = ?");
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $utilisateur = $stmt->get_result()->fetch_assoc();
+        $utilisateurId = trouverIdParEmail($conn, $email);
 
         $demandeEnvoyee = true;
 
-        if ($utilisateur) {
-            $jeton = genererJetonReinitialisation($conn, (int) $utilisateur['id']);
+        if ($utilisateurId) {
+            $jeton = genererJetonReinitialisation($conn, $utilisateurId);
 
             if ($enLocal) {
                 $lienReset = 'reinitialiser-mdp.php?token=' . $jeton;
@@ -37,19 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Mot de passe oublié</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Mot de passe oublié',
+    'robots'      => 'noindex, follow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
     <div class="boite-connexion">
@@ -96,8 +89,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

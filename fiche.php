@@ -42,28 +42,29 @@ if ($id > 0) {
 if (!$film) {
     http_response_code(404);
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php if ($film): ?>
-        <?php
-            $descriptionMeta = trim(($realisateur ? $realisateur . ' · ' : '') . ($film['overview'] ?? ''));
-            $descriptionMeta = $descriptionMeta !== '' ? $descriptionMeta : 'Lisez les avis et critiques de la communauté Cinévo sur ' . $film['title'] . '.';
-        ?>
-        <meta name="description" content="<?= htmlspecialchars(mb_substr($descriptionMeta, 0, 155)) ?>">
-        <title><?= htmlspecialchars($film['title']) ?> (<?= $annee ?>) · Critique et avis | Cinévo</title>
-    <?php else: ?>
-        <meta name="robots" content="noindex, follow">
-        <title>Film introuvable · Cinévo</title>
-    <?php endif; ?>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$avisFilm = [];
+
+if ($film && baseDisponible()) {
+    $avisFilm = avisDuFilm($conn, $id);
+}
+
+if ($film) {
+    $descriptionMeta = trim(($realisateur ? $realisateur . ' · ' : '') . ($film['overview'] ?? ''));
+    $descriptionMeta = $descriptionMeta !== '' ? $descriptionMeta : 'Lisez les avis et critiques de la communauté Cinévo sur ' . $film['title'] . '.';
+
+    $meta = [
+        'titre'       => $film['title'] . ' (' . $annee . ') · Critique et avis | Cinévo',
+        'description' => mb_substr($descriptionMeta, 0, 155),
+    ];
+} else {
+    $meta = [
+        'titre'  => 'Film introuvable · Cinévo',
+        'robots' => 'noindex, follow',
+    ];
+}
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -188,23 +189,6 @@ if (!$film) {
                 <?= htmlspecialchars($film['title']) ?>, dans ses propres mots.
             </p>
 
-            <?php
-            $avisFilm = [];
-
-            if (baseDisponible()) {
-                $stmt = $conn->prepare("
-                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.publie_le, u.nom_utilisateur, u.photo_profil
-                    FROM avis a
-                    JOIN utilisateurs u ON a.utilisateur_id = u.id
-                    WHERE a.film_id = ?
-                    ORDER BY a.publie_le DESC
-                ");
-                $stmt->bind_param('i', $id);
-                $stmt->execute();
-                $avisFilm = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-            }
-            ?>
-
             <?php if (!baseDisponible()): ?>
                 <?= messageBaseIndisponible('L\'affichage des avis') ?>
             <?php elseif (empty($avisFilm)): ?>
@@ -249,8 +233,4 @@ if (!$film) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

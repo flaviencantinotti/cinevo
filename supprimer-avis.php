@@ -6,10 +6,7 @@ require_once 'includes/db.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $tmdb = new TMDB();
 
@@ -18,27 +15,18 @@ $erreur = '';
 $avis   = null;
 
 if (baseDisponible() && $id > 0) {
-    $requete = $conn->prepare("
-        SELECT id, film_id, titre, contenu, publie_le
-        FROM avis
-        WHERE id = ? AND utilisateur_id = ?
-    ");
-    $requete->bind_param('ii', $id, $_SESSION['utilisateur_id']);
-    $requete->execute();
-    $avis = $requete->get_result()->fetch_assoc();
+    $avis = trouverAvisDeLUtilisateur($conn, $id, $_SESSION['utilisateur_id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Suppression impossible : la base de données ne répond pas.';
     } elseif (!$avis) {
         $erreur = 'Cet avis n\'existe pas, ou ne vous appartient pas.';
     } else {
-        $requete = $conn->prepare("DELETE FROM avis WHERE id = ? AND utilisateur_id = ?");
-        $requete->bind_param('ii', $id, $_SESSION['utilisateur_id']);
-        $requete->execute();
+        supprimerAvis($conn, $id, $_SESSION['utilisateur_id']);
 
         header('Location: mes-avis.php?supprime=1');
         exit;
@@ -50,19 +38,13 @@ if ($avis) {
     $film = $tmdb->getMovie((int) $avis['film_id']);
     $filmTitre = $film['title'] ?? 'ce film';
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Supprimer mon avis</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Supprimer mon avis',
+    'robots'      => 'noindex, nofollow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -112,8 +94,4 @@ if ($avis) {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

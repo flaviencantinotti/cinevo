@@ -1,19 +1,13 @@
 <?php
 $page = 'decouvrir';
 require_once 'includes/auth.php';
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Cinévo est la plateforme d'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Découvrir Cinévo · La plateforme d'avis cinéma sans notes</title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Découvrir Cinévo · La plateforme d\'avis cinéma sans notes',
+    'description' => 'Cinévo est la plateforme d\'avis et critiques de films sans notes ni classement. Découvrez pourquoi des cinéphiles partagent leur vrai ressenti sur le cinéma, loin des algorithmes.',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -116,8 +110,4 @@ require_once 'includes/auth.php';
     </section>
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>

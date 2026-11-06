@@ -39,20 +39,14 @@ if ($query !== '') {
         $aucunResultat = true;
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Recherchez un film et retrouvez les avis et critiques écrits par la communauté Cinévo, sans notes ni classement.">
-    <meta name="robots" content="noindex, follow">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Cinévo · Recherche<?= $query ? ' · ' . htmlspecialchars($query) : '' ?></title>
-</head>
-<body>
 
-<?php include 'includes/header.php'; ?>
+$meta = [
+    'titre'       => 'Cinévo · Recherche' . ($query ? ' · ' . $query : ''),
+    'description' => 'Recherchez un film et retrouvez les avis et critiques écrits par la communauté Cinévo, sans notes ni classement.',
+    'robots'      => 'noindex, follow',
+];
+include 'includes/debut-page.php';
+?>
 
 <main class="contenu">
 
@@ -77,8 +71,4 @@ if ($query !== '') {
 
 </main>
 
-<?php include 'includes/footer.php'; ?>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+<?php include 'includes/fin-page.php'; ?>
