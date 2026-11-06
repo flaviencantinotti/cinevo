@@ -21,15 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erreur = 'Cette adresse e-mail n\'est pas valide.';
     } else {
-        $stmt = $conn->prepare("SELECT id FROM utilisateurs WHERE email = ?");
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $utilisateur = $stmt->get_result()->fetch_assoc();
+        $utilisateurId = trouverIdParEmail($conn, $email);
 
         $demandeEnvoyee = true;
 
-        if ($utilisateur) {
-            $jeton = genererJetonReinitialisation($conn, (int) $utilisateur['id']);
+        if ($utilisateurId) {
+            $jeton = genererJetonReinitialisation($conn, $utilisateurId);
 
             if ($enLocal) {
                 $lienReset = 'reinitialiser-mdp.php?token=' . $jeton;

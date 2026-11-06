@@ -25,9 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $erreur = 'Envoi impossible : la base de données ne répond pas. '
                 . 'Écrivez-nous directement à hello@cinevo.fr en attendant.';
         } else {
-            $stmt = $conn->prepare("INSERT INTO messages_contact (nom, email, message) VALUES (?, ?, ?)");
-            $stmt->bind_param('sss', $nom, $email, $message);
-            $stmt->execute();
+            enregistrerMessageContact($conn, $nom, $email, $message);
 
             $succes  = true;
             $nom = $email = $message = '';

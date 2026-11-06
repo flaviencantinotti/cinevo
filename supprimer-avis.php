@@ -18,14 +18,7 @@ $erreur = '';
 $avis   = null;
 
 if (baseDisponible() && $id > 0) {
-    $requete = $conn->prepare("
-        SELECT id, film_id, titre, contenu, publie_le
-        FROM avis
-        WHERE id = ? AND utilisateur_id = ?
-    ");
-    $requete->bind_param('ii', $id, $_SESSION['utilisateur_id']);
-    $requete->execute();
-    $avis = $requete->get_result()->fetch_assoc();
+    $avis = trouverAvisDeLUtilisateur($conn, $id, $_SESSION['utilisateur_id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,9 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!$avis) {
         $erreur = 'Cet avis n\'existe pas, ou ne vous appartient pas.';
     } else {
-        $requete = $conn->prepare("DELETE FROM avis WHERE id = ? AND utilisateur_id = ?");
-        $requete->bind_param('ii', $id, $_SESSION['utilisateur_id']);
-        $requete->execute();
+        supprimerAvis($conn, $id, $_SESSION['utilisateur_id']);
 
         header('Location: mes-avis.php?supprime=1');
         exit;

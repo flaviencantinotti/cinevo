@@ -68,9 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (mb_strlen($titre) > 120) {
             $erreur = 'Le titre ne doit pas dépasser 120 caractères.';
         } elseif ($film_id > 0 && mb_strlen($contenu) >= 20) {
-            $stmt = $conn->prepare("INSERT INTO avis (utilisateur_id, film_id, titre, contenu) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param('iiss', $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
-            $stmt->execute();
+            ajouterAvis($conn, $_SESSION['utilisateur_id'], $film_id, $titre, $contenu);
             header('Location: fiche.php?id=' . $film_id);
             exit;
         } else {

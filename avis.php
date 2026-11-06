@@ -14,23 +14,13 @@ $total          = 0;
 $discussions    = [];
 
 if (baseDisponible()) {
-    $compte = $conn->query("SELECT COUNT(DISTINCT film_id) AS total FROM avis");
-    $total  = $compte ? (int) $compte->fetch_assoc()['total'] : 0;
+    $total = compterFilmsAvecAvis($conn);
 }
 
 $totalPages = max(1, (int) ceil($total / $parPage));
 
 if (baseDisponible()) {
-    $stmt = $conn->prepare("
-        SELECT film_id, COUNT(*) AS nb_avis, MAX(publie_le) AS dernier_le
-        FROM avis
-        GROUP BY film_id
-        ORDER BY dernier_le DESC
-        LIMIT ? OFFSET ?
-    ");
-    $stmt->bind_param('ii', $parPage, $offset);
-    $stmt->execute();
-    $filmsRow = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+    $filmsRow = filmsLesPlusRecemmentCommentes($conn, $parPage, $offset);
 
     $idsFilms = [];
 
@@ -38,24 +28,7 @@ if (baseDisponible()) {
         $idsFilms[] = (int) $ligne['film_id'];
     }
 
-    $avisParFilm = [];
-
-    if (!empty($idsFilms)) {
-        $trous  = implode(',', array_fill(0, count($idsFilms), '?'));
-        $stmtAvis = $conn->prepare("
-            SELECT avis.film_id, avis.contenu, utilisateurs.nom_utilisateur, utilisateurs.photo_profil
-            FROM avis
-            JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-            WHERE avis.film_id IN ($trous)
-            ORDER BY avis.publie_le DESC
-        ");
-        $stmtAvis->bind_param(str_repeat('i', count($idsFilms)), ...$idsFilms);
-        $stmtAvis->execute();
-
-        foreach ($stmtAvis->get_result()->fetch_all(MYSQLI_ASSOC) as $ligneAvis) {
-            $avisParFilm[(int) $ligneAvis['film_id']][] = $ligneAvis;
-        }
-    }
+    $avisParFilm = avisDesFilms($conn, $idsFilms);
 
     foreach ($filmsRow as $ligne) {
         $filmId   = (int) $ligne['film_id'];

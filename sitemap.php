@@ -19,17 +19,7 @@ $pagesStatiques = [
     ['loc' => '/cookies.php',          'priority' => '0.1'],
 ];
 
-$films = [];
-
-$result = baseDisponible() ? $conn->query("
-    SELECT film_id, MAX(publie_le) AS derniere_maj
-    FROM avis
-    GROUP BY film_id
-") : null;
-
-while ($result && $row = $result->fetch_assoc()) {
-    $films[] = $row;
-}
+$films = baseDisponible() ? filmsAvecDerniereMaj($conn) : [];
 
 echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 ?>

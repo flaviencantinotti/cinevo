@@ -12,16 +12,7 @@ if (!estConnecte()) {
 
 $tmdb = new TMDB();
 
-$avisRecents = [];
-$result = baseDisponible() ? $conn->query("
-    SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur, utilisateurs.photo_profil
-    FROM avis
-    JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-    ORDER BY avis.publie_le DESC
-    LIMIT 10
-") : null;
-
-$avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : []);
+$avisRecents = baseDisponible() ? ajouterFilms($tmdb, derniersAvis($conn, 10)) : [];
 
 $meta = [
     'titre'       => 'Cinévo · Mon fil',

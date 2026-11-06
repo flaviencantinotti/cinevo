@@ -91,6 +91,10 @@ if ($conn !== null && !is_file($temoinSchema)) {
 // Connectée, la base ne doit plus échouer en silence : une requête ratée lève une exception.
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
+require_once __DIR__ . '/modeles/avis.php';
+require_once __DIR__ . '/modeles/utilisateurs.php';
+require_once __DIR__ . '/modeles/messages-contact.php';
+
 function baseDisponible() {
     global $conn;
     return $conn !== null;

@@ -187,16 +187,7 @@ include 'includes/debut-page.php';
             $avisFilm = [];
 
             if (baseDisponible()) {
-                $stmt = $conn->prepare("
-                    SELECT a.id, a.utilisateur_id, a.titre, a.contenu, a.publie_le, u.nom_utilisateur, u.photo_profil
-                    FROM avis a
-                    JOIN utilisateurs u ON a.utilisateur_id = u.id
-                    WHERE a.film_id = ?
-                    ORDER BY a.publie_le DESC
-                ");
-                $stmt->bind_param('i', $id);
-                $stmt->execute();
-                $avisFilm = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                $avisFilm = avisDuFilm($conn, $id);
             }
             ?>
 

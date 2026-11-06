@@ -17,14 +17,7 @@ $erreur  = '';
 $avis    = null;
 
 if (baseDisponible() && $id > 0) {
-    $requete = $conn->prepare("
-        SELECT id, film_id, titre, contenu
-        FROM avis
-        WHERE id = ? AND utilisateur_id = ?
-    ");
-    $requete->bind_param('ii', $id, $_SESSION['utilisateur_id']);
-    $requete->execute();
-    $avis = $requete->get_result()->fetch_assoc();
+    $avis = trouverAvisDeLUtilisateur($conn, $id, $_SESSION['utilisateur_id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,13 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (mb_strlen($contenu) < 20) {
             $erreur = 'Votre avis doit faire au moins 20 caractères.';
         } else {
-            $requete = $conn->prepare("
-                UPDATE avis
-                SET titre = ?, contenu = ?
-                WHERE id = ? AND utilisateur_id = ?
-            ");
-            $requete->bind_param('ssii', $titre, $contenu, $id, $_SESSION['utilisateur_id']);
-            $requete->execute();
+            modifierAvis($conn, $id, $_SESSION['utilisateur_id'], $titre, $contenu);
 
             header('Location: mes-avis.php?modifie=1');
             exit;

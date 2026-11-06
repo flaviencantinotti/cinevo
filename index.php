@@ -9,15 +9,7 @@ $tmdb = new TMDB();
 $avisRecents = [];
 
 if (baseDisponible()) {
-    $result = $conn->query("
-        SELECT avis.film_id, avis.titre, avis.contenu, avis.publie_le, utilisateurs.nom_utilisateur
-        FROM avis
-        JOIN utilisateurs ON avis.utilisateur_id = utilisateurs.id
-        ORDER BY avis.publie_le DESC
-        LIMIT 3
-    ");
-
-    $avisRecents = ajouterFilms($tmdb, $result ? $result->fetch_all(MYSQLI_ASSOC) : []);
+    $avisRecents = ajouterFilms($tmdb, derniersAvis($conn, 3));
 }
 
 $filmHero = $avisRecents[0] ?? null;

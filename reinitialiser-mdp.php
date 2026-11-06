@@ -26,9 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $erreur = 'Le mot de passe doit faire au moins 6 caractères.';
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?");
-            $stmt->bind_param('si', $hash, $utilisateurId);
-            $stmt->execute();
+            changerMotDePasse($conn, $utilisateurId, $hash);
 
             invaliderJeton($conn, $jeton);
             $succes = true;

@@ -26,10 +26,7 @@ $tailleMaxMo     = round($tailleMaxOctets / 1024 / 1024, 1);
 if (!baseDisponible()) {
     $erreurEmail = 'Cette page est momentanément indisponible : la base de données ne répond pas.';
 } else {
-    $stmt = $conn->prepare("SELECT nom_utilisateur, email, mot_de_passe, photo_profil FROM utilisateurs WHERE id = ?");
-    $stmt->bind_param('i', $utilisateurId);
-    $stmt->execute();
-    $utilisateur = $stmt->get_result()->fetch_assoc();
+    $utilisateur = trouverUtilisateur($conn, $utilisateurId);
 
     if (!$utilisateur) {
         deconnecter();
@@ -49,11 +46,8 @@ if (!baseDisponible()) {
         } elseif (strlen($nouvelEmail) > 100) {
             $erreurEmail = 'Cette adresse e-mail est trop longue.';
         } else {
-            $stmt = $conn->prepare("UPDATE utilisateurs SET email = ? WHERE id = ?");
-            $stmt->bind_param('si', $nouvelEmail, $utilisateurId);
-
             try {
-                $stmt->execute();
+                changerEmail($conn, $utilisateurId, $nouvelEmail);
                 $utilisateur['email'] = $nouvelEmail;
                 $succesEmail = 'Votre adresse e-mail a été mise à jour.';
             } catch (mysqli_sql_exception $erreur) {
@@ -78,9 +72,7 @@ if (!baseDisponible()) {
             $erreurMdp = 'Le nouveau mot de passe doit faire au moins 6 caractères.';
         } else {
             $hash = password_hash($nouveauMdp, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("UPDATE utilisateurs SET mot_de_passe = ? WHERE id = ?");
-            $stmt->bind_param('si', $hash, $utilisateurId);
-            $stmt->execute();
+            changerMotDePasse($conn, $utilisateurId, $hash);
             $succesMdp = 'Votre mot de passe a été changé.';
         }
 
@@ -116,9 +108,7 @@ if (!baseDisponible()) {
                             @unlink($dossier . $utilisateur['photo_profil']);
                         }
 
-                        $stmt = $conn->prepare("UPDATE utilisateurs SET photo_profil = ? WHERE id = ?");
-                        $stmt->bind_param('si', $nomFichier, $utilisateurId);
-                        $stmt->execute();
+                        changerPhoto($conn, $utilisateurId, $nomFichier);
 
                         $utilisateur['photo_profil'] = $nomFichier;
                         $succesPhoto = 'Votre photo de profil a été mise à jour.';
@@ -137,9 +127,7 @@ if (!baseDisponible()) {
                 @unlink($chemin);
             }
 
-            $stmt = $conn->prepare("UPDATE utilisateurs SET photo_profil = NULL WHERE id = ?");
-            $stmt->bind_param('i', $utilisateurId);
-            $stmt->execute();
+            changerPhoto($conn, $utilisateurId, null);
 
             $utilisateur['photo_profil'] = null;
             $succesPhoto = 'Votre photo a été supprimée, vous revenez à l\'avatar par défaut.';

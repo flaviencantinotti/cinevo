@@ -20,15 +20,7 @@ if (isset($_GET['supprime'])) $confirmation = 'Votre avis a été supprimé.';
 $mesAvis = [];
 
 if (baseDisponible()) {
-    $stmt = $conn->prepare("
-        SELECT id, film_id, titre, contenu, publie_le
-        FROM avis
-        WHERE utilisateur_id = ?
-        ORDER BY publie_le DESC
-    ");
-    $stmt->bind_param('i', $_SESSION['utilisateur_id']);
-    $stmt->execute();
-    $mesAvis = ajouterFilms($tmdb, $stmt->get_result()->fetch_all(MYSQLI_ASSOC));
+    $mesAvis = ajouterFilms($tmdb, avisDeLUtilisateur($conn, $_SESSION['utilisateur_id']));
 }
 
 $meta = [
