@@ -2,6 +2,7 @@
 $page = 'reinitialiser-mdp';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_once 'includes/validation.php';
 
 $jeton  = $_GET['token'] ?? ($_POST['token'] ?? '');
 $erreur = '';
@@ -10,8 +11,8 @@ $succes = false;
 $utilisateurId = (baseDisponible() && $jeton !== '') ? utilisateurDepuisJeton($conn, $jeton) : null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Impossible pour le moment : la base de données ne répond pas.';
     } elseif (!$utilisateurId) {
@@ -20,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST['password'] ?? '');
         $confirm  = trim($_POST['confirm'] ?? '');
 
-        if ($password !== $confirm) {
-            $erreur = 'Les mots de passe ne correspondent pas.';
-        } elseif (strlen($password) < 6) {
-            $erreur = 'Le mot de passe doit faire au moins 6 caractères.';
+        $mdpInvalide = erreurMotDePasse($password, $confirm);
+
+        if ($mdpInvalide) {
+            $erreur = $mdpInvalide;
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
             changerMotDePasse($conn, $utilisateurId, $hash);

@@ -2,6 +2,7 @@
 $page = 'mot-de-passe-oublie';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_once 'includes/validation.php';
 
 $erreur    = '';
 $email     = '';
@@ -13,13 +14,14 @@ $enLocal = in_array($adresse, ['127.0.0.1', '::1', 'localhost'], true);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
+    $emailInvalide = erreurEmail($email);
 
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Impossible pour le moment : la base de données ne répond pas.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $erreur = 'Cette adresse e-mail n\'est pas valide.';
+    } elseif ($emailInvalide) {
+        $erreur = $emailInvalide;
     } else {
         $utilisateurId = trouverIdParEmail($conn, $email);
 

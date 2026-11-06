@@ -2,6 +2,7 @@
 $page = 'inscription';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
+require_once 'includes/validation.php';
 
 $erreur   = '';
 $username = '';
@@ -11,26 +12,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $email    = trim($_POST['email'] ?? '');
 
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Inscription impossible : la base de données ne répond pas.';
     } else {
         $password = trim($_POST['password'] ?? '');
         $confirm  = trim($_POST['confirm'] ?? '');
 
+        $emailInvalide = erreurEmail($email);
+        $mdpInvalide   = erreurMotDePasse($password, $confirm);
+
         if ($username === '' || $email === '') {
             $erreur = 'Merci de remplir tous les champs.';
         } elseif (mb_strlen($username) > 50) {
             $erreur = 'Le nom d\'utilisateur ne doit pas dépasser 50 caractères.';
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $erreur = 'Cette adresse e-mail n\'est pas valide.';
-        } elseif (strlen($email) > 100) {
-            $erreur = 'Cette adresse e-mail est trop longue.';
-        } elseif ($password !== $confirm) {
-            $erreur = 'Les mots de passe ne correspondent pas.';
-        } elseif (strlen($password) < 6) {
-            $erreur = 'Le mot de passe doit faire au moins 6 caractères.';
+        } elseif ($emailInvalide) {
+            $erreur = $emailInvalide;
+        } elseif ($mdpInvalide) {
+            $erreur = $mdpInvalide;
         } else {
             if (inscrire($conn, $username, $email, $password)) {
                 connecter($conn, $email, $password);
@@ -70,11 +70,11 @@ include 'includes/debut-page.php';
             </div>
             <div class="champ">
                 <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" minlength="6" required autocomplete="new-password">
+                <input type="password" id="password" name="password" minlength="<?= MOT_DE_PASSE_LONGUEUR_MIN ?>" required autocomplete="new-password">
             </div>
             <div class="champ">
                 <label for="confirm">Confirmer le mot de passe</label>
-                <input type="password" id="confirm" name="confirm" minlength="6" required autocomplete="new-password">
+                <input type="password" id="confirm" name="confirm" minlength="<?= MOT_DE_PASSE_LONGUEUR_MIN ?>" required autocomplete="new-password">
             </div>
 
             <button type="submit" class="btn-rouge">Créer mon compte</button>

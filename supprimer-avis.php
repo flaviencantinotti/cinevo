@@ -6,10 +6,7 @@ require_once 'includes/db.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $tmdb = new TMDB();
 
@@ -22,8 +19,8 @@ if (baseDisponible() && $id > 0) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Suppression impossible : la base de données ne répond pas.';
     } elseif (!$avis) {

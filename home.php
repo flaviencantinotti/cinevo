@@ -5,10 +5,7 @@ require_once 'includes/auth.php';
 require_once 'includes/tmdb.php';
 require_once 'includes/format.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $tmdb = new TMDB();
 

@@ -20,6 +20,13 @@ function estConnecte() {
     return isset($_SESSION['utilisateur_id']);
 }
 
+function exigerConnexion() {
+    if (!estConnecte()) {
+        header('Location: connexion.php');
+        exit;
+    }
+}
+
 function utilisateurConnecte() {
     return isset($_SESSION['nom_utilisateur']) ? $_SESSION['nom_utilisateur'] : null;
 }
@@ -29,6 +36,12 @@ function csrf_token() {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['csrf_token'];
+}
+
+const ERREUR_CSRF = 'Requête invalide, merci de réessayer.';
+
+function csrf_verifie_post() {
+    return csrf_verifie($_POST['csrf_token'] ?? null);
 }
 
 function csrf_champ() {

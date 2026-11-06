@@ -3,11 +3,9 @@ $page = 'profil';
 require_once 'includes/db.php';
 require_once 'includes/auth.php';
 require_once 'includes/format.php';
+require_once 'includes/validation.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $erreurEmail = '';
 $succesEmail = '';
@@ -32,19 +30,19 @@ if (!baseDisponible()) {
         deconnecter();
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreurEmail = $erreurMdp = $erreurPhoto = 'Requête invalide, merci de réessayer.';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrf_verifie_post()) {
+        $erreurEmail = $erreurMdp = $erreurPhoto = ERREUR_CSRF;
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'email') {
 
         $nouvelEmail       = trim($_POST['email'] ?? '');
         $motDePasseActuel  = trim($_POST['mot_de_passe_actuel'] ?? '');
 
+        $emailInvalide = erreurEmail($nouvelEmail);
+
         if (!password_verify($motDePasseActuel, $utilisateur['mot_de_passe'])) {
             $erreurEmail = 'Mot de passe incorrect.';
-        } elseif (!filter_var($nouvelEmail, FILTER_VALIDATE_EMAIL)) {
-            $erreurEmail = 'Cette adresse e-mail n\'est pas valide.';
-        } elseif (strlen($nouvelEmail) > 100) {
-            $erreurEmail = 'Cette adresse e-mail est trop longue.';
+        } elseif ($emailInvalide) {
+            $erreurEmail = $emailInvalide;
         } else {
             try {
                 changerEmail($conn, $utilisateurId, $nouvelEmail);
@@ -64,12 +62,12 @@ if (!baseDisponible()) {
         $nouveauMdp       = trim($_POST['nouveau_mot_de_passe'] ?? '');
         $confirmation     = trim($_POST['confirmation'] ?? '');
 
+        $mdpInvalide = erreurMotDePasse($nouveauMdp, $confirmation);
+
         if (!password_verify($motDePasseActuel, $utilisateur['mot_de_passe'])) {
             $erreurMdp = 'Mot de passe actuel incorrect.';
-        } elseif ($nouveauMdp !== $confirmation) {
-            $erreurMdp = 'Les mots de passe ne correspondent pas.';
-        } elseif (strlen($nouveauMdp) < 6) {
-            $erreurMdp = 'Le nouveau mot de passe doit faire au moins 6 caractères.';
+        } elseif ($mdpInvalide) {
+            $erreurMdp = $mdpInvalide;
         } else {
             $hash = password_hash($nouveauMdp, PASSWORD_DEFAULT);
             changerMotDePasse($conn, $utilisateurId, $hash);

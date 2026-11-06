@@ -4,11 +4,9 @@ $page = 'mes-avis';
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
 require_once 'includes/tmdb.php';
+require_once 'includes/validation.php';
 
-if (!estConnecte()) {
-    header('Location: connexion.php');
-    exit;
-}
+exigerConnexion();
 
 $tmdb = new TMDB();
 
@@ -21,8 +19,8 @@ if (baseDisponible() && $id > 0) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } elseif (!baseDisponible()) {
         $erreur = 'Modification impossible : la base de données ne répond pas.';
     } elseif (!$avis) {
@@ -31,8 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $titre   = trim($_POST['titre'] ?? '');
         $contenu = trim($_POST['avis'] ?? '');
 
-        if (mb_strlen($contenu) < 20) {
-            $erreur = 'Votre avis doit faire au moins 20 caractères.';
+        $titreInvalide   = erreurTitreAvis($titre);
+        $contenuInvalide = erreurContenuAvis($contenu);
+
+        if ($titreInvalide) {
+            $erreur = $titreInvalide;
+        } elseif ($contenuInvalide) {
+            $erreur = $contenuInvalide;
         } else {
             modifierAvis($conn, $id, $_SESSION['utilisateur_id'], $titre, $contenu);
 
@@ -92,7 +95,7 @@ include 'includes/debut-page.php';
 
             <div class="champ">
                 <label for="avis">Votre avis <span class="minimum">20 caractères minimum</span></label>
-                <textarea id="avis" name="avis" rows="8" required minlength="20"><?= htmlspecialchars($_POST['avis'] ?? $avis['contenu']) ?></textarea>
+                <textarea id="avis" name="avis" rows="8" required minlength="<?= AVIS_LONGUEUR_MIN ?>"><?= htmlspecialchars($_POST['avis'] ?? $avis['contenu']) ?></textarea>
                 <div class="compteur"><span id="compteur">0</span> caractères</div>
             </div>
 

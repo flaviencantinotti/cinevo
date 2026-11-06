@@ -2,6 +2,7 @@
 $page = 'contact';
 require_once 'includes/auth.php';
 require_once 'includes/db.php';
+require_once 'includes/validation.php';
 
 $erreur  = '';
 $succes  = false;
@@ -10,17 +11,19 @@ $email   = '';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verifie($_POST['csrf_token'] ?? null)) {
-        $erreur = 'Requête invalide, merci de réessayer.';
+    if (!csrf_verifie_post()) {
+        $erreur = ERREUR_CSRF;
     } else {
         $nom     = trim($_POST['nom'] ?? '');
         $email   = trim($_POST['email'] ?? '');
         $message = trim($_POST['message'] ?? '');
 
+        $emailInvalide = erreurEmail($email);
+
         if ($nom === '' || $email === '' || $message === '') {
             $erreur = 'Merci de remplir tous les champs.';
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $erreur = 'Cette adresse e-mail n\'est pas valide.';
+        } elseif ($emailInvalide) {
+            $erreur = $emailInvalide;
         } elseif (!baseDisponible()) {
             $erreur = 'Envoi impossible : la base de données ne répond pas. '
                 . 'Écrivez-nous directement à hello@cinevo.fr en attendant.';
